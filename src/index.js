@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloProvider } from 'react-apollo';
 import App from './App';
 import './assets/css/style.css';
 import './assets/scss/index.scss';
-import { ApolloProvider } from 'react-apollo';
 import client from './graphql/client';
 
 // Link apollo client to react
@@ -13,4 +13,3 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 );
-
