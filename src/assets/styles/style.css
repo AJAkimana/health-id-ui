@@ -1,0 +1,244 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Avenir, Medium;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* auth */
+/* Container css */
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100% !important;
+}
+
+.auth-image{
+  width: 50%;
+  background: url('../images/doc.png');
+  background-size: 100% 100%;
+  min-height: 821px;
+} 
+.auth-bg {
+  background-color: #FAF33E;
+  opacity: 0.2;
+  height: 100%;
+}
+.doc-img{
+ opacity: 0.80;
+ width: 100%;
+ height: 100%;
+ overflow: hidden;
+}
+
+.logo{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color: #424242;
+}
+
+.logo-heading {
+  margin: 110px auto 20px;
+  width: 75%;
+  text-align: center;
+}
+
+.healthid {
+  width: 80%; 
+} 
+
+.subtext{
+    font-size: 135%;
+    text-align: center;
+    color: #E8E8E8; 
+    margin: 0 auto;
+    padding-bottom: 15px;
+    font-family: Avenir, Medium;
+    font-weight: lighter;
+} 
+
+
+.form-control{
+  width: 67%;
+  margin: 0 auto;
+}
+
+small, small a {
+  color: #A3A3A3;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.small-text {
+  font-size: 14.5px;
+}
+
+/* Transition of checkbox */
+.MuiCheckbox-colorPrimary-184.MuiCheckbox-checked-181 {
+  color: #FAF33E !important;
+}
+
+/* Transition of textfiled labels  */
+.MuiFormLabel-root-16 {
+  color: #A3A3A3 !important;
+}
+
+.MuiFormLabel-root-16.MuiFormLabel-focused-17 {
+  color: rgb(175, 170, 43) !important;
+}
+
+.MuiFormLabel-root-16.MuiFormLabel-error-19 {
+  color: #FF4141 !important;
+}
+.MuiInput-underline-27:before {
+  border-bottom: 1px solid rgb(107, 107, 107) !important; 
+}
+
+.MuiFormLabel-root-16, .MuiInputAdornment-root-166{
+  color: #A3A3A3;
+}
+
+/* Register Page */
+a{
+  color: #E8E8E8;
+}
+
+.register-btn{
+  width: 50%;
+  height: 40px;
+  font-family: Avenir, Book;
+  font-weight: bold;
+  color: #424242;
+  font-size: 18px;
+  background-color: #FAF33E;
+  display:block;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+}
+
+.disabled-register{
+  background-color: #9E9B3F;
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
+  font-family: Avenir, Book;
+  font-weight: bold;
+  color: #424242;
+  margin:0 auto;
+  display:block;
+  outline: none;
+  border: none;
+}
+
+div{
+  width: 100%;
+  
+}
+
+.login-qn{
+  color: #A3A3A3;
+  text-align: center;
+}
+
+.login-link{
+  color: #FAF33E;
+}
+
+/* Login page */
+
+.form-checks{
+  display: inline-flex;
+  margin-bottom: 25px;
+}
+
+.password-link{
+  border: none;
+  background-color: #424242;
+  color: #A3A3A3;
+  font-size: 14.5px;
+  outline: none;
+  text-decoration: underline;
+}
+
+.reset-password{
+  margin-left: 44%;
+}
+
+/* Alert Style */
+.successMsg{
+  position: absolute;
+   color: #3CC480;
+   top: 50%; 
+   left: 50%; 
+   transform: translate(-50%, -50%)
+}
+
+.errorMsg{
+  position: absolute;
+   color:#FF4141;
+   top: 50%; 
+   left: 50%; 
+   transform: translate(-50%, -50%)
+}
+
+.MuiInputLabel-formControl-10 label{
+  color: #E8E8E8 !important; 
+  justify-content: center !important;
+}
+
+.MuiInputBase-root-36 {
+  color: #E8E8E8 !important; 
+}
+
+.bottom-actions {
+  height: 15%;
+  margin: 0 !important;
+  box-sizing: border-box;
+  justify-content: center !important;
+}
+
+.align-title-items {
+  position: relative; 
+  text-align: center
+}
+
+.dialog-image{
+  width: 65%;
+  margin-top: 30px;
+  margin-left: 0
+}
+
+.dialog-footer {
+  color: #FAF33E;
+  font-size: 20px;
+  text-decoration: underline
+}
+
+.dialog-message{
+  padding-top: 50px;
+  text-align: center !important;
+  font: Avenir, Book; 
+  color: #E8E8E8 !important;
+  font-size: 20px !important;
+}
+
+.dialog-email-msg{
+  padding-top: 15x !important;
+  font: Avenir, Medium !important;
+  color: #E8E8E8 !important; 
+  font-size: 17px !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+.resend-link{
+  color: #FAF33E;
+  text-decoration: underline;
+}

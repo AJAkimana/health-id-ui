@@ -10,8 +10,7 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors) {
-        graphQLErrors.map(({ message, locations, path }) =>
-          console.log(`[GraphQL, error]: message: ${message}, 
+        graphQLErrors.map(({ message, locations, path }) => console.log(`[GraphQL, error]: message: ${message}, 
                 location: ${locations}, path: ${path}`));
 
         if (networkError) {

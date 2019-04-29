@@ -1,0 +1,38 @@
+.top-level {
+  display: inline-flex;
+  width: 100%;
+  margin-bottom: 25px;
+  .login-label {
+    color: #A3A3A3;
+    width: 29%;
+  }
+  .email-label {
+    color: #A3A3A3;
+    padding-left: 3%;
+    width: 17%;
+    border-bottom: 2px solid #424242;
+    &--active {
+      color: #FAF33E;
+      padding-left: 3%;
+      width: 17%;
+      border-bottom: 2px solid #FAF33E;
+    }
+  }
+
+  .separator {
+    width: 23%;
+  }
+
+  .phone-label {
+    color: #A3A3A3;
+    border-bottom: 2px solid #424242;
+    padding-left: 10%;
+    width: 50%;
+    &--active {
+      color: #FAF33E;
+      border-bottom: 2px solid #FAF33E;
+      width: 50%;
+      padding-left: 10%;
+    }
+  }
+}
