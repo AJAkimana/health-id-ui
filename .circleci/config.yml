@@ -17,5 +17,5 @@ jobs:
       - run: # run tests
           name: Run Test and Coverage
           command: |
-            yarn test -- -u --coverage
+            yarn test --coverage
             

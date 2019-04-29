@@ -57,7 +57,7 @@ export const validateEmail = (email) => {
 export const validatePhoneNumber = (phone) => {
   let helperText;
   let error;
-  const regex = /^\d{11}$/;
+  const regex = /^\d{9,11}$/;
   const regextTest = regex.test(phone);
   if (regextTest) {
     helperText = (

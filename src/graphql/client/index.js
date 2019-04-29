@@ -1,30 +1,29 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { ApolloLink } from 'apollo-link';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
 
-// Apollo-client manual setup
-const appLink = 'https://healthid-web-api.herokuapp.com/healthid/';
+const appLink = process.env.APP_LINK;
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('auth_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `JWT ${token}` : '',
+    }
+  };
+});
+
+const httpLink = createHttpLink({
+  uri: appLink,
+});
+
 const client = new ApolloClient({
-  link: ApolloLink.from([
-    onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors) {
-        graphQLErrors.map(({ message, locations, path }) => console.log(`[GraphQL, error]: message: ${message}, 
-                location: ${locations}, path: ${path}`));
-
-        if (networkError) {
-          console.log(`[Network Error]: ${networkError}`);
-        }
-      }
-    }),
-
-    new HttpLink({
-      uri: appLink,
-    }),
-  ]),
-
-  cache: new InMemoryCache(),
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 });
 
 export default client;

@@ -6,9 +6,7 @@ const AppTheme = createMuiTheme({
       main: '#FAF33E',
     },
     secondary: {
-      main: '#A3A3A3',
-      dark: '#A3A3A3',
-      light: '#A3A3A3'
+      main: '#424242',
     },
     error: {
       main: '#FF4141'
@@ -17,6 +15,7 @@ const AppTheme = createMuiTheme({
   typography: {
     fontFamily: [
       'Avenir',
+      'medium',
       'Arial',
       'sans-serif'
     ].join(','),

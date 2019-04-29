@@ -23,7 +23,10 @@ class Login extends Component {
     return (
       <div>
         {type === 'email' ? (
-          <FormControl style={{ marginBottom: '25px' }}>
+          <FormControl
+            style={{ marginBottom: '25px' }}
+            className="textfield"
+          >
             <TextField
               label={emailLabel}
               name={type}
@@ -57,6 +60,7 @@ class Login extends Component {
           </Grid>
           <Grid item xs={10}>
             <TextField
+              className="textfield"
               label={phoneLabelNum}
               name="phoneNumber"
               required

@@ -23,7 +23,7 @@ html, body {
   width: 50%;
   background: url('../images/doc.png');
   background-size: 100% 100%;
-  min-height: 821px;
+  min-height: 970px;
 } 
 .auth-bg {
   background-color: #FAF33E;
@@ -37,7 +37,7 @@ html, body {
  overflow: hidden;
 }
 
-.logo{
+.auth-form{
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -70,13 +70,16 @@ html, body {
   margin: 0 auto;
 }
 
-small, small a {
+.small-anchor{
+  font-size: 16px;
   color: #A3A3A3;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .small-text {
-  font-size: 14.5px;
+  font-size: 16px;
+  color: #A3A3A3;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Transition of checkbox */
@@ -105,10 +108,6 @@ small, small a {
 }
 
 /* Register Page */
-a{
-  color: #E8E8E8;
-}
-
 .register-btn{
   width: 50%;
   height: 40px;
@@ -130,14 +129,14 @@ a{
   font-size: 18px;
   font-family: Avenir, Book;
   font-weight: bold;
-  color: #424242;
+  /* color: #424242; */
   margin:0 auto;
   display:block;
   outline: none;
   border: none;
 }
 
-div{
+.textfield{
   width: 100%;
   
 }
@@ -156,15 +155,17 @@ div{
 .form-checks{
   display: inline-flex;
   margin-bottom: 25px;
+  width: 100%;
 }
 
 .password-link{
   border: none;
   background-color: #424242;
   color: #A3A3A3;
-  font-size: 14.5px;
+  font-size: 16px;
   outline: none;
   text-decoration: underline;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .reset-password{

@@ -31,6 +31,7 @@ const Register = (props) => {
   return (
     <div>
       <TextField
+        className="textfield"
         required
         error={EmailError}
         label="Email"
@@ -49,6 +50,7 @@ const Register = (props) => {
         </Grid>
         <Grid item xs={10}>
           <TextField
+            className="textfield"
             label="Phone #"
             name="phoneNumber"
             required
@@ -84,11 +86,11 @@ const Register = (props) => {
           <small className="small-text">
   By signing up, you agree to our&nbsp;
             {' '}
-            <a href="/terms-of-service">Terms of Service</a>
+            <a href="/terms-of-service" className="small-anchor">Terms of Service</a>
             {' '}
               &nbsp;and&nbsp;
             {' '}
-            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/privacy-policy" className="small-anchor">Privacy Policy</a>
   .
           </small>
         </div>

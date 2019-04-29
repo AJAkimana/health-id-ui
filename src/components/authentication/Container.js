@@ -255,7 +255,7 @@ export class AuthContainer extends Component {
           <div className="auth-image">
             <div className="auth-bg" />
           </div>
-          <div className="logo">
+          <div className="auth-form">
             <div className="logo-heading">
               <img className="healthid" src={logo} alt="HealthID" />
               <h4 className="subtext">Africa&apos;s Leading Pharmacy Management Software</h4>

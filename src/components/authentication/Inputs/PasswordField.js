@@ -20,6 +20,7 @@ const PasswordField = (props) => {
     <FormControl
       error={error}
       style={{ paddingBottom: '25px' }}
+      className="textfield"
     >
       <InputLabel htmlFor="adornment-password">Password</InputLabel>
       <Input

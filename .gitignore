@@ -4,3 +4,4 @@ package-lock.json
 dist
 yarn-error.log
 coverage
+.env
