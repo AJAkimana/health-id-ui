@@ -6,22 +6,71 @@ import SteppedNav, { StepperNav } from '../components/setup/Stepper';
 import BusinessSetUp from '../components/setup/businessSetup';
 import AdminSetUp from '../components/setup/adminSetup';
 
-const props = {
-  userData: {
-    me: {
-      email: 'awesome@gmail.com',
-      mobileNumber: '1234567890',
+const results = {
+  data: {
+    createOutlet: {
+      success: '',
+      outlet: {
+        id: '1',
+      }
     },
-    loading: true,
-    error: { message: "network problem" },
+    createReceiptTemplate: {
+      receiptTemplate: {
+        id: 5,
+      }
+    },
+    createRegister: {
+      register: {
+        outlet: {
+          id: 5
+        }
+      }
+    },
+    deleteOutlet: {
+      success: ''
+    },
+    updateRegister: {
+      register: {
+        outlet: {
+          id: 9
+        }
+      }
+    }
+  }
+};
+
+const props = {
+  nextProps: {
+    userData: {
+      me: {
+        email: 'awesome@gmail.com',
+        mobileNumber: '1234567890',
+      },
+      loading: true,
+      error: { message: 'network problem' },
+    },
+    countriesData: {
+      countries: [{
+        name: 'Nigeria',
+        citySet: [{ city: '' }]
+      }]
+    }
   },
   classes: {},
   editAdmin: jest.fn(() => Promise.resolve()),
   createBusiness: jest.fn(() => Promise.resolve()),
+  createOutlet: jest.fn(() => Promise.resolve(results)),
+  createReceiptTemplate: jest.fn(() => Promise.resolve(results)),
+  createRegister: jest.fn(() => Promise.resolve(results)),
+  updateOutlet: jest.fn(() => Promise.resolve()),
+  deleteOutlet: jest.fn(() => Promise.resolve()),
+  deleteReceipt: jest.fn(() => Promise.resolve()),
+  updateReceiptTemplate: jest.fn(() => Promise.resolve()),
+  updateRegister: jest.fn(() => Promise.resolve()),
   fetchUserData: jest.fn(),
 };
 
-const event = {
+let event = {
   target: {
     name: 'firstName',
     value: 'michael'
@@ -115,6 +164,11 @@ describe('Test stepper component', () => {
     nextButton.simulate('click');
     expect(spy).toHaveBeenCalled();
   });
+    
+  it('renders OutletSetup Component when next button is clicked', () => {
+    wrapper.setState({ checked: true, isLoading: false, activeStep: 2 });
+    expect(wrapper.find('OutletSetUp').length).toBe(1);
+  });
 
   it('skips to the addbusiness section when 1 is passed to handleNextButton', () => {
     wrapper.setState({
@@ -207,7 +261,6 @@ describe('Test stepper component', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-
   it('calls handleClose method', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleClose');
     wrapper.instance().handleClose();
@@ -228,6 +281,467 @@ describe('Test stepper component', () => {
     }).then(() => {
       expect(spy).toHaveBeenCalled();
     });
+  });
+  it('calls handleOutletFormInputValidation', () => {
+    wrapper.setState({
+      outletName: 'outletName',
+      addressLine1: 'addressLine1',
+      city: 'city',
+      country: 'country',
+      phoneNumber: 123,
+      outletType: 'storefront',
+      registerName: 'registerName',
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleOutletFormInputValidation');
+    wrapper.instance().handleOutletFormInputValidation();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('sets state when handleOutletFormInputValidation is called', () => {
+    wrapper.setState({
+      outletName: 'outletName',
+      addressLine1: 'addressLine1',
+      city: '',
+      country: 'country',
+      phoneNumber: 123,
+      outletType: 'storefront',
+      registerName: 'registerName',
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleOutletFormInputValidation');
+    wrapper.instance().handleOutletFormInputValidation();
+    expect(wrapper.instance().state.formError).toBeTruthy();
+  });
+
+  it('sets state when handleRegisterValidation is called', () => {
+    wrapper.setState({
+      registerName: '',
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleRegisterValidation');
+    wrapper.instance().handleRegisterValidation();
+    expect(spy).toHaveBeenCalled();
+    expect(wrapper.instance().state.formError).toBeTruthy();
+  });
+
+  it('calls setLocale if name is country ', () => {
+    event = {
+      target: {
+        name: 'country',
+        value: 'value'
+      }
+    };
+    const setLocaleSpy = jest.spyOn(wrapper.instance(), 'setLocale');
+    wrapper.instance().handleInPutChange(event);
+    expect(setLocaleSpy).toHaveBeenCalled();
+  });
+
+  it('calls setCityId if name is city ', () => {
+    event = {
+      target: {
+        name: 'city',
+        value: 'value'
+      }
+    };
+    const setCityIdSpy = jest.spyOn(wrapper.instance(), 'setCityId');
+    wrapper.instance().handleInPutChange(event);
+    expect(setCityIdSpy).toHaveBeenCalled();
+  });
+
+  it('calls setOutletKindId if name is outletType ', () => {
+    event = {
+      target: {
+        name: 'outletType',
+        value: 'value'
+      }
+    };
+    const setOutletKindIdSpy = jest.spyOn(wrapper.instance(), 'setOutletKindId');
+    wrapper.instance().handleInPutChange(event);
+    expect(setOutletKindIdSpy).toHaveBeenCalled();
+  });
+
+  it('sets state kindId when setOutletKindId is called with value of storefront ', () => {
+    event = {
+      target: {
+        name: 'outletType',
+        value: 'storefront'
+      }
+    };
+    wrapper.instance().handleInPutChange(event);
+    expect(wrapper.instance().state.kindId).toBe(2);
+  });
+
+  it('sets state kindId when setOutletKindId is called with value of warehouse ', () => {
+    event = {
+      target: {
+        name: 'outletType',
+        value: 'warehouse'
+      }
+    };
+    wrapper.instance().handleInPutChange(event);
+    expect(wrapper.instance().state.kindId).toBe(1);
+  });
+
+  it('sets state cityId when setCityId is called with a city name ', () => {
+    wrapper.setState({
+      cities: [{
+        id: '5',
+        name: 'Mombasa'
+      }],
+    });
+    event = {
+      target: {
+        name: 'city',
+        value: 'Mombasa'
+      }
+    };
+    wrapper.instance().handleInPutChange(event);
+    expect(wrapper.instance().state.cityId).toBe(5);
+  });
+
+  it('sets state when setLocale is called with a country name ', () => {
+    wrapper.setState({
+      countries: [{
+        name: 'Uganda',
+        citySet: [{
+          id: '2',
+          name: 'Kampala'
+        }]
+      }],
+    });
+    event = {
+      target: {
+        name: 'country',
+        value: 'Uganda'
+      }
+    };
+    wrapper.instance().handleInPutChange(event);
+    expect(wrapper.instance().state.cityId).toBe(2);
+  });
+
+  it('sets state when toggleRegisterDisplay is called', () => {
+    event = {
+      target: {
+        id: 5,
+      }
+    };
+    wrapper.instance().toggleRegisterDisplay(event);
+    expect(wrapper.instance().state.clickedOutlet).toBe(5);
+  });
+
+  it('sets state when toggleRegisterDisplay is called', () => {
+    wrapper.setState({ clickedOutlet: 8 });
+    event = {
+      target: {
+        id: 8,
+      }
+    };
+    wrapper.instance().toggleRegisterDisplay(event);
+    expect(wrapper.instance().state.clickedOutlet).toBe('');
+  });
+
+  it('calls handleOutletEdit and updates state', () => {
+    const data = {
+      id: 'id',
+      name: 'name',
+      addressLine1: 'addressLine1',
+      addressLine2: 'addressLine2',
+      lga: 'lga',
+      city: {
+        name: 'name',
+        country: {
+          name: 'name'
+        }
+      },
+      phoneNumber: 123,
+      dateLaunched: 123,
+      kind: 'kind',
+      registerSet: [{
+        receipt: {}
+      }]
+    };
+    const spy = jest.spyOn(wrapper.instance(), 'handleOutletEdit');
+    wrapper.instance().handleOutletEdit(data);
+    expect(spy).toBeCalled();
+  });
+
+  it('calls handleOutletEdit and updates state for warehouse', () => {
+    const data = {
+      id: 'id',
+      name: 'name',
+      addressLine1: 'addressLine1',
+      addressLine2: 'addressLine2',
+      lga: 'lga',
+      city: {
+        name: 'name',
+        country: {
+          name: 'name'
+        }
+      },
+      phoneNumber: 123,
+      dateLaunched: 123,
+      kind: 'kind',
+      registerSet: []
+    };
+    const spy = jest.spyOn(wrapper.instance(), 'handleOutletEdit');
+    wrapper.instance().handleOutletEdit(data);
+    expect(spy).toBeCalled();
+  });
+
+  it('calls removeOutlet function', () => {
+    const data = {
+      id: 4
+    };
+    const spy = jest.spyOn(wrapper.instance(), 'removeOutlet');
+    wrapper.instance().handleOutletDelete(data);
+    expect(spy).toBeCalled();
+  });
+
+  it('calls removeOutlet function and sets state', () => {
+    const id = 5;
+    const notify = jest.fn(results);
+    wrapper.setState({
+      outletSet: [{
+        id: 2,
+      }]
+    });
+    wrapper.instance().removeOutlet(id);
+  });
+
+  it('calls editRegister function and sets state', () => {
+    wrapper.setState({
+      registerId: 408,
+      registerName: 'register',
+      outletSet: [{
+        id: 2,
+      }]
+    });
+    wrapper.instance().editRegister();
+    expect(wrapper.instance().state.outletIsLoading).toBe(false);
+  });
+
+  it('calls handleRegisterValidation function and sets state', () => {
+    wrapper.setState({
+      registerName: 'registerName',
+      edittingOutlet: false
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleRegisterValidation');
+    wrapper.instance().addReceiptTemplate();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls EditReceiptTemplate function if edittingOutlet is true', () => {
+    wrapper.setState({
+      registerName: 'registerName',
+      edittingOutlet: true
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleRegisterValidation');
+    wrapper.instance().addReceiptTemplate();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls createRegister function', () => {
+    const spy = jest.spyOn(wrapper.instance(), 'createRegister');
+    wrapper.instance().addRegister();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls handleOutletFormInputValidation function and sets state', () => {
+    wrapper.setState({
+      outletName: 'outletName',
+      addressLine1: 'addressLine1',
+      city: 'city',
+      country: 'country',
+      phoneNumber: 123,
+      outletType: 'outletType',
+      registerName: 'registerName',
+      edittingOutlet: true
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleOutletFormInputValidation');
+    wrapper.instance().handleAddOutletButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls addOutlet if edittingOutlet is false', () => {
+    wrapper.setState({
+      outletName: 'outletName',
+      addressLine1: 'addressLine1',
+      city: 'city',
+      country: 'country',
+      phoneNumber: 123,
+      outletType: 'outletType',
+      registerName: 'registerName',
+      edittingOutlet: false
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'addOutlet');
+    wrapper.instance().handleAddOutletButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls handleAddNewOutletButton and sets state', () => {
+    wrapper.setState({
+      outletsActive: true,
+    });
+    wrapper.instance().handleAddNewOutletButton();
+    expect(wrapper.instance().state.outletsActive).toBe(false);
+  });
+
+  it('calls addBusiness when activeStep is 1', () => {
+    wrapper.setState({
+      legalName: 'legalName',
+      tradingName: 'tradingName',
+      phoneNumber: 123,
+      businessEmail: 'businessEmail',
+      country: 'country',
+      city: 'city',
+      addressLine1: 'addressLine1',
+      activeStep: 1,
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'addBusiness');
+    wrapper.instance().handleNextButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls finishAddOutlet when activeStep is 2', () => {
+    wrapper.setState({
+      activeStep: 2,
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'finishAddOutlet');
+    wrapper.instance().handleNextButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls finishAddOutlet when activeStep is 2', () => {
+    wrapper.setState({
+      activeStep: 2,
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'finishAddOutlet');
+    wrapper.instance().handleNextButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('handles out of range activeStep', () => {
+    wrapper.setState({
+      activeStep: 8,
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleNextButton');
+    wrapper.instance().handleNextButton();
+    expect(spy).toBeCalled();
+  });
+
+  it('calls handleReceiptTemplateOpen and sets state', () => {
+    wrapper.setState({
+      outletsActive: true,
+    });
+    wrapper.instance().handleReceiptTemplateOpen();
+    expect(wrapper.instance().state.receiptOpen).toBe(true);
+  });
+
+  it('calls handleReceiptTemplateClose and sets state', () => {
+    wrapper.setState({
+      outletsActive: true,
+    });
+    wrapper.instance().handleReceiptTemplateClose();
+    expect(wrapper.instance().state.receiptOpen).toBe(false);
+  });
+
+  it('calls handleTemplateOnChange and sets state', () => {
+    wrapper.setState({
+      receipt: false,
+    });
+    const name = 'receipt';
+    event = {
+      target: {
+        checked: true,
+      }
+    };
+    wrapper.instance().handleTemplateOnChange(name)(event);
+    expect(wrapper.instance().state.receipt).toBe(true);
+  });
+
+  it('calls removeReceiptTemplate when receiptId is present on edit', () => {
+    wrapper.setState({
+      receiptId: 2,
+      outletType: 'warehouse',
+    });
+    const removeReceiptTemplate = jest.fn();
+    wrapper.instance().handleEditOutlet();
+    expect(wrapper.find(removeReceiptTemplate).length).toBe(0);
+  });
+
+  it('calls fetchUserData and sets state', () => {
+    const newProps = {
+      userData: {
+        me: {
+          email: 'awesome@gmail.com',
+          mobileNumber: '1234567890',
+        },
+        loading: false,
+        error: null,
+      },
+      countriesData: {
+        countries: [{
+          name: 'Nigeria',
+          citySet: [],
+        }],
+      },
+    };
+    wrapper.instance().fetchUserData(newProps);
+    expect(wrapper.instance().state.countries[0].name).toBe('Nigeria');
+  });
+
+  it('calls addOutlet and sets state with storefront', () => {
+    wrapper.setState({
+      outletName: '',
+      addressLine1: '',
+      addressLine2: '',
+      localGovernmentArea: '',
+      businessId: '',
+      cityId: 2,
+      dateLaunched: '',
+      kindId: 2,
+      phoneNumber: '',
+      outletType: 'storefront',
+    });
+    const toogleCheckbox = jest.fn();
+    wrapper.instance().addOutlet();
+  });
+
+  it('calls addOutlet and sets state with warehouse', () => {
+    wrapper.setState({
+      outletName: '',
+      addressLine1: '',
+      addressLine2: '',
+      localGovernmentArea: '',
+      businessId: '',
+      cityId: 2,
+      dateLaunched: '',
+      kindId: 2,
+      phoneNumber: '',
+      outletType: 'warehouse',
+    });
+    const toogleCheckbox = jest.fn();
+    wrapper.instance().addOutlet();
+  });
+
+  it('calls createReceiptTemplate', () => {
+    wrapper.setState({
+      amountToPay: true,
+      barcode: true,
+      cashier: true,
+      changeDue: true,
+      discountTotal: true,
+      loyalty: true,
+      loyaltyBalance: true,
+      loyaltyEarned: true,
+      purchaseTotal: true,
+      receipt: true,
+      receiptNo: true,
+      subtotal: true,
+      totalTax: true,
+      receiptOpen: true,
+      outletId: '1',
+    });
+    const addRegister = jest.fn();
+    wrapper.instance().createReceiptTemplate();
   });
 });
 
@@ -288,13 +802,13 @@ describe('Test react-apollo functions', () => {
 
   it('calls fetchUserData', () => {
     const spy = jest.spyOn(namedWrapper.instance(), 'fetchUserData');
-    namedWrapper.instance().fetchUserData(props.userData);
+    namedWrapper.instance().fetchUserData(props.nextProps);
     expect(spy).toHaveBeenCalled();
   });
 
   it('calls fetchUserData with error value of false', () => {
     const spy = jest.spyOn(namedWrapper.instance(), 'fetchUserData');
-    namedWrapper.instance().fetchUserData({ ...props.userData, error: '', loading: false });
+    namedWrapper.instance().fetchUserData({ ...props.nextProps, error: '', loading: false });
     expect(spy).toHaveBeenCalled();
   });
 });

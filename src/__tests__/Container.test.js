@@ -196,4 +196,133 @@ describe('Container Component', () => {
     });
     expect(wrapper.state('showPassword')).toBeTruthy();
   });
+
+  it('calls handleCheckbox and sets state', () => {
+    const props = {
+      match: {
+        path: '/'
+      },
+    };
+    const event = {
+      target: {
+        checked: true,
+      }
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.instance().handleCheckbox(event);
+    expect(wrapper.state('checked')).toBeTruthy();
+  });
+
+  it('handleSubmit, sets state and calls handleEmailLogin', () => {
+    const data = {
+      data: {
+        loginUser: {
+          token: '',
+          message: 'Login Successful'
+        }
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      Emaillogin: jest.fn(() => Promise.resolve(data))
+    };
+    const event = {
+      target: {
+        email: {
+          value: ''
+        },
+        password: {
+          value: ''
+        },
+        code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
+        }
+      },
+      preventDefault: jest.fn(),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      inputType: 'email',
+    });
+    const handleEmailLogin = jest.fn();
+    const spy = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
+    wrapper.instance().handleSubmit(event);
+    expect(spy).toBeCalled();
+  });
+
+  it('handleSubmit, sets state and calls handleMobileLogin', () => {
+    const data = {
+      data: {
+        loginUser: {
+          token: '',
+          message: 'Login Successful'
+        }
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      Emaillogin: jest.fn(() => Promise.resolve(data)),
+      Mobilelogin: jest.fn(() => Promise.resolve(data))
+    };
+    const event = {
+      target: {
+        email: {
+          value: ''
+        },
+        password: {
+          value: ''
+        },
+        Code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
+        }
+      },
+      preventDefault: jest.fn(),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      inputType: 'phone',
+    });
+    const handleMobileLogin = jest.fn();
+    const spy = jest.spyOn(wrapper.instance(), 'handleMobileLogin');
+    wrapper.instance().handleSubmit(event);
+    expect(spy).toBeCalled();
+  });
+
+  it('calls handleSignup, sets state and calls signup', () => {
+    const data = {
+      data: {
+        createUser: {
+          success: ['success'],
+        }
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      signup: jest.fn(() => Promise.resolve(data)),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      email: '',
+      Code: {
+        concat: jest.fn()
+      },
+      phoneNumber: 123,
+      password: ''
+    });
+    const signup = jest.fn();
+    wrapper.instance().handleSignup();
+    expect(wrapper.state('loading')).toBe(true);
+  });
 });

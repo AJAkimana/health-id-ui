@@ -5,7 +5,7 @@ import { FooterStyles } from '../../assets/css/setup';
 
 const Footer = () => (
   <Fragment>
-    <AppBar className="footer" position="relative" style={FooterStyles.appbar}>
+    <AppBar className="footer" style={FooterStyles.appbar}>
       <Toolbar style={FooterStyles.toolBar} />
     </AppBar>
   </Fragment>

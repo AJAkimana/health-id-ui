@@ -157,8 +157,9 @@ export const BusinessSetUpStyles = {
 export const FooterStyles = {
   appbar: {
     backgroundColor: '#424242',
-    height: '30',
-    bottom: '0'
+    bottom: '0',
+    marginTop: 'calc(20% + 64px)',
+    position: 'relative'
   },
 };
 
@@ -209,4 +210,118 @@ export const loaderStyles = theme => ({
 export const dialogButtonStyles = {
   backgroundColor: '#FAF33E',
   color: '#424242',
+};
+
+export const RadioGroupStyles = {
+  radioGroup: {
+    justifyContent: 'space-between'
+  }
+};
+
+export const ContentWrapper = {
+  wrapper: {
+    paddingBottom: 0,
+    justifyContent: 'space-between',
+  },
+  table: {
+    paddingTop: 0
+  },
+  headers: {
+    backgroundColor: '#e8e8e8',
+    justifyContent: 'Left',
+    paddingTop: '2px',
+    paddingBottom: '2px',
+    marginTop: '10px',
+    marginBottom: '10px',
+  },
+  receiptHeader: {
+    marginLeft: '10px',
+    marginTop: '20px',
+  },
+  receipts: {
+    height: 140,
+    width: 100,
+    cursor: 'pointer'
+  },
+  receiptsWrapper: {
+    marginRight: '15px',
+  },
+  receiptTemp: {
+    width: '100px'
+  },
+  addRegisterStyle: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    cursor: 'pointer'
+  },
+  underline: {
+    textDecoration: 'underline',
+    marginTop: '2px',
+    marginBottom: '2px',
+  },
+  button: {
+    borderRadius: '25px',
+    width: '160px',
+    float: 'right'
+  },
+  loader: {
+    float: 'right'
+  },
+  buttonStyle: {
+    justifyContent: 'space-between'
+  },
+  bold: {
+    fontSize: '15px'
+  },
+  datePicker: {
+    width: '100%',
+  },
+  pickers: {
+    width: '100%',
+    margin: 0,
+  },
+};
+
+export const OutletsTable = {
+  table: {
+    borderCollapse: 'separate',
+    borderSpacing: '0 0.25em'
+  },
+  row: {
+    backgroundColor: '#E4E4E4',
+  },
+  tableCell: {
+    fontSize: 17,
+  },
+  iconsCell: {
+    display: 'inline-flex',
+  },
+  paperEdit: {
+    justifyContent: 'space-between',
+    backgroundColor: '#1C7CFF',
+    marginRight: '10px',
+    padding: '5px 8px',
+    cursor: 'pointer',
+  },
+  paperDelete: {
+    justifyContent: 'space-between',
+    backgroundColor: '#FF4141',
+    marginRight: '10px',
+    padding: '5px 8px',
+    cursor: 'pointer',
+  },
+  icons: {
+    color: '#FFFFFF',
+  },
+  typoNormal: {
+    textDecoration: 'underline',
+    cursor: 'pointer'
+  },
+  typoSmall: {
+    textDecoration: 'underline',
+    fontSize: '12px'
+  },
+  capitalize: {
+    textTransform: 'capitalize'
+  }
 };
