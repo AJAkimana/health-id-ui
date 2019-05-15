@@ -55,12 +55,24 @@ export class StepperNav extends React.Component {
     serverError: '',
     formError: false,
     isError: false,
+    src: '',
+    crop: {
+      x: 50,
+      y: 50,
+      width: 50,
+      height: 50,
+    },
+    fileName: '',
+    originalImageFile: '',
+    croppedImage: '',
+    open: false,
   };
 
   componentWillReceiveProps(nextProps) {
     nextProps && this.fetchUserData(nextProps.userData);
   }
 
+  // Stepper navigation handlers
   getStepContent = (step) => {
     switch (step) {
     case 0:
@@ -82,6 +94,10 @@ export class StepperNav extends React.Component {
           handleImageDrop={this.handleImageDrop}
           errorHandler={this.errorHandler}
           serverErrorHandler={this.serverErrorHandler}
+          onSelectFile={this.onSelectFile}
+          onCropChange={this.onCropChange}
+          handleClose={this.handleClose}
+          handleSave={this.handleSave}
         />
       );
 
@@ -90,6 +106,40 @@ export class StepperNav extends React.Component {
     }
   }
 
+  handleNextButton = () => {
+    const { activeStep } = this.state;
+
+    switch (activeStep) {
+    case 0: {
+      const isValidated = this.handleInputValidation();
+      if (!isValidated) {
+        this.setState({ formError: false });
+        this.editAdminUser();
+      }
+    }
+      break;
+
+    case 1: {
+      const isFormValid = this.handleBusinessFormInputValidation();
+      if (!isFormValid) {
+        this.addBusiness();
+      }
+    }
+      break;
+
+    default:
+      break;
+    }
+  }
+
+  handleBackButton = () => {
+    this.setState(state => ({
+      activeStep: state.activeStep - 1,
+      checked: false,
+    }));
+  };
+
+  //  Form validation handlers
   handleInputValidation = () => {
     const {
       firstName,
@@ -153,14 +203,67 @@ export class StepperNav extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleImageDrop = (files) => {
+  // Image resize handlers
+  onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      this.setState({
+        fileName: e.target.files[0].name,
+        originalImageFile: e.target.files[0]
+      });
+
+      const reader = new FileReader();
+      reader.addEventListener(
+        'load',
+        () => this.setState({ src: reader.result, open: true }),
+        false
+      );
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
+  onCropChange = (crop) => {
+    this.setState({ crop });
+  }
+
+  getCroppedImg = (imageFile, pixelCrop, fileName) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
+    const ctx = canvas.getContext('2d');
+
+    const image = new Image();
+    const promise = new Promise((resolve, reject) => {
+      image.onload = (() => {
+        ctx.drawImage(
+          image,
+          pixelCrop.x,
+          pixelCrop.y,
+          pixelCrop.width,
+          pixelCrop.height,
+          0,
+          0,
+          pixelCrop.width,
+          pixelCrop.height
+        );
+        resolve();
+      });
+      image.src = imageFile;
+    }).then(() => new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        blob.name = fileName;
+        resolve(blob);
+      }, 'image/jpeg');
+    }));
+    return promise;
+  }
+
+  handleImageDrop = (file) => {
     const formData = new FormData();
-    formData.append('file', files[0]);
+    formData.append('file', file);
     formData.append('upload_preset', process.env.UPLOAD_PRESET);
     formData.append('api_key', process.env.API_KEY);
     formData.append('timestamp', (Date.now() / 1000) || 0);
 
-    // Make an AJAX upload request using Axios
     return axios.post(process.env.CLOUDINARY_URL, formData, {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     }).then((response) => {
@@ -178,39 +281,27 @@ export class StepperNav extends React.Component {
     }));
   }
 
-  handleNextButton = () => {
-    const { activeStep } = this.state;
+  // Resize dialog handlers
+  handleSave = () => {
+    const {
+      src,
+      fileName,
+      crop
+    } = this.state;
 
-    switch (activeStep) {
-    case 0: {
-      const isValidated = this.handleInputValidation();
-      if (!isValidated) {
-        this.setState({ formError: false });
-        this.editAdminUser();
-      }
-    }
-      break;
-
-    case 1: {
-      const isFormValid = this.handleBusinessFormInputValidation();
-      if (!isFormValid) {
-        this.addBusiness();
-      }
-    }
-      break;
-
-    default:
-      break;
-    }
+    this.getCroppedImg(src, crop, fileName).then((data) => {
+      this.handleImageDrop(data);
+      this.setState({ src: '', open: false });
+    });
   }
 
-  handleBackButton = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1,
-      checked: false,
-    }));
-  };
+  handleClose = () => {
+    const { originalImageFile } = this.state;
+    this.setState({ src: '', open: false });
+    this.handleImageDrop(originalImageFile);
+  }
 
+  // Apollo client request handlers
   fetchUserData = (userData) => {
     const { me, loading, error } = userData;
 

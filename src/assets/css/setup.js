@@ -168,9 +168,8 @@ export const FileUploadStyles = {
     height: '82px',
   },
   previewImage: {
-    width: 'auto',
-    height: '97.3%',
-    opacity: '1',
+    maxWidth: '500px',
+    height: '244px',
   },
   root: {
     textAlign: 'center',
@@ -179,12 +178,8 @@ export const FileUploadStyles = {
     color: 'grey',
     opacity: '1',
     height: '100%',
-    hover: 'cursor'
+    hover: 'cursor',
   },
-  decor: {
-    textDecoration: 'underline',
-    fontSize: '18px',
-  }
 };
 
 export const NavBarStyles = {
@@ -202,9 +197,6 @@ export const NavBarStyles = {
     fontSize: '1.8rem',
     justifyContent: 'center'
   },
-  emptyDiv: {
-    width: 'auto'
-  }
 };
 
 export const loaderStyles = theme => ({
@@ -213,3 +205,8 @@ export const loaderStyles = theme => ({
     color: '#424242',
   },
 });
+
+export const dialogButtonStyles = {
+  backgroundColor: '#FAF33E',
+  color: '#424242',
+};

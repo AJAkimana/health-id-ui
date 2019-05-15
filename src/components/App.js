@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import AuthContainer from './authentication/Container';
 import StepperNav from './setup/Stepper';
-import finalScreen from './setup/finalScreen';
 
 const App = () => (
   <div>

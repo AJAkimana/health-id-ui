@@ -14,6 +14,10 @@ const BusinessSetUp = (props) => {
     checked,
     handleImageDrop,
     errorHandler,
+    onSelectFile,
+    onCropChange,
+    handleClose,
+    handleSave,
     state,
   } = props;
 
@@ -217,7 +221,15 @@ const BusinessSetUp = (props) => {
 
           <Grid item xs={12} sm={6}>
             <Paper style={BusinessSetUpStyles.paper}>
-              <FileUpload handleImageDrop={handleImageDrop} logo={logo} />
+              <FileUpload
+                state={state}
+                handleImageDrop={handleImageDrop}
+                logo={logo}
+                onSelectFile={onSelectFile}
+                onCropChange={onCropChange}
+                handleClose={handleClose}
+                handleSave={handleSave}
+              />
             </Paper>
           </Grid>
 
@@ -234,6 +246,10 @@ BusinessSetUp.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
   handleImageDrop: PropTypes.func.isRequired,
   errorHandler: PropTypes.func.isRequired,
+  onSelectFile: PropTypes.func.isRequired,
+  onCropChange: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
 };
 
 export default BusinessSetUp;

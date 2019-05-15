@@ -21,6 +21,10 @@ const props = {
   errorHandler: jest.fn(),
   serverErrorHandler: jest.fn(),
   handleImageDrop: jest.fn(),
+  onSelectFile: jest.fn(),
+  onCropChange: jest.fn(),
+  handleClose: jest.fn(),
+  handleSave: jest.fn(),
 };
 
 describe('Render businessSetup component', () => {

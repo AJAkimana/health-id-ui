@@ -13,7 +13,7 @@ const NavBar = () => (
         <Typography variant="h5" style={NavBarStyles.typography}>
             SETUP ACCOUNT
         </Typography>
-        <div style={NavBarStyles.emptyDiv} />
+        <div />
       </Toolbar>
     </AppBar>
   </Fragment>

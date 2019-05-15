@@ -1,38 +1,83 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useDropzone } from 'react-dropzone';
+import Button from '@material-ui/core/Button';
+import Dropzone from 'react-dropzone';
+import Tooltip from '@material-ui/core/Tooltip';
+import 'react-image-crop/dist/ReactCrop.css';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import { FileUploadStyles } from '../../assets/css/setup';
+import ResizeDialog from './resizeDialogBox';
 
-const FileUpload = ({ handleImageDrop, logo }) => {
+const FileUpload = (props) => {
+  const {
+    logo,
+    state,
+    onSelectFile,
+    onCropChange,
+    handleClose,
+    handleSave,
+  } = props;
+
   const onDrop = useCallback((acceptedFiles) => {
-    handleImageDrop(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
   return (
-    <div {...getRootProps()} style={FileUploadStyles.root}>
-      <input {...getInputProps()} />
-      {
-        logo ? (
-          <img src={logo} alt="logo" style={FileUploadStyles.previewImage} />
-        )
-          : (
-            <div>
-              <CloudUpload style={FileUploadStyles.image} />
-              <p>Drag and drop a logo</p>
-              <p>or</p>
-              <p>Click / Tap to Choose file</p>
+    <div style={FileUploadStyles.root}>
+      { state.src ? (
+        <ResizeDialog
+          state={state}
+          onCropChange={onCropChange}
+          handleClose={handleClose}
+          handleSave={handleSave}
+        />
+      ) : (
+        <Dropzone
+          onDrop={onDrop}
+          multiple={false}
+          accept="image/jpg,image/jpeg, image/JPEG, image/png, image/PNG"
+        >
+          {({
+            getRootProps, getInputProps, isDragActive, isDragReject
+          }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} onChange={onSelectFile} />
+              {isDragActive && !isDragReject && "Drop it like it's hot!"}
+              {isDragReject && 'File type not accepted, sorry!'}
+
+              {
+
+                logo ? (
+                  <img src={logo} alt="logo" style={FileUploadStyles.previewImage} />
+
+                )
+                  : (
+                    <div>
+                      <CloudUpload style={FileUploadStyles.image} />
+                      <p>Drag and drop a logo</p>
+                      <p>or</p>
+                      <Tooltip title="Only images not more than 500 * 500px are supported">
+                        <Button variant="text">
+                    Click / Tap to Choose file
+                        </Button>
+                      </Tooltip>
+                    </div>
+                  )
+              }
             </div>
-          )
+          )}
+        </Dropzone>
+      )
       }
     </div>
   );
 };
 
 FileUpload.propTypes = {
-  handleImageDrop: PropTypes.func.isRequired,
   logo: PropTypes.string.isRequired,
+  state: PropTypes.instanceOf(Object).isRequired,
+  onSelectFile: PropTypes.func.isRequired,
+  onCropChange: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
 };
 export default FileUpload;
