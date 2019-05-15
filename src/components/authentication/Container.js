@@ -1,13 +1,15 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import { compose, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
+import { FormHelperText } from '@material-ui/core';
 import {
-  SIGNUP_MUTATION, EMAIL_LOGIN_MUTATION, MOBILE_LOGIN_MUTATION
+  SIGNUP_MUTATION, EMAIL_LOGIN_MUTATION, MOBILE_LOGIN_MUTATION,
+  RESET_PASSWORD_MUTATION
 } from './mutations/mutations';
 import {
   validateEmail, validatePasswordLength, validatePhoneNumber
 } from '../../utils/Validation';
-import Image from '../../assets/images/doc.png';
 import logo from '../../assets/images/logo.png';
 import Register from './Register';
 import Login from './Login';
@@ -26,21 +28,59 @@ const initialState = {
   EmailError: false,
   helperPhoneText: '',
   PhoneError: false,
-  visibileEye: { visibility: 'hidden' },
   openAlert: false,
+  openForgotPasswordAlert: false,
   errors: '',
   success: null,
   loginSuccess: false,
   loginErrors: false,
-  inputType: 'email'
+  inputType: 'email',
+  disabled: false
 };
 
 export class AuthContainer extends Component {
   state = { ...initialState }
 
   handleCloseAlert = () => {
-    this.setState({ openAlert: false });
+    this.setState({
+      openAlert: false,
+      email: '',
+      password: '',
+      Code: '',
+      phoneNumber: '',
+      helperPasswordText: '',
+      helperEmailText: '',
+      helperPhoneText: '',
+      passwordError: false,
+      EmailError: false,
+      PhoneError: false,
+    });
   };
+
+  handleOpenForgotPasswordAlert = () => {
+    this.setState({
+      openForgotPasswordAlert: true,
+      email: '',
+      password: '',
+      Code: '',
+      phoneNumber: '',
+      helperPasswordText: '',
+      helperEmailText: '',
+      helperPhoneText: '',
+      passwordError: false,
+      EmailError: false,
+      PhoneError: false,
+    });
+  }
+
+  handleCloseForgotPasswordAlert = () => {
+    this.setState({
+      openForgotPasswordAlert: false,
+      email: '',
+      EmailError: false,
+      helperEmailText: '',
+    });
+  }
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -77,13 +117,6 @@ export class AuthContainer extends Component {
       PhoneError: array[1]
     });
   }
-
-
-  handlePasswordIcon = () => {
-    this.setState({
-      visibileEye: { visibility: 'visible' },
-    });
-  };
 
   handlePasswordChange = (event) => {
     event.preventDefault();
@@ -142,16 +175,9 @@ export class AuthContainer extends Component {
           openAlert: true
         });
 
-        if (success[0]) {
+        if (success) {
           this.setState({
-            success,
-            email: '',
-            password: '',
-            Code: '',
-            phoneNumber: '',
-            helperPasswordText: '',
-            helperEmailText: '',
-            helperPhoneText: '',
+            success
           });
           setTimeout(() => window.location.assign('/login'), 1500);
         }
@@ -182,13 +208,6 @@ export class AuthContainer extends Component {
           this.setState({
             loginSuccess: true,
             loginErrors: false,
-            email: '',
-            password: '',
-            Code: '',
-            phoneNumber: '',
-            helperPasswordText: '',
-            helperEmailText: '',
-            helperPhoneText: '',
           });
           setTimeout(() => window.location.assign('/setup'), 900);
         } else if (message === 'Invalid login credentials') {
@@ -205,7 +224,6 @@ export class AuthContainer extends Component {
           openAlert: true,
           loading: false
         });
-        console.log(err);
       });
   }
 
@@ -227,7 +245,7 @@ export class AuthContainer extends Component {
             loginSuccess: true,
             loginErrors: false
           });
-          setTimeout(() => window.location.assign('/setup'), 900);
+          setTimeout(() => window.location.assign('/setup'), 1000);
         } else if (message === 'Invalid login credentials') {
           this.setState({
             loginErrors: true,
@@ -242,7 +260,42 @@ export class AuthContainer extends Component {
           openAlert: true,
           loading: false
         });
-        console.log(err);
+      });
+  }
+
+  handlePasswordReset = () => {
+    const { ResetPassword } = this.props;
+    const { email } = this.state;
+    this.setState({ loading: true });
+    ResetPassword({
+      variables: {
+        email
+      }
+    })
+      .then((data) => {
+        const { resetLink, success } = data.data.resetPassword;
+        localStorage.setItem('reset-link', resetLink);
+        this.setState({
+          disabled: true,
+          loading: false,
+          EmailError: false,
+          helperEmailText: (
+            <FormHelperText className="valid">
+              {success}
+            </FormHelperText>
+          )
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          disabled: false,
+          loading: false,
+          EmailError: true,
+          helperEmailText: (
+            <FormHelperText className="error">
+              {err.message.split(':')[1]}
+            </FormHelperText>)
+        });
       });
   }
 
@@ -266,7 +319,6 @@ export class AuthContainer extends Component {
                   <Login
                     state={this.state}
                     handlePasswordChange={this.handlePasswordChange}
-                    handlePasswordIcon={this.handlePasswordIcon}
                     handlePasswordVisibility={this.handlePasswordVisibility}
                     handleEmailChange={this.handleEmailChange}
                     handleChange={this.handleChange}
@@ -275,6 +327,9 @@ export class AuthContainer extends Component {
                     handleSubmit={this.handleSubmit}
                     handleChangeInput={this.handleChangeInput}
                     handleCloseLoginAlert={this.handleCloseAlert}
+                    handlePasswordReset={this.handlePasswordReset}
+                    handleOpenForgotPasswordAlert={this.handleOpenForgotPasswordAlert}
+                    handleCloseForgotPasswordAlert={this.handleCloseForgotPasswordAlert}
                   />
                 )
                 : (
@@ -283,7 +338,6 @@ export class AuthContainer extends Component {
                     handleSignup={this.handleSignup}
                     handleEmailChange={this.handleEmailChange}
                     handlePasswordChange={this.handlePasswordChange}
-                    handlePasswordIcon={this.handlePasswordIcon}
                     handlePasswordVisibility={this.handlePasswordVisibility}
                     handlePhoneChange={this.handlePhoneChange}
                     handleChange={this.handleChange}
@@ -301,10 +355,15 @@ export class AuthContainer extends Component {
 
 AuthContainer.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
+  ResetPassword: PropTypes.func,
+  Mobilelogin: PropTypes.func,
+  Emaillogin: PropTypes.func
+
 };
 
 export default compose(
   graphql(SIGNUP_MUTATION, { name: 'signup' }),
   graphql(EMAIL_LOGIN_MUTATION, { name: 'Emaillogin' }),
-  graphql(MOBILE_LOGIN_MUTATION, { name: 'Mobilelogin' })
+  graphql(MOBILE_LOGIN_MUTATION, { name: 'Mobilelogin' }),
+  graphql(RESET_PASSWORD_MUTATION, { name: 'ResetPassword' })
 )(AuthContainer);

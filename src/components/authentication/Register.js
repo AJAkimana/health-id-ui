@@ -13,10 +13,10 @@ const Register = (props) => {
   const {
     state: {
       password, email, loading, showPassword, helperPasswordText, helperEmailText, passwordError,
-      EmailError, visibileEye, Code, PhoneError, phoneNumber, helperPhoneText, openAlert,
+      EmailError, Code, PhoneError, phoneNumber, helperPhoneText, openAlert,
       errors, success, checked
     },
-    handlePasswordChange, handlePasswordIcon, handlePasswordVisibility,
+    handlePasswordChange, handlePasswordVisibility,
     handleEmailChange, handleChange, handleCloseSignupAlert, handleCheckbox,
     handlePhoneChange, handleSignup
   } = props;
@@ -27,7 +27,6 @@ const Register = (props) => {
   const emptyField = (!email || !phoneNumber || !password);
   const buttonCondition = emptyField || formError;
 
-  console.log(emptyField);
   return (
     <div>
       <TextField
@@ -41,7 +40,7 @@ const Register = (props) => {
         onChange={handleEmailChange}
       />
       {helperEmailText}
-      <Grid container spacing={16} style={{ marginTop: '25px' }}>
+      <Grid container spacing={16} className="phone-grid">
         <Grid item xs={2}>
           <SelectCountry
             Code={Code}
@@ -62,23 +61,21 @@ const Register = (props) => {
         </Grid>
       </Grid>
       <div
-        style={{ marginBottom: '25px' }}
+        className="bottom-fields"
       >
         <PasswordField
           showPassword={showPassword}
           error={passwordError}
           password={password}
           handlePasswordChange={handlePasswordChange}
-          handlePasswordIcon={handlePasswordIcon}
           handlePasswordVisibility={handlePasswordVisibility}
-          visibileEye={visibileEye}
           helperPasswordText={helperPasswordText}
         />
         <div>
           <Checkbox
             checked={checked}
             onChange={handleCheckbox}
-            style={{ padding: '0' }}
+            className="checkbox"
             name="checked"
             color="primary"
           />
@@ -96,7 +93,7 @@ const Register = (props) => {
         </div>
       </div>
       <div>
-        {loading ? <CircularProgress color="primary" style={{ display: 'block', margin: '0 auto' }} /> : ''}
+        {loading ? <CircularProgress color="primary" className="loader" /> : ''}
         {!buttonCondition && checked
           ? <button className="register-btn" type="button" style={hidden} onClick={handleSignup}>REGISTER</button>
           : <button className="disabled-register" type="button" disabled value="REGISTER">REGISTER</button>}
@@ -121,7 +118,6 @@ Register.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
   handleChange: PropTypes.func.isRequired,
   handlePasswordChange: PropTypes.func.isRequired,
-  handlePasswordIcon: PropTypes.func.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
   handleEmailChange: PropTypes.func.isRequired,
   handleCloseSignupAlert: PropTypes.func.isRequired,

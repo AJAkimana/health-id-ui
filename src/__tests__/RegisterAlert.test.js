@@ -44,7 +44,6 @@ describe('Register Alert', () => {
       onClose: jest.fn()
     };
     const wrapper = mount(<DialogTitle {...props} />);
-    // expect(wrapper.find('DialogTitle').dive().find('CloseIcon')).to.have.lengthOf(1);
     expect(wrapper.find('CloseIcon').length).toBe(1);
   });
 });

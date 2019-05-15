@@ -28,3 +28,11 @@ mutation MobileLoginMutation($mobileNumber: String!, $password: String!) {
     message
   }
 }`;
+
+export const RESET_PASSWORD_MUTATION = gql`
+mutation resetPasswordMutation($email: String!) {
+  resetPassword(email: $email) {
+  resetLink,
+  success
+}
+}`;

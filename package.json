@@ -98,8 +98,8 @@
     ],
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
-      "\\.('jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/src/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/src/styleMock.js",
+      "\\.('jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss)$": "<rootDir>/__mocks__/fileMock.js",
       "^components(.*)$": "<rootDir>/src/components/"
     },
     "setupFilesAfterEnv": [

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  InputLabel, InputAdornment, FormControl, Input, IconButton
+  InputLabel, FormControl, Input, IconButton
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -9,8 +9,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const PasswordField = (props) => {
   const {
-    showPassword, password, handlePasswordIcon, handlePasswordChange,
-    error, helperPasswordText, visibileEye, handlePasswordVisibility,
+    showPassword, password, handlePasswordChange,
+    error, helperPasswordText, handlePasswordVisibility,
   } = props;
 
   const type = showPassword ? 'text' : 'password';
@@ -29,18 +29,15 @@ const PasswordField = (props) => {
         required
         type={type}
         value={password}
-        onClick={handlePasswordIcon}
         onChange={handlePasswordChange}
         endAdornment={(
-          <InputAdornment position="end" style={visibileEye}>
-            <IconButton
-              aria-label="Toggle password visibility"
-              onClick={handlePasswordVisibility}
-              style={{ color: '#A3A3A3' }}
-            >
-              {passwordIcon}
-            </IconButton>
-          </InputAdornment>
+          <IconButton
+            aria-label="Toggle password visibility"
+            onClick={handlePasswordVisibility}
+            style={{ color: '#A3A3A3', padding: '5px' }}
+          >
+            {passwordIcon}
+          </IconButton>
         )}
       />
       {helperPasswordText}
@@ -51,10 +48,8 @@ const PasswordField = (props) => {
 PasswordField.propTypes = {
   showPassword: PropTypes.bool.isRequired,
   password: PropTypes.string,
-  handlePasswordIcon: PropTypes.func.isRequired,
   handlePasswordChange: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
-  visibileEye: PropTypes.instanceOf(Object).isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
 };
 

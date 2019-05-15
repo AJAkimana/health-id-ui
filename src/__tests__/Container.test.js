@@ -196,20 +196,4 @@ describe('Container Component', () => {
     });
     expect(wrapper.state('showPassword')).toBeTruthy();
   });
-
-  it('calls handlePasswordIcon for icon', () => {
-    const props = {
-      match: {
-        path: '/'
-      },
-
-    };
-
-    const wrapper = shallow(<Container {...props} />);
-    wrapper.instance().handlePasswordIcon();
-    wrapper.instance().setState({
-      visibileEye: { visibility: 'visible' }
-    });
-    expect(wrapper.state('visibileEye')).toEqual({ visibility: 'visible' });
-  });
 });

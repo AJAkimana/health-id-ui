@@ -16,14 +16,14 @@ html, body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100% !important;
+  height:100vh;
 }
 
 .auth-image{
   width: 50%;
   background: url('../images/doc.png');
   background-size: 100% 100%;
-  min-height: 970px;
+  height:100vh;
 } 
 .auth-bg {
   background-color: #FAF33E;
@@ -70,16 +70,20 @@ html, body {
   margin: 0 auto;
 }
 
-.small-anchor{
-  font-size: 16px;
+.small-anchor, .small-text{
+  font-size: 90%;
   color: #A3A3A3;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.small-text {
-  font-size: 16px;
-  color: #A3A3A3;
-  font-family: Arial, Helvetica, sans-serif;
+.invisible-icon{
+  visibility: 'hidden'
+}
+
+.visible-icon{
+  padding: 5px !important;
+  color: '#A3A3A3';
+  visibility: 'visible';
 }
 
 /* Transition of checkbox */
@@ -88,22 +92,22 @@ html, body {
 }
 
 /* Transition of textfiled labels  */
-.MuiFormLabel-root-16 {
+.MuiFormLabel-root-16, .jss16 {
   color: #A3A3A3 !important;
 }
 
-.MuiFormLabel-root-16.MuiFormLabel-focused-17 {
+.MuiFormLabel-root-16.MuiFormLabel-focused-17, .jss16.jss17 {
   color: rgb(175, 170, 43) !important;
 }
 
-.MuiFormLabel-root-16.MuiFormLabel-error-19 {
+.MuiFormLabel-root-16.MuiFormLabel-error-19, .jss16.jss19 {
   color: #FF4141 !important;
 }
-.MuiInput-underline-27:before {
+.MuiInput-underline-27:before, .jss27 {
   border-bottom: 1px solid rgb(107, 107, 107) !important; 
 }
 
-.MuiFormLabel-root-16, .MuiInputAdornment-root-166{
+.MuiInputAdornment-root-166, .jss166{
   color: #A3A3A3;
 }
 
@@ -120,16 +124,17 @@ html, body {
   margin: 0 auto;
   outline: none;
   border: none;
+  cursor: pointer;
 }
 
 .disabled-register{
   background-color: #9E9B3F;
+  color: #424242;
   width: 50%;
   height: 40px;
   font-size: 18px;
   font-family: Avenir, Book;
   font-weight: bold;
-  /* color: #424242; */
   margin:0 auto;
   display:block;
   outline: none;
@@ -150,7 +155,19 @@ html, body {
   color: #FAF33E;
 }
 
+.bottom-fields{
+  margin-bottom: 25px;
+}
+
+.phone-grid{
+  margin-top: 25px !important;
+}
 /* Login page */
+
+.login-email-field{
+  margin-bottom: 25px !important;
+  width: 100%;
+}
 
 .form-checks{
   display: inline-flex;
@@ -162,14 +179,19 @@ html, body {
   border: none;
   background-color: #424242;
   color: #A3A3A3;
-  font-size: 16px;
+  font-size: 90%;
   outline: none;
   text-decoration: underline;
   font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
 }
 
 .reset-password{
-  margin-left: 44%;
+  margin-left: 45%;
+}
+
+.checkbox{
+  padding: 0 !important;
 }
 
 /* Alert Style */
@@ -187,6 +209,15 @@ html, body {
    top: 50%; 
    left: 50%; 
    transform: translate(-50%, -50%)
+}
+
+.forgotMsg{
+  position: absolute;
+  font-weight: lighter;
+  color: #FAF33E;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%)
 }
 
 .MuiInputLabel-formControl-10 label{
@@ -223,11 +254,19 @@ html, body {
 }
 
 .dialog-message{
-  padding-top: 50px;
+  padding-top: 30px;
   text-align: center !important;
   font: Avenir, Book; 
   color: #E8E8E8 !important;
   font-size: 20px !important;
+}
+
+.dialog-warning{
+  padding-top: 10px;
+  text-align: center !important;
+  font: Avenir, Medium; 
+  color: #A3A3A3 !important;
+  font-size: 18px !important;
 }
 
 .dialog-email-msg{
@@ -242,4 +281,31 @@ html, body {
 .resend-link{
   color: #FAF33E;
   text-decoration: underline;
+}
+
+.error{
+  color: #FF4141 !important;
+}
+
+.valid{
+  color: #FAF33E !important;
+}
+
+
+/* Forgot Password Alert */
+
+.email-field{
+  padding-bottom: 25px !important;
+  width: 73% !important;
+  margin-left: 13.5% !important;
+  margin-top: 1% !important;
+}
+
+.alert-loader, .loader{
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.alert-button{
+  color: #FAF33E !important;
 }

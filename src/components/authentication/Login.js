@@ -5,6 +5,7 @@ import {
   TextField, Checkbox, Grid, CircularProgress, FormControl
 } from '@material-ui/core';
 import LoginAlert from './Alerts/LoginAlert';
+import ForgotPasswordAlert from './Alerts/ForgotPasswordAlert';
 import '../../assets/styles/authentication/Login.scss';
 import PasswordField from './Inputs/PasswordField';
 import SelectCountry from './Inputs/SelectCountryCode';
@@ -24,8 +25,7 @@ class Login extends Component {
       <div>
         {type === 'email' ? (
           <FormControl
-            style={{ marginBottom: '25px' }}
-            className="textfield"
+            className="login-email-field"
           >
             <TextField
               label={emailLabel}
@@ -80,11 +80,13 @@ class Login extends Component {
     const {
       state: {
         email, password, loading, showPassword, helperPasswordText, passwordError,
-        visibileEye, checked, inputType, openAlert, loginSuccess, loginErrors,
-        PhoneError, EmailError
+        checked, inputType, openAlert, loginSuccess, loginErrors,
+        PhoneError, EmailError, openForgotPasswordAlert, disabled, helperEmailText
       },
-      handlePasswordChange, handlePasswordIcon, handlePasswordVisibility, handleSubmit,
-      handleChangeInput, handleCloseLoginAlert, handleCheckbox
+      handlePasswordChange, handlePasswordVisibility, handleSubmit,
+      handleChangeInput, handleCloseLoginAlert, handleCheckbox, handleEmailChange,
+      handleCloseForgotPasswordAlert,
+      handleOpenForgotPasswordAlert, handlePasswordReset
     } = this.props;
 
     const hidden = loading ? { display: 'none' } : { display: 'block' };
@@ -113,9 +115,7 @@ class Login extends Component {
             error={passwordError}
             password={password}
             handlePasswordChange={handlePasswordChange}
-            handlePasswordIcon={handlePasswordIcon}
             handlePasswordVisibility={handlePasswordVisibility}
-            visibileEye={visibileEye}
             helperPasswordText={helperPasswordText}
           />
           <div className="form-checks">
@@ -123,7 +123,7 @@ class Login extends Component {
               <Checkbox
                 checked={checked}
                 onChange={handleCheckbox}
-                style={{ padding: '0' }}
+                className="checkbox"
                 value="checked"
                 color="primary"
               />
@@ -131,10 +131,20 @@ class Login extends Component {
               <small className="small-text">Remember me</small>
             </div>
             <div className="reset-password">
-              <button type="button" className="password-link">Forgot password?</button>
+              <button type="button" className="password-link" onClick={handleOpenForgotPasswordAlert}>Forgot password?</button>
             </div>
           </div>
-          {loading ? <CircularProgress color="primary" style={{ display: 'block', margin: '0 auto' }} /> : ''}
+          <ForgotPasswordAlert
+            open={openForgotPasswordAlert}
+            EmailError={EmailError}
+            handlePasswordReset={handlePasswordReset}
+            handleEmailChange={handleEmailChange}
+            onClose={handleCloseForgotPasswordAlert}
+            loading={loading}
+            disabled={disabled}
+            helperEmailText={helperEmailText}
+          />
+          {loading ? <CircularProgress color="primary" className="loader" /> : ''}
           {formError
             ? (
               <button className="disabled-register" type="button" disabled>LOGIN</button>
@@ -171,14 +181,16 @@ Login.propTypes = {
   Code: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   handlePasswordChange: PropTypes.func.isRequired,
-  handlePasswordIcon: PropTypes.func.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
   handleEmailChange: PropTypes.func.isRequired,
   handleCloseLoginAlert: PropTypes.func.isRequired,
   handleCheckbox: PropTypes.func.isRequired,
   handlePhoneChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  handleChangeInput: PropTypes.func.isRequired
+  handleChangeInput: PropTypes.func.isRequired,
+  handlePasswordReset: PropTypes.func.isRequired,
+  handleCloseForgotPasswordAlert: PropTypes.func.isRequired,
+  handleOpenForgotPasswordAlert: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {

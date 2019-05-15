@@ -1,9 +1,10 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { createHttpLink } from 'apollo-link-http';
+import { ApolloLink } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 
-const appLink = process.env.APP_LINK;
+const appLink = 'https://healthid-web-api.herokuapp.com/healthid/';
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
@@ -17,12 +18,15 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: appLink,
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([
+    authLink,
+    httpLink
+  ]),
   cache: new InMemoryCache()
 });
 
