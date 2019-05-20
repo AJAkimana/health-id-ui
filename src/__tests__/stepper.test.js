@@ -5,6 +5,7 @@ import GET_USER_INFO from '../queries/userDataQuery';
 import SteppedNav, { StepperNav } from '../components/setup/Stepper';
 import BusinessSetUp from '../components/setup/businessSetup';
 import AdminSetUp from '../components/setup/adminSetup';
+import withAuth from '../components/withAuth';
 
 const results = {
   data: {
@@ -749,17 +750,24 @@ describe('Test react-apollo functions', () => {
   const request = {
     query: GET_USER_INFO,
   };
+  const session = {
+    me: {
+      name: 'joe'
+    }
+  };
 
   const MockedInstance = (
     <MockedProvider mocks={[{ request }]} addTypename={false}>
-      <SteppedNav {...props} />
+      <withAuth session={session}>
+        <SteppedNav {...props} />
+      </withAuth>
     </MockedProvider>
   );
 
   const apolloWrapper = mount(MockedInstance);
 
   it('updates state with results from the query', () => {
-    expect(apolloWrapper.find('StepperNav').props().userData.loading).toBe(true);
+    expect(apolloWrapper.find('withAuth').props().session.me.name).toBe('joe');
     apolloWrapper.setState({
       firstName: 'firstname',
       lastName: 'lastName',
@@ -767,7 +775,6 @@ describe('Test react-apollo functions', () => {
       secondaryEmail: 'secondaryEmail',
       secondaryPhoneNumber: 'secondaryPhoneNumber',
       isLoading: false,
-      activeStep: apolloWrapper.state('activeStep') + 1,
       checked: false,
       legalName: 'legalname',
       tradingName: 'tradingname',

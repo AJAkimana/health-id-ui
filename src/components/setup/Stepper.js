@@ -32,6 +32,7 @@ import DELETE_OUTLET from '../../mutations/deleteOutletMutation';
 import UPDATE_RECEIPT_TEMP from '../../mutations/updateReceiptTempMutation';
 import UPDATE_REGISTER from '../../mutations/updateRegisterMutation';
 import DELETE_RECEIPT_TEMPLATE from '../../mutations/deleteReceiptTempMutation';
+import withAuth from '../withAuth';
 
 const styles = StepperStyles;
 
@@ -1159,4 +1160,4 @@ export default compose(
   UPDATE_RECEIPT_TEMP_MUTATION,
   UPDATE_REGISTER_MUTATION,
   DELETE_RECEIPT_TEMP_MUTATION,
-)(withStyles(styles)(StepperNav));
+)(withAuth(session => session && session.me)(withStyles(styles)(StepperNav)));

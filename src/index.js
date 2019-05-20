@@ -7,14 +7,15 @@ import AppTheme from './assets/styles/index';
 import './assets/styles/style.css';
 import client from './graphql/client';
 import App from './components/App';
+import withSession from './components/withSession';
 
-
+const AppwithSession = withSession(App);
 // Link apollo client to react
 ReactDOM.render(
   <MuiThemeProvider theme={AppTheme}>
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <App />
+        <AppwithSession />
       </ApolloProvider>
     </BrowserRouter>
   </MuiThemeProvider>,
