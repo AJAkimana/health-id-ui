@@ -18,7 +18,7 @@ const Register = (props) => {
     },
     handlePasswordChange, handlePasswordVisibility,
     handleEmailChange, handleChange, handleCloseSignupAlert, handleCheckbox,
-    handlePhoneChange, handleSignup
+    handlePhoneChange, handleSignup,
   } = props;
 
   const hidden = loading ? { display: 'none' } : { display: 'block' };

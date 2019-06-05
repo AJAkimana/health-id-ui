@@ -6,7 +6,7 @@ const AppTheme = createMuiTheme({
       main: '#FAF33E',
     },
     secondary: {
-      main: '#424242',
+      main: '#A3A3A3',
     },
     error: {
       main: '#FF4141'

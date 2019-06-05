@@ -10,11 +10,10 @@ import {
 } from '../../../assets/styles/authentication/AlertStyle';
 import errorImg from '../../../assets/images/error/error-sm.png';
 
-
 const ForgotPasswordAlert = (props) => {
   const {
     open, onClose, email, handleEmailChange, EmailError,
-    helperEmailText, handlePasswordReset, loading, disabled
+    helperEmailText, handlePasswordReset, loading, disabled,
   } = props;
 
   const button = loading ? (

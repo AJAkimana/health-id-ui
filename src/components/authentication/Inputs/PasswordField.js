@@ -34,7 +34,7 @@ const PasswordField = (props) => {
           <IconButton
             aria-label="Toggle password visibility"
             onClick={handlePasswordVisibility}
-            style={{ color: '#A3A3A3', padding: '5px' }}
+            className="password-icon"
           >
             {passwordIcon}
           </IconButton>
@@ -48,6 +48,7 @@ const PasswordField = (props) => {
 PasswordField.propTypes = {
   showPassword: PropTypes.bool.isRequired,
   password: PropTypes.string,
+  helperPasswordText: PropTypes.string,
   handlePasswordChange: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
@@ -55,6 +56,7 @@ PasswordField.propTypes = {
 
 PasswordField.defaultProps = {
   password: '',
+  helperPasswordText: ''
 };
 
 export default PasswordField;

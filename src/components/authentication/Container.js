@@ -299,9 +299,46 @@ export class AuthContainer extends Component {
       });
   }
 
+  handlePasswordReset = () => {
+    const { ResetPassword } = this.props;
+    const { email } = this.state;
+    this.setState({ loading: true });
+    ResetPassword({
+      variables: {
+        email
+      }
+    })
+      .then((data) => {
+        const { resetLink, success } = data.data.resetPassword;
+        localStorage.setItem('reset-link', resetLink);
+        this.setState({
+          loading: false,
+          EmailError: false,
+          helperEmailText: (
+            <FormHelperText className="valid">
+              {success}
+            </FormHelperText>
+          )
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+          EmailError: true,
+          helperEmailText: (
+            <FormHelperText className="error">
+              {err.message.split(':')[1]}
+            </FormHelperText>)
+        });
+      });
+  }
+
   render() {
-    const { match } = this.props;
-    const { path } = match;
+    const {
+      match: {
+        path
+      }
+    } = this.props;
     return (
       <div>
         <div className="flex-container">

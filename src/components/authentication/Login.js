@@ -17,7 +17,7 @@ class Login extends Component {
       state: {
         EmailError, email, helperEmailText
       },
-      handleEmailChange
+      handleEmailChange,
     } = this.props;
     const phoneLabelNum = type === 'phone' ? 'Phone #' : null;
     const emailLabel = type === 'email' ? 'Email' : null;
@@ -47,7 +47,7 @@ class Login extends Component {
       state: {
         phoneNumber, Code, PhoneError, helperPhoneText
       },
-      handleChange, handlePhoneChange
+      handleChange, handlePhoneChange,
     } = this.props;
     return (
       <div>
@@ -60,9 +60,9 @@ class Login extends Component {
           </Grid>
           <Grid item xs={10}>
             <TextField
-              className="textfield"
               label={phoneLabelNum}
               name="phoneNumber"
+              fullWidth
               required
               value={phoneNumber}
               error={PhoneError}
@@ -172,13 +172,6 @@ class Login extends Component {
 
 Login.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  helperEmailText: PropTypes.string,
-  EmailError: PropTypes.bool,
-  email: PropTypes.string,
-  helperPhoneText: PropTypes.string,
-  PhoneError: PropTypes.bool,
-  phoneNumber: PropTypes.string,
-  Code: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   handlePasswordChange: PropTypes.func.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
@@ -193,14 +186,5 @@ Login.propTypes = {
   handleOpenForgotPasswordAlert: PropTypes.func.isRequired,
 };
 
-Login.defaultProps = {
-  helperEmailText: '',
-  EmailError: false,
-  email: '',
-  helperPhoneText: '',
-  PhoneError: false,
-  phoneNumber: '',
-  Code: ''
-};
 
 export default Login;
