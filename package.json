@@ -69,7 +69,7 @@
     "react-dropzone": "^10.1.0",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.8.2",
-    "react-image-crop": "^7.0.1",
+    "react-image-crop": "^7.0.2",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-toastify": "^5.0.0",
@@ -82,6 +82,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
@@ -95,6 +96,7 @@
     "jest-canvas-mock": "^2.0.0",
     "svg-react-loader": "^0.4.6",
     "url-loader": "^1.1.2",
+    "waait": "^1.0.4",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1"

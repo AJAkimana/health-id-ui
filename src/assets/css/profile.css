@@ -1,0 +1,4 @@
+.MuiAvatar-img {
+    width: auto !important;
+    object-fit: initial !important;
+}

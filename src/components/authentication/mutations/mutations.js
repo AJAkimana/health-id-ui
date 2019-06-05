@@ -17,7 +17,13 @@ export const EMAIL_LOGIN_MUTATION = gql`
 mutation EmailLoginMutation($email: String!, $password: String!) {
   loginUser(email:$email, password:$password) {
     token,
-    message
+    message,
+    user {
+      isAdmin,
+      role {
+        name
+      }
+    }
   }
 }`;
 

@@ -5,6 +5,7 @@ import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
 import Dashboard from './shared/Dashboard/Dashboard';
 import Products from './products/productsTable';
+import UserProfile from './profile/Profile';
 
 const App = ({ session }) => (
   <div>
@@ -15,6 +16,7 @@ const App = ({ session }) => (
       <Route exact path="/dashboard" render={() => <Dashboard session={session} />} />
       <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />
       <Route exact path="/products" render={() => <Products session={session} />} />
+      <Route exact path="/profile" component={UserProfile} />
     </Switch>
   </div>
 );

@@ -744,6 +744,52 @@ describe('Test stepper component', () => {
     const addRegister = jest.fn();
     wrapper.instance().createReceiptTemplate();
   });
+
+  it('calls handleBusinessFormInputValidation method to validate business data inputs', () => {
+    wrapper.setState({
+      legalName: 'legal name',
+      tradingName: 'trading name',
+      phoneNumber: 'phone number',
+      businessEmail: 'business email',
+      country: 'country',
+      city: 'city',
+      addressLine1: 'addressLine1',
+      activeStep: 1
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleBusinessFormInputValidation');
+    wrapper.instance().handleBusinessFormInputValidation();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('calls  handleNextButton method which inturn calls handleInputValidation with falsy state properties', () => {
+    wrapper.setState({
+      firstName: '',
+      lastName: '',
+      username: '',
+      secondaryEmail: '',
+      secondaryPhoneNumber: '',
+      activeStep: 0
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleNextButton');
+    wrapper.instance().handleNextButton();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('calls  handleNextButton method which inturn calls handleBusinessFormInputValidation with truthy state properties', () => {
+    wrapper.setState({
+      legalName: 'legal name',
+      tradingName: 'trading name',
+      phoneNumber: 'phone number',
+      businessEmail: 'business email',
+      country: 'country',
+      city: 'city',
+      addressLine1: 'addressLine1',
+      activeStep: 1
+    });
+    const spy = jest.spyOn(wrapper.instance(), 'handleNextButton');
+    wrapper.instance().handleNextButton();
+    expect(spy).toHaveBeenCalled();
+  });
 });
 
 describe('Test react-apollo functions', () => {

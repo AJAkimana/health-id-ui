@@ -203,12 +203,18 @@ export class AuthContainer extends Component {
           openAlert: true
         });
         const { token, message } = data.data.loginUser;
+        const { isAdmin } = data.data.loginUser.user;
+
         if (message === 'Login Successful') {
           localStorage.setItem('auth_token', token);
           this.setState({
             loginSuccess: true,
             loginErrors: false,
           });
+
+          if (!isAdmin) {
+            setTimeout(() => window.location.assign('/profile'), 900);
+          }
           setTimeout(() => window.location.assign('/setup'), 900);
         } else if (message === 'Invalid login credentials') {
           this.setState({

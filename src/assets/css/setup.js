@@ -157,8 +157,8 @@ export const BusinessSetUpStyles = {
 export const FooterStyles = {
   appbar: {
     backgroundColor: '#424242',
+    marginTop: 'calc(12% + 64px)',
     bottom: '0',
-    marginTop: 'calc(20% + 64px)',
     position: 'relative'
   },
 };
