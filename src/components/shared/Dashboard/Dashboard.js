@@ -10,7 +10,7 @@ import SVGIcon from './Icons';
 class Dashboard extends Component {
   state = {
     anchorEl: null,
-    isActive: 'grid1'
+    isActive: this.props.isActive || 'grid1'
   };
 
   handleMenu = (event) => {
@@ -32,12 +32,14 @@ class Dashboard extends Component {
 
     switch (event.currentTarget.id) {
     case 'grid1':
+      window.location.href = '/dashboard';
       this.setState({ isActive: 'grid1' });
       break;
     case 'grid2':
       this.setState({ isActive: 'grid2' });
       break;
     case 'grid3':
+      window.location.href = '/products';
       this.setState({ isActive: 'grid3' });
       break;
     case 'grid4':

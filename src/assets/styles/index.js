@@ -21,6 +21,50 @@ const AppTheme = createMuiTheme({
     ].join(','),
     useNextVariants: true
   },
+
+  // Overrides the dataTable at src/products/productsTable
+  overrides: {
+    MuiTableRow: {
+      head: {
+        height: '30px',
+      },
+      root: {
+        cursor: 'pointer',
+      }
+    },
+    MuiTableCell: {
+      head: {
+        whiteSpace: 'nowrap',
+        textTransform: 'uppercase',
+      }
+    },
+    MUIDataTableHeadCell: {
+      fixedHeader: {
+        backgroundColor: '#E3E3E3',
+        fontWeight: '800',
+        color: '#393939'
+      }
+    },
+    MUIDataTableSelectCell: {
+      headerCell: {
+        backgroundColor: '#E3E3E3',
+      },
+      fixedHeader: {
+        backgroundColor: 'white',
+      }
+    },
+    MuiTypography: {
+      h6: {
+        fontSize: '1rem',
+        textDecoration: 'bold'
+      }
+    },
+    MuiSvgIcon: {
+      root: {
+        fill: '#757575',
+      }
+    }
+  }
 });
 
 export default AppTheme;

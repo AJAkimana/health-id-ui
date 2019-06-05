@@ -4,6 +4,7 @@ import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
 import Dashboard from './shared/Dashboard/Dashboard';
+import Products from './products/productsTable';
 
 const App = ({ session }) => (
   <div>
@@ -13,6 +14,7 @@ const App = ({ session }) => (
       <Route exact path="/setup" component={StepperNav} />
       <Route exact path="/dashboard" render={() => <Dashboard session={session} />} />
       <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />
+      <Route exact path="/products" render={() => <Products session={session} />} />
     </Switch>
   </div>
 );
