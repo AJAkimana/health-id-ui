@@ -26,17 +26,41 @@ const dashboardStyles = () => ({
     width: '30%',
     marginTop: '1em'
   },
+  DashboardImg: {
+    width: '31%',
+    marginTop: '1em'
+  },
+  ReportImg: {
+    width: '24%',
+    marginTop: '1em',
+    marginBottom: '0.1em'
+  },
   productImg: {
-    width: '22%',
+    width: '19%',
     marginTop: '1em'
   },
   suppliersImg: {
     width: '36%',
     marginTop: '1em'
   },
-  customersImg: {
-    width: '28%',
+  cashImg: {
+    width: '31%',
     marginTop: '1em'
+  },
+  customersImg: {
+    width: '21%',
+    marginTop: '1em',
+    marginBottom: '0.1em'
+  },
+  teamImg: {
+    width: '22%',
+    marginTop: '1em',
+    marginBottom: '0.3em'
+  },
+  settingsImg: {
+    width: '21%',
+    marginTop: '1em',
+    marginBottom: '0.3em'
   },
   typographyText: {
     textAlign: 'center',

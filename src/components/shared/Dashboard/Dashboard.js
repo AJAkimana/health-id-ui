@@ -92,125 +92,40 @@ class Dashboard extends Component {
       return fill;
     };
 
+    const renderGrid = (id, name, imagestyle, label) => (
+      <Grid
+        item
+        id={id}
+        onClick={this.handleOnClick}
+        style={handleActiveGrid(id)}
+      >
+        <div style={styles.imgDiv}>
+          <SVGIcon name={name} style={imagestyle} fill={handleActiveImage(id)} />
+        </div>
+        <Typography
+          variant="overline"
+          style={handleActiveText(id)}
+        >
+          {label}
+        </Typography>
+      </Grid>
+    );
+
     return (
       <Grid container style={styles.appbar}>
         <Grid item>
           <img className="logo" src={logo} alt="some text" style={styles.logo} />
         </Grid>
 
-        <Grid
-          item
-          id="grid1"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid1')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Dashboard" style={styles.innerImg} fill={handleActiveImage('grid1')} />
-          </div>
-          <Typography
-            variant="overline"
-            style={handleActiveText('grid1')}
-          >
-            DASHBOARD
-          </Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid2"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid2')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Sell" style={styles.innerImg} fill={handleActiveImage('grid2')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid2')}>SELL</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid3"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid3')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Product" style={styles.productImg} fill={handleActiveImage('grid3')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid3')}>PRODUCTS</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid4"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid4')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Suppliers" style={styles.suppliersImg} fill={handleActiveImage('grid4')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid4')}>ORDERS & SUPPLIERS</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid5"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid5')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Cash" style={styles.suppliersImg} fill={handleActiveImage('grid5')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid5')}>CASH & FINANCES</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid6"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid6')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Report" style={styles.innerImg} fill={handleActiveImage('grid6')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid6')}>REPORT</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid7"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid7')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Customer" style={styles.customersImg} fill={handleActiveImage('grid7')} />
-
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid7')}>CUSTOMERS</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid8"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid8')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Team" style={styles.innerImg} fill={handleActiveImage('grid8')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid8')}>TEAM</Typography>
-        </Grid>
-
-        <Grid
-          item
-          id="grid9"
-          onClick={this.handleOnClick}
-          style={handleActiveGrid('grid9')}
-        >
-          <div style={styles.imgDiv}>
-            <SVGIcon name="Settings" style={styles.innerImg} fill={handleActiveImage('grid9')} />
-          </div>
-          <Typography variant="overline" style={handleActiveText('grid9')}>SETUP</Typography>
-        </Grid>
+        {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD')}
+        {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL')}
+        {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS')}
+        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS')}
+        {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES')}
+        {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT')}
+        {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS')}
+        {renderGrid('grid8', 'Team', styles.teamImg, 'TEAM')}
+        {renderGrid('grid9', 'Settings', styles.settingsImg, 'SETUP')}
 
       </Grid>
     );

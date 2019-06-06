@@ -14,6 +14,7 @@ const LowerDashboard = ({
 }) => {
   const date = new Date();
   const newDate = String(date).slice(0, 25);
+  const slicedDate = newDate.toString().split(' ').slice(0, 4).join(' ');
   const localle = String(date).slice(27);
 
   return (
@@ -23,7 +24,7 @@ const LowerDashboard = ({
           variant="inherit"
           style={lowerDashboardStyles.typographyText}
         >
-          {newDate}
+          {slicedDate}
 &emsp;
           {localle}
 
