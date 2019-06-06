@@ -11,7 +11,7 @@ const NavBar = () => (
       <Toolbar style={NavBarStyles.toolBar}>
         <img className="logo" src={logo} alt="some text" style={NavBarStyles.logo} />
         <Typography variant="h5" style={NavBarStyles.typography}>
-            SETUP ACCOUNT
+            NAVBAR
         </Typography>
         <div />
       </Toolbar>

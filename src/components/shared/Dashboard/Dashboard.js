@@ -238,10 +238,12 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
+  isActive: PropTypes.string,
 };
 
 Dashboard.defaultProps = {
   session: { me: {} },
+  isActive: ''
 };
 
 export default Dashboard;

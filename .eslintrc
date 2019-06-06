@@ -38,6 +38,7 @@
       "required": {
       "some": [ "nesting", "id"  ]
         }
-      }]
+      }],
+    "import/no-named-as-default": 0
   }
 }
