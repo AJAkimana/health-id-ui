@@ -6,6 +6,8 @@ import SteppedNav, { StepperNav } from '../components/setup/Stepper';
 import BusinessSetUp from '../components/setup/businessSetup';
 import AdminSetUp from '../components/setup/adminSetup';
 import withAuth from '../components/withAuth';
+import UserSetup from '../components/setup/userSetup';
+import FinalScreen from '../components/setup/finalScreen';
 
 const results = {
   data: {
@@ -36,6 +38,35 @@ const results = {
           id: 9
         }
       }
+    },
+    addUser: {
+      user: {
+        id: 'userId',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        email: 'email',
+        mobileNumber: '+254725976394',
+        jobTitle: 'Cashier',
+        username: 'username',
+        startingDate: '2019-01-01',
+        users: [{ id: 'outletId' }],
+        role: { id: 'userRole' },
+      },
+      errors: null,
+    },
+    adminUpdateUser: {
+      message: [
+        'message',
+        'You have successfully updated this User.'
+      ],
+    },
+  },
+};
+
+const errorResults = {
+  data: {
+    addUser: {
+      errors: ['Something went wrong: Problem adding user'],
     }
   }
 };
@@ -55,7 +86,31 @@ const props = {
         name: 'Nigeria',
         citySet: [{ city: '' }]
       }]
+    },
+    userRoles: {
+      roles: [],
+      loading: false,
+      error: null,
+    },
+    assignedOutlets: {
+      business: {
+        users: []
+      },
+      loading: false,
+      error: null,
     }
+  },
+  assignedOutlets: {
+    roles: [],
+    loading: false,
+    error: null,
+    refetch: jest.fn(),
+  },
+  userRoles: {
+    roles: [],
+    loading: false,
+    error: null,
+    refetch: jest.fn(),
   },
   classes: {},
   editAdmin: jest.fn(() => Promise.resolve()),
@@ -69,6 +124,8 @@ const props = {
   updateReceiptTemplate: jest.fn(() => Promise.resolve()),
   updateRegister: jest.fn(() => Promise.resolve()),
   fetchUserData: jest.fn(),
+  addUser: jest.fn(() => Promise.resolve(results)),
+  adminUserUpdate: jest.fn(() => Promise.resolve(results)),
 };
 
 let event = {
@@ -95,6 +152,83 @@ const event1 = {
     value: 'michael'
   }
 };
+
+describe('Test UserSetup', () => {
+  let wrapper = shallow(<StepperNav {...props} />);
+  wrapper.instance().setState({
+    activeStep: 3, showUsers: true, users: [], editMode: false
+  });
+  const InviteButton = wrapper.find('#next-button');
+
+  it('renders UserSetup correctly', () => {
+    expect(wrapper.find(UserSetup)).toHaveLength(1);
+  });
+  it('handleNextButton function is called when invite button is clicked', () => {
+    InviteButton.simulate('click');
+    const spy = jest.spyOn(wrapper.instance(), 'handleNextButton');
+    wrapper.instance().handleNextButton();
+    expect(spy).toHaveBeenCalled();
+  });
+  it('calls add user when the form is valid', () => {
+    wrapper.instance().handleClickAddButton();
+    wrapper.instance().setState({
+      userEmail: 'rich@example.com',
+      phone: '+254724465678',
+      roleId: 'roleId',
+      outlet: 'outletId',
+      userUsername: 'username',
+    });
+    InviteButton.simulate('click');
+    const spyOnAddUser = jest.spyOn(wrapper.instance(), 'addUser');
+    wrapper.instance().handleNextButton();
+    expect(spyOnAddUser).toHaveBeenCalled();
+  });
+  it('sets state appropriately when the edit function is called', () => {
+    const user = {
+      firstName: '',
+      lastName: '',
+      email: 'rich@example.com',
+      mobileNumber: '+254724465678',
+      jobTitle: '',
+      role: 'roleId',
+      username: '',
+      users: [{ id: 'outletId' }],
+      target: '',
+      startingDate: '2019-01-01',
+      id: 'userId'
+    };
+
+    wrapper.instance().sendEditInfo(user);
+    expect(wrapper.instance().state.userEmail).toBe('rich@example.com');
+  });
+  it('displays errors without crashing', () => {
+    props.addUser = jest.fn(() => Promise.resolve(errorResults));
+    wrapper = shallow(<StepperNav {...props} />);
+    wrapper.instance().addUser();
+    expect(props.addUser).toBeCalled();
+  });
+  it('catches errors correctly when adding users', () => {
+    props.addUser = jest.fn(() => Promise.resolve());
+    wrapper = shallow(<StepperNav {...props} />);
+    wrapper.instance().addUser();
+    expect(props.addUser).toBeCalled();
+  });
+  it('catches errors correctly when updating users', () => {
+    props.adminUserUpdate = jest.fn(() => Promise.resolve());
+    wrapper = shallow(<StepperNav {...props} />);
+    wrapper.instance().setState({ editMode: true });
+    wrapper.instance().addUser();
+    expect(props.adminUserUpdate).toBeCalled();
+  });
+
+  it('renders the final Screen correctly', () => {
+    wrapper.instance().setState({ activeStep: 3, showUsers: true, users: [{ email: 'email.test.com' }, { email: 'second.test.com' }] });
+    const finishButton = wrapper.find('#next-button');
+    finishButton.simulate('click');
+    const finalPage = wrapper.find(FinalScreen).length;
+    expect(finalPage).toBe(1);
+  });
+});
 
 describe('Test stepper component', () => {
   const wrapper = shallow(<StepperNav {...props} />);
@@ -165,7 +299,7 @@ describe('Test stepper component', () => {
     nextButton.simulate('click');
     expect(spy).toHaveBeenCalled();
   });
-    
+
   it('renders OutletSetup Component when next button is clicked', () => {
     wrapper.setState({ checked: true, isLoading: false, activeStep: 2 });
     expect(wrapper.find('OutletSetUp').length).toBe(1);
@@ -241,7 +375,7 @@ describe('Test stepper component', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleBackButton');
     wrapper.instance().handleBackButton();
     expect(spy).toHaveBeenCalled();
-    expect(wrapper.instance().state.checked).toBeFalsy();
+    expect(wrapper.instance().state.checked).toBeTruthy();
   });
 
   it('calls onSelectFile method when an image is selected from the file picker ', () => {
@@ -684,6 +818,18 @@ describe('Test stepper component', () => {
           citySet: [],
         }],
       },
+      userRoles: {
+        roles: [],
+        loading: false,
+        error: null,
+      },
+      assignedOutlets: {
+        business: {
+          users: []
+        },
+        loading: false,
+        error: null,
+      }
     };
     wrapper.instance().fetchUserData(newProps);
     expect(wrapper.instance().state.countries[0].name).toBe('Nigeria');

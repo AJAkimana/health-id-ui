@@ -33,10 +33,13 @@ import UPDATE_RECEIPT_TEMP from '../../mutations/updateReceiptTempMutation';
 import UPDATE_REGISTER from '../../mutations/updateRegisterMutation';
 import DELETE_RECEIPT_TEMPLATE from '../../mutations/deleteReceiptTempMutation';
 import withAuth from '../withAuth';
+import UserSetup from './userSetup';
+import { ADD_NEW_USER, ADMIN_UPDATE_USER } from '../../mutations/addUsersSetupMutation';
+import { GET_ROLES, GET_OUTLETS } from '../../queries/addUsersSetupQuery';
 
 const styles = StepperStyles;
 
-const steps = ['Admin Account', 'Business Information', 'Add Outlet(s)'];
+const steps = ['Admin Account', 'Business Information', 'Add Outlet(s)', 'Add User(s)'];
 
 export class StepperNav extends React.Component {
   state = {
@@ -111,6 +114,26 @@ export class StepperNav extends React.Component {
     totalTax: false,
     outletSet: [],
     edittingOutlet: false,
+    // step 4: Add User(s)
+    jobTitle: '',
+    startingDate: '2019-01-01',
+    target: '',
+    fName: '',
+    lName: '',
+    userEmail: '',
+    userUsername: '',
+    phone: '',
+    roleId: '',
+    outlet: '',
+    userId: '',
+    roles: [],
+    outlets: [],
+    editMode: false,
+    users: [],
+    showUsers: true,
+    phoneError: false,
+    usernameError: false,
+    emailError: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -162,41 +185,79 @@ export class StepperNav extends React.Component {
         />
       );
 
+    case 3:
+      return (
+        <UserSetup
+          state={this.state}
+          handleInPutChange={this.handleInPutChange}
+          handleClickAddButton={this.handleClickAddButton}
+          sendEditInfo={this.sendEditInfo}
+          errorHandler={this.errorHandler}
+        />
+      );
+
     default:
       return null;
     }
   }
 
-  handleNextButton = () => {
-    const { activeStep } = this.state;
-
-    switch (activeStep) {
-    case 0: {
-      const isValidated = this.handleInputValidation();
-      if (!isValidated) {
-        this.setState({ formError: false });
-        this.editAdminUser();
-      }
-    }
-      break;
-
-    case 1: {
-      const isFormValid = this.handleBusinessFormInputValidation();
-      if (!isFormValid) {
-        this.addBusiness();
-      }
-    }
-      break;
-
-    default:
-      break;
-    }
+  handleClickAddButton = () => {
+    const { showUsers } = this.state;
+    this.setState({
+      fName: '',
+      lName: '',
+      userEmail: '',
+      phone: '',
+      jobTitle: '',
+      roleId: '',
+      userUsername: '',
+      outlet: '',
+      target: '',
+      startingDate: '2019-01-01',
+      showUsers: !showUsers,
+      editMode: false,
+      formError: false,
+      isError: false,
+      phoneError: false,
+      usernameError: false,
+      emailError: false,
+    });
   }
+
+   sendEditInfo = (user) => {
+     const {
+       firstName, lastName,
+       email, mobileNumber,
+       jobTitle, role, username,
+       users, target, startingDate, id
+     } = user;
+     this.setState({
+       fName: firstName,
+       lName: lastName,
+       userEmail: email,
+       phone: mobileNumber,
+       jobTitle,
+       roleId: role.id,
+       userUsername: username,
+       outlet: users[0].id,
+       target,
+       startingDate,
+       userId: id,
+       showUsers: false,
+       editMode: true,
+       isError: false,
+       phoneError: false,
+       usernameError: false,
+       emailError: false,
+     });
+   }
 
   handleBackButton = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1,
-      checked: false,
+      checked: true,
+      showUsers: true,
+      formError: false,
     }));
   };
 
@@ -218,6 +279,20 @@ export class StepperNav extends React.Component {
     }
     return isInvalid;
   };
+
+  handleUserFormValidation = () => {
+    const {
+      userEmail,
+      phone,
+      roleId,
+      outlet,
+      userUsername
+    } = this.state;
+
+    const isFormValid = (userEmail && phone && roleId && outlet && userUsername);
+    !isFormValid && this.setState({ formError: true, isError: true });
+    return isFormValid;
+  }
 
   handleBusinessFormInputValidation = () => {
     const {
@@ -281,12 +356,13 @@ export class StepperNav extends React.Component {
     return isInvalid;
   }
 
-  errorHandler = () => {
-    const { formError } = this.state;
+  errorHandler = (error) => {
+    const { formError, isError } = this.state;
     let errorMessage;
-
     if (formError) {
       errorMessage = 'Please provide a value for this field';
+    } else if (isError) {
+      errorMessage = error;
     } else {
       errorMessage = '';
     }
@@ -307,7 +383,14 @@ export class StepperNav extends React.Component {
 
   handleInPutChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({
+      [name]: value,
+      isError: false,
+      formError: false,
+      phoneError: false,
+      usernameError: false,
+      emailError: false,
+    });
     if (name === 'country') {
       this.setLocale(value);
     }
@@ -588,7 +671,15 @@ export class StepperNav extends React.Component {
       const finishOutlet = this.finishAddOutlet();
     }
       break;
-
+    case 3: {
+      const { showUsers, users } = this.state;
+      if (showUsers && users.length > 1) {
+        return this.setState({ activeStep: activeStep + 1 });
+      }
+      const isUserFormValid = this.handleUserFormValidation();
+      isUserFormValid && this.addUser();
+    }
+      break;
     default:
       break;
     }
@@ -616,15 +707,28 @@ export class StepperNav extends React.Component {
     const {
       userData: { me, loading, error },
       countriesData: { countries },
+      userRoles: { roles, loading: rolesLoading, error: rolesError },
+      assignedOutlets: { business, loading: outletsLoading, error: outletsError },
     } = nextProps;
 
-    if (loading) {
-      return this.setState({ isLoading: false });
+    if (loading || rolesLoading || outletsLoading) {
+      return this.setState({ isLoading: true });
     }
-    if (error) {
+    if (error || rolesError || outletsError) {
       return this.setState({ serverError: error.message.slice(14), isError: true });
     }
     const { mobileNumber, email } = me;
+    const { activeStep } = this.state;
+    if (activeStep === 3) {
+      return this.setState({
+        outlets: business.outletSet,
+        users: business.user,
+        isLoading: false,
+        roles,
+        email,
+      });
+    }
+
     let cities = [];
     countries && countries.map((country) => {
       if (country.name === 'Nigeria') {
@@ -632,7 +736,7 @@ export class StepperNav extends React.Component {
       }
     });
     return this.setState({
-      mobileNumber, email, cities, countries
+      mobileNumber, email, cities, countries, isLoading: false
     });
   }
 
@@ -706,6 +810,7 @@ export class StepperNav extends React.Component {
         facebook,
       }
     }).then((results) => {
+      localStorage.setItem('businessId', results.data.createBusiness.business.id);
       notify(results.data.createBusiness.success[0]);
       this.setState({
         isLoading: false,
@@ -1037,14 +1142,107 @@ export class StepperNav extends React.Component {
 
   finishAddOutlet = () => {
     const { activeStep } = this.state;
+    const { businessId } = localStorage;
+    const { assignedOutlets, userRoles } = this.props;
+    const { refetch } = assignedOutlets;
+    const { refetch: refetchRoles } = userRoles;
+    refetch({ id: businessId });
+    refetchRoles();
     this.setState({ activeStep: activeStep + 1 });
+  }
+
+  classifyFormErrors = (errorMessage) => {
+    this.setState({ isLoading: false, isError: true });
+    if (errorMessage.includes('mobile number')) {
+      return this.setState({ phoneError: errorMessage });
+    }
+    if (errorMessage.includes('username')) {
+      return this.setState({ usernameError: errorMessage });
+    }
+    if (errorMessage.includes('email')) {
+      return this.setState({ emailError: errorMessage });
+    }
+    return notify(errorMessage);
+  }
+
+  addUser = () => {
+    this.setState({ isLoading: true });
+    const {
+      fName,
+      lName,
+      userUsername,
+      userEmail,
+      phone,
+      jobTitle,
+      roleId,
+      outlet,
+      startingDate,
+      userId,
+      editMode,
+    } = this.state;
+
+    const { businessId } = localStorage;
+    const { assignedOutlets } = this.props;
+    const { refetch } = assignedOutlets;
+
+    const { addUser, adminUserUpdate } = this.props;
+    if (!editMode) {
+      addUser({
+        variables: {
+          firstName: fName,
+          lastName: lName,
+          userUsername,
+          userEmail,
+          roleId,
+          outlet,
+          phone,
+          jobTitle,
+          startingDate,
+        }
+      }).then((results) => {
+        refetch({ id: businessId });
+        const { addUser: fetchedUser } = results.data;
+        if (fetchedUser.errors) {
+          this.classifyFormErrors(fetchedUser.errors[0].slice(22));
+        } else {
+          this.setState({
+            showUsers: true, isLoading: false, isError: false, formError: false,
+          });
+          notify('User registered successfully');
+        }
+      }).catch((error) => {
+        this.classifyFormErrors(error.message.slice(15));
+      });
+    } else {
+      adminUserUpdate({
+        variables: {
+          userId,
+          firstName: fName,
+          lastName: lName,
+          userUsername,
+          userEmail,
+          phone,
+          jobTitle,
+          startingDate,
+        }
+      }).then((results) => {
+        refetch({ id: businessId });
+        this.setState({
+          showUsers: true, isLoading: false, isError: false
+        });
+        notify(results.data.adminUpdateUser.message[1]);
+      }).catch((error) => {
+        this.classifyFormErrors(error.message.slice(15));
+      });
+    }
   }
 
   render() {
     const {
-      activeStep, checked, isLoading, unhideMainButtons
+      activeStep, checked, isLoading, unhideMainButtons, showUsers, users, editMode
     } = this.state;
     const { classes } = this.props;
+
     return (
       <React.Fragment>
         {activeStep === steps.length ? null : <NavBar /> }
@@ -1079,7 +1277,7 @@ export class StepperNav extends React.Component {
                 <React.Fragment>
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
-                    {activeStep !== 0 && unhideMainButtons && (
+                    {((activeStep !== 0 && showUsers && unhideMainButtons) || (showUsers && activeStep === 3 && unhideMainButtons)) && (
                       <Button
                         onClick={this.handleBackButton}
                         className={classes.backButton}
@@ -1089,20 +1287,70 @@ export class StepperNav extends React.Component {
                         Back
                       </Button>
                     )}
+                    {!showUsers && activeStep === 3 && (
+                      <Button
+                        onClick={this.handleClickAddButton}
+                        className={classes.backButton}
+                        variant="text"
+                        id="back-button"
+                      >
+                        Cancel
+                      </Button>
+                    )}
+
                     {isLoading
                       ? (<Loader />)
                       : (
                         unhideMainButtons && (
-                          <Fab
-                            variant="extended"
-                            color="primary"
-                            disabled={!checked}
-                            onClick={this.handleNextButton}
-                            className={classes.button}
-                            id="next-button"
-                          >
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                          </Fab>
+                          (activeStep !== 3) ? (
+                            <Fab
+                              variant="extended"
+                              color="primary"
+                              disabled={!checked}
+                              onClick={this.handleNextButton}
+                              className={classes.button}
+                              id="next-button"
+                            >
+                              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            </Fab>
+                          ) : (
+                            showUsers && users.length > 1 ? (
+                              <Fab
+                                variant="extended"
+                                color="primary"
+                                disabled={false}
+                                onClick={this.handleNextButton}
+                                className={classes.button}
+                                id="next-button"
+                              >
+                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                              </Fab>
+                            ) : (
+                              editMode ? (
+                                <Fab
+                                  variant="extended"
+                                  color="primary"
+                                  disabled={false}
+                                  onClick={this.handleNextButton}
+                                  className={classes.button}
+                                  id="next-button"
+                                >
+                                Save Changes
+                                </Fab>
+                              ) : (
+                                <Fab
+                                  variant="extended"
+                                  color="primary"
+                                  disabled={false}
+                                  onClick={this.handleNextButton}
+                                  className={classes.button}
+                                  id="next-button"
+                                >
+                                Invite
+                                </Fab>
+                              )
+                            )
+                          )
                         )
                       )
                     }
@@ -1132,6 +1380,10 @@ StepperNav.propTypes = {
   updateRegister: PropTypes.instanceOf(Object).isRequired,
   editAdmin: PropTypes.func.isRequired,
   createBusiness: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
+  adminUserUpdate: PropTypes.func.isRequired,
+  assignedOutlets: PropTypes.instanceOf(Object).isRequired,
+  userRoles: PropTypes.instanceOf(Object).isRequired,
 };
 
 const UPDATE_ADMIN_USER_MUTATION = graphql(UPDATE_ADMIN_USER, { name: 'editAdmin' });
@@ -1146,6 +1398,18 @@ const DELETE_OUTLET_MUTATION = graphql(DELETE_OUTLET, { name: 'deleteOutlet' });
 const UPDATE_RECEIPT_TEMP_MUTATION = graphql(UPDATE_RECEIPT_TEMP, { name: 'updateReceiptTemplate' });
 const UPDATE_REGISTER_MUTATION = graphql(UPDATE_REGISTER, { name: 'updateRegister' });
 const DELETE_RECEIPT_TEMP_MUTATION = graphql(DELETE_RECEIPT_TEMPLATE, { name: 'deleteReceipt' });
+const ADD_USER = graphql(ADD_NEW_USER, { name: 'addUser' });
+const ADMIN_USER_UPDATE = graphql(ADMIN_UPDATE_USER, { name: 'adminUserUpdate' });
+const GET_USER_ROLES = graphql(GET_ROLES, { name: 'userRoles' });
+const GET_ASSIGNED_OUTLETS = graphql(GET_OUTLETS,
+  {
+    name: 'assignedOutlets',
+    options: {
+      variables: {
+        id: localStorage.businessId,
+      },
+    }
+  },);
 
 export default compose(
   UPDATE_ADMIN_USER_MUTATION,
@@ -1160,4 +1424,9 @@ export default compose(
   UPDATE_RECEIPT_TEMP_MUTATION,
   UPDATE_REGISTER_MUTATION,
   DELETE_RECEIPT_TEMP_MUTATION,
+  ADD_BUSINESS_MUTATION,
+  ADD_USER,
+  ADMIN_USER_UPDATE,
+  GET_USER_ROLES,
+  GET_ASSIGNED_OUTLETS,
 )(withAuth(session => session && session.me)(withStyles(styles)(StepperNav)));

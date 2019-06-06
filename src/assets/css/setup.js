@@ -325,3 +325,52 @@ export const OutletsTable = {
     textTransform: 'capitalize'
   }
 };
+
+export const AddUserStyles = {
+  paper: {
+    marginBottom: '15px',
+    paddingLeft: '30px',
+    backgroundColor: '#F5F5F5',
+  },
+  delete: {
+    justifyContent: 'space-between',
+    padding: '5px 8px',
+    cursor: 'pointer',
+    width: '40px',
+    color: 'white',
+    backgroundColor: 'red',
+  },
+  edit: {
+    justifyContent: 'space-between',
+    backgroundColor: '#1C7CFF',
+    padding: '5px 8px',
+    cursor: 'pointer',
+    width: '40px',
+  },
+  autorenew: {
+    justifyContent: 'space-between',
+    padding: '5px 8px',
+    cursor: 'pointer',
+    width: '40px',
+    color: 'white',
+    backgroundColor: '#44C382',
+  },
+  underline: {
+    textDecoration: 'underline',
+  },
+  addGrid: {
+    cursor: 'pointer',
+    marginLeft: '80%',
+    marginBottom: '12px',
+  },
+  controls: {
+    display: 'inline-block'
+  },
+  form: {
+    width: '80%',
+    margin: 'auto',
+  },
+  textFields: {
+    marginBottom: '20px',
+  }
+};
