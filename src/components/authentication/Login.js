@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  TextField, Checkbox, Grid, CircularProgress, FormControl
+  TextField, Grid, CircularProgress, FormControl
 } from '@material-ui/core';
 import LoginAlert from './Alerts/LoginAlert';
 import ForgotPasswordAlert from './Alerts/ForgotPasswordAlert';
@@ -44,32 +44,16 @@ class Login extends Component {
 
   renderPhoneInputs = (phoneLabelNum) => {
     const {
-      state: {
-        phoneNumber, Code, PhoneError, helperPhoneText
-      },
-      handleChange, handlePhoneChange,
+      state: { phone }, handlePhoneChange,
     } = this.props;
     return (
       <div>
-        <Grid container spacing={16}>
-          <Grid item xs={2}>
-            <SelectCountry
-              Code={Code}
-              handleChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={10}>
-            <TextField
-              label={phoneLabelNum}
-              name="phoneNumber"
-              fullWidth
-              required
-              value={phoneNumber}
-              error={PhoneError}
-              onChange={handlePhoneChange}
-            />
-            {helperPhoneText}
-          </Grid>
+        <Grid container spacing={16} className="login-phone-grid">
+          <SelectCountry
+            phone={phone}
+            onChange={handlePhoneChange}
+            label={phoneLabelNum}
+          />
         </Grid>
       </div>
     );
@@ -79,9 +63,9 @@ class Login extends Component {
   render() {
     const {
       state: {
-        email, password, loading, showPassword, helperPasswordText, passwordError,
+        email, password, loading, showPassword,
         checked, inputType, openAlert, loginSuccess, loginErrors,
-        PhoneError, EmailError, openForgotPasswordAlert, disabled, helperEmailText
+        EmailError, openForgotPasswordAlert, disabled, helperEmailText
       },
       handlePasswordChange, handlePasswordVisibility, handleSubmit,
       handleChangeInput, handleCloseLoginAlert, handleCheckbox, handleEmailChange,
@@ -90,7 +74,6 @@ class Login extends Component {
     } = this.props;
 
     const hidden = loading ? { display: 'none' } : { display: 'block' };
-    const formError = passwordError || EmailError || PhoneError;
 
     const activeEmail = inputType === 'email' ? '--active' : '';
     const activePhone = inputType === 'phone' ? '--active' : '';
@@ -112,23 +95,17 @@ class Login extends Component {
           </div>
           <PasswordField
             showPassword={showPassword}
-            error={passwordError}
             password={password}
             handlePasswordChange={handlePasswordChange}
             handlePasswordVisibility={handlePasswordVisibility}
-            helperPasswordText={helperPasswordText}
           />
           <div className="form-checks">
             <div className="check-login">
-              <Checkbox
-                checked={checked}
-                onChange={handleCheckbox}
-                className="checkbox"
-                value="checked"
-                color="primary"
-              />
-              &nbsp;&nbsp;
-              <small className="small-text">Remember me</small>
+              <label className="check-container">
+                <small className="small-text">Remember me</small>
+                <input type="checkbox" checked={checked} name="checked" onChange={handleCheckbox} />
+                <span className="checkmark" />
+              </label>
             </div>
             <div className="reset-password">
               <button type="button" className="password-link" onClick={handleOpenForgotPasswordAlert}>Forgot password?</button>
@@ -145,7 +122,7 @@ class Login extends Component {
             helperEmailText={helperEmailText}
           />
           {loading ? <CircularProgress color="primary" className="loader" /> : ''}
-          {formError
+          {EmailError
             ? (
               <button className="disabled-register" type="button" disabled>LOGIN</button>
             )
@@ -172,18 +149,17 @@ class Login extends Component {
 
 Login.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handlePasswordChange: PropTypes.func.isRequired,
-  handlePasswordVisibility: PropTypes.func.isRequired,
-  handleEmailChange: PropTypes.func.isRequired,
-  handleCloseLoginAlert: PropTypes.func.isRequired,
-  handleCheckbox: PropTypes.func.isRequired,
-  handlePhoneChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleChangeInput: PropTypes.func.isRequired,
-  handlePasswordReset: PropTypes.func.isRequired,
-  handleCloseForgotPasswordAlert: PropTypes.func.isRequired,
-  handleOpenForgotPasswordAlert: PropTypes.func.isRequired,
+  handlePasswordChange: PropTypes.func,
+  handlePasswordVisibility: PropTypes.func,
+  handleEmailChange: PropTypes.func,
+  handleCloseLoginAlert: PropTypes.func,
+  handleCheckbox: PropTypes.func,
+  handlePhoneChange: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  handleChangeInput: PropTypes.func,
+  handlePasswordReset: PropTypes.func,
+  handleCloseForgotPasswordAlert: PropTypes.func,
+  handleOpenForgotPasswordAlert: PropTypes.func,
 };
 
 

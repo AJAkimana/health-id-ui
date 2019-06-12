@@ -8,34 +8,34 @@ import {
   RESET_PASSWORD_MUTATION
 } from './mutations/mutations';
 import {
-  validateEmail, validatePasswordLength, validatePhoneNumber
+  validateEmail, validatePasswordLength,
 } from '../../utils/Validation';
 import logo from '../../assets/images/logo.png';
 import Register from './Register';
 import Login from './Login';
 
+
 const initialState = {
   email: '',
   password: '',
-  Code: '',
-  phoneNumber: '',
+  phone: '',
   loading: false,
   checked: false,
   showPassword: false,
   helperPasswordText: '',
-  helperEmailText: '',
+  helperEmailText: [],
   passwordError: false,
   EmailError: false,
   helperPhoneText: '',
   PhoneError: false,
   openAlert: false,
   openForgotPasswordAlert: false,
-  errors: '',
-  success: null,
-  loginSuccess: false,
-  loginErrors: false,
   inputType: 'email',
-  disabled: false
+  disabled: false,
+  registerErrors: '',
+  registerSuccess: null,
+  loginSuccess: false,
+  loginErrors: '',
 };
 
 export class AuthContainer extends Component {
@@ -49,7 +49,7 @@ export class AuthContainer extends Component {
       Code: '',
       phoneNumber: '',
       helperPasswordText: '',
-      helperEmailText: '',
+      helperEmailText: [],
       helperPhoneText: '',
       passwordError: false,
       EmailError: false,
@@ -65,7 +65,7 @@ export class AuthContainer extends Component {
       Code: '',
       phoneNumber: '',
       helperPasswordText: '',
-      helperEmailText: '',
+      helperEmailText: [],
       helperPhoneText: '',
       passwordError: false,
       EmailError: false,
@@ -78,20 +78,14 @@ export class AuthContainer extends Component {
       openForgotPasswordAlert: false,
       email: '',
       EmailError: false,
-      helperEmailText: '',
+      helperEmailText: [],
     });
   }
-
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
 
   handleCheckbox = (event) => {
     const { checked } = event.target;
     this.setState({ checked });
   }
-
 
   handleChangeInput = (event) => {
     const value = event.target.id.split('-')[0];
@@ -108,13 +102,9 @@ export class AuthContainer extends Component {
     });
   }
 
-  handlePhoneChange = (event) => {
-    const { value } = event.target;
-    this.setState({ phoneNumber: value });
-    const array = validatePhoneNumber(value);
+  handlePhoneChange = (value) => {
     this.setState({
-      helperPhoneText: array[0],
-      PhoneError: array[1]
+      phone: value
     });
   }
 
@@ -135,7 +125,7 @@ export class AuthContainer extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { inputType } = this.state;
+    const { inputType, phone } = this.state;
     let values;
     if (inputType === 'email') {
       values = {
@@ -147,9 +137,7 @@ export class AuthContainer extends Component {
     if (inputType === 'phone') {
       values = {
         password: event.target.password.value,
-        mobileNumber: (event.target.Code.value).concat(
-          event.target.phoneNumber.value
-        )
+        mobileNumber: phone
       };
       this.handleMobileLogin(values);
     }
@@ -158,18 +146,18 @@ export class AuthContainer extends Component {
   handleSignup = () => {
     const { signup } = this.props;
     const {
-      email, Code, phoneNumber, password
+      email, phone, password
     } = this.state;
     this.setState({ loading: true });
     signup({
       variables: {
         email,
-        mobileNumber: Code.concat(phoneNumber),
+        mobileNumber: phone,
         password,
       }
     })
       .then((data) => {
-        const { success } = data.data.createUser;
+        const { success, errors } = data.data.createUser;
         this.setState({
           loading: false,
           openAlert: true
@@ -177,15 +165,23 @@ export class AuthContainer extends Component {
 
         if (success) {
           this.setState({
-            success
+            registerSuccess: success,
+            password: '',
+            helperPasswordText: '',
+            helperEmailText: [],
+            helperPhoneText: '',
           });
           setTimeout(() => window.location.assign('/login'), 1500);
+        } else if (errors) {
+          this.setState({
+            registerErrors: errors[0].split(':')[1]
+          });
         }
       })
       .catch((err) => {
         this.setState({
           loading: false,
-          errors: err.message.split(':')[1],
+          registerErrors: err.message.split(':')[1],
           openAlert: true
         });
       });
@@ -209,23 +205,22 @@ export class AuthContainer extends Component {
           localStorage.setItem('auth_token', token);
           this.setState({
             loginSuccess: true,
-            loginErrors: false,
+            loginErrors: '',
+            email: '',
+            password: '',
+            helperPasswordText: '',
+            helperEmailText: [],
           });
 
           if (!isAdmin) {
             setTimeout(() => window.location.assign('/profile'), 900);
           }
           setTimeout(() => window.location.assign('/setup'), 900);
-        } else if (message === 'Invalid login credentials') {
-          this.setState({
-            loginErrors: true,
-            loginSuccess: false,
-          });
         }
       })
       .catch((err) => {
         this.setState({
-          loginErrors: true,
+          loginErrors: err.message.split(':')[1],
           loginSuccess: false,
           openAlert: true,
           loading: false
@@ -249,19 +244,17 @@ export class AuthContainer extends Component {
           localStorage.setItem('auth_token', token);
           this.setState({
             loginSuccess: true,
-            loginErrors: false
+            loginErrors: '',
+            password: '',
+            helperPasswordText: '',
+            helperPhoneText: '',
           });
-          setTimeout(() => window.location.assign('/setup'), 1000);
-        } else if (message === 'Invalid login credentials') {
-          this.setState({
-            loginErrors: true,
-            loginSuccess: false,
-          });
+          setTimeout(() => window.location.assign('/setup'), 900);
         }
       })
       .catch((err) => {
         this.setState({
-          loginErrors: true,
+          loginErrors: err.message.split(':')[1],
           loginSuccess: false,
           openAlert: true,
           loading: false
@@ -364,7 +357,6 @@ export class AuthContainer extends Component {
                     handlePasswordChange={this.handlePasswordChange}
                     handlePasswordVisibility={this.handlePasswordVisibility}
                     handleEmailChange={this.handleEmailChange}
-                    handleChange={this.handleChange}
                     handlePhoneChange={this.handlePhoneChange}
                     handleCheckbox={this.handleCheckbox}
                     handleSubmit={this.handleSubmit}
@@ -383,7 +375,6 @@ export class AuthContainer extends Component {
                     handlePasswordChange={this.handlePasswordChange}
                     handlePasswordVisibility={this.handlePasswordVisibility}
                     handlePhoneChange={this.handlePhoneChange}
-                    handleChange={this.handleChange}
                     handleCheckbox={this.handleCheckbox}
                     handleCloseSignupAlert={this.handleCloseAlert}
                   />

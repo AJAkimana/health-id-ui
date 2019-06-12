@@ -27,7 +27,6 @@ describe('Login Component', () => {
       handlePhoneChange: jest.fn()
     };
     const wrapper = mount(<Router><Login {...props} /></Router>);
-    expect(wrapper.find('Checkbox').length).toBe(1);
     expect(wrapper.find('PasswordField').length).toBe(1);
     expect(wrapper.find('.top-level').length).toBe(1);
   });

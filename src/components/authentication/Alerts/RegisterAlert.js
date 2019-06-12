@@ -9,11 +9,15 @@ import successImg from '../../../assets/images/success/success-sm.png';
 
 const RegisterAlert = (props) => {
   const {
-    open, onClose, email, success,
+    open, onClose, email, success, registerErrors
   } = props;
+
   const img = success ? successImg : errorImg;
+
   const title = success ? 'Registration Successful!' : 'ERROR!';
+
   const titleColor = success ? 'successMsg' : 'errorMsg';
+
   const text = success ? (
     <div>
       <Typography className="dialog-message">
@@ -21,7 +25,7 @@ const RegisterAlert = (props) => {
       Please verify your account via the
         <br />
       email sent to
-        <span style={{ color: '#FAF33E' }}>
+        <span className="email-highlight">
         &nbsp;
           {email}
         &nbsp;
@@ -34,11 +38,20 @@ const RegisterAlert = (props) => {
       </Typography>
     </div>
   ) : (
-    <Typography className="dialog-message">
+    <div>
+      <Typography className="dialog-message">
         Something went wrong, a HealthID account could not be created for you.
-      <br />
-        Please check the details you have entered correctly to register your account.
-    </Typography>
+        <br />
+        Please check the details you have entered to register your account.
+      </Typography>
+      <div className="error-section">
+        <ul className="alert-error">
+          <li>
+            {registerErrors}
+          </li>
+        </ul>
+      </div>
+    </div>
   );
   return (
     <div>
@@ -69,15 +82,18 @@ const RegisterAlert = (props) => {
 };
 
 RegisterAlert.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
   email: PropTypes.string,
   success: PropTypes.arrayOf(PropTypes.string),
+  registerErrors: PropTypes.string,
 };
 
 RegisterAlert.defaultProps = {
+  open: false,
   email: '',
   success: [],
+  registerErrors: ''
 };
 
 export default RegisterAlert;

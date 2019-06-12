@@ -8,7 +8,7 @@ test('validate short password returns true for error', () => {
   expect(result).toContain(true);
 });
 
-test('validate invalid password returns true for error', () => {
+test('validate invalid password format returns true for error', () => {
   const password = 'shortpassword';
   const result = validatePasswordLength(password);
   expect(result).toContain(true);
@@ -26,7 +26,7 @@ test('validate valid email returns false for error', () => {
   expect(result).toContain(false);
 });
 
-test('validate valid email returns true for error', () => {
+test('validate invalid email returns true for error', () => {
   const email = 'user.com';
   const result = validateEmail(email);
   expect(result).toContain(true);

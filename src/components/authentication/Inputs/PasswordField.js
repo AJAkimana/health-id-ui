@@ -46,12 +46,17 @@ const PasswordField = (props) => {
 };
 
 PasswordField.propTypes = {
-  showPassword: PropTypes.bool.isRequired,
+  showPassword: PropTypes.bool,
   password: PropTypes.string,
   helperPasswordText: PropTypes.string,
   handlePasswordChange: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
+  handlePasswordIcon: PropTypes.func,
+  handlePasswordChange: PropTypes.func,
+  error: PropTypes.bool,
+  visibileEye: PropTypes.instanceOf(Object),
+  handlePasswordVisibility: PropTypes.func,
 };
 
 PasswordField.defaultProps = {

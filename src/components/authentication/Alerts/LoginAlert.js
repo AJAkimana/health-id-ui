@@ -11,11 +11,15 @@ import '../../../assets/styles/style.css';
 
 const LoginAlert = (props) => {
   const {
-    open, onClose, success,
+    open, onClose, success, errors
   } = props;
+
   const img = success ? successImg : errorImg;
+
   const title = success ? 'Login Successful!' : 'ERROR!';
+
   const titleColor = success ? 'successMsg' : 'errorMsg';
+
   const text = success ? (
     <div>
       <Typography className="dialog-message">
@@ -23,11 +27,20 @@ const LoginAlert = (props) => {
       </Typography>
     </div>
   ) : (
-    <Typography className="dialog-message">
+    <div>
+      <Typography className="dialog-message">
         Something went wrong, we could not log you into your account.
-      <br />
-        Please check the details you have entered correctly to access your account.
-    </Typography>
+        <br />
+        Please check the details you have entered to access your account.
+      </Typography>
+      <div className="error-section">
+        <ul className="alert-error">
+          <li>
+            {errors}
+          </li>
+        </ul>
+      </div>
+    </div>
   );
   return (
     <div>
@@ -60,9 +73,15 @@ const LoginAlert = (props) => {
 };
 
 LoginAlert.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  success: PropTypes.bool.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  success: PropTypes.bool,
+  errors: PropTypes.string
+};
+
+
+LoginAlert.defaultProps = {
+  open: false,
 };
 
 export default LoginAlert;

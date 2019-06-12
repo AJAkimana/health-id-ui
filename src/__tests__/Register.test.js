@@ -18,7 +18,6 @@ describe('Register Component', () => {
     };
     const wrapper = mount(<Router><Register {...props} /></Router>);
     expect(wrapper.find('TextField').length).toBe(2);
-    expect(wrapper.find('Checkbox').length).toBe(1);
     expect(wrapper.find('PasswordField').length).toBe(1);
   });
 
@@ -41,7 +40,7 @@ describe('Register Component', () => {
       state: {
         password: 'passW0rd',
         email: 'user@user.com',
-        phoneNumber: '098765434',
+        phone: '090098765434',
         passwordError: false,
         EmailError: false,
         PhoneError: false,

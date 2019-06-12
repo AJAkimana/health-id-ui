@@ -92,13 +92,13 @@ const ForgotPasswordAlert = (props) => {
 };
 
 ForgotPasswordAlert.propTypes = {
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
   disabled: PropTypes.bool,
   email: PropTypes.string,
   handleEmailChange: PropTypes.func,
   EmailError: PropTypes.bool,
-  helperEmailText: PropTypes.string,
+  helperEmailText: PropTypes.instanceOf(Object),
   handlePasswordReset: PropTypes.func,
   loading: PropTypes.bool,
 };
