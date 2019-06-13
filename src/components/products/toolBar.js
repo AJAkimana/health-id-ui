@@ -27,8 +27,14 @@ export class ToolBar extends Component {
     this.setState({ open: false });
   };
 
+  handleViewProposed = (event) => {
+    const { handleViewProposed } = this.props;
+    this.handleClose(event);
+    handleViewProposed();
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, isApproved } = this.props;
     const { open } = this.state;
     return (
       <React.Fragment>
@@ -57,7 +63,20 @@ export class ToolBar extends Component {
                   <MenuList>
                     <MenuItem onClick={this.handleClose}>Add Individual Product</MenuItem>
                     <MenuItem onClick={this.handleClose}>Import Product List</MenuItem>
-                    <MenuItem onClick={this.handleClose}>View Proposed Products</MenuItem>
+                    {
+                      isApproved && (
+                        <MenuItem onClick={this.handleViewProposed}>
+                          View Proposed Products
+                        </MenuItem>
+                      )
+                    }
+                    {
+                      !isApproved && (
+                        <MenuItem onClick={this.handleViewProposed}>
+                        View Approved Products
+                        </MenuItem>
+                      )
+                    }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -84,6 +103,8 @@ export class ToolBar extends Component {
 
 ToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
+  handleViewProposed: PropTypes.func.isRequired,
+  isApproved: PropTypes.bool.isRequired,
 };
 
 export default withStyles(ToolBarStyles)(ToolBar);

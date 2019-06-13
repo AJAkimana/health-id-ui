@@ -29,7 +29,23 @@ const props = {
       approvedProducts: null,
       loading: false,
     },
+    getProposedProducts: {
+      proposedProducts: [],
+      loading: false,
+    },
     approvedProducts: [],
+    loading: true,
+  },
+  getProposedProducts: {
+    getProposedProducts: {
+      proposedProducts: null,
+      loading: false,
+    },
+    getApprovedProducts: {
+      approvedProducts: [],
+      loading: false,
+    },
+    proposedProducts: [],
     loading: true,
   },
   data: {
@@ -51,16 +67,26 @@ const props = {
         backupSupplier: { name: 'backup' },
       }],
       loading: false,
-    }
-  },
-  getProposedProducts: {
-    proposedProducts: [],
-    loading: false,
+    },
+    getProposedProducts: {
+      getProposedProducts: {
+        proposedProducts: [],
+      },
+      proposedProducts: [],
+      loading: false,
+    },
   },
   classes: {
     icon: 'Products-div-1',
     iconButton: 'Products-footer-2',
     inverseIcon: 'inverse-icon',
+  },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      }
+    }
   },
   selectedRows: {
     data: [{ index: 1, dataIndex: 1 }]
@@ -88,7 +114,7 @@ describe('After Row selection toolbar tests', () => {
   });
 });
 
-describe('Test table rendering', () => {
+describe('Test table rendering and data functions', () => {
   const wrapper = mount(<Products {...props} />);
   it('should render the datatable correctly', () => {
     wrapper.instance().componentWillReceiveProps(props);
@@ -112,6 +138,12 @@ describe('Test table rendering', () => {
     }]);
     wrapper.instance().componentWillReceiveProps(props.getApprovedProducts);
     expect(wrapper.instance().state.approvedProducts).toEqual([]);
+    wrapper.instance().componentWillReceiveProps(props.getProposedProducts);
+    expect(wrapper.instance().state.proposedProducts).toEqual([]);
+  });
+  it('should switch to proposed products when view proposed products is clicked', () => {
+    wrapper.instance().handleViewProposed();
+    expect(wrapper.instance().state.isApproved).toBeFalsy();
   });
 });
 
@@ -123,6 +155,7 @@ describe('Test toolBar actions', () => {
       paper: 'paper',
       exportSVG: 'export',
     },
+    handleViewProposed: jest.fn(),
   };
   const wrapper = mount(<ToolBar {...prop} />);
   it('should toggle the add product popup when the icon is clicked', () => {
@@ -138,7 +171,7 @@ describe('Test toolBar actions', () => {
     const AddProductIcon = wrapper.find('IconButton').at(0);
     AddProductIcon.simulate('click');
 
-    const MenuItem = wrapper.find('MenuItem').at(0);
+    const MenuItem = wrapper.find('MenuItem').at(2);
     MenuItem.simulate('click');
     expect(wrapper.instance().state.open).toBeFalsy();
   });

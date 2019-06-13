@@ -12,8 +12,6 @@ import { productDetailStyles, tableStyles } from '../../assets/css/productDetail
 import Dashboard from '../shared/Dashboard/Dashboard';
 import Footer from '../shared/Footer';
 
-const styles = productDetailStyles;
-
 const productsLink = props => <Link to="/products" {...props} />;
 
 const moneyFormat = num => `${num.toFixed(2)}`;
@@ -356,4 +354,4 @@ ProductDetailRender.defaultProps = {
   session: {}
 };
 
-export default withStyles(styles)(ProductDetailRender);
+export default withStyles(productDetailStyles)(ProductDetailRender);

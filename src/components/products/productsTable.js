@@ -1,41 +1,61 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
-import MUIDataTable from 'mui-datatables';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AfterSelectToolBar from './afterSelectToolBar';
 import ToolBar from './toolBar';
-import GET_APPROVED_PRODUCTS from './productQueries';
+import { GET_APPROVED_PRODUCTS, GET_PROPOSED_PRODUCTS } from './productQueries';
 import { ProductsStyles } from '../../assets/css/products';
+import DataTableLoader from '../dataTable/dataTableLoader';
 import withAuth from '../withAuth';
 import Dashboard from '../shared/Dashboard/Dashboard';
+import DataTable from '../dataTable/dataTable';
 
 export class Products extends Component {
   state = {
     approvedProducts: [],
+    proposedProducts: [],
+    isApproved: true,
+    isLoading: true,
   }
 
   componentWillReceiveProps(nextProps) {
     this.fetchProducts(nextProps);
   }
 
-  fetchProducts = ({ getApprovedProducts }) => {
+  fetchProducts = ({ getApprovedProducts, getProposedProducts }) => {
     let { approvedProducts } = getApprovedProducts;
     const { loading: loadingApproved } = getApprovedProducts;
 
-    if (loadingApproved) {
-      return;
+    let { proposedProducts } = getProposedProducts;
+    const { loading: loadingProposed } = getProposedProducts;
+
+    if (loadingApproved || loadingProposed) {
+      return this.setState({ isLoading: true });
     }
 
     if (approvedProducts === null) {
       approvedProducts = [];
     }
-    this.setState({ approvedProducts });
+    if (proposedProducts === null) {
+      proposedProducts = [];
+    }
+    return this.setState({ approvedProducts, proposedProducts, isLoading: false });
+  }
+
+  handleViewProposed = () => {
+    const { isApproved } = this.state;
+    this.setState({ isApproved: !isApproved });
   }
 
   render() {
-    const { approvedProducts: products } = this.state;
-    const title = `${products.length} Products`;
+    const {
+      approvedProducts, proposedProducts, isApproved, isLoading
+    } = this.state;
+    let products;
+    isApproved && (products = approvedProducts);
+    !isApproved && (products = proposedProducts);
+    const title = `${products.length} Products ${isApproved ? 'Approved' : 'Proposed'}`;
 
     const columns = [
       {
@@ -176,6 +196,7 @@ export class Products extends Component {
         description, brand, manufacturer, vatStatus, salesPrice, nearestExpiryDate,
         preferedSupplier, backupSupplier, id, productQuantity, loyaltyWeight,
       } = product;
+
       return (
         {
           id,
@@ -197,6 +218,8 @@ export class Products extends Component {
         }
       );
     });
+    const { session } = this.props;
+    const { name: role } = session.me.role;
     const options = {
       responsive: 'scroll',
       elevation: 0,
@@ -214,20 +237,35 @@ export class Products extends Component {
         />
       ),
       onRowClick: (rowData) => {
-        window.location.assign(`products/${rowData[0]}`);
+        const { isApproved: approved } = this.state;
+        if (!approved && role === 'Master Admin') {
+          return window.location.assign(`products/${rowData[0]}/approve`);
+        }
+        return window.location.assign(`products/${rowData[0]}`);
       },
-      customToolbar: () => (<ToolBar />)
+      customToolbar: () => {
+        const { isApproved: approved } = this.state;
+        return (
+          <ToolBar
+            handleViewProposed={this.handleViewProposed}
+            isApproved={approved}
+          />
+        );
+      },
     };
-    const { session } = this.props;
     return (
       <div style={ProductsStyles.div}>
         <Dashboard isActive="grid3" session={session} />
-        <MUIDataTable
-          title={title}
-          data={productsList}
-          columns={columns}
-          options={options}
-        />
+        {
+          isLoading ? <DataTableLoader /> : (
+            <DataTable
+              title={title}
+              data={productsList}
+              columns={columns}
+              options={options}
+            />
+          )
+        }
       </div>
 
     );
@@ -243,7 +281,9 @@ Products.defaultProps = {
 };
 
 const APPROVED_PRODUCTS = graphql(GET_APPROVED_PRODUCTS, { name: 'getApprovedProducts' });
+const PROPOSED_PRODUCTS = graphql(GET_PROPOSED_PRODUCTS, { name: 'getProposedProducts' });
 
 export default compose(
   APPROVED_PRODUCTS,
+  PROPOSED_PRODUCTS,
 )(withAuth(session => session && session.me)(withStyles(ProductsStyles)(Products)));

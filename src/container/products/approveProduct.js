@@ -2,21 +2,24 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
-import PRODUCT_DETAIL_QUERY from '../../queries/productDetailQuery';
-import ProductDetailRender from '../../components/products/productDetailRender';
+import { GET_PRODUCT_BY_ID } from '../../components/products/productQueries';
+import ApproveProduct from '../../components/products/approveProduct';
 import ProductLoader from '../../components/products/productLoader';
 import withAuth from '../../components/withAuth';
 
-export const ProductDetail = (props) => {
+export const ApproveProductDetail = (props) => {
   const { match: { params: { id } }, session } = props;
   return (
-    <Query query={PRODUCT_DETAIL_QUERY} variables={{ id }}>
-      {({ data, loading, error }) => {
+    <Query query={GET_PRODUCT_BY_ID} variables={{ id }}>
+      {({
+        data, loading, error, refetch
+      }) => {
         if (loading) return <ProductLoader />;
         if (error) return <div>Error</div>;
         return (
-          <ProductDetailRender
+          <ApproveProduct
             product={data.product}
+            refetch={refetch}
             session={session}
           />
         );
@@ -25,13 +28,13 @@ export const ProductDetail = (props) => {
   );
 };
 
-ProductDetail.propTypes = {
+ApproveProductDetail.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
   session: PropTypes.objectOf(PropTypes.object)
 };
 
-ProductDetail.defaultProps = {
+ApproveProductDetail.defaultProps = {
   session: {}
 };
 
-export default withAuth(session => session && session.me)(withRouter(ProductDetail));
+export default withAuth(session => session && session.me.role.name === 'Master Admin')(withRouter(ApproveProductDetail));

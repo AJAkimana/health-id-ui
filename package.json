@@ -62,7 +62,7 @@
     "lodash": "^4.17.11",
     "material-ui-pickers": "^2.2.4",
     "moxios": "^0.4.0",
-    "mui-datatables": "2.0.0",
+    "mui-datatables": "2.3.0",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
