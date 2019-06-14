@@ -4,6 +4,7 @@ import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
 import Dashboard from './shared/Dashboard/Dashboard';
+import ViewProducts from './stock_control/viewProducts';
 import Products from './products/productsTable';
 import UserProfile from './profile/Profile';
 import ProductDetail from '../container/products/productDetail';
@@ -21,6 +22,7 @@ const App = ({ session }) => (
       <Route exact path="/products" render={() => <Products session={session} />} />
       <Route exact path="/profile" component={UserProfile} />
       <Route exact path="/products/:id" render={() => <ProductDetail session={session} />} />
+      <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
     </Switch>
   </div>
 );

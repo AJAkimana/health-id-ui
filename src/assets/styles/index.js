@@ -59,6 +59,11 @@ const AppTheme = createMuiTheme({
         textDecoration: 'bold'
       }
     },
+    MuiSvgIcon: {
+      root: {
+        fill: '#757575',
+      }
+    }
   }
 });
 
