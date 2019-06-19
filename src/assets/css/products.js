@@ -1,7 +1,6 @@
 export const ProductsStyles = {
   div: {
     backgroundColor: 'white',
-    padding: '30px 0',
     minHeight: '100vh',
     position: 'relative',
   },
