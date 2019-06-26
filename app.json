@@ -1,0 +1,33 @@
+{
+    "name": "healthid-fe",
+    "scripts": {},
+    "env": {
+      "API_KEY": {
+        "required": true
+      },
+      "APP_LINK": {
+        "required": true
+      },
+      "CLOUDINARY_URL": {
+        "required": true
+      },
+      "NODE_MODULES_CACHE": {
+        "required": true
+      },
+      "UPLOAD_PRESET": {
+        "required": true
+      }
+    },
+    "formation": {
+      "web": {
+        "quantity": 1
+      }
+    },
+    "addons": [],
+    "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      }
+    ],
+    "stack": "heroku-18"
+  }
