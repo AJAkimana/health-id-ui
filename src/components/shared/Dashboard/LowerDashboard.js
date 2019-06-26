@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import calendar from '../../../assets/images/dashboard/calendar.png';
 import notification from '../../../assets/images/dashboard/notification.png';
-import lowerDashboardStyles from '../../../assets/css/lowerDashboardStyles';
+import lowerDashboardStyles from '../../../assets/styles/dashboard/lowerDashboardStyles';
 
 const LowerDashboard = ({
   username, open, anchorEl, handleMenu, handleClose

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
-import { approveProductsStyles } from '../../assets/css/products';
+import { approveProductsStyles } from '../../assets/styles/products/products';
 import APPROVE_PRODUCT_MUTATION from './approveProductMutation';
 import withAuth from '../withAuth';
 import Dashboard from '../shared/Dashboard/Dashboard';

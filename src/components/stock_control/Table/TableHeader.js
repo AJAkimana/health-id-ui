@@ -4,7 +4,7 @@ import { TableSortLabel, Checkbox, TableRow, TableHead, TableCell } from '@mater
 
 import sortAscendingIcon from '../../../assets/images/stock/sort_ascending_icon.png';
 import sortDescendingIcon from '../../../assets/images/stock/sort_descending_icon.png';
-import stockControlStyles, { TableHeaderStyles } from '../../../assets/css/stock';
+import stockControlStyles, { TableHeaderStyles } from '../../../assets/styles/stock/stock';
 
 const TableHeader = (props) => {
   const {

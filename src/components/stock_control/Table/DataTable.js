@@ -9,7 +9,7 @@ import {
 import ProductCard from '../ProductCard';
 import TableHeader from './TableHeader';
 import TableToolBar from './TableToolBar';
-import { TableStyles } from '../../../assets/css/stock';
+import { TableStyles } from '../../../assets/styles/stock/stock';
 import {
   stableSort, getSorting
 } from '../utils/utils';

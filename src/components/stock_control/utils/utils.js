@@ -9,7 +9,7 @@ import {
   IconButton
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { ToolbarStyles } from '../../../assets/css/stock';
+import { ToolbarStyles } from '../../../assets/styles/stock/stock';
 
 export const desc = (a, b, orderBy) => {
   if (b[orderBy] < a[orderBy]) {

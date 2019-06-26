@@ -15,7 +15,7 @@ import AdminSetUp from './adminSetup';
 import BusinessSetUp from './businessSetup';
 import OutletSetUp from './outletSetup';
 import FinalScreen from './finalScreen';
-import { StepperStyles } from '../../assets/css/setup';
+import { StepperStyles } from '../../assets/styles/setup';
 import NavBar from '../shared/Navbar';
 import Footer from '../shared/Footer';
 import Loader from '../shared/Loader';

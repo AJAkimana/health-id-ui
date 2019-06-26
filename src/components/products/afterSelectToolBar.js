@@ -7,7 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditICon from '@material-ui/icons/Edit';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { AfterSelectToolBarStyles } from '../../assets/css/products';
+import { AfterSelectToolBarStyles } from '../../assets/styles/products/products';
 
 const AfterSelectToolBar = (props) => {
   const {

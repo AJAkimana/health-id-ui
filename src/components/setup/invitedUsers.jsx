@@ -6,7 +6,7 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 import AddIcon from '@material-ui/icons/Add';
 import { Typography, Paper } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { AddUserStyles, OutletsTable } from '../../assets/css/setup';
+import { AddUserStyles, OutletsTable } from '../../assets/styles/setup';
 
 const InvitedUsers = (props) => {
   const { state, handleClickAddButton, sendEditInfo } = props;

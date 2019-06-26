@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import logo from '../../assets/images/ID Nav logo.png';
-import { NavBarStyles } from '../../assets/css/setup';
+import { NavBarStyles } from '../../assets/styles/setup';
 
 const NavBar = () => (
   <Fragment>

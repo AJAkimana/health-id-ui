@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { Typography, CardContent, CardActions, Chip, Card } from '@material-ui/core';
 
-import { initializeProductCardStyles } from '../../assets/css/stock';
+import { initializeProductCardStyles } from '../../assets/styles/stock/stock';
 
 export const ProductCard = ({ data }) => {
   const classes = initializeProductCardStyles();

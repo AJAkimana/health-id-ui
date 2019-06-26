@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { ToolBarStyles } from '../../assets/css/products';
+import { ToolBarStyles } from '../../assets/styles/products/products';
 import Icon from './productIcons';
 
 export class ToolBar extends Component {

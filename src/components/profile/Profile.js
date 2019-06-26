@@ -9,7 +9,7 @@ import UPDATE_USER from '../../mutations/updateUserMutation';
 import FinalScreen from '../setup/finalScreen';
 import UserProfileComplete from './UserProfileComplete';
 import ProfileData from './ProfileData';
-import profileStyles from '../../assets/css/profileStyles';
+import profileStyles from '../../assets/styles/profile/profileStyles';
 import notify from '../shared/Toaster';
 
 const styles = profileStyles;

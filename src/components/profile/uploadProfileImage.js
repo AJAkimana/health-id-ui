@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import 'react-image-crop/dist/ReactCrop.css';
 import ProfilePhoto from '../../assets/images/avatarr.png';
-import profileStyles from '../../assets/css/profileStyles';
+import profileStyles from '../../assets/styles/profile/profileStyles';
 import ResizeDialog from './resizeDialogBox';
 
 const styles = profileStyles;

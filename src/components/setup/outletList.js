@@ -9,7 +9,7 @@ import { Typography, Paper } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { ContentWrapper, OutletsTable } from '../../assets/css/setup';
+import { ContentWrapper, OutletsTable } from '../../assets/styles/setup';
 
 const OutletList = ({
   state,

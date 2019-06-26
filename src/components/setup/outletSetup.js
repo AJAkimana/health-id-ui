@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
   RadioGroup, Radio, Typography, Paper, Button
 } from '@material-ui/core';
-import { RadioGroupStyles, ContentWrapper } from '../../assets/css/setup';
+import { RadioGroupStyles, ContentWrapper } from '../../assets/styles/setup';
 import receiptTemp01 from '../../assets/images/receiptTemp01.png';
 import receiptTemp02 from '../../assets/images/receiptTemp02.png';
 import OutletList from './outletList';

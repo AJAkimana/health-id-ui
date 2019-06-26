@@ -8,7 +8,7 @@ import {
 import ClearIcon from '@material-ui/icons/Clear';
 
 import { ApproveStockIcon } from '../../assets/images/stock/StockIcons';
-import { ProposedProductStyles } from '../../assets/css/stock';
+import { ProposedProductStyles } from '../../assets/styles/stock/stock';
 
 export const ProposedProducts = ({ classes, handleClick }) => {
   return (

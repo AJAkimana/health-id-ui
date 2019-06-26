@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Typography, Grid } from '@material-ui/core';
 import LowerDashboard from './LowerDashboard';
 import logo from '../../../assets/images/ID Nav logo.png';
-import dashboardStyles from '../../../assets/css/dashboardStyles';
+import dashboardStyles from '../../../assets/styles/dashboard/dashboardStyles';
 import SVGIcon from './Icons';
 
 

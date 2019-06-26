@@ -10,7 +10,7 @@ import DataTable from './Table/DataTable';
 import ProductLoader from '../products/productLoader';
 import sortAscendingIcon from '../../assets/images/stock/sort_ascending_icon.png';
 import sortDescendingIcon from '../../assets/images/stock/sort_descending_icon.png';
-import stockControlStyles from '../../assets/css/stock';
+import stockControlStyles from '../../assets/styles/stock/stock';
 import '../../assets/styles/stock/stock_products.scss';
 
 export class ViewProducts extends Component {

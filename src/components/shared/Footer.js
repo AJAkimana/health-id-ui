@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { FooterStyles } from '../../assets/css/setup';
+import { FooterStyles } from '../../assets/styles/setup';
 
 const Footer = () => (
   <Fragment>

@@ -6,7 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { TextField, Grow } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { searchStyles } from '../../../assets/css/stock';
+import { searchStyles } from '../../../assets/styles/stock/stock';
 
 export class TableSearch extends Component {
   componentDidMount() {

@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import BackIcon from '@material-ui/icons/ArrowBack';
-import { productDetailStyles, tableStyles } from '../../assets/css/productDetailStyles';
+import { productDetailStyles, tableStyles } from '../../assets/styles/products/productDetailStyles';
 import Dashboard from '../shared/Dashboard/Dashboard';
 import Footer from '../shared/Footer';
 

@@ -5,7 +5,7 @@ import Dropzone from 'react-dropzone';
 import Tooltip from '@material-ui/core/Tooltip';
 import 'react-image-crop/dist/ReactCrop.css';
 import CloudUpload from '@material-ui/icons/CloudUpload';
-import { FileUploadStyles } from '../../assets/css/setup';
+import { FileUploadStyles } from '../../assets/styles/setup';
 import ResizeDialog from './resizeDialogBox';
 
 const FileUpload = (props) => {

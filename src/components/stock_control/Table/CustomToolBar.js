@@ -16,7 +16,7 @@ import {
   Export,
   ApproveStockIcon
 } from '../../../assets/images/stock/StockIcons';
-import { ToolbarStyles } from '../../../assets/css/stock';
+import { ToolbarStyles } from '../../../assets/styles/stock/stock';
 import { CustomIconButton, RenderPopper } from '../utils/utils';
 import TableSearch from './TableSearch';
 

@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { DialogContent } from '@material-ui/core';
 import ReactCrop from 'react-image-crop';
-import dialogButtonStyles from '../../assets/css/resizeStyles';
+import dialogButtonStyles from '../../assets/styles/profile/resizeStyles';
 
 const ResizeDialog = (props) => {
   const {

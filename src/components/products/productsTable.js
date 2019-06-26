@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import AfterSelectToolBar from './afterSelectToolBar';
 import ToolBar from './toolBar';
 import { GET_APPROVED_PRODUCTS, GET_PROPOSED_PRODUCTS } from './productQueries';
-import { ProductsStyles } from '../../assets/css/products';
+import { ProductsStyles } from '../../assets/styles/products/products';
 import DataTableLoader from '../dataTable/dataTableLoader';
 import withAuth from '../withAuth';
 import Dashboard from '../shared/Dashboard/Dashboard';

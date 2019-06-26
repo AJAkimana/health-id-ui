@@ -8,7 +8,7 @@ import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox'
 import EditICon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import { SelectToolBarStyles } from '../../../assets/css/stock';
+import { SelectToolBarStyles } from '../../../assets/styles/stock/stock';
 
 export const SelectionToolBar = (props) => {
   const {

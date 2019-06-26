@@ -5,7 +5,7 @@ import dot from '../../assets/images/Complete-success icon@2x.png';
 import register from '../../assets/images/Set up register illustration@2x.png';
 import supplier from '../../assets/images/Create supplier list ilustration@2x.png';
 import product from '../../assets/images/Create product list illustration@2x.png';
-import { FinalScreenStyle } from '../../assets/css/setup';
+import { FinalScreenStyle } from '../../assets/styles/setup';
 
 const FinalScreen = () => (
   <React.Fragment>

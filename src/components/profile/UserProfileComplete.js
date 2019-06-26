@@ -8,8 +8,8 @@ import Chip from '@material-ui/core/Chip';
 import ProfilePhoto from '../../assets/images/avatarr.png';
 import NavBar from '../shared/Navbar';
 import Footer from '../shared/Footer';
-import profileStyles from '../../assets/css/profileStyles';
-import '../../assets/css/profile.css';
+import profileStyles from '../../assets/styles/profile/profileStyles';
+import '../../assets/styles/profile/profile.css';
 
 const styles = profileStyles;
 

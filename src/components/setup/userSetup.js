@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
-import { AddUserStyles, ContentWrapper } from '../../assets/css/setup';
+import { AddUserStyles, ContentWrapper } from '../../assets/styles/setup';
 import InvitedUsers from './invitedUsers';
 
 

@@ -5,7 +5,7 @@ import { Typography, Toolbar } from '@material-ui/core';
 
 import CustomToolBar from './CustomToolBar';
 import SelectionToolBar from './SelectionToolBar';
-import { ToolbarStyles } from '../../../assets/css/stock';
+import { ToolbarStyles } from '../../../assets/styles/stock/stock';
 
 export const TableToolBar = (props) => {
   const classes = ToolbarStyles;

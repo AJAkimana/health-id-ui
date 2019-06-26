@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import FileUpload from './fileUpload';
-import { BusinessSetUpStyles } from '../../assets/css/setup';
+import { BusinessSetUpStyles } from '../../assets/styles/setup';
 
 const BusinessSetUp = (props) => {
   const {

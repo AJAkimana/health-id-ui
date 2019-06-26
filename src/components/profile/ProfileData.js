@@ -6,7 +6,7 @@ import {
 import withStyles from '@material-ui/core/styles/withStyles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import profileStyles from '../../assets/css/profileStyles';
+import profileStyles from '../../assets/styles/profile/profileStyles';
 import NavBar from '../shared/Navbar';
 import Footer from '../shared/Footer';
 import Loader from '../shared/Loader';
