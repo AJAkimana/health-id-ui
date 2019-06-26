@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import wait from 'waait';
 import { MockedProvider } from 'react-apollo/test-utils';
 import MockComponent from '../../__mocks__/mockComponent';
-import { ProductDetail } from '../container/products/productDetail';
+import { ProductDetail } from '../containers/productDetail';
 import PRODUCT_DETAIL_QUERY from '../queries/productDetailQuery';
 
 jest.mock('../components/products/productDetailRender', () => MockComponent);

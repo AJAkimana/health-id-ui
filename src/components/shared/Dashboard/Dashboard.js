@@ -36,6 +36,7 @@ class Dashboard extends Component {
       this.setState({ isActive: 'grid1' });
       break;
     case 'grid2':
+      window.location.href = '/sell';
       this.setState({ isActive: 'grid2' });
       break;
     case 'grid3':

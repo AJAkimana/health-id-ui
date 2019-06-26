@@ -98,4 +98,4 @@ ViewProducts.defaultProps = {
   history: {}
 };
 
-export default withAuth(session => session && session.me)(withRouter(ViewProducts));
+export default withAuth(withRouter(ViewProducts));

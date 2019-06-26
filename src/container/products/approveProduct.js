@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { GET_PRODUCT_BY_ID } from '../../components/products/productQueries';
@@ -9,6 +9,9 @@ import withAuth from '../../components/withAuth';
 
 export const ApproveProductDetail = (props) => {
   const { match: { params: { id } }, session } = props;
+  if (session && session.me.role.name !== 'Master Admin') {
+    return (<Redirect to="/" />);
+  }
   return (
     <Query query={GET_PRODUCT_BY_ID} variables={{ id }}>
       {({
@@ -37,4 +40,4 @@ ApproveProductDetail.defaultProps = {
   session: {}
 };
 
-export default withAuth(session => session && session.me.role.name === 'Master Admin')(withRouter(ApproveProductDetail));
+export default withAuth(withRouter(ApproveProductDetail));

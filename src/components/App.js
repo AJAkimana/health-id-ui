@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
@@ -7,8 +8,9 @@ import Dashboard from './shared/Dashboard/Dashboard';
 import ViewProducts from './stock_control/viewProducts';
 import Products from './products/productsTable';
 import UserProfile from './profile/Profile';
-import ProductDetail from '../container/products/productDetail';
 import ApproveProductDetail from '../container/products/approveProduct';
+import ProductDetail from '../containers/productDetail';
+import SellScreenContainer from '../containers/sellScreenContainer';
 
 const App = ({ session }) => (
   <div>
@@ -23,8 +25,17 @@ const App = ({ session }) => (
       <Route exact path="/profile" component={UserProfile} />
       <Route exact path="/products/:id" render={() => <ProductDetail session={session} />} />
       <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
+      <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
     </Switch>
   </div>
 );
+
+App.propTypes = {
+  session: PropTypes.objectOf(PropTypes.object)
+};
+
+App.defaultProps = {
+  session: {}
+};
 
 export default App;

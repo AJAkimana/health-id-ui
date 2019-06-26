@@ -61,8 +61,6 @@ const LowerDashboard = ({
         </Menu>
         <span>
           {`${username}`}
-          {' '}
-          <span style={lowerDashboardStyles.loginText}>is logged in</span>
         </span>
       </Grid>
     </Grid>

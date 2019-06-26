@@ -2,10 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
-import PRODUCT_DETAIL_QUERY from '../../queries/productDetailQuery';
-import ProductDetailRender from '../../components/products/productDetailRender';
-import ProductLoader from '../../components/products/productLoader';
-import withAuth from '../../components/withAuth';
+import PRODUCT_DETAIL_QUERY from '../queries/productDetailQuery';
+import ProductDetailRender from '../components/products/productDetailRender';
+import ProductLoader from '../components/products/productLoader';
+import withAuth from '../components/withAuth';
 
 export const ProductDetail = (props) => {
   const { match: { params: { id } }, session } = props;
@@ -34,4 +34,4 @@ ProductDetail.defaultProps = {
   session: {}
 };
 
-export default withAuth(session => session && session.me)(withRouter(ProductDetail));
+export default withAuth(withRouter(ProductDetail));

@@ -6,14 +6,19 @@ import { loaderStyles } from '../../assets/css/setup';
 
 const styles = loaderStyles;
 
-const Loader = ({ classes }) => (
+const Loader = ({ classes, size }) => (
   <div>
-    <CircularProgress className={classes.progress} />
+    <CircularProgress size={size} className={classes.progress} />
   </div>
 );
 
 Loader.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
+  size: PropTypes.number
+};
+
+Loader.defaultProps = {
+  size: null
 };
 
 export default withStyles(styles)(Loader);

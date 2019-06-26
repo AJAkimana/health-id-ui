@@ -1429,4 +1429,4 @@ export default compose(
   ADMIN_USER_UPDATE,
   GET_USER_ROLES,
   GET_ASSIGNED_OUTLETS,
-)(withAuth(session => session && session.me)(withStyles(styles)(StepperNav)));
+)(withAuth(withStyles(styles)(StepperNav)));

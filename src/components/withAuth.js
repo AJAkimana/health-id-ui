@@ -3,16 +3,21 @@ import { Query } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
 import GET_USER_INFO from '../queries/userDataQuery';
 
-
-const withAuth = conditionFunc => Component => props => (
+const withAuth = Component => props => (
   <Query query={GET_USER_INFO}>
-    {({ data, loading }) => {
+    {({ data, loading, error }) => {
       if (loading) return null;
-
-      return conditionFunc(data) ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/" />);
+      if (error) {
+        return (
+          <Redirect to="/" />
+        );
+      }
+      if (data && data.me) {
+        return (
+          <Component {...props} />
+        );
+      }
+      return null;
     }}
   </Query>
 );

@@ -227,4 +227,4 @@ const APPROVE_PRODUCT = graphql(APPROVE_PRODUCT_MUTATION, { name: 'approveProduc
 
 export default compose(
   APPROVE_PRODUCT
-)(withAuth(session => session && session.me.role.name === 'Master Admin')(withRouter(withStyles(approveProductsStyles)(ApproveProduct))));
+)(withAuth(withRouter(withStyles(approveProductsStyles)(ApproveProduct))));

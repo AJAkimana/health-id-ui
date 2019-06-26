@@ -13,23 +13,18 @@ const mocks = [{
     variables: { id: 7 }
   },
   result: {
-    loading: false,
     data: {
       product: {
-        __typename: '',
         id: 7,
         productName: 'panadol',
         productCategory: {
           id: '1',
           name: 'prescription',
-          __typename: '',
         },
         measurementUnit: {
           id: '1',
           name: 'tablets',
-          __typename: '',
         },
-        packSize: '2kgs',
         skuNumber: '000007',
         description: 'Most effective pain reliver since 1845',
         brand: 'Emzor',
@@ -41,15 +36,13 @@ const mocks = [{
         nearestExpiryDate: null,
         reorderPoint: 0,
         reorderMax: 0,
-        preferedSupplier: {
+        preferredSupplier: {
           id: '2',
           name: 'sean2',
-          __typename: '',
         },
         backupSupplier: {
           id: '2',
           name: 'sean2',
-          __typename: '',
         },
         tags: ['painkillers'],
         markup: 27,
@@ -61,7 +54,6 @@ const mocks = [{
           supplier: {
             id: '2',
             name: 'sean2',
-            __typename: '',
           },
           dateReceived: '2019-12-03',
           packSize: '10',
@@ -73,13 +65,9 @@ const mocks = [{
             preference: {
               outletCurrency: {
                 symbol: '₦',
-                __typename: '',
               },
-              __typename: '',
             },
-            __typename: '',
           },
-          __typename: '',
         }],
         productQuantity: null,
         image: ''
@@ -93,7 +81,14 @@ const props = {
     params: {
       id: 7
     }
-  }
+  },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      }
+    }
+  },
 };
 
 describe('Test render approve product', () => {

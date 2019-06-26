@@ -7,7 +7,7 @@ const lowerDashboardStyles = {
   },
   typographyText: {
     justifyContent: 'flex-start',
-    paddingLeft: '3em',
+    paddingLeft: '2em',
     paddingTop: '0.8em',
     color: 'black'
   },

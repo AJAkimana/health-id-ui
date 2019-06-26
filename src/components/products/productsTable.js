@@ -286,4 +286,4 @@ const PROPOSED_PRODUCTS = graphql(GET_PROPOSED_PRODUCTS, { name: 'getProposedPro
 export default compose(
   APPROVED_PRODUCTS,
   PROPOSED_PRODUCTS,
-)(withAuth(session => session && session.me)(withStyles(ProductsStyles)(Products)));
+)(withAuth(withStyles(ProductsStyles)(Products)));
