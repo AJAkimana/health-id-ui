@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { TableSortLabel, Checkbox, TableRow, TableHead, TableCell } from '@material-ui/core';
 
 import sortAscendingIcon from '../../../assets/images/stock/sort_ascending_icon.png';
@@ -14,14 +15,13 @@ const TableHeader = (props) => {
     numSelected,
     rowCount,
     onRequestSort,
-    headRows
+    headRows,
+    classes
   } = props;
 
   const createSortHandler = property => (event) => {
     onRequestSort(event, property);
   };
-
-  const classes = TableHeaderStyles();
 
   const renderSortIcon = (sortType) => {
     if (sortType === 'asc') {
@@ -89,4 +89,4 @@ TableHeader.propTypes = {
   headRows: PropTypes.arrayOf(String).isRequired
 };
 
-export default TableHeader;
+export default withStyles(TableHeaderStyles)(TableHeader);

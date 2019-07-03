@@ -21,9 +21,9 @@ describe('ProductCard ', () => {
         tags: ['goat', 'dog']
       }
     };
-    const wrapper = shallow(<ProductCard {...props} />);
-    expect(wrapper.find('[label="goat"]').length).toBe(1);
-    expect(wrapper.find('[label="dog"]').length).toBe(1);
+    const wrapper = mount(<ProductCard {...props} />);
+    expect(wrapper.find('[label="goat"]').length).toBe(2);
+    expect(wrapper.find('[label="dog"]').length).toBe(2);
   });
 });
 
@@ -121,13 +121,15 @@ describe('TableHeader ', () => {
       orderBy: 'name',
       numSelected: 3,
       rowCount: 6,
+      classes: {},
       isSearchActive: false,
       onRequestSort: jest.fn(),
       headRows: ['name', 'id']
     };
-    const wrapper = shallow(<TableHeader {...props} />);
-    expect(wrapper.find('[padding="checkbox"]').childAt(0).prop('checked')).toBe(false);
-    expect(wrapper.find('[padding="checkbox"]').childAt(0).prop('indeterminate')).toBe(true);
+    const wrapper = mount(<TableHeader {...props} />);
+
+    expect(wrapper.find('[padding="checkbox"]').at(1).childAt(0).props().children.props.checked).toBe(false);
+    expect(wrapper.find('[padding="checkbox"]').at(1).childAt(0).props().children.props.indeterminate).toBe(true);
   });
 });
 
@@ -135,12 +137,14 @@ describe('Helper functions ', () => {
   it('CustomIconButton renders without crashing', () => {
     const props = {
       customClass: {},
-      toolTip: 'class',
+      toolTip: 'button',
+      classes: {},
       buttonRef: jest.fn(),
       onClickHandler: jest.fn()
     };
     const wrapper = shallow(<CustomIconButton {...props} />);
-    expect(wrapper.find('[title="class"]').length).toBe(1);
+
+    expect(wrapper.find('[toolTip="button"]').length).toBe(1);
   });
 
   it('getSorting sorts the array element', () => {

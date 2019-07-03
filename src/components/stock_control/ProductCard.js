@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { Typography, CardContent, CardActions, Chip, Card } from '@material-ui/core';
 
-import { initializeProductCardStyles } from '../../assets/styles/stock/stock';
+import { productCardStyles } from '../../assets/styles/stock/stock';
 
-export const ProductCard = ({ data }) => {
-  const classes = initializeProductCardStyles();
+export const ProductCard = ({ data, classes }) => {
   const {
     name, description, image, tags
   } = data;
@@ -37,4 +37,5 @@ ProductCard.propTypes = {
   data: PropTypes.objectOf(Object).isRequired
 };
 
-export default ProductCard;
+
+export default withStyles(productCardStyles)(ProductCard);

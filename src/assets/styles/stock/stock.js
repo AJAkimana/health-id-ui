@@ -1,5 +1,3 @@
-import { makeStyles } from '@material-ui/styles';
-
 const stockControlStyles = {
   sortImage: {
     width: '13px',
@@ -24,7 +22,7 @@ const stockControlStyles = {
 };
 
 export const ToolbarStyles = {
-  svg: {
+  svgIcon: {
     height: '0.8em'
   },
   popper: {
@@ -57,7 +55,7 @@ export const searchStyles = theme => ({
   }
 });
 
-export const TableHeaderStyles = makeStyles({
+export const TableHeaderStyles = {
   headerWrapper: {
     top: ' 0px',
     left: '0px',
@@ -67,7 +65,7 @@ export const TableHeaderStyles = makeStyles({
     fontWeight: '800',
     backgroundColor: '#E3E3E3'
   }
-});
+};
 
 export const TableStyles = {
   root: {
@@ -80,7 +78,8 @@ export const TableStyles = {
     minWidth: 750
   },
   tableWrapper: {
-    overflowX: 'auto'
+    overflowX: 'auto',
+    height: 450
   },
   name: {
     textDecoration: 'underline',
@@ -88,7 +87,7 @@ export const TableStyles = {
   }
 };
 
-export const initializeProductCardStyles = makeStyles({
+export const productCardStyles = {
   card: {
     minWidth: 300,
     maxWidth: 400
@@ -112,7 +111,7 @@ export const initializeProductCardStyles = makeStyles({
   description: {
     minWidth: '200px'
   }
-});
+};
 
 export const ProposedProductStyles = {
   root: {

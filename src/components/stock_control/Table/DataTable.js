@@ -169,9 +169,11 @@ export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
                       <TableCell align="left">
                         <span
                           onMouseEnter={(event) => {
+                            event.stopPropagation();
                             handlePopperClick(event);
                           }}
-                          onMouseLeave={() => {
+                          onMouseLeave={(event) => {
+                            event.stopPropagation();
                             setOpenPopper(!openPopper);
                           }}
                           className={classes.name}

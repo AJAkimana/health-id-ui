@@ -95,7 +95,7 @@ export class CustomToolBar extends Component {
           </CustomIconButton>
           <Tooltip title="Export List">
             <IconButton>
-              <Export className={classes.svg} />
+              <Export className={classes.svgIcon} />
             </IconButton>
           </Tooltip>
         </Fragment>

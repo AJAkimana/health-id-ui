@@ -8,7 +8,7 @@ import {
   Tooltip,
   IconButton
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { ToolbarStyles } from '../../../assets/styles/stock/stock';
 
 export const desc = (a, b, orderBy) => {
@@ -33,10 +33,9 @@ export const stableSort = (array, cmp) => {
 
 export const getSorting = (order, orderBy) => (order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy));
 
-export const CustomIconButton = ({
-  toolTip, buttonRef, onClickHandler, children
+export const CustomIconButton = withStyles(ToolbarStyles)(({
+  toolTip, buttonRef, onClickHandler, children, classes
 }) => {
-  const classes = makeStyles(ToolbarStyles)();
   return (
     <Tooltip title={toolTip}>
       <IconButton
@@ -50,7 +49,7 @@ export const CustomIconButton = ({
       </IconButton>
     </Tooltip>
   );
-};
+});
 
 CustomIconButton.propTypes = {
   toolTip: PropTypes.string,
@@ -65,8 +64,7 @@ CustomIconButton.defaultProps = {
   onClickHandler: () => { }
 };
 
-export const RenderPopper = ({ anchorEl, onClickAway, open, children }) => {
-  const classes = makeStyles(ToolbarStyles)();
+export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, open, children, classes }) => {
 
   return (
     <Popper
@@ -90,7 +88,7 @@ export const RenderPopper = ({ anchorEl, onClickAway, open, children }) => {
       )}
     </Popper>
   );
-};
+});
 
 RenderPopper.propTypes = {
   anchorEl: PropTypes.element,
@@ -98,3 +96,4 @@ RenderPopper.propTypes = {
   open: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
 };
+
