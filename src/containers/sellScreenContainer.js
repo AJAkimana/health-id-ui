@@ -38,7 +38,7 @@ export class SellScreenContainer extends Component {
 
   setInititalData = () => {
     const { products, customers } = this.props;
-    const currency = products[1].batchInfo[0].outlet.preference.outletCurrency.symbol;
+    const currency = products[0].outlet[0].outletpreference.outletCurrency.symbol;
     this.setState({
       customers,
       products,
@@ -70,6 +70,7 @@ export class SellScreenContainer extends Component {
         renderQuantity={this.renderQuantity}
         handleCartItemNote={this.handleCartItemNote}
         handleCartItemDelete={this.handleCartItemDelete}
+        calculateTotal={this.calculateTotal}
       />
     );
   }

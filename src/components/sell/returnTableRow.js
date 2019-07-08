@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow, TableCell, Typography } from '@material-ui/core';
+import {
+  TableRow, TableCell, Typography, Tooltip,
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { tableStyles } from '../../assets/css/sellScreenStyles';
-import { NotesIcon, TrashIcon } from '../../assets/SvgIcons/sellScreenSvgs';
+import { NotesIcon, TrashIcon, DiscountIcon } from '../../assets/SvgIcons/sellScreenSvgs';
 import FormatCurrency from '../utils/formatCurrency';
 
 const styles = tableStyles;
@@ -13,13 +15,14 @@ const ReturnTableRow = ({
   currency,
   renderQuantity,
   handleCartItemNote,
-  handleCartItemDelete
+  handleCartItemDelete,
+  calculateTotal,
 }) => (
   <TableRow
     id="cart-table-row"
     style={tableStyles.batchRow}
   >
-    <TableCell align="left" style={tableStyles.typoCell}>
+    <TableCell align="left" style={tableStyles.tableCell}>
       <Typography variant="subtitle2" style={tableStyles.tableTypo}>
         {item.productName}
       </Typography>
@@ -27,27 +30,39 @@ const ReturnTableRow = ({
         {item.measurementUnit.name}
       </Typography>
     </TableCell>
-    <TableCell align="center" style={tableStyles.tableCell}>
+    <TableCell align="left" style={tableStyles.tableCell}>
       {renderQuantity(item)}
     </TableCell>
-    <TableCell align="center" style={tableStyles.tableCell}>
+    <TableCell align="left" style={tableStyles.tableCell}>
       {<FormatCurrency
         amount={item.salesPrice}
         currency={currency}
       />}
     </TableCell>
-    <TableCell align="center" style={tableStyles.tableCell}>
-      {item.discount}
-      %
+    <TableCell align="left" style={tableStyles.tableCell}>
+      {<FormatCurrency
+        amount={calculateTotal(item.quantity, item.salesPrice)}
+        currency={currency}
+      />}
     </TableCell>
-    <TableCell align="center" style={tableStyles.tableCell}>
+    <TableCell align="right" style={tableStyles.tableIconCell}>
+      {item.discount ? (
+        <Tooltip title={`${item.discount}%`}>
+          <DiscountIcon
+            id={item.id}
+            style={tableStyles.icons}
+          />
+        </Tooltip>
+      ) : ''}
+    </TableCell>
+    <TableCell align="right" style={tableStyles.tableIconCell}>
       <NotesIcon
         id={item.id}
         style={tableStyles.icons}
         onClick={handleCartItemNote}
       />
     </TableCell>
-    <TableCell align="center" style={tableStyles.tableCell}>
+    <TableCell align="right" style={tableStyles.tableIconCell}>
       <TrashIcon
         style={tableStyles.icons}
         onClick={() => handleCartItemDelete(item)}
@@ -62,6 +77,7 @@ ReturnTableRow.propTypes = {
   renderQuantity: PropTypes.func.isRequired,
   handleCartItemNote: PropTypes.func.isRequired,
   handleCartItemDelete: PropTypes.func.isRequired,
+  calculateTotal: PropTypes.func.isRequired,
 };
 
 ReturnTableRow.defaultProps = {

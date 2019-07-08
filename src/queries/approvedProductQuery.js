@@ -11,12 +11,10 @@ const APPROVED_PRODUCTS_QUERY = gql`
       measurementUnit {
         name
       }
-      batchInfo {
-        outlet {
-          preference {
-            outletCurrency {
-              symbol
-            }
+      outlet {
+        outletpreference {
+          outletCurrency {
+            symbol
           }
         }
       }

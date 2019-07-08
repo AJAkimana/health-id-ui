@@ -217,19 +217,21 @@ export const SellScreen = ({
                   <Paper elevation={0} style={addedItems.tablePaper}>
                     <Table style={tableStyles.table}>
                       <colgroup>
-                        <col width="15%" />
-                        <col width="25%" />
-                        <col width="10%" />
-                        <col width="25%" />
-                        <col width="10%" />
-                        <col width="10%" />
+                        <col width="24%" />
+                        <col width="20%" />
+                        <col width="16%" />
+                        <col width="16%" />
+                        <col width="8%" />
+                        <col width="8%" />
+                        <col width="8%" />
                       </colgroup>
                       <TableHead>
                         <TableRow style={tableStyles.headerRow}>
                           {renderTableCell('left', tableStyles.tableHeader, 'ITEM')}
-                          {renderTableCell('center', tableStyles.tableHeader, 'QUANTITY')}
-                          {renderTableCell('center', tableStyles.tableHeader, 'PRICE')}
-                          {renderTableCell('center', tableStyles.tableHeader, 'DISCOUNT')}
+                          {renderTableCell('left', tableStyles.tableHeader, 'QUANTITY')}
+                          {renderTableCell('left', tableStyles.tableHeader, 'PRICE')}
+                          {renderTableCell('left', tableStyles.tableHeader, 'TOTAL')}
+                          {renderTableCell('center', tableStyles.tableHeader, '')}
                           {renderTableCell('center', tableStyles.tableHeader, '')}
                           {renderTableCell('center', tableStyles.tableHeader, '')}
                         </TableRow>
@@ -250,7 +252,7 @@ export const SellScreen = ({
                     />
                   </Paper>
                   <Grid container item xs={12} style={tableStyles.totals}>
-                    <Typography inline variant="h6" style={tableStyles.tableCell}>
+                    <Typography inline variant="h6" style={tableStyles.subtotal}>
                       SUBTOTAL:
                     </Typography>
                     <Typography inline variant="h6" style={tableStyles.currency}>

@@ -125,16 +125,21 @@ export const tableStyles = {
     height: '45px',
     borderBottom: '1px solid #666666',
   },
-  typoCell: {
-    color: 'white',
+  tableIconCell: {
+    color: '#e8e8e8',
     padding: '2px',
-    paddingLeft: '15px',
+    paddingRight: '5px',
     borderBottom: 0,
   },
   tableCell: {
     color: '#e8e8e8',
     padding: '2px',
-    paddingRight: '10px',
+    paddingLeft: '15px',
+    borderBottom: 0,
+  },
+  subtotal: {
+    color: '#e8e8e8',
+    padding: '2px',
     borderBottom: 0,
   },
   currency: {
@@ -250,7 +255,6 @@ export const tableQuantityStyles = theme => ({
   },
   iconsCell: {
     display: 'inline-flex',
-    paddingLeft: '10px',
   },
   paperQuantity: {
     marginTop: '5px',
