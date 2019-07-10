@@ -59,6 +59,7 @@ export const SellScreen = ({
   handlePrimaryPhoneChange,
   handleSecondaryPhoneChange,
   handleContactPhoneChange,
+  handleClickToPay
 }) => {
   const {
     mainCartNote,
@@ -313,6 +314,8 @@ export const SellScreen = ({
                     variant="contained"
                     color="primary"
                     fullWidth
+                    onClick={handleClickToPay}
+                    disabled={!(cartItems.length > 0)}
                   >
                     <Grid container item xs={12} style={tableStyles.payButton}>
                       <Typography inline variant="h6" style={tableStyles.buttonLabel}>
@@ -371,6 +374,7 @@ SellScreen.propTypes = {
   handlePrimaryPhoneChange: PropTypes.func.isRequired,
   handleSecondaryPhoneChange: PropTypes.func.isRequired,
   handleContactPhoneChange: PropTypes.func.isRequired,
+  handleClickToPay: PropTypes.func.isRequired
 };
 
 SellScreen.defaultProps = {

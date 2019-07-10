@@ -2,7 +2,7 @@
 const initialState = {
   fetchInitialData: true,
   buyingForValue: 'self',
-  currency: '$',
+  currency: '₦',
   discount: 0,
   firstName: '',
   mainCartNote: '',
@@ -55,6 +55,8 @@ const initialState = {
   isSelected: '',
   discountValue: 0,
   cartItemNoteValue: '',
+  openPaymentDialog: false,
+  totalToPay: 0,
 };
 
 export default initialState;

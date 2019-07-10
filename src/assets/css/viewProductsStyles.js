@@ -32,7 +32,7 @@ const viewProductsStyles = theme => ({
     height: '515px',
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
       width: '100%',
-      height: '515px'
+      height: '33em'
     }
   },
   filteredProducts: {

@@ -12,7 +12,6 @@ const props = {
   handleDiscountPopperClickAway: jest.fn(),
   handleDiscountButton: jest.fn(),
 };
-
 describe('test AddDiscountPopper component', () => {
   let wrapper;
   it('it renders AddDiscountPopper component', () => {

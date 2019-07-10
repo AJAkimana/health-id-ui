@@ -23,6 +23,7 @@ import ReturnQuantity from '../components/sell/returnQuantity';
 import ProductCard from '../components/sell/productCard';
 import SearchList from '../components/sell/searchList';
 import WithInitialData from './withInitialData';
+import PaymentContainer from '../components/payment/container/paymentContainer';
 
 const styles = addedItems;
 
@@ -38,12 +39,10 @@ export class SellScreenContainer extends Component {
 
   setInititalData = () => {
     const { products, customers } = this.props;
-    const currency = products[0].outlet[0].outletpreference.outletCurrency.symbol;
     this.setState({
       customers,
       products,
-      preferedProducts: products.slice(0, 8),
-      currency
+      preferedProducts: products,
     });
   };
 
@@ -629,12 +628,12 @@ export class SellScreenContainer extends Component {
   };
 
   updateItems = itemsArray => itemsArray.map(({
-    id, productName, quantity, salesPrice, discount
+    id, productName, quantity, salesPrice, discount, measurementUnit
   }) => {
     const total = this.calculateTotal(quantity, salesPrice);
     const discountedTotal = this.calculateDiscountedTotal(total, discount);
     return {
-      id, productName, quantity, salesPrice, discount, discountedTotal
+      id, productName, quantity, salesPrice, discount, discountedTotal, measurementUnit
     };
   });
 
@@ -818,11 +817,66 @@ export class SellScreenContainer extends Component {
     );
   };
 
+  handleClickToPay = () => {
+    const totalToPay = this.renderGrandTotal();
+    this.setState(state => ({
+      ...state, openPaymentDialog: true, totalToPay
+    }));
+  }
+
+  handleClosePaymentDialog = () => {
+    this.setState(state => ({
+      ...state,
+      openPaymentDialog: false,
+      cartItems: [],
+      mainCartNote: '',
+      selectedCustomer: '',
+      searchValue: '',
+      discount: 0,
+      discountValue: '',
+      isSelected: '',
+      firstName: ''
+    }));
+  }
+
+  handleBackToSellScreen = () => {
+    this.setState(state => ({
+      ...state,
+      openPaymentDialog: false,
+    }));
+  }
+
   render() {
     const { session } = this.props;
+    const { me } = session;
+    const {
+      openPaymentDialog, cartItems, currency,
+      totalToPay, discount, mainCartNote, selectedCustomer
+    } = this.state;
     return (
       <Fragment>
         <Dashboard isActive="grid2" session={session} />
+        {
+          openPaymentDialog && (
+            <PaymentContainer
+              openPaymentDialog={openPaymentDialog}
+              products={cartItems}
+              currency={currency}
+              totalToPay={totalToPay}
+              discount={Number(discount)}
+              selectedCustomer={selectedCustomer}
+              me={me}
+              mainCartNote={mainCartNote}
+              outletId={me.users[0].id}
+              handleClosePaymentDialog={this.handleClosePaymentDialog}
+              renderCartTotal={this.renderCartTotal}
+              renderCartDiscount={this.renderCartDiscount}
+              updateItems={this.updateItems}
+              handleBackToSellScreen={this.handleBackToSellScreen}
+            />
+
+          )
+        }
         <SellScreen
           state={this.state}
           handleChange={this.handleChange}
@@ -859,6 +913,7 @@ export class SellScreenContainer extends Component {
           handlePrimaryPhoneChange={this.handlePrimaryPhoneChange}
           handleSecondaryPhoneChange={this.handleSecondaryPhoneChange}
           handleContactPhoneChange={this.handleContactPhoneChange}
+          handleClickToPay={this.handleClickToPay}
         />
       </Fragment>
     );

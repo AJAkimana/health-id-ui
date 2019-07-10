@@ -7,8 +7,13 @@ const GET_USER_INFO = gql`
       mobileNumber
       email
       username
+      firstName
+      lastName
       role {
         name
+      }
+      users {
+        id
       }
     }
   }

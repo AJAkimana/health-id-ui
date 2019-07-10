@@ -224,33 +224,33 @@ export class StepperNav extends React.Component {
     });
   }
 
-   sendEditInfo = (user) => {
-     const {
-       firstName, lastName,
-       email, mobileNumber,
-       jobTitle, role, username,
-       users, target, startingDate, id
-     } = user;
-     this.setState({
-       fName: firstName,
-       lName: lastName,
-       userEmail: email,
-       phone: mobileNumber,
-       jobTitle,
-       roleId: role.id,
-       userUsername: username,
-       outlet: users[0].id,
-       target,
-       startingDate,
-       userId: id,
-       showUsers: false,
-       editMode: true,
-       isError: false,
-       phoneError: false,
-       usernameError: false,
-       emailError: false,
-     });
-   }
+  sendEditInfo = (user) => {
+    const {
+      firstName, lastName,
+      email, mobileNumber,
+      jobTitle, role, username,
+      users, target, startingDate, id
+    } = user;
+    this.setState({
+      fName: firstName,
+      lName: lastName,
+      userEmail: email,
+      phone: mobileNumber,
+      jobTitle,
+      roleId: role.id,
+      userUsername: username,
+      outlet: users[0].id,
+      target,
+      startingDate,
+      userId: id,
+      showUsers: false,
+      editMode: true,
+      isError: false,
+      phoneError: false,
+      usernameError: false,
+      emailError: false,
+    });
+  }
 
   handleBackButton = () => {
     this.setState(state => ({
@@ -1245,7 +1245,7 @@ export class StepperNav extends React.Component {
 
     return (
       <React.Fragment>
-        {activeStep === steps.length ? null : <NavBar /> }
+        {activeStep === steps.length ? null : <NavBar />}
         <CssBaseline />
         <main className={classes.layout}>
           {activeStep === steps.length ? (
@@ -1284,7 +1284,7 @@ export class StepperNav extends React.Component {
                         variant="text"
                         id="back-button"
                       >
-                        Back
+                          Back
                       </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
@@ -1294,7 +1294,7 @@ export class StepperNav extends React.Component {
                         variant="text"
                         id="back-button"
                       >
-                        Cancel
+                          Cancel
                       </Button>
                     )}
 
@@ -1310,7 +1310,7 @@ export class StepperNav extends React.Component {
                               onClick={this.handleNextButton}
                               className={classes.button}
                               id="next-button"
-                            >
+                          >
                               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Fab>
                           ) : (
@@ -1335,7 +1335,7 @@ export class StepperNav extends React.Component {
                                   className={classes.button}
                                   id="next-button"
                                 >
-                                Save Changes
+                                        Save Changes
                                 </Fab>
                               ) : (
                                 <Fab
@@ -1346,7 +1346,7 @@ export class StepperNav extends React.Component {
                                   className={classes.button}
                                   id="next-button"
                                 >
-                                Invite
+                                          Invite
                                 </Fab>
                               )
                             )
@@ -1361,7 +1361,7 @@ export class StepperNav extends React.Component {
             </React.Fragment>
           )}
         </main>
-        {activeStep !== steps.length && <Footer /> }
+        {activeStep !== steps.length && <Footer />}
       </React.Fragment>
     );
   }
@@ -1409,7 +1409,7 @@ const GET_ASSIGNED_OUTLETS = graphql(GET_OUTLETS,
         id: localStorage.businessId,
       },
     }
-  },);
+  });
 
 export default compose(
   UPDATE_ADMIN_USER_MUTATION,

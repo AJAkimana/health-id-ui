@@ -23,11 +23,8 @@ const APPROVED_PRODUCTS_QUERY = gql`
       description
       brand
       manufacturer
-      vatStatus
       productQuantity
       salesPrice
-      nearestExpiryDate
-      loyaltyWeight
       tags
     }
   }

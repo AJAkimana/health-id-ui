@@ -94,6 +94,14 @@ const getPath = (name, props) => {
       </React.Fragment>
     );
 
+  case 'Edit':
+    return (
+      <React.Fragment>
+        <path {...props} d="M188.25,583.276V687.207H292.181L598.847,380.541,494.916,276.61ZM678.944,300.444a27.767,27.767,0,0,0,0-39.216L614.23,196.513a27.769,27.769,0,0,0-39.217,0l-50.718,50.718L628.225,351.163Z" transform="translate(-116.991 -117.152)" />
+        <path {...props} d="M0,0H623.5V623.5H0Z" fill="none" />
+      </React.Fragment>
+    );
+
 
   default:
     return <path />;
@@ -120,6 +128,8 @@ const getViewBox = (name) => {
     return '0 0 31.65 24.04';
   case 'Team':
     return '0 0 25.764 26.083';
+  case 'Edit':
+    return '0 0 623.5 623.5';
 
   default:
     return '0 0 0.268 24.039';
