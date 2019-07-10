@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import {
   Popper,
   Paper,
@@ -64,15 +65,17 @@ CustomIconButton.defaultProps = {
   onClickHandler: () => { }
 };
 
-export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, open, children, classes }) => {
+export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, open, children, classes, className, popperPlacement }) => {
 
   return (
     <Popper
-      className={classes.popper}
+      className={clsx(classes.popper, className && className)}
       open={open}
+      placement={popperPlacement}
       anchorEl={anchorEl}
       transition
-      disablePortal>
+      disablePortal
+    >
       {({ TransitionProps, placement }) => (
         <Grow
           {...TransitionProps}
@@ -91,9 +94,19 @@ export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, 
 });
 
 RenderPopper.propTypes = {
-  anchorEl: PropTypes.element,
-  onClickAway: PropTypes.func.isRequired,
+  anchorEl: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
+  onClickAway: PropTypes.func,
+  children: PropTypes.element,
+  popperPlacement: PropTypes.string,
+  className: PropTypes.string,
   open: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
+};
+
+RenderPopper.defaultProps = {
+  onClickAway: () => null,
+  anchorEl: (<span />),
+  popperPlacement: 'bottom',
+  children: (<span />),
+  className: 'class'
 };
 

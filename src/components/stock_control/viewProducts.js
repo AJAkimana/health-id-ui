@@ -3,11 +3,11 @@ import { Query } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import GET_ALL_APPROVED_PRODUCTS from '../../queries/stockProducts';
+import { GET_ALL_APPROVED_PRODUCTS } from '../../queries/stockProducts';
 import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import DataTable from './Table/DataTable';
-import ProductLoader from '../products/productLoader';
+import DataTableLoader from '../dataTable/dataTableLoader';
 import sortAscendingIcon from '../../assets/images/stock/sort_ascending_icon.png';
 import sortDescendingIcon from '../../assets/images/stock/sort_descending_icon.png';
 import stockControlStyles from '../../assets/styles/stock/stock';
@@ -45,6 +45,7 @@ export class ViewProducts extends Component {
   render() {
     const { history, session } = this.props;
     const columnHeaders = ['name', 'sku', ' measurement unit', 'quantity'];
+    const products = [];
 
     return (
       <Fragment>
@@ -53,30 +54,38 @@ export class ViewProducts extends Component {
           {({ loading, error, data }) => {
             if (loading) {
               return (
-                <ProductLoader />
+                <DataTableLoader />
               );
             }
             if (error) return `Error! ${error.message}`;
 
-            const products = data.approvedProducts.map(product => ({
-              id: product.id,
-              name: product.productName,
-              quantity: product.productQuantity,
-              sku: product.skuNumber,
-              measurementunit: product.measurementUnit.name,
-              description: product.description,
-              image: product.image,
-              tags: product.tags
-            }));
+            data.approvedProducts.forEach((product) => {
+              if (product.batchInfo.length >= 1) {
+                products.push({
+                  id: product.id,
+                  name: product.productName,
+                  quantity: product.productQuantity,
+                  sku: product.skuNumber,
+                  measurementunit: product.measurementUnit.name,
+                  description: product.description,
+                  image: product.image,
+                  tags: product.tags,
+                  batchId: product.batchInfo
+                });
+              }
+              return products;
+            });
+            const isAuthorised = session.me.role.name.match(/^(Master Admin|Operations Admin)$/);
 
             return (
               <div name="stock_products">
                 <DataTable
-                  title='Products'
+                  title="Products"
+                  isAdmin={isAuthorised ? true : false}
                   columns={this.createColumns(columnHeaders)}
                   data={products}
-                  onRowClick={(rowData) => {
-                    history.push(`products/${rowData}`);
+                  onRowClick={(rowId) => {
+                    history.push(`products/${rowId}`);
                   }}
                 />
               </div>

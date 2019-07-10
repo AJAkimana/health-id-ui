@@ -13,7 +13,9 @@ export const TableToolBar = (props) => {
     numSelected,
     handleTextChange,
     title,
+    isAdmin,
     isSearchActive,
+    handleEdit,
     handleHideSearch,
     handleClickSearch,
     handleClickInverseSelection,
@@ -43,10 +45,12 @@ export const TableToolBar = (props) => {
           <SelectionToolBar
             handleClickInverseSelection={handleClickInverseSelection}
             handleClickDeselectAll={handleClickDeselectAll}
+            handleEdit={handleEdit}
             selected={numSelected}
           />
         ) : (
           <CustomToolBar
+            isAdmin={isAdmin}
             handleClickSearch={handleClickSearch}
             isSearchActive={isSearchActive}
             handleHideSearch={handleHideSearch}
@@ -62,7 +66,9 @@ TableToolBar.propTypes = {
   numSelected: PropTypes.number.isRequired,
   handleTextChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   isSearchActive: PropTypes.bool.isRequired,
+  handleEdit: PropTypes.func.isRequired,
   handleHideSearch: PropTypes.func.isRequired,
   handleClickSearch: PropTypes.func.isRequired,
   handleClickInverseSelection: PropTypes.func.isRequired,

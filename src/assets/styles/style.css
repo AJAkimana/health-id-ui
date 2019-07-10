@@ -23,7 +23,7 @@ html, body {
   background: url('../images/doc.png');
   background-size: 100% 100%;
   height:100vh;
-} 
+}
 .auth-bg {
   background-color: #FAF33E;
   opacity: 0.2;
@@ -49,18 +49,18 @@ html, body {
 }
 
 .healthid {
-  width: 80%; 
-} 
+  width: 80%;
+}
 
 .subtext{
     font-size: 135%;
     text-align: center;
-    color: #E8E8E8; 
+    color: #E8E8E8;
     margin: 0 auto;
     padding-bottom: 15px;
     font-family: Avenir, Medium;
     font-weight: lighter;
-} 
+}
 
 
 .form-control{
@@ -103,7 +103,7 @@ html, body {
   color: #FF4141 !important;
 }
 .MuiInput-underline-27:before, .jss27 {
-  border-bottom: 1px solid rgb(107, 107, 107) !important; 
+  border-bottom: 1px solid rgb(107, 107, 107) !important;
 }
 
 .MuiInputAdornment-root-166, .jss166{
@@ -146,7 +146,7 @@ html, body {
 
 .textfield{
   width: 100%;
-  
+
 }
 
 .login-qn{
@@ -230,8 +230,8 @@ html, body {
   position: absolute;
   font-weight: lighter;
    color: #3CC480;
-   top: 50%; 
-   left: 50%; 
+   top: 50%;
+   left: 50%;
    transform: translate(-50%, -50%)
 }
 
@@ -239,8 +239,8 @@ html, body {
   position: absolute;
   font-weight: lighter;
    color:#FF4141;
-   top: 50%; 
-   left: 50%; 
+   top: 50%;
+   left: 50%;
    transform: translate(-50%, -50%)
 }
 
@@ -248,18 +248,18 @@ html, body {
   position: absolute;
   font-weight: lighter;
   color: #FAF33E;
-  top: 50%; 
-  left: 50%; 
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%)
 }
 
 .MuiInputLabel-formControl-10 label{
-  color: #E8E8E8 !important; 
+  color: #E8E8E8 !important;
   justify-content: center !important;
 }
 
 .MuiInputBase-root-36, .MuiInputBase-input-46, .jss46 {
-  color: #E8E8E8 !important; 
+  color: #E8E8E8 !important;
 }
 
 .bottom-actions {
@@ -270,7 +270,7 @@ html, body {
 }
 
 .align-title-items {
-  position: relative; 
+  position: relative;
   text-align: center
 }
 
@@ -289,7 +289,7 @@ html, body {
 .dialog-message{
   padding-top: 30px;
   text-align: center !important;
-  font: Avenir, Book; 
+  font: Avenir, Book;
   color: #E8E8E8 !important;
   font-size: 20px !important;
 }
@@ -297,7 +297,7 @@ html, body {
 .dialog-warning{
   padding-top: 10px;
   text-align: center !important;
-  font: Avenir, Medium; 
+  font: Avenir, Medium;
   color: #A3A3A3 !important;
   font-size: 18px !important;
 }
@@ -305,7 +305,7 @@ html, body {
 .dialog-email-msg{
   margin-top: 45px !important;
   font: Avenir, Medium !important;
-  color:#A3A3A3 !important; 
+  color:#A3A3A3 !important;
   font-size: 17px !important;
   text-align: center !important;
   justify-content: center !important;
@@ -369,9 +369,9 @@ html, body {
 }
 
 .alert-error{
-  color: #FF4141; 
-  font-size: 17px; 
-  font: Avenir, Book; 
+  color: #FF4141;
+  font-size: 17px;
+  font: Avenir, Book;
   margin-left: 40px !important;
 }
 
@@ -404,7 +404,7 @@ html, body {
 .checkmark {
   position: absolute;
   top: 0;
-  left: 0; 
+  left: 0;
   height: 22px;
   width: 22px;
   background-color: #424242;
@@ -431,7 +431,7 @@ html, body {
 /* Style the checkmark/indicator */
 .check-container .checkmark:after {
   left: 8px;
-  top: 2px; 
+  top: 2px;
   width: 5px;
   height: 10px;
   border: 0.2px solid #FAF33E;

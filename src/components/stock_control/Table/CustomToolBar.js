@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import ProposedProducts from '../ProposedProduct';
+import ProposedEdits from '../../../container/stock/ProposedEdits';
 import {
   StockCount,
   LowQuantityNotification,
@@ -36,10 +36,6 @@ export class CustomToolBar extends Component {
     this.setState({ stockOpen: !stockOpen });
   };
 
-  handleClose = (event) => {
-    !this.anchorEl.contains(event.target) ? this.setState({ open: false }) : '';
-  };
-
   handleCloseStock = (event) => {
     !this.StockElement.contains(event.target) ? this.setState({ stockOpen: false }) : '';
   };
@@ -50,9 +46,11 @@ export class CustomToolBar extends Component {
       handleClickSearch,
       isSearchActive,
       handleHideSearch,
+      isAdmin,
       handleTextChange
     } = this.props;
     const { open, stockOpen } = this.state;
+
     return (
       <Fragment>
         {isSearchActive ? (
@@ -70,15 +68,18 @@ export class CustomToolBar extends Component {
           >
             <SearchIcon />
           </CustomIconButton>
-          <CustomIconButton
-            toolTip="Approve"
-            buttonRef={(node) => {
-              this.anchorEl = node;
-            }}
-            onClickHandler={() => this.handleToggle()}
-          >
-            <ApproveStockIcon />
-          </CustomIconButton>
+          {isAdmin ?
+            <CustomIconButton
+              toolTip="Approve"
+              buttonRef={(node) => {
+                this.anchorEl = node;
+              }}
+              onClickHandler={() => this.handleToggle()}
+            >
+              <ApproveStockIcon />
+            </CustomIconButton> :
+            ''
+          }
           <Tooltip title="Low quantity">
             <IconButton>
               <LowQuantityNotification />
@@ -109,8 +110,12 @@ export class CustomToolBar extends Component {
             <MenuItem onClick={this.handleCloseStock}>View Previous Stock Count</MenuItem>
           </MenuList>
         </RenderPopper>
-        <RenderPopper anchorEl={this.anchorEl} onClickAway={this.handleClose} open={open}>
-          <ProposedProducts handleClick={this.handleToggle} />
+        <RenderPopper
+          anchorEl={this.anchorEl}
+          open={open}
+          className="approve-products"
+          popperPlacement="bottom">
+          <ProposedEdits />
         </RenderPopper>
       </Fragment>
     );
@@ -119,7 +124,11 @@ export class CustomToolBar extends Component {
 
 CustomToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
-  handleClickSearch: PropTypes.func.isRequired
+  handleClickSearch: PropTypes.func.isRequired,
+  isSearchActive: PropTypes.bool.isRequired,
+  handleHideSearch: PropTypes.func.isRequired,
+  handleTextChange: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 };
 
 export default withStyles(ToolbarStyles)(CustomToolBar);

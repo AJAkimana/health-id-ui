@@ -2,8 +2,8 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
-import GET_ALL_APPROVED_PRODUCTS from '../../queries/stockProducts';
-import ViewProducts, { ViewProducts as ViewProductsWrapper } from '../../components/stock_control/viewProducts';
+import { GET_ALL_APPROVED_PRODUCTS } from '../../../queries/stockProducts';
+import ViewProducts, { ViewProducts as ViewProductsWrapper } from '../../../components/stock_control/viewProducts';
 
 describe('ViewProducts ', () => {
   const mocks = [
@@ -20,6 +20,15 @@ describe('ViewProducts ', () => {
               'measurementUnit': {
                 'name': 'syrup'
               },
+              "batchInfo": [
+                {
+                  "batchNo": "BN201905171031-amk7okmvp",
+                  "dateReceived": null,
+                  "expiryDate": "2019-05-20",
+                  "quantity": null,
+                  "id": "345678912"
+                }
+              ],
               'description': 'first treatment people try for mild to moderate pain',
               'image': 'healthid-web-api.herokuapp.com/healthid',
               'tags': [
@@ -35,6 +44,15 @@ describe('ViewProducts ', () => {
               'measurementUnit': {
                 'name': 'tablets'
               },
+              "batchInfo": [
+                {
+                  "batchNo": "BN201905171031-amk7okmvp",
+                  "dateReceived": null,
+                  "expiryDate": "2019-05-20",
+                  "quantity": null,
+                  "id": "345678912"
+                }
+              ],
               'description': 'first treatment people try for mild to moderate pain',
               'image': 'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png',
               'tags': ['name', 'time'],
@@ -58,7 +76,11 @@ describe('ViewProducts ', () => {
     }
   ];
   const props = {
-    session: { me: { username: 'tester' } },
+    session: {
+      me: {
+      username: 'tester',
+      role: { name: "Master Admin" }},
+    },
     history: { push: jest.fn() }
   };
 
@@ -69,7 +91,7 @@ describe('ViewProducts ', () => {
       </MockedProvider>
     );
     await wait(2000);
-    expect(wrapper.find('ProductLoader').length).toEqual(1);
+    expect(wrapper.find('DataTableLoader').length).toEqual(1);
     expect(wrapper.find('DataTable').length).toEqual(0)
   });
 
@@ -80,7 +102,7 @@ describe('ViewProducts ', () => {
       </MockedProvider>
     );
     await wait(0);
-    expect(wrapper.find('ProductLoader').length).toEqual(1);
+    expect(wrapper.find('DataTableLoader').length).toEqual(1);
     expect(wrapper.find('DataTable').length).toEqual(0)
   });
 

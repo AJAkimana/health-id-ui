@@ -1,18 +1,45 @@
 import gql from 'graphql-tag';
 
-const GET_ALL_APPROVED_PRODUCTS = gql`
-query {
+export const GET_ALL_APPROVED_PRODUCTS = gql`
+  query {
     approvedProducts {
       id
       productName
       measurementUnit {
         name
       }
+      batchInfo {
+        dateReceived
+        expiryDate
+        quantity
+        id
+      }
       description
       image
       tags
       skuNumber
       productQuantity
+    }
+  }
+`;
+
+export const GET_ALL_PROPOSED_EDITS = gql`
+  query {
+    proposedQuantityEdits {
+      proposedBy {
+        username
+      }
+      isApproved
+      quantityReceived
+      product {
+        productName
+        id
+      }
+      batch {
+        quantity
+        id
+        dateReceived
+      }
     }
   }
 `;

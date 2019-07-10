@@ -47,6 +47,8 @@ export const searchStyles = theme => ({
   },
   searchIcon: {
     color: theme.palette.text.secondary,
+    margin: 'auto',
+    marginTop: '4px'
   },
   clearIcon: {
     '&:hover': {
@@ -73,6 +75,9 @@ export const TableStyles = {
   },
   paper: {
     width: '100%'
+  },
+  popperWrapper: {
+    width: '400px'
   },
   table: {
     minWidth: 750
@@ -116,7 +121,25 @@ export const productCardStyles = {
 export const ProposedProductStyles = {
   root: {
     width: '100%',
-    maxWidth: 360
+    maxWidth: 400
+  },
+  noProposedEdit: {
+    paddingLeft: '80px',
+    paddingRight: '80px'
+  },
+  noProposedEditWrapper: {
+    height: '40px',
+    position: 'relative',
+    top: '10px'
+  },
+  listWrapper: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '0.8125rem',
+    opacity: '0.5'
+  },
+  scrollWrapper: {
+    overflowY: 'scroll',
+    height: '400px'
   },
   inline: {
     display: 'inline'
@@ -153,5 +176,52 @@ export const SelectToolBarStyles = {
     float: 'right'
   }
 };
+
+export const BatchCardStyles = {
+  root: {
+    width: '400px'
+  },
+  title: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '15px',
+    fontWeight: '400',
+    paddingLeft: '21px',
+    paddingTop: '5px',
+    paddingBottom: '5px'
+  },
+  secondaryTitle: {
+    color: 'rgba(0, 0, 0, 0.87)',
+    fontSize: '15px',
+    fontWeight: '400',
+    paddingLeft: '21px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    fontStyle: 'italic',
+    opacity: '0.5'
+  },
+  heading: {
+    fontSize: '0.8125rem',
+    height: '35px',
+    padding: '8px'
+  },
+  scrollWrapper: {
+    overflowY: 'scroll',
+    height: '400px'
+  },
+  card: {
+    paddingLeft: '21px'
+  },
+  divider: {
+    marginBottom: '8px',
+    marginTop: '8px'
+  },
+  icon: {
+    marginRight: '1px',
+    marginLeft: 'auto',
+    marginTop: '30px',
+    color: 'rgb(66, 66, 66)'
+  }
+};
+
 
 export default stockControlStyles;

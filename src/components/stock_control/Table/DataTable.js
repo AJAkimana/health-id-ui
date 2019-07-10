@@ -2,20 +2,30 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Fade, Popper, Checkbox, Paper, TableRow,
-  TablePagination, TableCell, TableBody, Table
+  Fade,
+  Popper,
+  Checkbox,
+  Paper,
+  TableRow,
+  TablePagination,
+  TableCell,
+  TableBody,
+  Table
 } from '@material-ui/core';
 
 import ProductCard from '../ProductCard';
 import TableHeader from './TableHeader';
 import TableToolBar from './TableToolBar';
 import { TableStyles } from '../../../assets/styles/stock/stock';
-import {
-  stableSort, getSorting
-} from '../utils/utils';
+import { stableSort, getSorting, RenderPopper } from '../utils/utils';
+import BatchCard from '../../../container/stock/BatchCard';
 
-export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
+export const DataTable = ({
+  classes, columns, data, title, onRowClick, isAdmin
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [editPopperAnchor, setEditPopperAnchor] = useState(null);
+  const [editable, setEditable] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [prevSearchValue, setPrevSearchValue] = useState('');
   const [openPopper, setOpenPopper] = useState(false);
@@ -78,10 +88,7 @@ export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
 
     if (searchText !== prevSearchValue && searchText.length > 0) {
       setPrevSearchValue(searchText);
-      searchResults = data.filter(
-        row => searchMatch.test(row.name)
-        || searchMatch.test(row.sku)
-      );
+      searchResults = data.filter(row => searchMatch.test(row.name) || searchMatch.test(row.sku));
       setRows(searchResults);
     } else {
       setRows(data);
@@ -108,14 +115,23 @@ export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
     setSelected(newSelected);
   };
 
+  const onEditQuantity = () => {
+    const anchorElement = document.querySelectorAll('.tool-bar-elevation');
+    setEditPopperAnchor(anchorElement[0]);
+    setEditable(!editable);
+  };
+
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const selectedRow = rows.filter(word => word.id === selected[0])[0];
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <TableToolBar
+          name="toolbar"
+          isAdmin={isAdmin}
           title={`${rows.length} ${title}`}
           numSelected={selected.length}
           handleTextChange={handleTextChange}
@@ -123,7 +139,12 @@ export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
             setSelected([]);
           }}
           isSearchActive={isSearchActive}
-          handleHideSearch={() => setIsSearchActive(false)}
+          handleEdit={() => onEditQuantity()}
+          handleHideSearch={() => {
+            setIsSearchActive(false);
+            setRows(data);
+            setPrevSearchValue('');
+          }}
           handleClickSearch={() => setIsSearchActive(!isSearchActive)}
           handleClickInverseSelection={() => handleClickInverseSelection()}
         />
@@ -226,6 +247,18 @@ export const DataTable = ({ classes, columns, data, title, onRowClick }) => {
           </Fade>
         )}
       </Popper>
+      <RenderPopper
+        anchorEl={editPopperAnchor}
+        className={classes.popperWrapper}
+        open={editable && selected.length > 0}
+        children={(editable && selected.length > 0) ? (
+          <BatchCard
+            data={selectedRow.batchId}
+            name={selectedRow.name}
+            productId={selected}
+          />
+        ) : <span />}
+      />
     </div>
   );
 };
@@ -235,6 +268,7 @@ DataTable.propTypes = {
   columns: PropTypes.arrayOf(String).isRequired,
   data: PropTypes.arrayOf(Object).isRequired,
   title: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   onRowClick: PropTypes.func.isRequired
 };
 

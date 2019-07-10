@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { DataTable } from '../../components/stock_control/Table/DataTable';
+import { DataTable } from '../../../components/stock_control/Table/DataTable';
 
 describe('DataTable ', () => {
   const props = {
@@ -48,9 +48,9 @@ describe('DataTable ', () => {
   it('triggers open search form', () => {
     const wrapper =  mount(<DataTable {...props} />);
 
-    expect(wrapper.find('TableToolBar').prop('isSearchActive')).toBe(false);
+    expect(wrapper.find('[name="toolbar"]').prop('isSearchActive')).toBe(false);
     wrapper.find('[title="Search"]').at(1).childAt(0).simulate('click');
-    expect(wrapper.find('TableToolBar').prop('isSearchActive')).toBe(true);
+    expect(wrapper.find('[name="toolbar"]').prop('isSearchActive')).toBe(true);
     wrapper.find('#search-field').at(6).simulate('change', event);
     wrapper.find('#search-field').at(6).simulate('change', {});
   });
@@ -63,16 +63,16 @@ describe('DataTable ', () => {
       }
     };
 
-    expect(wrapper.find('TableToolBar').prop('numSelected')).toBe(0);
+    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(0);
     wrapper.find('Checkbox').at(1).simulate('click', event);
-    expect(wrapper.find('TableToolBar').prop('numSelected')).toBe(1);
+    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(1);
     wrapper.find('[title="Inverse selection"]').at(1).childAt(0).simulate('click');
     wrapper.find('Checkbox').at(1).simulate('click', event);
-    expect(wrapper.find('TableToolBar').prop('numSelected')).toBe(2);
+    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
     wrapper.find('[title="Deselect All"]').at(1).childAt(0).simulate('click');
-    expect(wrapper.find('TableToolBar').prop('numSelected')).toBe(0);
+    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(0);
     wrapper.find('Checkbox').at(0).simulate('click', event);
     wrapper.find('Checkbox').at(0).simulate('click', secondEvent);
-    expect(wrapper.find('TableToolBar').prop('numSelected')).toBe(2);
+    expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
   });
 });

@@ -1,15 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import ProductCard from '../../components/stock_control/ProductCard';
-import { ProposedProducts } from '../../components/stock_control/ProposedProduct';
+import ProductCard from '../../../components/stock_control/ProductCard';
 import TableSearch, {
   TableSearch as SearchComponent
-} from '../../components/stock_control/Table/TableSearch';
-import TableHeader from '../../components/stock_control/Table/TableHeader';
-import { TableToolBar } from '../../components/stock_control/Table/TableToolBar';
+} from '../../../components/stock_control/Table/TableSearch';
+import TableHeader from '../../../components/stock_control/Table/TableHeader';
+import { TableToolBar } from '../../../components/stock_control/Table/TableToolBar';
 import {
   CustomIconButton, getSorting, desc
-} from '../../components/stock_control/utils/utils';
+} from '../../../components/stock_control/utils/utils';
 
 describe('ProductCard ', () => {
   it('renders without crashing', () => {
@@ -42,42 +41,6 @@ describe('TableToolBar ', () => {
     const wrapper = shallow(<TableToolBar {...props} />);
 
     expect(wrapper.find('[color="inherit"]').contains('4 row(s) selected')).toBe(true);
-  });
-});
-
-describe('ProposedProducts ', () => {
-  it('renders without crashing', () => {
-    const props = {
-      classes: {
-        root: {},
-        inline: {},
-        iconButton: {},
-        iconWrapper: {},
-        divider: {}
-      },
-      handleClick: jest.fn()
-    };
-    const wrapper = shallow(<ProposedProducts {...props} />);
-    expect(wrapper.find('[primary="Amoxicillin"]').length).toBe(1);
-  });
-
-  it('responds to on click events', () => {
-    const props = {
-      classes: {
-        root: 'root',
-        inline: 'inline',
-        iconButton: 'icons',
-        iconWrapper: 'wrapper',
-        divider: 'divider'
-      },
-      handleClick: jest.fn()
-    };
-    const wrapper = mount(<ProposedProducts {...props} />);
-
-    wrapper.find('[className="icons"]').forEach((element) => {
-      element.simulate('click');
-    });
-    expect(wrapper.find('[primary="Amoxicillin"]').length).toBe(2);
   });
 });
 

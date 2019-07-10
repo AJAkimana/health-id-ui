@@ -12,7 +12,11 @@ import { SelectToolBarStyles } from '../../../assets/styles/stock/stock';
 
 export const SelectionToolBar = (props) => {
   const {
-    classes, handleClickDeselectAll, handleClickInverseSelection, selected
+    classes,
+    handleClickDeselectAll,
+    handleEdit,
+    handleClickInverseSelection,
+    selected
   } = props;
   const {
     iconButton, icon, inverseIcon, wrapper
@@ -22,7 +26,7 @@ export const SelectionToolBar = (props) => {
     <div className={wrapper}>
       {selected <= 1 ? (
         <Tooltip title="Edit quantity">
-          <IconButton className={iconButton}>
+          <IconButton className={iconButton} onClick={handleEdit}>
             <EditICon className={icon} />
           </IconButton>
         </Tooltip>
@@ -52,6 +56,7 @@ SelectionToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleClickDeselectAll: PropTypes.func.isRequired,
   handleClickInverseSelection: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
   selected: PropTypes.number.isRequired
 };
 
