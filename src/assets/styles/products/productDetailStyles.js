@@ -138,4 +138,4 @@ export const tableStyles = {
     padding: '5px',
     border: '1px solid #cccccc',
   },
-}
+};

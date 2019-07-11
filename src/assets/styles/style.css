@@ -356,6 +356,13 @@ html, body {
 /* select country code */
 .form-code{
   padding-bottom: 30px !important;
+
+}
+/* tags */
+.ReactTags__tagInputField{
+  border: none;
+  outline: none;
+  font-size: 14px;
 }
 
 .email-highlight{
@@ -439,4 +446,43 @@ html, body {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+.ReactTags__tag{
+  border-radius: 5px;
+  padding: 5px;
+  margin-left: 8px;
+  background-color: #424242;
+  color: #E8E8E8;
+
+}
+
+.ReactTags__remove{
+  margin-left: 8px;
+}
+
+.ReactTags__tagInput{
+  display: inline;
+  padding-left: 3px;
+}
+
+/* Fields Table */
+.fields-title{
+  font-weight: lighter;
+  font-style: italic;
+  font-family: Avenir, Medium
+}
+
+.fields-table{
+  width: 100%;
+  text-align: left;
+  margin-left: 3%;
+}
+
+.fields-tr{
+  margin-left: 25%;
+}
+
+.required-field{
+  margin-left: 25%;
+  padding: 3%;
 }

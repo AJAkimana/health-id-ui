@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
@@ -61,8 +62,22 @@ export class ToolBar extends Component {
               <Paper className={classes.paper}>
                 <ClickAwayListener onClickAway={this.handleClose}>
                   <MenuList>
-                    <MenuItem onClick={this.handleClose}>Add Individual Product</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Import Product List</MenuItem>
+                    <MenuItem onClick={this.handleClose}>
+                      <Link
+                        to="/product/add"
+                        className={classes.menuLink}
+                      >
+                            Add Individual Product
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={this.handleClose}>
+                      <Link
+                        to="/product/import"
+                        className={classes.menuLink}
+                      >
+                        Import Product List
+                      </Link>
+                    </MenuItem>
                     {
                       isApproved && (
                         <MenuItem onClick={this.handleViewProposed}>

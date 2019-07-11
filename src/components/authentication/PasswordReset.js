@@ -8,7 +8,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import logo from '../../assets/images/logo.png';
 import {
   validatePasswordLength, confirmPasswords,
-} from '../../utils/Validation';
+} from '../../utils/authentication/Validation';
 import '../../assets/styles/authentication/PasswordReset.scss';
 
 

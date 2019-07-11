@@ -36,6 +36,10 @@ export const ToolBarStyles = {
     marginLeft: '10px',
     cursor: 'pointer',
   },
+  menuLink: {
+    textDecoration: 'none',
+    color: '#424242'
+  },
   popper: {
     zIndex: '500'
   },

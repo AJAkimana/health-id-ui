@@ -11,6 +11,9 @@ import UserProfile from './profile/Profile';
 import ApproveProductDetail from '../container/products/approveProduct';
 import ProductDetail from '../containers/productDetail';
 import SellScreenContainer from '../containers/sellScreenContainer';
+import AddProduct from './products/AddProduct/AddProduct';
+import ImportProduct from './products/ImportProduct/ImportProduct';
+
 
 const App = ({ session }) => (
   <div>
@@ -26,6 +29,8 @@ const App = ({ session }) => (
       <Route exact path="/products/:id" render={() => <ProductDetail session={session} />} />
       <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
+      <Route exact path="/product/add" render={() => <AddProduct session={session} />} />
+      <Route exact path="/product/import" render={() => <ImportProduct session={session} />} />
     </Switch>
   </div>
 );

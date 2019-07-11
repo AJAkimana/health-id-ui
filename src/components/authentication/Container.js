@@ -9,7 +9,7 @@ import {
 } from './mutations/mutations';
 import {
   validateEmail, validatePasswordLength,
-} from '../../utils/Validation';
+} from '../../utils/authentication/Validation';
 import logo from '../../assets/images/logo.png';
 import Register from './Register';
 import Login from './Login';
@@ -194,15 +194,17 @@ export class AuthContainer extends Component {
       variables: values
     })
       .then((data) => {
+        console.log(data);
         this.setState({
           loading: false,
           openAlert: true
         });
-        const { token, message } = data.data.loginUser;
+        const { token, message, restToken } = data.data.loginUser;
         const { isAdmin } = data.data.loginUser.user;
 
         if (message === 'Login Successful') {
           localStorage.setItem('auth_token', token);
+          localStorage.setItem('rest_token', restToken);
           this.setState({
             loginSuccess: true,
             loginErrors: '',
@@ -239,9 +241,10 @@ export class AuthContainer extends Component {
           loading: false,
           openAlert: true
         });
-        const { token, message } = data.data.loginUser;
+        const { token, message, restToken } = data.data.loginUser;
         if (message === 'Login Successful') {
           localStorage.setItem('auth_token', token);
+          localStorage.setItem('rest_token', restToken);
           this.setState({
             loginSuccess: true,
             loginErrors: '',
@@ -258,42 +261,6 @@ export class AuthContainer extends Component {
           loginSuccess: false,
           openAlert: true,
           loading: false
-        });
-      });
-  }
-
-  handlePasswordReset = () => {
-    const { ResetPassword } = this.props;
-    const { email } = this.state;
-    this.setState({ loading: true });
-    ResetPassword({
-      variables: {
-        email
-      }
-    })
-      .then((data) => {
-        const { resetLink, success } = data.data.resetPassword;
-        localStorage.setItem('reset-link', resetLink);
-        this.setState({
-          disabled: true,
-          loading: false,
-          EmailError: false,
-          helperEmailText: (
-            <FormHelperText className="valid">
-              {success}
-            </FormHelperText>
-          )
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          disabled: false,
-          loading: false,
-          EmailError: true,
-          helperEmailText: (
-            <FormHelperText className="error">
-              {err.message.split(':')[1]}
-            </FormHelperText>)
         });
       });
   }
@@ -338,6 +305,7 @@ export class AuthContainer extends Component {
         path
       }
     } = this.props;
+
     return (
       <div>
         <div className="flex-container">

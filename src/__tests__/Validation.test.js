@@ -1,6 +1,6 @@
 import {
   validatePasswordLength, validateEmail, validatePhoneNumber, confirmPasswords
-} from '../utils/Validation';
+} from '../utils/authentication/Validation';
 
 test('validate short password returns true for error', () => {
   const password = 'short';

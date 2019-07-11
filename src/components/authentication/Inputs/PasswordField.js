@@ -48,7 +48,6 @@ const PasswordField = (props) => {
 PasswordField.propTypes = {
   showPassword: PropTypes.bool,
   password: PropTypes.string,
-  helperPasswordText: PropTypes.string,
   handlePasswordChange: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
   handlePasswordVisibility: PropTypes.func.isRequired,
@@ -61,7 +60,6 @@ PasswordField.propTypes = {
 
 PasswordField.defaultProps = {
   password: '',
-  helperPasswordText: ''
 };
 
 export default PasswordField;

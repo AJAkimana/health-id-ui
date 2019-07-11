@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Products } from '../components/products/productsTable';
 import AfterSelectToolBar from '../components/products/afterSelectToolBar';
 import { ToolBar } from '../components/products/toolBar';
@@ -157,7 +158,7 @@ describe('Test toolBar actions', () => {
     },
     handleViewProposed: jest.fn(),
   };
-  const wrapper = mount(<ToolBar {...prop} />);
+  const wrapper = mount(<Router><ToolBar {...prop} /></Router>);
   it('should toggle the add product popup when the icon is clicked', () => {
     document.createRange = () => ({
       setStart: () => {},

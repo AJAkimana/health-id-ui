@@ -1,0 +1,28 @@
+.wrapper{
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 3%;
+  background-color: #FFFFFF;
+  width: 70%;
+  margin-bottom: 4%;
+  .file-section{
+    .uploadImg{
+      width: 30%;
+      margin-left: 35%;
+      margin-top: 5%;
+      outline: none;
+    };
+    .text{
+      margin-left: 26%;
+      font-weight: lighter;
+      color: #939393;
+    };
+    .span{
+      margin-left: 48%;
+      font-size: 1.1em;
+      font-weight: lighter;
+      color: #939393;
+    };
+  }
+}

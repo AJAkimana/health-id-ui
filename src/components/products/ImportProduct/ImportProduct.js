@@ -1,0 +1,126 @@
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import withAuth from '../../withAuth';
+import ImportProductForm from './ImportProductForm';
+import BackAction from '../BackAction';
+import Dashboard from '../../shared/Dashboard/Dashboard';
+import verifyFile from '../../../utils/products/verifyFile';
+import notify from '../../shared/Toaster';
+
+export class ImportProduct extends Component {
+  state = {
+    file: null,
+    loading: false,
+    serverResponse: '',
+  };
+
+  onDrop = async (acceptedFiles) => {
+    this.setState({ file: acceptedFiles[0] });
+    await this.handleUpload();
+  }
+
+  handleFile = (e) => {
+    const { files } = e.target;
+    const maxFileSize = 10000000; // bytes
+    const acceptedFileType = 'text/csv';
+    if (files && files.length > 0) {
+      const verified = verifyFile(files, maxFileSize, acceptedFileType);
+      if (verified) {
+        this.setState({ file: files[0] });
+      }
+    }
+  }
+
+  handleDownloadTemplate = () => {
+    const csvUrl = process.env.DOWNLOAD_SAMPLE_CSV_LINK;
+
+    const token = localStorage.getItem('rest_token');
+
+    axios.get(csvUrl, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      },
+    })
+      .then((res) => {
+        const filename = 'product_template_csv';
+        const blob = new Blob([res.data], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+      })
+      .catch((err) => {
+        notify('There was a problem downloading this file.', err);
+      });
+  }
+
+  handleUpload = () => {
+    this.setState({ loading: true });
+
+    const { file } = this.state;
+
+    const formdata = new FormData();
+
+    formdata.append('file', file);
+
+    const url = process.env.IMPORT_CSV_LINK;
+    const token = localStorage.getItem('rest_token');
+
+    axios.post(url, formdata, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${token}`,
+      }
+    })
+      .then((res) => {
+        const { noOfProductsAdded } = res.data;
+        this.setState({
+          loading: false,
+          serverResponse: `${noOfProductsAdded} products have been successfully uploaded for approval`,
+        });
+        setTimeout(() => this.props.history.push('/products'), 1200);
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+          serverResponse: err.response.data.error,
+        });
+      });
+  }
+
+  render() {
+    const { session } = this.props;
+
+    return (
+      <Fragment>
+        <Dashboard isActive="grid3" session={session} />
+        <BackAction
+          header="Import Product(s)"
+          link="/products"
+        />
+        <ImportProductForm
+          state={this.state}
+          onDrop={this.onDrop}
+          handleFile={this.handleFile}
+          handleUpload={this.handleUpload}
+          handleDownloadTemplate={this.handleDownloadTemplate}
+        />
+      </Fragment>
+    );
+  }
+}
+
+ImportProduct.propTypes = {
+  session: PropTypes.objectOf(PropTypes.object)
+};
+
+ImportProduct.defaultProps = {
+  session: {}
+};
+
+export default withAuth(withRouter(ImportProduct));

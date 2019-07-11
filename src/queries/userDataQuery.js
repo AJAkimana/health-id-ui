@@ -12,7 +12,7 @@ const GET_USER_INFO = gql`
       role {
         name
       }
-      users {
+      outlets {
         id
       }
     }

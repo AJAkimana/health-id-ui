@@ -98,7 +98,6 @@ ForgotPasswordAlert.propTypes = {
   email: PropTypes.string,
   handleEmailChange: PropTypes.func,
   EmailError: PropTypes.bool,
-  helperEmailText: PropTypes.instanceOf(Object),
   handlePasswordReset: PropTypes.func,
   loading: PropTypes.bool,
 };
