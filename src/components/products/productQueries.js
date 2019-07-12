@@ -4,14 +4,7 @@ export const GET_APPROVED_PRODUCTS = gql`
   query {
     approvedProducts {
       id
-      productCategory {
-        name
-      }
       productName
-      measurementUnit {
-        name
-      }
-      # packSize
       skuNumber
       description
       brand
@@ -21,13 +14,27 @@ export const GET_APPROVED_PRODUCTS = gql`
       salesPrice
       nearestExpiryDate
       loyaltyWeight
-      preferredSupplier {
-        name
-      }
-      backupSupplier {
-        name
-      }
       tags
+
+      productCategory {
+        id
+        name
+      }
+
+      measurementUnit {
+        id
+        name
+      }
+
+      preferredSupplier {
+        id
+        name
+      }
+
+      backupSupplier {
+        id
+        name
+      }
     }
   }
 `;
@@ -36,14 +43,7 @@ export const GET_PROPOSED_PRODUCTS = gql`
   query {
     proposedProducts {
       id
-      productCategory {
-        name
-      }
       productName
-      measurementUnit {
-        name
-      }
-      packSize
       skuNumber
       description
       brand
@@ -53,13 +53,27 @@ export const GET_PROPOSED_PRODUCTS = gql`
       salesPrice
       nearestExpiryDate
       loyaltyWeight
-      preferedSupplier {
-        name
-      }
-      backupSupplier {
-        name
-      }
       tags
+
+      productCategory {
+        id
+        name
+      }
+
+      measurementUnit {
+        id
+        name
+      }
+
+      preferredSupplier {
+        id
+        name
+      }
+
+      backupSupplier {
+        id
+        name
+      }
     }
   }
 `;
@@ -70,14 +84,7 @@ query product(
 ) {
   product(id: $id) {
     id
-    productCategory {
-      name
-    }
     productName
-    measurementUnit {
-      name
-    }
-    packSize
     skuNumber
     description
     brand
@@ -89,13 +96,27 @@ query product(
     isApproved
     nearestExpiryDate
     loyaltyWeight
-    preferedSupplier {
-      name
-    }
-    backupSupplier {
-      name
-    }
     tags
+
+    productCategory {
+      id
+      name
+    }
+
+    measurementUnit {
+      id
+      name
+    }
+
+    preferredSupplier {
+      id
+      name
+    }
+
+    backupSupplier {
+      id
+      name
+    }
   }
 }
 `;

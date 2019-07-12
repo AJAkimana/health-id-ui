@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -16,45 +19,118 @@ import Icon from './productIcons';
 
 export class ToolBar extends Component {
   state = {
-    open: false,
+    openAddMenu: false,
+    openViewMenu: false,
   };
 
-  handleToggle = () => {
-    const { open } = this.state;
-    this.setState({ open: !open });
+  handleToggleAddMenu = () => {
+    const { openAddMenu } = this.state;
+    this.setState({ openAddMenu: !openAddMenu });
+  };
+
+  handleToggleViewMenu = () => {
+    const { openViewMenu } = this.state;
+    this.setState({ openViewMenu: !openViewMenu });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ openAddMenu: false, openViewMenu: false });
   };
 
-  handleViewProposed = (event) => {
+  handleChangeView = () => {
     const { handleViewProposed } = this.props;
-    this.handleClose(event);
-    handleViewProposed();
-  }
+    const statusObject = {
+      approved: document.querySelector('#approved').checked,
+      proposed: document.querySelector('#proposed').checked
+    };
+    handleViewProposed(statusObject);
+  };
 
   render() {
-    const { classes, isApproved } = this.props;
-    const { open } = this.state;
+    const { classes, status } = this.props;
+    const {
+      openViewMenu, openAddMenu
+    } = this.state;
     return (
       <React.Fragment>
+        <Tooltip title="Switch table view">
+          <IconButton
+            className={classes.iconButton}
+            buttonRef={(node) => {
+              this.anchorEl = node;
+            }}
+            aria-owns={openViewMenu ? 'menu-list-grow' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleToggleViewMenu}
+          >
+            <Icon
+              id="eye"
+            />
+          </IconButton>
+        </Tooltip>
+        <Popper
+          className={classes.popper}
+          open={openViewMenu}
+          anchorEl={this.anchorEl}
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              id="menu-list-grow"
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper className={classes.paper}>
+                <ClickAwayListener onClickAway={this.handleClose}>
+                  <FormGroup className={classes.switchFormGroup}>
+                    <FormControlLabel
+                      control={(
+                        <Switch
+                          checked={status === 'approved' || status === 'all'}
+                          onChange={this.handleChangeView}
+                          id="approved"
+                          value="approved"
+                          color="primary"
+                        />
+                      )}
+                      label="View Approved Products"
+                    />
+                    <FormControlLabel
+                      control={(
+                        <Switch
+                          checked={status === 'proposed' || status === 'all'}
+                          onChange={this.handleChangeView}
+                          id="proposed"
+                          value="proposed"
+                          color="primary"
+                        />
+                      )}
+                      label="View Proposed Products"
+                    />
+                  </FormGroup>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+
         <Tooltip title="Add product">
           <IconButton
             className={classes.iconButton}
             buttonRef={(node) => {
               this.anchorEl = node;
             }}
-            aria-owns={open ? 'menu-list-grow' : undefined}
+            aria-owns={openAddMenu ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-            onClick={this.handleToggle}
+            onClick={this.handleToggleAddMenu}
           >
             <AddIcon />
           </IconButton>
         </Tooltip>
         <Popper
           className={classes.popper}
-          open={open}
+          open={openAddMenu}
           anchorEl={this.anchorEl}
           transition
           disablePortal
@@ -84,20 +160,6 @@ export class ToolBar extends Component {
                         Import Product List
                       </Link>
                     </MenuItem>
-                    {
-                      isApproved && (
-                        <MenuItem onClick={this.handleViewProposed}>
-                          View Proposed Products
-                        </MenuItem>
-                      )
-                    }
-                    {
-                      !isApproved && (
-                        <MenuItem onClick={this.handleViewProposed}>
-                        View Approved Products
-                        </MenuItem>
-                      )
-                    }
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -125,7 +187,11 @@ export class ToolBar extends Component {
 ToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleViewProposed: PropTypes.func.isRequired,
-  isApproved: PropTypes.bool.isRequired,
+  status: PropTypes.string,
+};
+
+ToolBar.defaultProps = {
+  status: ''
 };
 
 export default withStyles(ToolBarStyles)(ToolBar);

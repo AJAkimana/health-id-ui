@@ -13,19 +13,17 @@ const PRODUCT_DETAIL_QUERY = gql`
         id
         name
       }
-      packSize
       skuNumber
       description
       brand
       manufacturer
       vatStatus
-      quality
       salesPrice
       createdAt
       reorderPoint
       reorderMax
       nearestExpiryDate
-      preferedSupplier {
+      preferredSupplier {
         id
         name
       }
@@ -51,14 +49,13 @@ const PRODUCT_DETAIL_QUERY = gql`
         unitCost
         commentary
         outlet {
-          preference {
+          outletpreference {
             outletCurrency {
               symbol
             }
           }
         }
       }
-      quality
       productQuantity
       image
     }

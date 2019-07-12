@@ -141,7 +141,7 @@ export class AddProduct extends Component {
         const { history } = this.props;
         const { productName: createdProduct } = res.data.createProduct.product;
         notify(`${createdProduct} has been added and sent for approval`);
-        history.push('/products');
+        history.push('/products/proposed');
       })
       .catch((err) => {
         const { message } = err.graphQLErrors[0];
@@ -290,7 +290,7 @@ export class AddProduct extends Component {
         <Dashboard isActive="grid3" session={session} />
         <BackAction
           header="Add Product (Proposed)"
-          link="/products"
+          link="/products/approved"
         />
         <ProductForm
           state={this.state}

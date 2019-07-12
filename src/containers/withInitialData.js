@@ -6,12 +6,21 @@ import GET_ALL_CUSTOMERS from '../queries/customersQuery';
 
 const WithInitialData = Component => props => (
   <Query query={GET_ALL_COUNTRIES}>
-    {({ loading: loadingOne, data: { countries } }) => (
+    {countriesResult => (
       <Query query={GET_ALL_CUSTOMERS}>
-        {({ loading: loadingTwo, data: { customers } }) => (
+        {customersResult => (
           <Query query={APPROVED_PRODUCTS_QUERY}>
-            {({ loading: loadingThree, data: { approvedProducts } }) => {
+            {(productsResult) => {
+              const { loading: loadingThree, error: productsError } = productsResult;
+              const { loading: loadingTwo, error: customersError } = customersResult;
+              const { loading: loadingOne, error: countriesError } = countriesResult;
+
               if (loadingOne || loadingTwo || loadingThree) return null;
+              if (productsError || customersError || countriesError) return null;
+
+              const { data: { approvedProducts } } = productsResult;
+              const { data: { customers } } = customersResult;
+              const { data: { countries } } = countriesResult;
               return (
                 <Component
                   {...props}

@@ -25,8 +25,9 @@ const App = ({ session }) => (
       <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />
       <Route exact path="/products/:id/approve" render={() => <ApproveProductDetail session={session} />} />
       <Route exact path="/products" render={() => <Products session={session} />} />
+      <Route exact path="/products/:status" render={() => <Products session={session} />} />
       <Route exact path="/profile" component={UserProfile} />
-      <Route exact path="/products/:id" render={() => <ProductDetail session={session} />} />
+      <Route exact path="/products/:id/details" render={() => <ProductDetail session={session} />} />
       <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
       <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />

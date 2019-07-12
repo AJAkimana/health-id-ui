@@ -51,7 +51,7 @@ export class Dashboard extends Component {
       this.setState({ isActive: 'grid2' });
       break;
     case 'grid3':
-      history.push('/products');
+      history.push('/products/approved');
       this.setState({ isActive: 'grid3' });
       break;
     case 'grid4':

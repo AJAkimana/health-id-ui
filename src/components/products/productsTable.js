@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import AfterSelectToolBar from './afterSelectToolBar';
 import ToolBar from './toolBar';
@@ -15,47 +16,93 @@ export class Products extends Component {
   state = {
     approvedProducts: [],
     proposedProducts: [],
-    isApproved: true,
     isLoading: true,
+    error: false,
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.fetchProducts(nextProps);
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    const { getApprovedProducts, getProposedProducts } = nextProps;
+    const {
+      approvedProducts: prevApprovedProducts,
+      proposedProducts: prevProposedProducts
+    } = prevState;
+
+    const {
+      approvedProducts,
+      loading: loadingApprovedProducts,
+      error: approvedProductsError,
+      refetch: refetchApproved
+    } = getApprovedProducts;
+
+    const {
+      proposedProducts,
+      loading: loadingProposedProducts,
+      error: proposedProductsError,
+      refetch: refetchProposed
+    } = getProposedProducts;
+
+    if (approvedProductsError || proposedProductsError) {
+      return { approvedProductsError, proposedProductsError, error: true };
+    }
+
+    const isLoading = loadingApprovedProducts || loadingProposedProducts;
+
+    if (!isLoading
+      && (prevApprovedProducts.length !== approvedProducts.length
+      || prevProposedProducts.length !== proposedProducts.length)
+    ) {
+      refetchApproved();
+      refetchProposed();
+      return { approvedProducts, proposedProducts, isLoading };
+    }
+    return null;
   }
 
-  fetchProducts = ({ getApprovedProducts, getProposedProducts }) => {
-    let { approvedProducts } = getApprovedProducts;
-    const { loading: loadingApproved } = getApprovedProducts;
+  handleViewProposed = (viewStatus) => {
+    const { history } = this.props;
 
-    let { proposedProducts } = getProposedProducts;
-    const { loading: loadingProposed } = getProposedProducts;
+    const status = (viewStatus.approved && '/approved') || (viewStatus.proposed && '/proposed') || '';
+    const statusRoute = (viewStatus.approved && viewStatus.proposed) ? '/all' : status;
 
-    if (loadingApproved || loadingProposed) {
-      return this.setState({ isLoading: true });
-    }
-
-    if (approvedProducts === null) {
-      approvedProducts = [];
-    }
-    if (proposedProducts === null) {
-      proposedProducts = [];
-    }
-    return this.setState({ approvedProducts, proposedProducts, isLoading: false });
-  }
-
-  handleViewProposed = () => {
-    const { isApproved } = this.state;
-    this.setState({ isApproved: !isApproved });
+    history.push(`/products${statusRoute}`);
   }
 
   render() {
     const {
-      approvedProducts, proposedProducts, isApproved, isLoading
+      approvedProducts, proposedProducts, isLoading, error
     } = this.state;
+
+    let { match: { params: { status } } } = this.props;
+
+    if (error) {
+      return <div>Something went wrong, try refreshing the page</div>;
+    }
+
     let products;
-    isApproved && (products = approvedProducts);
-    !isApproved && (products = proposedProducts);
-    const title = `${products.length} Products ${isApproved ? 'Approved' : 'Proposed'}`;
+    switch (status) {
+    case 'approved':
+      products = approvedProducts;
+      break;
+
+    case 'proposed':
+      products = proposedProducts;
+      break;
+
+    case 'all':
+      products = [...approvedProducts, ...proposedProducts];
+      break;
+
+    case undefined:
+      products = [];
+      break;
+
+    default:
+      products = approvedProducts;
+      status = 'Approved';
+      break;
+    }
+
+    const title = `${products.length} Products ${status === 'all' || status === undefined ? '' : status}`;
 
     const columns = [
       {
@@ -108,14 +155,6 @@ export class Products extends Component {
         }
       },
       {
-        name: 'packSize',
-        label: 'Pack Size',
-        options: {
-          filter: true,
-          sort: true,
-        }
-      },
-      {
         name: 'description',
         label: 'Description',
         options: {
@@ -157,7 +196,7 @@ export class Products extends Component {
         }
       },
       {
-        name: 'preferedSupplier',
+        name: 'preferredSupplier',
         label: 'Preferred Supplier',
         options: {
           filter: true,
@@ -192,7 +231,7 @@ export class Products extends Component {
 
     const productsList = products.map((product) => {
       const {
-        productName, productCategory, measurementUnit, packSize, skuNumber,
+        productName, productCategory, measurementUnit, skuNumber,
         description, brand, manufacturer, vatStatus, salesPrice, nearestExpiryDate,
         preferredSupplier, backupSupplier, id, productQuantity, loyaltyWeight,
       } = product;
@@ -203,7 +242,6 @@ export class Products extends Component {
           productName,
           category: productCategory.name,
           measurementUnit: measurementUnit.name,
-          packSize,
           skuNumber,
           description,
           brand,
@@ -211,7 +249,7 @@ export class Products extends Component {
           vatStatus,
           salesPrice,
           nearestExpiryDate,
-          preferedSupplier: preferredSupplier.name,
+          preferredSupplier: preferredSupplier.name,
           backupSupplier: backupSupplier.name,
           productQuantity,
           loyaltyWeight,
@@ -237,18 +275,18 @@ export class Products extends Component {
         />
       ),
       onRowClick: (rowData) => {
-        const { isApproved: approved } = this.state;
-        if (!approved && role === 'Master Admin') {
-          return window.location.assign(`products/${rowData[0]}/approve`);
+        const { history, match: { params: { status: statusCheck } } } = this.props;
+        if (statusCheck !== 'approved' && role === 'Master Admin') {
+          return history.push(`/products/${rowData[0]}/approve`);
         }
-        return window.location.assign(`products/${rowData[0]}`);
+        return history.push(`/products/${rowData[0]}/details`);
       },
       customToolbar: () => {
-        const { isApproved: approved } = this.state;
+        const { match: { params: { status: statusCheck } } } = this.props;
         return (
           <ToolBar
             handleViewProposed={this.handleViewProposed}
-            isApproved={approved}
+            status={statusCheck}
           />
         );
       },
@@ -274,10 +312,13 @@ export class Products extends Component {
 
 Products.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
+  history: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 Products.defaultProps = {
   session: { me: {} },
+  history: {}
 };
 
 const APPROVED_PRODUCTS = graphql(GET_APPROVED_PRODUCTS, { name: 'getApprovedProducts' });
@@ -286,4 +327,4 @@ const PROPOSED_PRODUCTS = graphql(GET_PROPOSED_PRODUCTS, { name: 'getProposedPro
 export default compose(
   APPROVED_PRODUCTS,
   PROPOSED_PRODUCTS,
-)(withAuth(withStyles(ProductsStyles)(Products)));
+)(withAuth(withStyles(ProductsStyles)(withRouter(Products))));

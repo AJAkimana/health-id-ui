@@ -58,7 +58,7 @@ export const ProductDetailRender = (props) => {
       vatStatus,
       productQuantity,
       nearestExpiryDate,
-      preferedSupplier,
+      preferredSupplier,
       loyaltyWeight,
       backupSupplier,
       tags,
@@ -67,8 +67,11 @@ export const ProductDetailRender = (props) => {
     session,
   } = props;
   const withPriceField = AddPriceField(batchInfo);
-  const currency = batchInfo[0]
-    ? batchInfo[0].outlet.preference.outletCurrency.symbol : '$';
+  let currency = '$';
+  if (batchInfo[0] && batchInfo[0].outlet.outletpreference) {
+    currency = batchInfo[0].outlet.outletpreference.outletCurrency.symbol;
+  }
+
   const renderTextField = (style, name, label, value) => (
     <TextField
       className={style}
@@ -99,7 +102,7 @@ export const ProductDetailRender = (props) => {
         className={classes.arrowButtonGrid}
       >
         <Grid item>
-          <Link to="/products">
+          <Link to="/products/approved">
             <Tooltip title="Back to products">
               <IconButton>
                 <BackIcon className={classes.arrowIcon} />
@@ -151,7 +154,7 @@ export const ProductDetailRender = (props) => {
                     classes.descriptionFields, 'manufacturer', 'Manufacturer', manufacturer
                   )}
                   {renderTextField(
-                    classes.descriptionFields, 'salesPrice', 'Sales Price', moneyFormat(salesPrice)
+                    classes.descriptionFields, 'salesPrice', 'Sales Price', moneyFormat(salesPrice || 0)
                   )}
                 </Grid>
                 <Grid item xs={4}>
@@ -212,7 +215,7 @@ export const ProductDetailRender = (props) => {
           <Grid item xs={3} className={classes.childGrids}>
             {renderTextField(
               classes.newTextFields, 'preferedSupplier', 'Prefered Supplier',
-              preferedSupplier.name
+              preferredSupplier.name
             )}
             {renderTextField(
               classes.newTextFields, 'loyaltyWeight', 'Loyalty Weight',

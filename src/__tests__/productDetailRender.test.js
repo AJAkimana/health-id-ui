@@ -20,7 +20,7 @@ const props = {
     brand: '',
     vatStatus: '',
     nearestExpiryDate: 12,
-    preferedSupplier: {
+    preferredSupplier: {
       name: ''
     },
     loyaltyWeight: 10,
@@ -41,7 +41,7 @@ const props = {
       expiryDate: 1,
       commentary: '',
       outlet: {
-        preference: {
+        outletpreference: {
           outletCurrency: {
             symbol: ''
           }

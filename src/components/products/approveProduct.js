@@ -56,7 +56,7 @@ export class ApproveProduct extends Component {
       image,
       brand,
       vatStatus,
-      preferedSupplier,
+      preferredSupplier,
       loyaltyWeight,
       backupSupplier,
       tags,
@@ -69,7 +69,7 @@ export class ApproveProduct extends Component {
         id={name}
         name={name}
         label={label}
-        defaultValue={value}
+        value={value}
         fullWidth
         InputProps={{ disableUnderline: true, readOnly: true }}
       />
@@ -85,7 +85,7 @@ export class ApproveProduct extends Component {
           className={classes.arrowButtonGrid}
         >
           <Grid item>
-            <Link to="/products">
+            <Link to="/products/proposed">
               <Tooltip title="Back to products">
                 <IconButton>
                   <BackIcon className={classes.arrowIcon} />
@@ -194,8 +194,8 @@ export class ApproveProduct extends Component {
             </Grid>
             <Grid item xs={4}>
               {renderTextField(
-                classes.newTextFields, 'preferedSupplier', 'Prefered Supplier',
-                preferedSupplier.name
+                classes.newTextFields, 'preferredSupplier', 'Preferred Supplier',
+                preferredSupplier.name
               )}
             </Grid>
             <Grid item xs={4}>
@@ -219,11 +219,13 @@ ApproveProduct.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
   refetch: PropTypes.func.isRequired,
   approveProduct: PropTypes.func.isRequired,
+  product: PropTypes.objectOf(PropTypes.any).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string),
 };
 
 ApproveProduct.defaultProps = {
   session: { me: {} },
-  classes: {}
+  classes: { },
 };
 
 const APPROVE_PRODUCT = graphql(APPROVE_PRODUCT_MUTATION, { name: 'approveProduct' });

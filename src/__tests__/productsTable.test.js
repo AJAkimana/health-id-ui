@@ -24,6 +24,11 @@ const props = {
     }],
     loading: false
   },
+  match: {
+    params: {
+      status: ''
+    }
+  },
   getApprovedProducts: {
     getApprovedProducts: {
       approvedProducts: null,
@@ -90,6 +95,9 @@ const props = {
   selectedRows: {
     data: [{ index: 1, dataIndex: 1 }]
   },
+  history: {
+    push: jest.fn()
+  },
   displayData: [{}],
   setSelectedRows: jest.fn(),
   client: { query: jest.fn() },
@@ -116,33 +124,15 @@ describe('After Row selection toolbar tests', () => {
 describe('Test table rendering and data functions', () => {
   const wrapper = mount(<Router><Products {...props} /></Router>).find('Products');
   it('should render the datatable correctly', () => {
-
-    wrapper.instance().componentWillReceiveProps(props);
-    expect(wrapper.instance().state.approvedProducts).toEqual([]);
-    wrapper.instance().componentWillReceiveProps(props.data);
-    expect(wrapper.instance().state.approvedProducts).toEqual([{
-      id: 'id',
-      productName: 'productName',
-      productCategory: { name: 'Category' },
-      measurementUnit: { name: 'Joules' },
-      skuNumber: 'serd',
-      description: 'desc',
-      brand: 'brand',
-      manufacturer: 'manufacturer',
-      vatStatus: 'vatstat',
-      salesPrice: '23',
-      nearestExpiryDate: '2019-12-12',
-      preferredSupplier: { name: 'pref' },
-      backupSupplier: { name: 'backup' },
-    }]);
-    wrapper.instance().componentWillReceiveProps(props.getApprovedProducts);
-    expect(wrapper.instance().state.approvedProducts).toEqual([]);
-    wrapper.instance().componentWillReceiveProps(props.getProposedProducts);
-    expect(wrapper.instance().state.proposedProducts).toEqual([]);
+    expect(wrapper.find('Products').length).toBe(1);
   });
-  it('should switch to proposed products when view proposed products is clicked', () => {
-    wrapper.instance().handleViewProposed();
-    expect(wrapper.instance().state.isApproved).toBeFalsy();
+  it('should switch to proposed products when view proposed products is switched', () => {
+    const viewStatus = {
+      approved: false,
+      proposed: false
+    };
+    wrapper.instance().handleViewProposed(viewStatus);
+    expect(props.history.push).toBeDefined();
   });
 });
 
@@ -166,12 +156,12 @@ describe('Test toolBar actions', () => {
         ownerDocument: document,
       },
     });
-    wrapper.instance().setState({ open: false });
-    const AddProductIcon = wrapper.find('IconButton').at(0);
-    AddProductIcon.simulate('click');
+    wrapper.instance().setState({ openAddMenu: false });
+    const switchIcon = wrapper.find('IconButton').at(0);
+    switchIcon.simulate('click');
 
-    const MenuItem = wrapper.find('MenuItem').at(2);
-    MenuItem.simulate('click');
-    expect(wrapper.instance().state.open).toBeFalsy();
+    const MenuItem = wrapper.find('FormControlLabel').at(0);
+    MenuItem.simulate('change');
+    expect(wrapper.instance().state.openAddMenu).toBeFalsy();
   });
 });

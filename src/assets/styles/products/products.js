@@ -46,6 +46,9 @@ export const ToolBarStyles = {
   exportSVG: {
     height: '0.8em',
   },
+  switchFormGroup: {
+    marginLeft: '10px',
+  }
 };
 
 export const approveProductsStyles = theme => ({
