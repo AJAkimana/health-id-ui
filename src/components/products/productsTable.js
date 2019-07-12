@@ -194,7 +194,7 @@ export class Products extends Component {
       const {
         productName, productCategory, measurementUnit, packSize, skuNumber,
         description, brand, manufacturer, vatStatus, salesPrice, nearestExpiryDate,
-        preferedSupplier, backupSupplier, id, productQuantity, loyaltyWeight,
+        preferredSupplier, backupSupplier, id, productQuantity, loyaltyWeight,
       } = product;
 
       return (
@@ -211,7 +211,7 @@ export class Products extends Component {
           vatStatus,
           salesPrice,
           nearestExpiryDate,
-          preferedSupplier: preferedSupplier.name,
+          preferedSupplier: preferredSupplier.name,
           backupSupplier: backupSupplier.name,
           productQuantity,
           loyaltyWeight,

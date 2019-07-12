@@ -14,10 +14,10 @@ const props = {
   renderSingleCustomer: jest.fn(),
   handleCustomerPopperClickAway: jest.fn(),
 };
-
 describe('test AddCustomerPopper component', () => {
+  let wrapper;
   it('it renders AddCustomerPopper component', () => {
-    const wrapper = mount((
+    wrapper = mount((
       <AddCustomerPopper {...props} />
     ));
     const popper = wrapper.find('Popper').length;

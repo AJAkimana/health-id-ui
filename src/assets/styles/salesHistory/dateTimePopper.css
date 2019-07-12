@@ -1,0 +1,32 @@
+.PreviewArea{
+  box-shadow: 1px 1px 81px rgba(41, 60, 74, 0.18);
+}
+.input-range__track--active {
+  background: #A3A3A3;
+  height: 0.1em;
+}
+.input-range__slider {
+  background: linear-gradient(#FAF33E, #7D7A1F);
+  border: 0;
+}
+.input-range__track--background {
+  height: 0.1em;
+}
+.rdrCalendarWrapper {
+  font-size: 11px;
+  width: 50em;
+}
+.rdrDefinedRangesWrapper {
+  font-size: 11px;
+  width: 175px;
+  border-right: solid 1px #eff2f7;
+  background: #fff;
+}
+.rdrMonthAndYearWrapper {
+  height: 40px;
+  padding-top: 0;
+  background-color: #E8E8E8;
+}
+.rdrMonths {
+  background-color: #E8E8E8;
+}

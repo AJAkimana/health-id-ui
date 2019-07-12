@@ -4,9 +4,8 @@ import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 
+// const appLink = 'https://healthid-web-api.herokuapp.com/healthid/';
 const appLink = 'https://cors-anywhere.herokuapp.com/https://healthid-web-api.herokuapp.com/healthid/';
-// console.log(appLink);
-
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists

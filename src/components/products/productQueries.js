@@ -11,7 +11,7 @@ export const GET_APPROVED_PRODUCTS = gql`
       measurementUnit {
         name
       }
-      packSize
+      # packSize
       skuNumber
       description
       brand
@@ -21,7 +21,7 @@ export const GET_APPROVED_PRODUCTS = gql`
       salesPrice
       nearestExpiryDate
       loyaltyWeight
-      preferedSupplier {
+      preferredSupplier {
         name
       }
       backupSupplier {

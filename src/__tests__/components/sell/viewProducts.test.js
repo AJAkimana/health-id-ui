@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { BrowserRouter } from 'react-router-dom';
 import { ViewProducts } from '../../../components/sell/viewProducts';
 
 const props = {
@@ -13,7 +14,9 @@ describe('View products container component', () => {
 
   it('it renders the view products component', () => {
     wrapper = mount((
-      <ViewProducts {...props} />
+      <BrowserRouter>
+        <ViewProducts {...props} />
+      </BrowserRouter>
     ));
     const iconButton = wrapper.find('IconButton').length;
     expect(iconButton).toBe(1);

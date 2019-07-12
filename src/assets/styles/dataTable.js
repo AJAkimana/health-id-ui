@@ -7,7 +7,7 @@ const DataTableOverride = createMuiTheme({
       main: '#FAF33E',
     },
     secondary: {
-      main: '#A3A3A3',
+      main: '#424242',
     },
     error: {
       main: '#FF4141'
@@ -25,7 +25,7 @@ const DataTableOverride = createMuiTheme({
   overrides: {
     MuiTableRow: {
       head: {
-        height: '30px',
+        height: '40px',
       },
       root: {
         cursor: 'pointer',
@@ -62,7 +62,18 @@ const DataTableOverride = createMuiTheme({
       root: {
         fill: '#757575',
       }
-    }
+    },
+    MUIDataTableToolbar: {
+      titleText: {
+        fontSize: '1rem',
+        fontWeight: '100'
+      }
+    },
+    SalesHistoryToolBar: {
+      iconButton: {
+        marginLeft: '1.5em',
+      }
+    },
   }
 });
 

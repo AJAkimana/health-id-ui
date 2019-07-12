@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Grid, Paper, IconButton, Tooltip
@@ -18,11 +19,13 @@ export const ViewProducts = ({
   return (
     <Fragment>
       <Grid container item xs={12} className={classes.iconNavWrapper}>
-        <Tooltip title="Sales history">
-          <IconButton color="secondary" aria-label="Add an alarm">
-            <HistoryIcon />
-          </IconButton>
-        </Tooltip>
+        <Link to="/sell/history">
+          <Tooltip title="Sales history">
+            <IconButton>
+              <HistoryIcon />
+            </IconButton>
+          </Tooltip>
+        </Link>
       </Grid>
       <Grid container item xs={12}>
         <Paper className={classes.paper}>
@@ -45,4 +48,4 @@ ViewProducts.propTypes = {
   switchComponentRendering: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ViewProducts);
+export default withRouter(withStyles(styles)(ViewProducts));

@@ -92,7 +92,7 @@ const recieptData = {
     },
     sale: {
       outlet: {
-        registerSet: {
+        outletRegister: {
           id: 4
         },
         business: {

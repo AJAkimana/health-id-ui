@@ -42,7 +42,7 @@ const CREATE_SALE_MUTATION = gql`
           username
         }
         outlet {
-          registerSet {
+          outletRegister {
             id
           }
           business {

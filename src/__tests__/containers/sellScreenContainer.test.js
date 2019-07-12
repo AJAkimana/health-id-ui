@@ -18,7 +18,9 @@ const props = {
     { id: 2, productName: 'Panadol', outlet: [{ outletpreference: { outletCurrency: 'symbol' } }] },
   ],
   session: {
-    me: {}
+    me: {
+      users: [{ id: 1 }]
+    }
   },
   countries: [{
     id: 1, name: 'Uganda', citySet: [{ id: '1', name: 'Kampala' }]
@@ -42,6 +44,10 @@ describe('SellScreenContainer with InitialData', () => {
               name: 'Master Admin',
               __typename: '',
             },
+            users: [{
+              id: 1,
+              __typename: '',
+            }],
             __typename: ''
           },
         }
@@ -68,7 +74,13 @@ describe('SellScreenContainer with InitialData', () => {
       result: {
         data: {
           approvedProducts: [{
-            batchInfo: [],
+            outlet: [{
+              outletpreference: {
+                outletCurrency: {
+                  symbol: '₦'
+                }
+              }
+            }],
             brand: 'ventolinlike',
             description: '',
             id: '39',
@@ -77,7 +89,6 @@ describe('SellScreenContainer with InitialData', () => {
             manufacturer: 'vpn',
             measurementUnit: { name: 'syrup', __typename: '' },
             nearestExpiryDate: '2019-12-09',
-            packSize: '2kgs',
             productCategory: { name: 'prescription', __typename: '' },
             productName: 'podophyllon',
             productQuantity: null,

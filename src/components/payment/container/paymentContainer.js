@@ -126,8 +126,8 @@ export class PaymentContainer extends Component {
     const { receipt, sale } = createSale;
     const { barcodeUrl, receiptNo } = receipt;
     const { outlet } = sale;
-    const { registerSet, business } = outlet;
-    const { id } = registerSet;
+    const { outletRegister, business } = outlet;
+    const { id } = outletRegister;
     const {
       tradingName,
       country,

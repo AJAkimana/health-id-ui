@@ -34,15 +34,15 @@ export class SellScreenContainer extends Component {
 
   componentDidMount() {
     this.setLocations();
-    this.setInititalData();
+    this.setInitialData();
   }
 
-  setInititalData = () => {
+  setInitialData = () => {
     const { products, customers } = this.props;
     this.setState({
       customers,
       products,
-      preferedProducts: products,
+      preferedProducts: products.slice(0, 8),
     });
   };
 
@@ -867,7 +867,7 @@ export class SellScreenContainer extends Component {
               selectedCustomer={selectedCustomer}
               me={me}
               mainCartNote={mainCartNote}
-              outletId={me.users[0].id}
+              outletId={me.outlets[0].id}
               handleClosePaymentDialog={this.handleClosePaymentDialog}
               renderCartTotal={this.renderCartTotal}
               renderCartDiscount={this.renderCartDiscount}
