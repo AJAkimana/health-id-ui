@@ -12,9 +12,7 @@ import { RetrieveIcon, CautionIcon } from '../../assets/SvgIcons/sellScreenSvgs'
 
 const styles = addCustomerDialog;
 
-const Transition = React.forwardRef((props, ref) => {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
 const SalesOnHoldDialog = ({
   state: {

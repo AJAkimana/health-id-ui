@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
 import BackArrowIcon from '@material-ui/icons/ArrowBack';
@@ -21,6 +22,11 @@ const BackAction = (props) => {
       </div>
     </div>
   );
+};
+
+BackAction.propTypes = {
+  link: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
 };
 
 export default BackAction;

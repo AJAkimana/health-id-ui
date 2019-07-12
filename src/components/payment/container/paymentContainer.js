@@ -285,6 +285,7 @@ PaymentContainer.propTypes = {
   updateItems: PropTypes.func.isRequired,
   totalToPay: PropTypes.number.isRequired,
   discount: PropTypes.number,
+  selectedCustomer: PropTypes.string,
   mainCartNote: PropTypes.string.isRequired,
   createSale: PropTypes.func.isRequired,
   outletId: PropTypes.string.isRequired,
@@ -292,6 +293,7 @@ PaymentContainer.propTypes = {
 
 PaymentContainer.defaultProps = {
   me: {},
+  selectedCustomer: '',
   discount: 0
 };
 

@@ -46,10 +46,10 @@ const ProductDescriptions = (props) => {
 };
 
 ProductDescriptions.propTypes = {
-  productName: PropTypes.string, 
-  handleChange: PropTypes.func,
-  handleProductName: PropTypes.func,
-  productDescription: PropTypes.string
+  productName: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleProductName: PropTypes.func.isRequired,
+  productDescription: PropTypes.string.isRequired
 };
 
 export default ProductDescriptions;

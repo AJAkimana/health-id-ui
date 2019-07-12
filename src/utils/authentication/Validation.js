@@ -33,7 +33,7 @@ export const validatePasswordLength = (password) => {
 export const validateEmail = (email) => {
   let helperText;
   let error = false;
-  const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/;
   const regextTest = regex.test(email);
   if (regextTest) {
     helperText = (

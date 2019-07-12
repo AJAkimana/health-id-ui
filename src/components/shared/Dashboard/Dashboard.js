@@ -1,28 +1,39 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+
 import LowerDashboard from './LowerDashboard';
 import logo from '../../../assets/images/ID Nav logo.png';
 import dashboardStyles from '../../../assets/styles/dashboard/dashboardStyles';
 import SVGIcon from './Icons';
 
-
-class Dashboard extends Component {
+export class Dashboard extends Component {
   state = {
     anchorEl: null,
+    open: false,
+    // eslint-disable-next-line react/destructuring-assignment
     isActive: this.props.isActive || 'grid1'
   };
 
   handleMenu = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({ anchorEl: event.currentTarget, open: true });
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({ open: false });
   };
+
+  handleLogOut = () => {
+    const { history } = this.props;
+    localStorage.removeItem('auth_token');
+    this.setState({ anchorEl: null, open: false });
+    history.push('/login');
+  }
 
   handleOnClick = (event) => {
     const { isActive } = this.state;
+    const { history } = this.props;
 
     if (isActive) {
       this.setState({
@@ -32,15 +43,15 @@ class Dashboard extends Component {
 
     switch (event.currentTarget.id) {
     case 'grid1':
-      window.location.href = '/dashboard';
+      history.push('/dashboard');
       this.setState({ isActive: 'grid1' });
       break;
     case 'grid2':
-      window.location.href = '/sell';
+      history.push('/sell');
       this.setState({ isActive: 'grid2' });
       break;
     case 'grid3':
-      window.location.href = '/products';
+      history.push('/products');
       this.setState({ isActive: 'grid3' });
       break;
     case 'grid4':
@@ -133,8 +144,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { anchorEl, isActive } = this.state;
-    const open = Boolean(anchorEl);
+    const { anchorEl, isActive, open } = this.state;
+    // const open = Boolean(anchorEl);
     const { session: { me } } = this.props;
 
     return (
@@ -145,6 +156,7 @@ class Dashboard extends Component {
           open={open}
           anchorEl={anchorEl}
           handleMenu={this.handleMenu}
+          handleLogOut={this.handleLogOut}
           handleClose={this.handleClose}
         />
       </Fragment>
@@ -155,11 +167,13 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
   isActive: PropTypes.string,
+  history: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number])
 };
 
 Dashboard.defaultProps = {
   session: { me: {} },
-  isActive: ''
+  isActive: '',
+  history: {},
 };
 
-export default Dashboard;
+export default withRouter(Dashboard);

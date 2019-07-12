@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import ReactPhoneInput from 'react-phone-input-mui';
 import { TextField } from '@material-ui/core';
 
@@ -31,6 +32,15 @@ const SelectCountry = (props) => {
       />
     </Fragment>
   );
+};
+
+SelectCountry.propTypes = {
+  phone: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};
+
+SelectCountry.defaultProps = {
+  phone: ''
 };
 
 export default SelectCountry;

@@ -14,6 +14,7 @@ const AfterSelectToolBar = (props) => {
     displayData, selectedRows, setSelectedRows, classes
   } = props;
   const handleClickInverseSelection = () => {
+    // eslint-disable-next-line no-shadow
     const nextSelectedRows = displayData.reduce((nextSelectedRows, _, index) => {
       if (!selectedRows.data.find(selectedRow => selectedRow.index === index)) {
         nextSelectedRows.push(index);

@@ -13,7 +13,7 @@ export const ApproveQuantity = ({
   classes, ApproveEdit, batchId, productId
 }) => (
   <Mutation mutation={APPROVE_QUANTITY}>
-    {(approveQuantity, { }) => (
+    {approveQuantity => (
       <>
         <div className={classes.iconWrapper}>
           <IconButton

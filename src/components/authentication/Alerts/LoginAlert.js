@@ -74,14 +74,15 @@ const LoginAlert = (props) => {
 
 LoginAlert.propTypes = {
   open: PropTypes.bool,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   success: PropTypes.bool,
   errors: PropTypes.string
 };
 
-
 LoginAlert.defaultProps = {
   open: false,
+  success: false,
+  errors: ''
 };
 
 export default LoginAlert;

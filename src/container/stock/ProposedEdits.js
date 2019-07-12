@@ -44,6 +44,7 @@ export const ProposedEdits = ({ classes }) => {
         return (
           <List className={clsx(classes.root, proposedEdits.length > 4 && classes.scrollWrapper)}>
             {proposedEdits.map((product, index) => (
+              // eslint-disable-next-line react/no-array-index-key
               <div key={index}>
                 <Divider variant="inset" className={classes.divider} component="li" />
                 <ListItem alignItems="flex-start" key={product.batch.id} data-batch={product.batch.id}>

@@ -1,7 +1,7 @@
 let helperText;
 let error;
 export const validateEmail = (email) => {
-  const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const regxTest = regex.test(email);
   if (regxTest) {
     helperText = '';

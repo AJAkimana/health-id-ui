@@ -30,9 +30,9 @@ const TagInput = (props) => {
 };
 
 TagInput.propTypes = {
-  tags: PropTypes.arrayOf(Object),
-  handleAddition: PropTypes.func,
-  handleDelete: PropTypes.func
+  tags: PropTypes.arrayOf(Object).isRequired,
+  handleAddition: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired
 };
 
 export default TagInput;

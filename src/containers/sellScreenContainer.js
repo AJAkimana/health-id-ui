@@ -515,7 +515,7 @@ export class SellScreenContainer extends Component {
   handleAddCustomerButton = (event, createCustomer, editCustomerBasicProfile) => {
     event.preventDefault();
     const isValidated = this.formValidation();
-    const { formError } = this.state;
+
     isValidated && this.mutateCustomer(createCustomer, editCustomerBasicProfile);
   };
 

@@ -9,7 +9,7 @@ const withAuth = Component => props => (
       if (loading) return null;
       if (error) {
         return (
-          <Redirect to="/" />
+          <Redirect to="/login" />
         );
       }
       if (data && data.me) {

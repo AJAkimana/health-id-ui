@@ -5,7 +5,7 @@ import { ActionButtonStyles } from '../../../assets/styles/products/addProductSt
 
 
 const ActionButtons = (props) => {
-  const {  handleSendForApproval, handleAddAnotherProduct, disabled } = props;
+  const { handleSendForApproval, handleAddAnotherProduct, disabled } = props;
 
   return (
     <Fragment>
@@ -33,8 +33,8 @@ const ActionButtons = (props) => {
 };
 
 ActionButtons.propTypes = {
-  handleAddAnotherProduct: PropTypes.func,
-  handleSendForApproval: PropTypes.func,
+  handleAddAnotherProduct: PropTypes.func.isRequired,
+  handleSendForApproval: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
 

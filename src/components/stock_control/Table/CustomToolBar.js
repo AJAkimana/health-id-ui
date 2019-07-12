@@ -2,10 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {
-  MenuList,
-  MenuItem,
-  Tooltip,
-  IconButton
+  MenuList, MenuItem, Tooltip, IconButton
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -37,7 +34,7 @@ export class CustomToolBar extends Component {
   };
 
   handleCloseStock = (event) => {
-    !this.StockElement.contains(event.target) ? this.setState({ stockOpen: false }) : '';
+    !this.StockElement.contains(event.target) && this.setState({ stockOpen: false });
   };
 
   render() {
@@ -68,18 +65,18 @@ export class CustomToolBar extends Component {
           >
             <SearchIcon />
           </CustomIconButton>
-          {isAdmin ?
-            <CustomIconButton
-              toolTip="Approve"
-              buttonRef={(node) => {
-                this.anchorEl = node;
-              }}
-              onClickHandler={() => this.handleToggle()}
-            >
-              <ApproveStockIcon />
-            </CustomIconButton> :
-            ''
-          }
+          {isAdmin
+            && (
+              <CustomIconButton
+                toolTip="Approve"
+                buttonRef={(node) => {
+                  this.anchorEl = node;
+                }}
+                onClickHandler={() => this.handleToggle()}
+              >
+                <ApproveStockIcon />
+              </CustomIconButton>
+            )}
           <Tooltip title="Low quantity">
             <IconButton>
               <LowQuantityNotification />
@@ -103,7 +100,8 @@ export class CustomToolBar extends Component {
         <RenderPopper
           anchorEl={this.StockElement}
           onClickAway={this.handleCloseStock}
-          open={stockOpen}>
+          open={stockOpen}
+        >
           <MenuList>
             <MenuItem onClick={this.handleCloseStock}>Initiate Stock count</MenuItem>
             <MenuItem onClick={this.handleCloseStock}>Reconcile Stock Differences</MenuItem>
@@ -114,7 +112,8 @@ export class CustomToolBar extends Component {
           anchorEl={this.anchorEl}
           open={open}
           className="approve-products"
-          popperPlacement="bottom">
+          popperPlacement="bottom"
+        >
           <ProposedEdits />
         </RenderPopper>
       </Fragment>
@@ -125,10 +124,14 @@ export class CustomToolBar extends Component {
 CustomToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleClickSearch: PropTypes.func.isRequired,
-  isSearchActive: PropTypes.bool.isRequired,
   handleHideSearch: PropTypes.func.isRequired,
-  handleTextChange: PropTypes.func.isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
+  isSearchActive: PropTypes.bool,
+  handleTextChange: PropTypes.func.isRequired
+};
+
+CustomToolBar.defaultProps = {
+  isSearchActive: false
 };
 
 export default withStyles(ToolbarStyles)(CustomToolBar);

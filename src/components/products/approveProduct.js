@@ -214,6 +214,8 @@ export class ApproveProduct extends Component {
 }
 
 ApproveProduct.propTypes = {
+  classes: PropTypes.instanceOf(Object),
+  product: PropTypes.objectOf(PropTypes.object).isRequired,
   session: PropTypes.objectOf(PropTypes.object),
   refetch: PropTypes.func.isRequired,
   approveProduct: PropTypes.func.isRequired,
@@ -221,6 +223,7 @@ ApproveProduct.propTypes = {
 
 ApproveProduct.defaultProps = {
   session: { me: {} },
+  classes: {}
 };
 
 const APPROVE_PRODUCT = graphql(APPROVE_PRODUCT_MUTATION, { name: 'approveProduct' });

@@ -114,8 +114,9 @@ describe('After Row selection toolbar tests', () => {
 });
 
 describe('Test table rendering and data functions', () => {
-  const wrapper = mount(<Products {...props} />);
+  const wrapper = mount(<Router><Products {...props} /></Router>).find('Products');
   it('should render the datatable correctly', () => {
+
     wrapper.instance().componentWillReceiveProps(props);
     expect(wrapper.instance().state.approvedProducts).toEqual([]);
     wrapper.instance().componentWillReceiveProps(props.data);

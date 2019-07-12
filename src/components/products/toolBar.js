@@ -52,7 +52,13 @@ export class ToolBar extends Component {
             <AddIcon />
           </IconButton>
         </Tooltip>
-        <Popper className={classes.popper} open={open} anchorEl={this.anchorEl} transition disablePortal>
+        <Popper
+          className={classes.popper}
+          open={open}
+          anchorEl={this.anchorEl}
+          transition
+          disablePortal
+        >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}

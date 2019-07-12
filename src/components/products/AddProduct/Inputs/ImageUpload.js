@@ -66,11 +66,11 @@ const ImageUpload = (props) => {
 
 ImageUpload.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  handleClose: PropTypes.func,
-  handleOnCropChange: PropTypes.func,
-  handleOnDrop: PropTypes.func,
-  onSelectFile: PropTypes.func,
-  handleSave: PropTypes.func
+  handleClose: PropTypes.func.isRequired,
+  handleOnCropChange: PropTypes.func.isRequired,
+  handleOnDrop: PropTypes.func.isRequired,
+  onSelectFile: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired
 };
 
 export default ImageUpload;

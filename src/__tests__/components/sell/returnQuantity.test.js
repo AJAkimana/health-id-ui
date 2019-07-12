@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReturnQuantity from '../../../components/sell/returnQuantity';
+import { ReturnQuantity } from '../../../components/sell/returnQuantity';
 
 const props = {
   item: { quantity: 1 },
@@ -10,12 +10,17 @@ const props = {
     paperInput: '', paperIcon: '', iconsGrid: '', icon: ''
   },
 };
+
 describe('test ReturnQuantity component', () => {
   let wrapper;
+
   it('it renders ReturnQuantity component', () => {
-    wrapper = shallow((
+    wrapper = shallow(
       <ReturnQuantity {...props} />
-    ));
-    const paper = wrapper.find('Paper').length;
+    );
+
+    expect(wrapper.find('[name="quantity"]').length).toBe(1);
+    const input = wrapper.find('[name="quantity"]');
+    input.simulate('change', {});
   });
 });

@@ -91,10 +91,10 @@ const ImportProductForm = (props) => {
 
 ImportProductForm.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  onDrop: PropTypes.func,
-  handleFile: PropTypes.func,
-  handleUpload: PropTypes.func,
-  handleDownloadTemplate: PropTypes.func,
+  onDrop: PropTypes.func.isRequired,
+  handleFile: PropTypes.func.isRequired,
+  handleUpload: PropTypes.func.isRequired,
+  handleDownloadTemplate: PropTypes.func.isRequired,
 };
 
 

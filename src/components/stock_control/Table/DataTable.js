@@ -251,14 +251,17 @@ export const DataTable = ({
         anchorEl={editPopperAnchor}
         className={classes.popperWrapper}
         open={editable && selected.length > 0}
-        children={(editable && selected.length > 0) ? (
-          <BatchCard
-            data={selectedRow.batchId}
-            name={selectedRow.name}
-            productId={selected}
-          />
-        ) : <span />}
-      />
+      >
+        {(editable && selected.length > 0)
+          && (
+            <BatchCard
+              data={selectedRow.batchId}
+              name={selectedRow.name}
+              productId={selected}
+            />
+          )
+        }
+      </RenderPopper>
     </div>
   );
 };

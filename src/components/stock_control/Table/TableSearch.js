@@ -30,7 +30,7 @@ export class TableSearch extends Component {
 
     return (
       <Grow appear in timeout={300}>
-        <div className={classes.main} ref={el => (this.rootRef = el)}>
+        <div className={classes.main}>
           <SearchIcon className={classes.searchIcon} />
           <TextField
             id="search-field"

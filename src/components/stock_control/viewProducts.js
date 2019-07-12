@@ -8,35 +8,9 @@ import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import DataTable from './Table/DataTable';
 import DataTableLoader from '../dataTable/dataTableLoader';
-import sortAscendingIcon from '../../assets/images/stock/sort_ascending_icon.png';
-import sortDescendingIcon from '../../assets/images/stock/sort_descending_icon.png';
-import stockControlStyles from '../../assets/styles/stock/stock';
 import '../../assets/styles/stock/stock_products.scss';
 
 export class ViewProducts extends Component {
-  renderSortIcon = (sortType) => {
-    if (sortType === 'asc') {
-      return (
-        <img
-          className="sort_icons"
-          src={sortAscendingIcon}
-          alt="sort"
-          style={stockControlStyles.sortImage}
-        />
-      );
-    }
-    if (sortType === 'desc') {
-      return (
-        <img
-          className="sort_icons"
-          src={sortDescendingIcon}
-          alt="sort"
-          style={stockControlStyles.sortImage}
-        />
-      );
-    }
-  };
-
   createColumns = columns => columns.map(title => ({
     id: title.replace(/ +/g, ''),
     label: title.toUpperCase()
@@ -81,7 +55,7 @@ export class ViewProducts extends Component {
               <div name="stock_products">
                 <DataTable
                   title="Products"
-                  isAdmin={isAuthorised ? true : false}
+                  isAdmin={Boolean(isAuthorised)}
                   columns={this.createColumns(columnHeaders)}
                   data={products}
                   onRowClick={(rowId) => {

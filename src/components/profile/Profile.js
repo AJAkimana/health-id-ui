@@ -311,6 +311,7 @@ export class UserProfile extends Component {
     const ctx = canvas.getContext('2d');
 
     const image = new Image();
+    // eslint-disable-next-line no-unused-vars
     const promise = new Promise((resolve, reject) => {
       image.onload = (() => {
         ctx.drawImage(
@@ -327,6 +328,7 @@ export class UserProfile extends Component {
         resolve();
       });
       image.src = imageFile;
+      // eslint-disable-next-line no-unused-vars
     }).then(() => new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         blob.name = fileName;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  TextField, Checkbox, Grid, CircularProgress,
+  TextField, Grid, CircularProgress,
 } from '@material-ui/core';
 import RegisterAlert from './Alerts/RegisterAlert';
 import PasswordField from './Inputs/PasswordField';
@@ -17,7 +17,7 @@ const Register = (props) => {
       checked, registerSuccess, registerErrors, phone
     },
     handlePasswordChange, handlePasswordVisibility,
-    handleEmailChange, handleChange, handleCloseSignupAlert, handleCheckbox,
+    handleEmailChange, handleCloseSignupAlert, handleCheckbox,
     handlePhoneChange, handleSignup,
   } = props;
 
@@ -98,13 +98,13 @@ const Register = (props) => {
 
 Register.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  handlePasswordChange: PropTypes.func,
-  handlePasswordVisibility: PropTypes.func,
-  handleEmailChange: PropTypes.func,
-  handleCloseSignupAlert: PropTypes.func,
-  handleCheckbox: PropTypes.func,
-  handlePhoneChange: PropTypes.func,
-  handleSignup: PropTypes.func
+  handlePasswordChange: PropTypes.func.isRequired,
+  handlePasswordVisibility: PropTypes.func.isRequired,
+  handleEmailChange: PropTypes.func.isRequired,
+  handleCloseSignupAlert: PropTypes.func.isRequired,
+  handleCheckbox: PropTypes.func.isRequired,
+  handlePhoneChange: PropTypes.func.isRequired,
+  handleSignup: PropTypes.func.isRequired
 };
 
 export default Register;

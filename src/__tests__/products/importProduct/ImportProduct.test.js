@@ -35,7 +35,6 @@ describe('Render ImportProduct Component', () => {
 
   const wrapper = shallow(<ImportProduct {...props} />);
   it('renders without crashing', () => {
-    expect(wrapper.find('Dashboard').length).toBe(1);
     expect(wrapper.find('BackAction').length).toBe(1);
     expect(wrapper.find('ImportProductForm').length).toBe(1);
   });

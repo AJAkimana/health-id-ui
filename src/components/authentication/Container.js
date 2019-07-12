@@ -15,7 +15,7 @@ import Register from './Register';
 import Login from './Login';
 
 
-const initialState = {
+export const initialState = {
   email: '',
   password: '',
   phone: '',
@@ -23,7 +23,7 @@ const initialState = {
   checked: false,
   showPassword: false,
   helperPasswordText: '',
-  helperEmailText: [],
+  helperEmailText: '',
   passwordError: false,
   EmailError: false,
   helperPhoneText: '',
@@ -49,7 +49,7 @@ export class AuthContainer extends Component {
       Code: '',
       phoneNumber: '',
       helperPasswordText: '',
-      helperEmailText: [],
+      helperEmailText: '',
       helperPhoneText: '',
       passwordError: false,
       EmailError: false,
@@ -65,7 +65,7 @@ export class AuthContainer extends Component {
       Code: '',
       phoneNumber: '',
       helperPasswordText: '',
-      helperEmailText: [],
+      helperEmailText: '',
       helperPhoneText: '',
       passwordError: false,
       EmailError: false,
@@ -78,7 +78,7 @@ export class AuthContainer extends Component {
       openForgotPasswordAlert: false,
       email: '',
       EmailError: false,
-      helperEmailText: [],
+      helperEmailText: '',
     });
   }
 
@@ -168,7 +168,7 @@ export class AuthContainer extends Component {
             registerSuccess: success,
             password: '',
             helperPasswordText: '',
-            helperEmailText: [],
+            helperEmailText: '',
             helperPhoneText: '',
           });
           setTimeout(() => window.location.assign('/login'), 1500);
@@ -194,7 +194,6 @@ export class AuthContainer extends Component {
       variables: values
     })
       .then((data) => {
-        console.log(data);
         this.setState({
           loading: false,
           openAlert: true
@@ -211,7 +210,7 @@ export class AuthContainer extends Component {
             email: '',
             password: '',
             helperPasswordText: '',
-            helperEmailText: [],
+            helperEmailText: '',
           });
 
           if (!isAdmin) {
@@ -322,6 +321,7 @@ export class AuthContainer extends Component {
                 ? (
                   <Login
                     state={this.state}
+                    switchAccount={false}
                     handlePasswordChange={this.handlePasswordChange}
                     handlePasswordVisibility={this.handlePasswordVisibility}
                     handleEmailChange={this.handleEmailChange}
@@ -357,10 +357,10 @@ export class AuthContainer extends Component {
 
 AuthContainer.propTypes = {
   match: PropTypes.instanceOf(Object).isRequired,
-  ResetPassword: PropTypes.func,
-  Mobilelogin: PropTypes.func,
-  Emaillogin: PropTypes.func
-
+  ResetPassword: PropTypes.func.isRequired,
+  Mobilelogin: PropTypes.func.isRequired,
+  Emaillogin: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired
 };
 
 export default compose(

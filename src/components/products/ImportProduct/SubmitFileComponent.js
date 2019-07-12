@@ -46,10 +46,10 @@ const SubmitFile = (props) => {
 };
 
 SubmitFile.propTypes = {
-  file: PropTypes.instanceOf(Object),
-  handleUpload: PropTypes.func,
-  loading: PropTypes.bool,
-  serverResponse: PropTypes.string
+  file: PropTypes.instanceOf(Object).isRequired,
+  handleUpload: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  serverResponse: PropTypes.string.isRequired
 };
 
 export default SubmitFile;

@@ -466,6 +466,7 @@ export class StepperNav extends React.Component {
     const ctx = canvas.getContext('2d');
 
     const image = new Image();
+    // eslint-disable-next-line no-unused-vars
     const promise = new Promise((resolve, reject) => {
       image.onload = (() => {
         ctx.drawImage(
@@ -482,6 +483,7 @@ export class StepperNav extends React.Component {
         resolve();
       });
       image.src = imageFile;
+      // eslint-disable-next-line no-unused-vars
     }).then(() => new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
         blob.name = fileName;
@@ -530,7 +532,7 @@ export class StepperNav extends React.Component {
   }
 
   toggleRegisterDisplay = (event) => {
-    const { clickedOutlet, registerHidden } = this.state;
+    const { clickedOutlet } = this.state;
     const { id } = event.target;
     if (id === clickedOutlet) {
       this.setState({
@@ -646,6 +648,7 @@ export class StepperNav extends React.Component {
     });
   }
 
+  // eslint-disable-next-line consistent-return
   handleNextButton = () => {
     const { activeStep } = this.state;
 
@@ -666,8 +669,8 @@ export class StepperNav extends React.Component {
       }
     }
       break;
-
     case 2: {
+      // eslint-disable-next-line no-unused-vars
       const finishOutlet = this.finishAddOutlet();
     }
       break;
@@ -730,6 +733,7 @@ export class StepperNav extends React.Component {
     }
 
     let cities = [];
+    // eslint-disable-next-line array-callback-return
     countries && countries.map((country) => {
       if (country.name === 'Nigeria') {
         cities = country.citySet;
@@ -792,7 +796,7 @@ export class StepperNav extends React.Component {
 
     const { createBusiness } = this.props;
 
-    createBusiness({
+    return createBusiness({
       variables: {
         legalName,
         tradingName,
@@ -1067,8 +1071,7 @@ export class StepperNav extends React.Component {
         receiptOpen,
         outletId,
       }
-    }).then((results) => {
-      const { id } = results.data.updateReceiptTemplate.receiptTemplate;
+    }).then(() => {
       this.editRegister();
     }).catch((error) => {
       notify('Something went wrong, Please check your inputs');
@@ -1277,7 +1280,8 @@ export class StepperNav extends React.Component {
                 <React.Fragment>
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
-                    {((activeStep !== 0 && showUsers && unhideMainButtons) || (showUsers && activeStep === 3 && unhideMainButtons)) && (
+                    {((activeStep !== 0 && showUsers && unhideMainButtons)
+                      || (showUsers && activeStep === 3 && unhideMainButtons)) && (
                       <Button
                         onClick={this.handleBackButton}
                         className={classes.backButton}
@@ -1302,6 +1306,7 @@ export class StepperNav extends React.Component {
                       ? (<Loader />)
                       : (
                         unhideMainButtons && (
+                          // eslint-disable-next-line no-nested-ternary
                           (activeStep !== 3) ? (
                             <Fab
                               variant="extended"
@@ -1310,10 +1315,11 @@ export class StepperNav extends React.Component {
                               onClick={this.handleNextButton}
                               className={classes.button}
                               id="next-button"
-                          >
+                            >
                               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Fab>
                           ) : (
+                            // eslint-disable-next-line no-nested-ternary
                             showUsers && users.length > 1 ? (
                               <Fab
                                 variant="extended"
@@ -1369,7 +1375,6 @@ export class StepperNav extends React.Component {
 
 StepperNav.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
-  countriesData: PropTypes.instanceOf(Object).isRequired,
   createOutlet: PropTypes.instanceOf(Object).isRequired,
   createReceiptTemplate: PropTypes.instanceOf(Object).isRequired,
   createRegister: PropTypes.instanceOf(Object).isRequired,

@@ -65,7 +65,7 @@ const ForgotPasswordAlert = (props) => {
               label="Email"
               type="email"
               name="email"
-              value={email}
+              defaultValue={email}
               id="adornment-email"
               onChange={handleEmailChange}
               endAdornment={(
@@ -93,13 +93,23 @@ const ForgotPasswordAlert = (props) => {
 
 ForgotPasswordAlert.propTypes = {
   open: PropTypes.bool,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   email: PropTypes.string,
-  handleEmailChange: PropTypes.func,
+  handleEmailChange: PropTypes.func.isRequired,
   EmailError: PropTypes.bool,
-  handlePasswordReset: PropTypes.func,
+  helperEmailText: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  handlePasswordReset: PropTypes.func.isRequired,
   loading: PropTypes.bool,
+};
+
+ForgotPasswordAlert.defaultProps = {
+  open: false,
+  disabled: true,
+  email: '',
+  EmailError: false,
+  helperEmailText: '',
+  loading: false,
 };
 
 export default ForgotPasswordAlert;

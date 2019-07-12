@@ -10,11 +10,15 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server  --mode development --open --hot",
     "dev": "webpack --mode development",
-    "lint:fix": "eslint . --ignore-path .gitignore --fix",
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint:fix": "eslint . --ignore-path .eslintignore --fix",
+    "lint": "eslint . --ignore-path .eslintignore",
     "heroku-prebuild": "npm install yarn && yarn install ",
     "heroku-postbuild": "yarn build"
   },
+  "pre-commit": [
+    "lint",
+    "test:coverage"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bryanmezue/healthid-fe.git"
@@ -73,6 +77,7 @@
     "moxios": "^0.4.0",
     "mui-datatables": "2.3.0",
     "node-sass": "^4.11.0",
+    "pre-commit": "^1.2.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-apollo": "^2.5.3",
@@ -140,6 +145,14 @@
     "modulePaths": [
       "src/components/",
       "__tests__"
-    ]
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 90,
+        "statements": 90
+      }
+    }
   }
 }

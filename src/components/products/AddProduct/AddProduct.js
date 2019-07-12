@@ -115,14 +115,11 @@ export class AddProduct extends Component {
       productName, productDescription, productImage, brand, manufacturer,
       preferredSupplierId, backupSupplierId, categoryId, measurementUnitId,
       loyaltyWeight, vatStatus,
-      tags,
     } = this.state;
 
     this.setState({ loading: true });
 
     const tagsArray = [];
-
-    const tagValues = tags.map(tag => tagsArray.push(tag.text));
 
     addProduct({
       variables: {
@@ -210,7 +207,7 @@ export class AddProduct extends Component {
     const ctx = canvas.getContext('2d');
 
     const image = new Image();
-    const promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve) => {
       image.onload = (() => {
         ctx.drawImage(
           image,
@@ -226,7 +223,7 @@ export class AddProduct extends Component {
         resolve();
       });
       image.src = imageFile;
-    }).then(() => new Promise((resolve, reject) => {
+    }).then(() => new Promise((resolve) => {
       canvas.toBlob((blob) => {
         blob.name = fileName;
         resolve(blob);
@@ -317,6 +314,7 @@ export class AddProduct extends Component {
 AddProduct.propTypes = {
   session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.objectOf(PropTypes.any),
+  addProduct: PropTypes.func.isRequired
 };
 
 AddProduct.defaultProps = {

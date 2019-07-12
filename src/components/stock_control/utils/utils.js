@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {
-  Popper,
-  Paper,
-  Grow,
-  ClickAwayListener,
-  Tooltip,
-  IconButton
+  Popper, Paper, Grow, ClickAwayListener, Tooltip, IconButton
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ToolbarStyles } from '../../../assets/styles/stock/stock';
@@ -29,15 +24,16 @@ export const stableSort = (array, cmp) => {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
+
   return sortedProducts.map(element => element[0]);
 };
 
 export const getSorting = (order, orderBy) => (order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy));
 
-export const CustomIconButton = withStyles(ToolbarStyles)(({
-  toolTip, buttonRef, onClickHandler, children, classes
-}) => {
-  return (
+export const CustomIconButton = withStyles(ToolbarStyles)(
+  ({
+    toolTip, buttonRef, onClickHandler, children, classes
+  }) => (
     <Tooltip title={toolTip}>
       <IconButton
         className={classes.IconButton}
@@ -49,8 +45,8 @@ export const CustomIconButton = withStyles(ToolbarStyles)(({
         {children}
       </IconButton>
     </Tooltip>
-  );
-});
+  )
+);
 
 CustomIconButton.propTypes = {
   toolTip: PropTypes.string,
@@ -62,12 +58,13 @@ CustomIconButton.propTypes = {
 CustomIconButton.defaultProps = {
   toolTip: 'class',
   children: <span />,
-  onClickHandler: () => { }
+  onClickHandler: () => {}
 };
 
-export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, open, children, classes, className, popperPlacement }) => {
-
-  return (
+export const RenderPopper = withStyles(ToolbarStyles)(
+  ({
+    anchorEl, onClickAway, open, children, classes, className, popperPlacement
+  }) => (
     <Popper
       className={clsx(classes.popper, className && className)}
       open={open}
@@ -83,15 +80,13 @@ export const RenderPopper = withStyles(ToolbarStyles)(({ anchorEl, onClickAway, 
           style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
         >
           <Paper className={classes.paper}>
-            <ClickAwayListener onClickAway={onClickAway}>
-              {children}
-            </ClickAwayListener>
+            <ClickAwayListener onClickAway={onClickAway}>{children}</ClickAwayListener>
           </Paper>
         </Grow>
       )}
     </Popper>
-  );
-});
+  )
+);
 
 RenderPopper.propTypes = {
   anchorEl: PropTypes.oneOfType([PropTypes.element, PropTypes.object]),
@@ -99,14 +94,13 @@ RenderPopper.propTypes = {
   children: PropTypes.element,
   popperPlacement: PropTypes.string,
   className: PropTypes.string,
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired
 };
 
 RenderPopper.defaultProps = {
   onClickAway: () => null,
-  anchorEl: (<span />),
+  anchorEl: <span />,
   popperPlacement: 'bottom',
-  children: (<span />),
+  children: <span />,
   className: 'class'
 };
-

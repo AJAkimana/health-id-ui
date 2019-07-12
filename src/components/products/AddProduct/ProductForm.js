@@ -282,17 +282,17 @@ const ProductForm = (props) => {
 
 ProductForm.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
-  handleChange: PropTypes.func,
-  handleAddition: PropTypes.func,
-  handleDelete: PropTypes.func,
-  handleOnCropChange: PropTypes.func,
-  onSelectFile: PropTypes.func,
-  handleClose: PropTypes.func,
-  handleSave: PropTypes.func,
-  handleAddAnotherProduct: PropTypes.func,
-  handleSendForApproval: PropTypes.func,
-  handleProductName: PropTypes.func,
-  handleCategoryChange: PropTypes.func,
+  handleChange: PropTypes.func.isRequired,
+  handleAddition: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleOnCropChange: PropTypes.func.isRequired,
+  onSelectFile: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired,
+  handleAddAnotherProduct: PropTypes.func.isRequired,
+  handleSendForApproval: PropTypes.func.isRequired,
+  handleProductName: PropTypes.func.isRequired,
+  handleCategoryChange: PropTypes.func.isRequired,
 };
 
 export default ProductForm;

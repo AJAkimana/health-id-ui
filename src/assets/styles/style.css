@@ -130,6 +130,37 @@ html, body {
   cursor: pointer;
 }
 
+.login-btn{
+  width: 60%;
+  height: 33px;
+  font-family: Avenir, Book;
+  font-weight: bold;
+  color: #424242;
+  font-size: 16px;
+  background-color: #FAF33E;
+  display:block;
+  margin: 0 auto;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.disabled-login{
+  background-color: #9E9B3F;
+  color: #424242;
+  width: 60%;
+  height: 33px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: Avenir, Book;
+  font-weight: bold;
+  margin:0 auto;
+  display:block;
+  outline: none;
+  border: none;
+}
+
 .disabled-register{
   background-color: #9E9B3F;
   color: #424242;
@@ -146,7 +177,6 @@ html, body {
 
 .textfield{
   width: 100%;
-
 }
 
 .login-qn{

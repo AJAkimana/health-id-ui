@@ -46,7 +46,7 @@ export const BatchCard = ({
           <div key={id} data-id={id} className={card}>
             <Divider className={divider} />
             <Mutation mutation={EDIT_QUANTITY}>
-              {(proposedQuantity, {}) => (
+              {proposedQuantity => (
                 <Batch
                   id={id}
                   expanded={expanded}

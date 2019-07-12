@@ -9,7 +9,7 @@ import { tableQuantityStyles } from '../../assets/css/sellScreenStyles';
 
 const styles = tableQuantityStyles;
 
-const ReturnQuantity = ({
+export const ReturnQuantity = ({
   item,
   handleQuantityButtons,
   handleQuantityOnChange,
@@ -25,7 +25,7 @@ const ReturnQuantity = ({
   return (
     <div className={classes.iconsCell}>
       <Input
-        name="qunatity"
+        name="quantity"
         value={item.quantity}
         className={classes.paperInput}
         onChange={event => handleQuantityOnChange(event, item)}

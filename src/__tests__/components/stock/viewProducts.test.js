@@ -1,5 +1,6 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
 import { GET_ALL_APPROVED_PRODUCTS } from '../../../queries/stockProducts';
@@ -87,7 +88,9 @@ describe('ViewProducts ', () => {
   it('renders without error', async() => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ViewProductsWrapper {...props} />
+        <Router>
+          <ViewProductsWrapper {...props} />
+        </Router>
       </MockedProvider>
     );
     await wait(2000);
@@ -98,21 +101,14 @@ describe('ViewProducts ', () => {
   it('renders with an error', async() => {
     const wrapper = mount(
       <MockedProvider mocks={errorMocks} addTypename={false}>
-        <ViewProductsWrapper {...props} />
+        <Router>
+          <ViewProductsWrapper {...props} />
+        </Router>
       </MockedProvider>
     );
     await wait(0);
     expect(wrapper.find('DataTableLoader').length).toEqual(1);
     expect(wrapper.find('DataTable').length).toEqual(0)
-  });
-
-  it('calls renderSortIcon method', () => {
-    const wrapper = shallow(<ViewProductsWrapper {...props} />);
-    const ascendIcon = wrapper.instance().renderSortIcon('asc');
-    const descendIcon = wrapper.instance().renderSortIcon('desc');
-
-    expect(ascendIcon.props.className).toEqual('sort_icons');
-    expect(descendIcon.props.className).toEqual('sort_icons');
   });
 
   it('renders without error with a protected route', async () => {

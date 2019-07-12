@@ -7,7 +7,7 @@ import UploadImage from '../../../assets/images/uploadIcon.png';
 import { DragFileStyles } from '../../../assets/styles/products/ImportProductStyles';
 
 const UploadFileComponent = (props) => {
-  const {  onDrop, handleFile } = props;
+  const { onDrop, handleFile } = props;
   return (
     <div className="wrapper">
       <div />
@@ -44,8 +44,8 @@ const UploadFileComponent = (props) => {
 };
 
 UploadFileComponent.propTypes = {
-  onDrop: PropTypes.func,
-  handleFile: PropTypes.func
+  onDrop: PropTypes.func.isRequired,
+  handleFile: PropTypes.func.isRequired
 };
 
 export default UploadFileComponent;

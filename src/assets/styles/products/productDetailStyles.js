@@ -1,5 +1,3 @@
-import { black } from "ansi-colors";
-
 export const productDetailStyles = theme => ({
   root: {
     width: '100%',

@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import SVGIcon from '../components/shared/Dashboard/Icons';
-import Dashboard from '../components/shared/Dashboard/Dashboard';
+import { Dashboard } from '../components/shared/Dashboard/Dashboard';
 import GET_USER_INFO from '../queries/userDataQuery';
 
 const event = {
@@ -79,6 +81,7 @@ const mocks = [
 ];
 
 const props = {
+  history: { push: jest.fn()},
   session: {
     me: {
       mobileNumber: '256704505050',
@@ -93,9 +96,11 @@ describe('Render Dashboard component', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount((
+      <Router>
       <MockedProvider mocks={mocks} addTypename>
         <Dashboard {...props} />
-      </MockedProvider>
+        </MockedProvider>
+        </Router>
     ));
   });
 

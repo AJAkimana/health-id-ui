@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { TableSortLabel, Checkbox, TableRow, TableHead, TableCell } from '@material-ui/core';
+import {
+  TableSortLabel, Checkbox, TableRow, TableHead, TableCell
+} from '@material-ui/core';
 
 import sortAscendingIcon from '../../../assets/images/stock/sort_ascending_icon.png';
 import sortDescendingIcon from '../../../assets/images/stock/sort_descending_icon.png';
 import stockControlStyles, { TableHeaderStyles } from '../../../assets/styles/stock/stock';
 
-const TableHeader = (props) => {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-    headRows,
-    classes
-  } = props;
-
+const TableHeader = ({
+  onSelectAllClick,
+  order,
+  orderBy,
+  numSelected,
+  rowCount,
+  onRequestSort,
+  headRows,
+  classes
+}) => {
   const createSortHandler = property => (event) => {
     onRequestSort(event, property);
   };
@@ -44,6 +44,7 @@ const TableHeader = (props) => {
         />
       );
     }
+    return <span />;
   };
 
   return (
@@ -68,7 +69,7 @@ const TableHeader = (props) => {
               direction={order}
               onClick={createSortHandler(row.id)}
               hideSortIcon
-              IconComponent={() => (order === 'desc' || 'asc' ? renderSortIcon(order) : <span />)}
+              IconComponent={() => renderSortIcon(order)}
             >
               {row.label}
             </TableSortLabel>
@@ -81,6 +82,7 @@ const TableHeader = (props) => {
 
 TableHeader.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,

@@ -63,7 +63,7 @@ export class ImportProduct extends Component {
     this.setState({ loading: true });
 
     const { file } = this.state;
-
+    const { history } = this.props;
     const formdata = new FormData();
 
     formdata.append('file', file);
@@ -83,7 +83,7 @@ export class ImportProduct extends Component {
           loading: false,
           serverResponse: `${noOfProductsAdded} products have been successfully uploaded for approval`,
         });
-        setTimeout(() => this.props.history.push('/products'), 1200);
+        setTimeout(() => history.push('/products'), 1200);
       })
       .catch((err) => {
         this.setState({
@@ -116,11 +116,13 @@ export class ImportProduct extends Component {
 }
 
 ImportProduct.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object)
+  session: PropTypes.objectOf(PropTypes.object),
+  history: PropTypes.objectOf(PropTypes.object),
 };
 
 ImportProduct.defaultProps = {
-  session: {}
+  session: {},
+  history: {}
 };
 
 export default withAuth(withRouter(ImportProduct));

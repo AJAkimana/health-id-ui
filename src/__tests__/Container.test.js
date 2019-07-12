@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthContainer as Container } from '../components/authentication/Container';
 
-
 describe('Container Component', () => {
   it('renders without crashing', () => {
     const props = {
@@ -51,31 +50,7 @@ describe('Container Component', () => {
     expect(wrapper.state('openAlert')).toBe(false);
   });
 
-  it('calls handleOpenForgotPasswordAlert', () => {
-    const props = {
-      match: {
-        path: '/login'
-      },
-      handleOpenForgotPasswordAlert: jest.fn(),
-    };
-    const wrapper = shallow(<Container {...props} />);
-    wrapper.instance().handleOpenForgotPasswordAlert();
-    expect(wrapper.state('openForgotPasswordAlert')).toBe(true);
-  });
-
-  it('calls handleCloseForgotPasswordAlert', () => {
-    const props = {
-      match: {
-        path: '/login'
-      },
-      handleCloseForgotPasswordAlert: jest.fn(),
-    };
-    const wrapper = shallow(<Container {...props} />);
-    wrapper.instance().handleCloseForgotPasswordAlert();
-    expect(wrapper.state('openForgotPasswordAlert')).toBe(false);
-  });
-
-  it('calls handleCheckbox for checked state', () => {
+  it('calls handleChange for checked state', () => {
     const props = {
       match: {
         path: '/login'
@@ -94,6 +69,28 @@ describe('Container Component', () => {
       checked: event.target.checked
     });
     expect(wrapper.state('checked')).toBeFalsy();
+  });
+
+  it('calls handleChange for input state', () => {
+    const props = {
+      match: {
+        path: '/login'
+      },
+    };
+
+    const event = {
+      target: {
+        name: 'email',
+        value: 'user@user.com'
+      }
+    };
+
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.instance().handleCheckbox(event);
+    wrapper.instance().setState({
+      email: 'user@user.com'
+    });
+    expect(wrapper.state('email')).toBe('user@user.com');
   });
 
   it('calls handleChangeInput', () => {
@@ -144,16 +141,21 @@ describe('Container Component', () => {
       match: {
         path: '/'
       },
+
     };
 
-    const value = '909234234234';
+    const event = {
+      target: {
+        value: '234234234'
+      }
+    };
 
     const wrapper = shallow(<Container {...props} />);
-    wrapper.instance().handlePhoneChange(value);
+    wrapper.instance().handlePhoneChange(event);
     wrapper.instance().setState({
-      phone: value
+      phoneNumber: event.target.value
     });
-    expect(wrapper.state('phone')).toBe('909234234234');
+    expect(wrapper.state('phoneNumber')).toBe('234234234');
   });
 
   it('calls handlePasswordChange for input state', () => {
@@ -161,6 +163,7 @@ describe('Container Component', () => {
       match: {
         path: '/'
       },
+
     };
 
     const event = {
@@ -183,6 +186,7 @@ describe('Container Component', () => {
       match: {
         path: '/'
       },
+
     };
 
     const wrapper = shallow(<Container {...props} />);
@@ -232,6 +236,12 @@ describe('Container Component', () => {
         password: {
           value: ''
         },
+        code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
+        }
       },
       preventDefault: jest.fn(),
     };
@@ -243,6 +253,65 @@ describe('Container Component', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
     wrapper.instance().handleSubmit(event);
     expect(spy).toBeCalled();
+  });
+
+  it('handleSubmit, sets state and calls handleEmailLogin with an invalid credentails', () => {
+    const data = {
+      data: {
+        loginUser: {
+          token: '',
+          message: 'Invalid login credentials'
+        }
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      Emaillogin: jest.fn(() => Promise.resolve(data))
+    };
+    const event = {
+      target: {
+        email: {
+          value: ''
+        },
+        password: {
+          value: ''
+        },
+        code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
+        }
+      },
+      preventDefault: jest.fn(),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      inputType: 'email',
+    });
+
+    const handleEmailLogin = jest.fn();
+    const spy = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
+    wrapper.instance().handleSubmit(event);
+    expect(spy).toBeCalled();
+    expect(wrapper.instance().state.loginErrors).toBeFalsy();
+
+    // test handleEmailLogin with an error
+    const errorProps = {
+      match: {
+        path: '/'
+      },
+      Emaillogin: jest.fn(() => Promise.resolve({}))
+    }
+    const errorWrapper = shallow(<Container {...errorProps} />);
+    errorWrapper.setState({
+      inputType: 'email',
+    });
+    const spyOn = jest.spyOn(errorWrapper.instance(), 'handleEmailLogin');
+    errorWrapper.instance().handleSubmit(event);
+    expect(errorWrapper.instance().state.loginSuccess).toBeFalsy();
   });
 
   it('handleSubmit, sets state and calls handleMobileLogin', () => {
@@ -268,6 +337,12 @@ describe('Container Component', () => {
         },
         password: {
           value: ''
+        },
+        Code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
         }
       },
       preventDefault: jest.fn(),
@@ -280,6 +355,64 @@ describe('Container Component', () => {
     const spy = jest.spyOn(wrapper.instance(), 'handleMobileLogin');
     wrapper.instance().handleSubmit(event);
     expect(spy).toBeCalled();
+  });
+
+  it('handleSubmit, sets state and calls handleMobileLogin unsuccessfully', () => {
+    const data = {
+      data: {
+        loginUser: {
+          token: '',
+          message: 'Invalid login credentials'
+        }
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      Mobilelogin: jest.fn(() => Promise.resolve(data))
+    };
+    const event = {
+      target: {
+        email: {
+          value: ''
+        },
+        password: {
+          value: ''
+        },
+        Code: {
+          value: ''
+        },
+        phoneNumber: {
+          value: ''
+        }
+      },
+      preventDefault: jest.fn(),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      inputType: 'phone',
+    });
+    const handleMobileLogin = jest.fn();
+    const spy = jest.spyOn(wrapper.instance(), 'handleMobileLogin');
+    wrapper.instance().handleSubmit(event);
+    expect(spy).toBeCalled();
+    expect(wrapper.instance().state.loginErrors).toBeFalsy();
+
+    // test handleEmailLogin with an error
+    const errorProps = {
+      match: {
+        path: '/'
+      },
+      Mobilelogin: jest.fn(() => Promise.resolve({}))
+    }
+    const errorWrapper = shallow(<Container {...errorProps} />);
+    errorWrapper.setState({
+      inputType: 'phone',
+    });
+    const spyOn = jest.spyOn(errorWrapper.instance(), 'handleMobileLogin');
+    errorWrapper.instance().handleSubmit(event);
+    expect(errorWrapper.instance().state.loginSuccess).toBeFalsy();
   });
 
   it('calls handleSignup, sets state and calls signup', () => {
@@ -299,7 +432,10 @@ describe('Container Component', () => {
     const wrapper = shallow(<Container {...props} />);
     wrapper.setState({
       email: '',
-      phone: '',
+      Code: {
+        concat: jest.fn()
+      },
+      phoneNumber: 123,
       password: ''
     });
     const signup = jest.fn();
@@ -307,30 +443,90 @@ describe('Container Component', () => {
     expect(wrapper.state('loading')).toBe(true);
   });
 
-  it('handles password reset', () => {
+  it('calls handleSignup with an error', () => {
+    const data = {
+      data: {
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      signup: jest.fn(() => Promise.resolve(data)),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      Code: {
+        concat: jest.fn()
+      },
+      phoneNumber: 0,
+      password: ''
+    });
+    wrapper.instance().handleSignup();
+    expect(wrapper.instance().state.openAlert).toBe(false);
+  });
+
+  it('calls handleOpenForgotPasswordAlert and sets state', () => {
+    const props = {
+      match: {
+        path: '/'
+      },
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.instance().handleOpenForgotPasswordAlert();
+    expect(wrapper.instance().state.openForgotPasswordAlert).toBeTruthy();
+  });
+
+  it('calls handleCloseForgotPasswordAlert and sets state', () => {
+    const props = {
+      match: {
+        path: '/'
+      },
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.instance().handleCloseForgotPasswordAlert();
+    expect(wrapper.instance().state.openForgotPasswordAlert).toBeFalsy();
+  });
+
+  it('calls handlePasswordReset and sets state', () => {
     const data = {
       data: {
         resetPassword: {
-          success: '',
-          resetLink: ''
+          resetLink: "dddd",
+          success: ['success'],
         }
       }
     };
-
     const props = {
       match: {
-        path: '/login'
+        path: '/'
       },
       ResetPassword: jest.fn(() => Promise.resolve(data)),
     };
-
     const wrapper = shallow(<Container {...props} />);
     wrapper.setState({
-      disabled: true,
-      loading: false,
-      EmailError: false,
+      email: 'test@gmail.com'
     });
     wrapper.instance().handlePasswordReset();
-    expect(wrapper.state('loading')).toBe(true);
+    expect(wrapper.instance().state.EmailError).toBeFalsy();
+  });
+
+  it('calls handlePasswordReset and sets state with an error', () => {
+    const data = {
+      data: {
+      }
+    };
+    const props = {
+      match: {
+        path: '/'
+      },
+      ResetPassword: jest.fn(() => Promise.resolve(data)),
+    };
+    const wrapper = shallow(<Container {...props} />);
+    wrapper.setState({
+      email: 'test@gmail.com'
+    });
+    wrapper.instance().handlePasswordReset();
+    expect(wrapper.instance().state.EmailError).toBeFalsy();
   });
 });

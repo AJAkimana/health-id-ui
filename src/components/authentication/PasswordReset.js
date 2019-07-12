@@ -122,7 +122,7 @@ class ResetPassword extends Component {
           setTimeout(() => window.location.assign('/login'), 1500);
         }
       })
-      .catch((err) => {
+      .catch((error) => {
         this.setState({
           helperNewPasswordText: '',
           helperConfirmedPasswordText: '',
@@ -133,6 +133,7 @@ class ResetPassword extends Component {
             </FormHelperText>
           )
         });
+        return error;
       });
   };
 

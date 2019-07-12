@@ -83,7 +83,7 @@ const RegisterAlert = (props) => {
 
 RegisterAlert.propTypes = {
   open: PropTypes.bool,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   email: PropTypes.string,
   success: PropTypes.arrayOf(PropTypes.string),
   registerErrors: PropTypes.string,
