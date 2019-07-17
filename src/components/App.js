@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Switch, Route } from 'react-router-dom';
 import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
@@ -14,6 +14,15 @@ import SellScreenContainer from '../containers/sellScreenContainer';
 import AddProduct from './products/AddProduct/AddProduct';
 import ImportProduct from './products/ImportProduct/ImportProduct';
 import SalesHistory from '../containers/salesHistoryContainer';
+import MainSetup from './main_setup/mainSetup';
+import MainProfile from './main_setup/mainProfileSetup';
+import ManageProfile from './main_setup/manageProfileSetup';
+import MainPreferences from './main_setup/mainPreferences';
+import MainBusinessInformation from './main_setup/mainBusinessSetup';
+import MainBusinessView from './main_setup/mainBusinessSetupView';
+import MainOutletSetup from './main_setup/mainOutletSetup';
+import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
+import MainInvitedUsers from './main_setup/mainInvitedUsers';
 
 const App = ({ session }) => (
   <div>
@@ -21,6 +30,15 @@ const App = ({ session }) => (
       <Route exact path="/" component={AuthContainer} />
       <Route exact path="/register" component={AuthContainer} />
       <Route exact path="/setup" component={StepperNav} />
+      <Route exact path="/main_setup" render={() => <MainSetup session={session} />} />
+      <Route exact path="/main_setup/profile" render={() => <MainProfile session={session} />} />
+      <Route exact path="/main_setup/profile/manage_profile_user" render={() => <ManageProfile session={session} />} />
+      <Route exact path="/main_setup/preferences/:outletID" render={() => <MainPreferences session={session} />} />
+      <Route exact path="/main_setup/business_information" render={() => <MainBusinessInformation session={session} />} />
+      <Route exact path="/main_setup/business_information/:businessID" render={() => <MainBusinessView session={session} />} />
+      <Route exact path="/main_setup/outlets_registers" render={() => <MainOutletSetup session={session} />} />
+      <Route exact path="/main_setup/outlets_registers/new" render={() => <MainOutletSetupForm session={session} />} />
+      <Route exact path="/main_setup/users" render={() => <MainInvitedUsers session={session} />} />
       <Route exact path="/dashboard" render={() => <Dashboard session={session} />} />
       <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />
       <Route exact path="/products/:id/approve" render={() => <ApproveProductDetail session={session} />} />

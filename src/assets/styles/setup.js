@@ -154,6 +154,405 @@ export const BusinessSetUpStyles = {
   },
 };
 
+export const MainProfileStyles = {
+  container: {
+    padding: '1rem 0',
+  },
+  backBox: {
+    textAlign: 'center',
+  },
+  profileHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 0',
+  },
+  paper: {
+    width: '100%',
+    paddingBottom: '2rem',
+  },
+  formTitle: {
+    textAlign: 'center',
+    padding: '1rem 0',
+  },
+  formRow: {
+    padding: '0 2rem',
+  },
+  mlAuto: {
+    marginLeft: 'auto',
+  },
+  profileForm: {
+    margin: '0 auto',
+  },
+  textField: {
+    margin: '1rem 0 !important',
+
+    '& *::before, & *::after': {
+      borderBottom: 'none !important',
+    },
+
+    '& input:disabled': {
+      color: 'rgb(84, 84, 84) !important'
+    },
+
+    '& label': {
+      fontSize: '1.2rem !important'
+    }
+  },
+  profileBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: '1.5rem',
+  },
+  link: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnLink: {
+    textDecoration: 'none',
+  },
+  button: {
+    textDecoration: 'none',
+    color: 'currentColor',
+  },
+  avatarIconBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1rem 2rem',
+  },
+  avatarIcon: {
+    width: '12rem',
+    height: '12rem'
+  },
+  flex: {
+    display: 'flex',
+  },
+  contentHeader: {
+    padding: '0.5rem 2rem',
+    backgroundColor: '#E8E8E8',
+  },
+  passwordBox: {
+    margin: '0 auto',
+    padding: '1.5rem',
+  },
+};
+
+
+export const MainBusinessSetUpStyles = {
+  container: {
+    padding: '1rem 0',
+  },
+  textField: {
+    marginBottom: '20px',
+  },
+  formBox: {
+    margin: '2rem auto',
+  },
+  formTitle: {
+    textAlign: 'center',
+    padding: '1rem 0',
+  },
+  profileHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 0',
+  },
+  profileBox: {
+    display: 'flex',
+    padding: '1rem 2rem',
+  },
+  backBox: {
+    textAlign: 'center',
+  },
+  link: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  contentHeader: {
+    padding: '1rem',
+    textAlign: 'center',
+    borderBottom: 'solid 1px #E8E8E8',
+  },
+  subContentHeader: {
+    padding: '0.5rem 2rem',
+    backgroundColor: '#A3A3A3',
+  },
+  loaderText: {
+    padding: '1rem',
+    textAlign: 'center',
+  }
+};
+
+export const MainInvitedUsersStyles = {
+  category: {
+    paddingBottom: '2rem',
+  }
+};
+
+export const MainOutletSetupStyles = {
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1rem',
+  },
+  link: {
+    textDecoration: 'none',
+  },
+  optionsLink: {
+    width: '25px',
+    height: '25px',
+    color: 'currentColor',
+  },
+  backArrowBox: {
+    textAlign: 'center',
+  },
+  backArrow: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  formTitle: {
+    textAlign: 'center',
+    padding: '0.5rem 0',
+  },
+  tableBox: {
+    margin: '0 auto',
+  },
+  iconBox: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  outletTypeTitle: {
+    padding: '1rem',
+    backgroundColor: '#A3A3A3',
+  },
+  outletType: {
+    margin: '0 auto',
+  }
+};
+
+export const SetupHeader = {
+  container: {
+    padding: '1rem 0',
+  },
+  backBox: {
+    textAlign: 'center',
+  },
+  backButton: {
+    borderRadius: '50%',
+  },
+  link: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'currentColor',
+  },
+  profileHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 0',
+  },
+  formTitle: {
+    textAlign: 'center',
+    padding: '1rem 0',
+  },
+};
+
+export const MainSetupStyles = {
+  container: {
+    margin: '0 auto',
+  },
+  option: {
+    textDecoration: 'none',
+    color: 'currentColor',
+  },
+  paper: {
+    width: '100%',
+    marginTop: '4rem',
+  },
+  usernameBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 2rem 1rem 4rem',
+    boxShadow: 'rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px',
+  },
+  usernameDetailsBox: {
+    display: 'flex'
+  },
+  usernameDetails: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingLeft: '1rem',
+  },
+  navsBox: {
+    padding: '2rem 0',
+  },
+  navs: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1.5rem 4rem',
+
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0.05)',
+    }
+  },
+  link: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'currentColor',
+  },
+  backButton: {
+    borderRadius: '50% !important',
+  },
+};
+
+export const MainPreferencesStyles = {
+  container: {
+    padding: '1rem 0',
+  },
+  formContainer: {
+    alignItems: 'center',
+    marginBottom: '1rem',
+  },
+  formRow: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textFieldBox: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textFieldTitle: {
+    marginLeft: '1rem',
+  },
+  backBox: {
+    textAlign: 'center',
+  },
+  backButton: {
+    borderRadius: '50%',
+  },
+  profileHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '1rem 0',
+  },
+  link: {
+    width: '3rem',
+    height: '3rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'currentColor',
+  },
+  button: {
+    textDecoration: 'none',
+    color: 'currentColor',
+  },
+  section: {
+    marginBottom: '1.5rem',
+  },
+  sectionHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '1.5rem',
+    textTransform: 'uppercase',
+  },
+  sectionContent: {
+    padding: '0 1.5rem 2rem 1.5rem',
+  },
+  selectBox: {
+    padding: '0 2rem',
+  },
+  paperTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: '0',
+    padding: '1rem',
+    backgroundColor: '#E8E8E8',
+  },
+  table: {
+    marginTop: '1rem',
+  },
+  tableBox: {
+    maxHeight: '18rem',
+    overflow: 'scroll',
+  },
+  description: {
+    padding: '1rem',
+    color: '#A3A3A3',
+  },
+  lock: {
+    width: '14px',
+    height: '14px',
+    marginLeft: '0.5rem',
+    fontSize: '1rem',
+  },
+  paymentButtons: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  vat: {
+    padding: '4px 0',
+  }
+};
+
+export const selectFieldStyles = {
+  root: {
+    flexGrow: 1
+  },
+  input: {
+    display: 'flex',
+    padding: 0,
+    height: 'auto',
+  },
+  valueContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flex: 1,
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  noOptionsMessage: {
+    padding: '10px',
+  },
+  singleValue: {
+    fontSize: 16,
+  },
+  placeholder: {
+    position: 'absolute',
+    left: 2,
+    bottom: 6,
+    fontSize: 16,
+  },
+  paper: {
+    position: 'absolute',
+    zIndex: 100000,
+    marginTop: '10px',
+    left: 0,
+    right: 0,
+  },
+};
+
 export const FooterStyles = {
   appbar: {
     backgroundColor: '#424242',

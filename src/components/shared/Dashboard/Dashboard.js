@@ -104,23 +104,25 @@ export class Dashboard extends Component {
       return fill;
     };
 
-    const renderGrid = (id, name, imagestyle, label) => (
-      <Grid
-        item
-        id={id}
-        onClick={this.handleOnClick}
-        style={handleActiveGrid(id)}
-      >
-        <div style={styles.imgDiv}>
-          <SVGIcon name={name} style={imagestyle} fill={handleActiveImage(id)} />
-        </div>
-        <Typography
-          variant="overline"
-          style={handleActiveText(id)}
+    const renderGrid = (id, name, imagestyle, label, link) => (
+      <a href={link} style={{ textDecoration: 'none' }}>
+        <Grid
+          item
+          id={id}
+          onClick={this.handleOnClick}
+          style={handleActiveGrid(id)}
         >
-          {label}
-        </Typography>
-      </Grid>
+          <div style={styles.imgDiv}>
+            <SVGIcon name={name} style={imagestyle} fill={handleActiveImage(id)} />
+          </div>
+          <Typography
+            variant="overline"
+            style={handleActiveText(id)}
+          >
+            {label}
+          </Typography>
+        </Grid>
+      </a>
     );
 
     return (
@@ -129,15 +131,15 @@ export class Dashboard extends Component {
           <img className="logo" src={logo} alt="some text" style={styles.logo} />
         </Grid>
 
-        {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD')}
-        {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL')}
-        {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS')}
-        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS')}
-        {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES')}
-        {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT')}
-        {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS')}
-        {renderGrid('grid8', 'Team', styles.teamImg, 'TEAM')}
-        {renderGrid('grid9', 'Settings', styles.settingsImg, 'SETUP')}
+        {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/')}
+        {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/')}
+        {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products')}
+        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/')}
+        {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/')}
+        {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/')}
+        {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS', '/')}
+        {renderGrid('grid8', 'Team', styles.teamImg, 'TEAM', '/')}
+        {renderGrid('grid9', 'Settings', styles.settingsImg, 'SETUP', '/main_setup')}
 
       </Grid>
     );
