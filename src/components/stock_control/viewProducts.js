@@ -11,30 +11,6 @@ import DataTableLoader from '../dataTable/dataTableLoader';
 import '../../assets/styles/stock/stock_products.scss';
 
 export class ViewProducts extends Component {
-  renderSortIcon = (sortType) => {
-    if (sortType === 'asc') {
-      return (
-        <img
-          className="sort_icons"
-          src={sortAscendingIcon}
-          alt="sort"
-          style={stockControlStyles.sortImage}
-        />
-      );
-    }
-    if (sortType === 'desc') {
-      return (
-        <img
-          className="sort_icons"
-          src={sortDescendingIcon}
-          alt="sort"
-          style={stockControlStyles.sortImage}
-        />
-      );
-    }
-    return null;
-  };
-
   createColumns = columns => columns.map(title => ({
     id: title.replace(/ +/g, ''),
     label: title.toUpperCase()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { IconButton } from '@material-ui/core';
 import RecieptScreen from '../../components/payment/recieptScreen';
 
@@ -62,5 +62,14 @@ describe('test RecieptScreen', () => {
     ));
     wrapper.find('#print-button').at(0).simulate('click');
     expect(wrapper.find(IconButton).length).toBe(3);
+  });
+
+  it('it renders a confirm close button', () => {
+    props.isConfirmPopperOpen = true;
+    console.log(props.isConfirmPopperOpen);
+    const wrapper = shallow((
+      <RecieptScreen {...props} />
+    ));
+    expect(wrapper.find('ConfirmClose').length).toBe(1);
   });
 });

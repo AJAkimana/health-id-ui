@@ -92,7 +92,7 @@ describe('SellScreenContainer with InitialData', () => {
         </MockedProvider>
       </MockedProvider>
     ));
-    await wait(0);
+    await wait(2000);
   });
 
 });

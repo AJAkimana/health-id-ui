@@ -50,6 +50,7 @@ html, body {
 
 .healthid {
   width: 80%;
+  margin-left: 4em;
 }
 
 .subtext{
@@ -91,19 +92,19 @@ html, body {
 }
 
 /* Transition of textfiled labels  */
-.MuiFormLabel-root-16, .jss16 {
+.MuiFormLabel-root-183, .jss16 {
   color: #A3A3A3 !important;
 }
 
-.MuiFormLabel-root-16.MuiFormLabel-focused-17, .jss16.jss17 {
+.MuiFormLabel-root-183.MuiFormLabel-focused-17, .jss16.jss17 {
   color: rgb(175, 170, 43) !important;
 }
 
-.MuiFormLabel-root-16.MuiFormLabel-error-19, .jss16.jss19 {
+.MuiFormLabel-root-183.MuiFormLabel-error-186, .jss16.jss19 {
   color: #FF4141 !important;
 }
-.MuiInput-underline-27:before, .jss27 {
-  border-bottom: 1px solid rgb(107, 107, 107) !important;
+.MuiInput-underline-194:before, .jss27 {
+  border-bottom: 1px solid #A3A3A3 !important;
 }
 
 .MuiInputAdornment-root-166, .jss166{
@@ -116,7 +117,7 @@ html, body {
 
 /* Register Page */
 .register-btn{
-  width: 50%;
+  width: 40%;
   height: 40px;
   font-family: Avenir, Book;
   font-weight: bold;
@@ -164,7 +165,7 @@ html, body {
 .disabled-register{
   background-color: #9E9B3F;
   color: #424242;
-  width: 50%;
+  width: 40%;
   height: 40px;
   font-size: 18px;
   font-family: Avenir, Book;
@@ -236,10 +237,12 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   margin-top: 20px;
+  margin-left: 11px;
+  padding-right: 0;
 }
 
 .reset-password{
-  margin-left: 45%;
+  margin-left: 40%;
 }
 
 .checkbox{
@@ -288,7 +291,7 @@ html, body {
   justify-content: center !important;
 }
 
-.MuiInputBase-root-36, .MuiInputBase-input-46, .jss46 {
+.MuiInputBase-root-203, .MuiInputBase-input-46, .jss46 {
   color: #E8E8E8 !important;
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -73,6 +74,7 @@ export class SalesHistoryToolBar extends Component {
   handleRangeChange = (which, payload) => {
     this.setState({
       [which]: {
+        // eslint-disable-next-line react/destructuring-assignment
         ...this.state[which],
         ...payload,
       },

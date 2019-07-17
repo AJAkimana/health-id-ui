@@ -3,83 +3,107 @@
   width: 100%;
   margin-bottom: 25px;
   .login-label {
-    color: #A3A3A3;
-    width: 29%;
+    color: #a3a3a3;
+    width: 35%;
   }
-  .login-switch{
-    color: #A3A3A3;
+  .login-switch {
+    color: #a3a3a3;
     width: 29%;
   }
   .email-label {
-    color: #A3A3A3;
-    padding-left: 3%;
-    width: 17%;
+    color: #a3a3a3;
+    padding-left: 4%;
+    width: 20%;
     border-bottom: 2px solid #424242;
+    cursor: pointer;
+    padding-bottom: 5px;
+    outline: none;
     &--active {
-      color: #FAF33E;
-      padding-left: 3%;
-      width: 17%;
-      border-bottom: 2px solid #FAF33E;
+      color: #faf33e;
+      padding-left: 4%;
+      width: 20%;
+      border-bottom: 2px solid #faf33e;
+      padding-bottom: 5px;
+      outline: none;
     }
   }
 
   .switch-email-label {
-    color: #A3A3A3;
-    padding-left: 3%;
+    color: #a3a3a3;
+    padding-left: 4%;
     padding-right: 3%;
     padding-bottom: 5px;
     border-bottom: 2px solid #424242;
     cursor: pointer;
     &--active {
-      color: #FAF33E;
-      padding-left: 3%;
+      color: #faf33e;
+      padding-left: 4%;
       padding-right: 3%;
       padding-bottom: 5px;
-      border-bottom: 2px solid #FAF33E;
+      border-bottom: 2px solid #faf33e;
       cursor: pointer;
     }
-    &--active:focus{
+    &--active:focus {
       outline: none;
     }
   }
 
   .separator {
-    width: 23%;
+    width: 20%;
   }
-  .separator-switch{
+  .separator-switch {
     width: 20px;
   }
 
   .phone-label {
-    color: #A3A3A3;
+    color: #a3a3a3;
     border-bottom: 2px solid #424242;
+    padding-left: 6%;
+    width: 40%;
+    cursor: pointer;
     padding-bottom: 5px;
+    outline: none;
     &--active {
-      color: #FAF33E;
-      border-bottom: 2px solid #FAF33E;
+      color: #faf33e;
+      padding-left: 6%;
+      width: 40%;
+      border-bottom: 2px solid #faf33e;
       padding-bottom: 5px;
+      outline: none;
     }
   }
 
   .switch-phone-label {
-    color: #A3A3A3;
+    color: #a3a3a3;
     border-bottom: 2px solid #424242;
     padding-left: 3%;
     padding-right: 3%;
     cursor: pointer;
     &--active {
-      color: #FAF33E;
-      border-bottom: 2px solid #FAF33E;
+      color: #faf33e;
+      border-bottom: 2px solid #faf33e;
       padding-left: 3%;
       padding-right: 3%;
       cursor: pointer;
     }
-    &--active:focus{
+    &--active:focus {
       outline: none;
     }
   }
 }
 
-.MuiInput-underline-29:hover:not(.MuiInput-disabled-28):not(.MuiInput-focused-27):not(.MuiInput-error-30):before, .MuiInput-underline-29:before {
+.input-fields {
+  input[name="email"],
+  input[name="password"] {
+    color: white !important;
+    padding-left: 10px !important;
+  }
+
+  input[name="phone"] {
+    color: white !important;
+  }
+}
+.MuiInput-underline-29:hover:not(.MuiInput-disabled-28):not(.MuiInput-focused-27):not(.MuiInput-error-30):before,
+.MuiInput-underline-29:before {
   border-bottom: unset !important;
 }

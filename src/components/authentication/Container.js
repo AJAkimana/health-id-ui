@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import { compose, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
-import { FormHelperText } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import {
+  FormHelperText, Grid, Typography, Paper
+} from '@material-ui/core';
 import {
   SIGNUP_MUTATION, EMAIL_LOGIN_MUTATION, MOBILE_LOGIN_MUTATION,
   RESET_PASSWORD_MUTATION
@@ -10,6 +13,8 @@ import {
 import {
   validateEmail, validatePasswordLength,
 } from '../../utils/authentication/Validation';
+import bkglady from '../../assets/images/LoginImage1.png';
+import { login } from '../../assets/styles/authentication/authLogin';
 import logo from '../../assets/images/logo.png';
 import Register from './Register';
 import Login from './Login';
@@ -214,9 +219,10 @@ export class AuthContainer extends Component {
           });
 
           if (!isAdmin) {
-            setTimeout(() => window.location.assign('/profile'), 900);
+            setTimeout(() => window.location.assign('/sell'), 900);
+          } else {
+            setTimeout(() => window.location.assign('/setup'), 900);
           }
-          setTimeout(() => window.location.assign('/setup'), 900);
         }
       })
       .catch((err) => {
@@ -299,43 +305,25 @@ export class AuthContainer extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const {
-      match: {
-        path
-      }
+      match: { path }
     } = this.props;
 
     return (
-      <div>
-        <div className="flex-container">
-          <div className="auth-image">
-            <div className="auth-bg" />
-          </div>
-          <div className="auth-form">
-            <div className="logo-heading">
-              <img className="healthid" src={logo} alt="HealthID" />
-              <h4 className="subtext">Africa&apos;s Leading Pharmacy Management Software</h4>
-            </div>
-            <div className="form-control">
-              {path === '/login'
+      <Grid container className={classes.container}>
+        <img alt="" src={bkglady} className={classes.bkgImage} />
+        <Grid item container className={classes.wrapperGrid}>
+          <Grid item container xs={5} className={classes.logo}>
+            <img className="healthid" src={logo} alt="HealthID" />
+            <Typography variant="h5" className={classes.logoTypo}>
+              The heartbeat of smart pharmacies.
+            </Typography>
+          </Grid>
+          <Grid item xs={7} className={classes.contentGrid}>
+            <Paper className={classes.contentPaper}>
+              {path === '/register'
                 ? (
-                  <Login
-                    state={this.state}
-                    switchAccount={false}
-                    handlePasswordChange={this.handlePasswordChange}
-                    handlePasswordVisibility={this.handlePasswordVisibility}
-                    handleEmailChange={this.handleEmailChange}
-                    handlePhoneChange={this.handlePhoneChange}
-                    handleCheckbox={this.handleCheckbox}
-                    handleSubmit={this.handleSubmit}
-                    handleChangeInput={this.handleChangeInput}
-                    handleCloseLoginAlert={this.handleCloseAlert}
-                    handlePasswordReset={this.handlePasswordReset}
-                    handleOpenForgotPasswordAlert={this.handleOpenForgotPasswordAlert}
-                    handleCloseForgotPasswordAlert={this.handleCloseForgotPasswordAlert}
-                  />
-                )
-                : (
                   <Register
                     state={this.state}
                     handleSignup={this.handleSignup}
@@ -346,16 +334,34 @@ export class AuthContainer extends Component {
                     handleCheckbox={this.handleCheckbox}
                     handleCloseSignupAlert={this.handleCloseAlert}
                   />
+                )
+                : (
+                  <Login
+                    state={this.state}
+                    handlePasswordChange={this.handlePasswordChange}
+                    handlePasswordVisibility={this.handlePasswordVisibility}
+                    switchAccount={false}
+                    handleEmailChange={this.handleEmailChange}
+                    handlePhoneChange={this.handlePhoneChange}
+                    handleCheckbox={this.handleCheckbox}
+                    handleSubmit={this.handleSubmit}
+                    handleChangeInput={this.handleChangeInput}
+                    handleCloseLoginAlert={this.handleCloseAlert}
+                    handlePasswordReset={this.handlePasswordReset}
+                    handleOpenForgotPasswordAlert={this.handleOpenForgotPasswordAlert}
+                    handleCloseForgotPasswordAlert={this.handleCloseForgotPasswordAlert}
+                  />
                 )}
-            </div>
-          </div>
-        </div>
-      </div>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }
 
 AuthContainer.propTypes = {
+  classes: PropTypes.instanceOf(Object).isRequired,
   match: PropTypes.instanceOf(Object).isRequired,
   ResetPassword: PropTypes.func.isRequired,
   Mobilelogin: PropTypes.func.isRequired,
@@ -368,4 +374,4 @@ export default compose(
   graphql(EMAIL_LOGIN_MUTATION, { name: 'Emaillogin' }),
   graphql(MOBILE_LOGIN_MUTATION, { name: 'Mobilelogin' }),
   graphql(RESET_PASSWORD_MUTATION, { name: 'ResetPassword' })
-)(AuthContainer);
+)(withStyles(login)(AuthContainer));

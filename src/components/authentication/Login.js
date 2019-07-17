@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  TextField, Grid, CircularProgress, FormControl
+  TextField, CircularProgress, FormControl
 } from '@material-ui/core';
 
 import LoginAlert from './Alerts/LoginAlert';
@@ -27,11 +27,11 @@ class Login extends Component {
               label={emailLabel}
               name={type}
               required
-              error={EmailError}
+              error={email ? EmailError : false}
               value={email}
               onChange={handleEmailChange}
             />
-            {helperEmailText}
+            {email && EmailError ? helperEmailText : ''}
           </FormControl>
         ) : (
           this.renderPhoneInputs(phoneLabelNum)
@@ -46,30 +46,16 @@ class Login extends Component {
       handlePhoneChange
     } = this.props;
     return (
-      <div>
-        <Grid container spacing={16} className="login-phone-grid">
-          <SelectCountry phone={phone} onChange={handlePhoneChange} label={phoneLabelNum} />
-        </Grid>
-      </div>
+      <SelectCountry phone={phone} onChange={handlePhoneChange} label={phoneLabelNum} />
     );
   };
 
   render() {
     const {
       state: {
-        email,
-        password,
-        loading,
-        showPassword,
-        checked,
-        inputType,
-        openAlert,
-        loginSuccess,
-        loginErrors,
-        EmailError,
-        openForgotPasswordAlert,
-        disabled,
-        helperEmailText
+        email, password, loading, showPassword, passwordError, helperPasswordText,
+        checked, inputType, openAlert, loginSuccess, loginErrors,
+        EmailError, openForgotPasswordAlert, disabled, helperEmailText
       },
       handlePasswordChange,
       handlePasswordVisibility,
@@ -128,6 +114,8 @@ class Login extends Component {
           <PasswordField
             showPassword={showPassword}
             password={password}
+            error={passwordError}
+            helperPasswordText={helperPasswordText}
             handlePasswordChange={handlePasswordChange}
             handlePasswordVisibility={handlePasswordVisibility}
           />
@@ -197,9 +185,7 @@ class Login extends Component {
             <p className="login-qn">
               Don&apos;t have an account?&nbsp;
               {' '}
-              <Link to="/" className="login-link">
-                SIGNUP
-              </Link>
+              <Link to="/register" className="login-link">SIGNUP</Link>
             </p>
           )}
         </form>
@@ -225,10 +211,10 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
-  handlePasswordReset: () => {},
-  handleCloseLoginAlert: () => {},
-  handleCloseForgotPasswordAlert: () => {},
-  handleOpenForgotPasswordAlert: () => {}
+  handlePasswordReset: () => { },
+  handleCloseLoginAlert: () => { },
+  handleCloseForgotPasswordAlert: () => { },
+  handleOpenForgotPasswordAlert: () => { }
 };
 
 export default Login;

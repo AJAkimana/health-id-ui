@@ -18,7 +18,7 @@ const PasswordField = (props) => {
 
   return (
     <FormControl
-      error={error}
+      error={password ? error : false}
       style={{ paddingBottom: '25px' }}
       className="textfield"
     >
@@ -40,7 +40,7 @@ const PasswordField = (props) => {
           </IconButton>
         )}
       />
-      {helperPasswordText}
+      {password && error ? helperPasswordText : null}
     </FormControl>
   );
 };

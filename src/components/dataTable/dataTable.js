@@ -4,7 +4,7 @@ import MUIDataTable from 'mui-datatables';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import DataTableOverride from '../../assets/styles/dataTable';
 
-const DataTable = (props) => {
+export const DataTable = (props) => {
   const {
     title, data, columns, options
   } = props;

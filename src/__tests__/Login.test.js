@@ -58,6 +58,37 @@ describe('Login Component', () => {
     expect(wrapper.find('TextField').length).toBe(1);
   });
 
+  it('renders email errors', () => {
+    const props = {
+      state: {
+        loading: false,
+        openLoginAlert: false,
+        loginSuccess: false,
+        checked: false,
+        inputType: 'email',
+        Code: '',
+        PhoneError: false,
+        EmailError: 'improper email',
+        email: 'bisonlou@gmail.com',
+      },
+      handleCloseLoginAlert: jest.fn(),
+      handleChangeInput: jest.fn(),
+      handlePasswordChange: jest.fn(),
+      handlePasswordIcon: jest.fn(),
+      handlePasswordVisibility: jest.fn(),
+      handleSubmit: jest.fn(),
+      handleCheckbox: jest.fn(),
+      handleEmailChange: jest.fn(),
+      handleChange: jest.fn(),
+      handlePhoneChange: jest.fn()
+
+    };
+    const wrapper = mount(<Router><Login {...props} /></Router>);
+    const textFieldWrapper = wrapper.find({ error: 'improper email', value: 'bisonlou@gmail.com' });
+
+    expect(textFieldWrapper.length).toBe(1);
+  });
+
   it('renders phone tab when selected', () => {
     const props = {
       state: {

@@ -126,8 +126,23 @@ describe('Render Add Product component', () => {
     };
 
     const wrapper = shallow(<AddProduct {...props} />);
+    wrapper.instance().componentWillReceiveProps(graphqlProps);
     wrapper.instance().handleProductName(event);
     expect(wrapper.state().productName).toEqual('nexium');
+  });
+
+  it('calls handle category change function', () => {
+    const event = {
+      target: {
+        value: 1
+      }
+    };
+
+    const wrapper = shallow(<AddProduct {...props} />);
+    wrapper.instance().componentWillReceiveProps(graphqlProps);
+    wrapper.instance().handleCategoryChange(event);
+
+    expect(wrapper.instance().state.categoryId).toBe(1);
   });
 
   it('calls handleAddition', () => {

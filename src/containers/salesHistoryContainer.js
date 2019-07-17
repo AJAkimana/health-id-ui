@@ -77,7 +77,7 @@ export class SalesHistory extends Component {
 
   setInitialData = (data) => {
     const salesData = data.map(({
-      id, createdAt, salesPerson, receipt, customer, outlet, amountToPay, register
+      id, createdAt, salesPerson, receipt, customer, outlet, amountToPay,
     }) => {
       const date = new Date(createdAt);
       const timeSold = String(date).slice(16, 21);
@@ -108,7 +108,7 @@ export class SalesHistory extends Component {
           variables={{ id }}
           onCompleted={data => this.setInitialData(data.outletSalesHistory)}
         >
-          {({ loading, error, data }) => {
+          {({ loading, error }) => {
             if (loading) return <DataTableLoader />;
             if (error) return `Error! ${error}`;
 

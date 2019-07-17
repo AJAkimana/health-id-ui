@@ -17,4 +17,13 @@ describe('test DialogHeader component', () => {
     ));
     expect(wrapper.find(DialogTitle).length).toBe(1);
   });
+
+  it('it renders differently when processing', () => {
+    props.processing = true;
+    const wrapper = mount((
+      <DialogHeader {...props} />
+    ));
+    const paperWrapper = wrapper.find('Paper');
+    expect(paperWrapper.prop('elevation')).toBe(0);
+  });
 });

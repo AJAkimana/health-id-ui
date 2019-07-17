@@ -18,7 +18,7 @@ export const salesHistoryStyles = theme => ({
   }
 });
 
-export const SalesToolBarStyles = theme => ({
+export const SalesToolBarStyles = {
   toolbarWrapper: {
     padding: '1.5em',
     paddingTop: 0,
@@ -107,7 +107,7 @@ export const SalesToolBarStyles = theme => ({
   calendar: {
     width: '20em'
   }
-});
+};
 
 export const toolbarButton = {
   resetButton: {
@@ -158,7 +158,7 @@ export const dateTimeStyles = {
   }
 };
 
-export const HeaderStyles = theme => ({
+export const HeaderStyles = () => ({
   headerWrapper: {
     top: '0px',
     left: '0px',

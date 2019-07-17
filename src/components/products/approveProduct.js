@@ -214,12 +214,10 @@ export class ApproveProduct extends Component {
 }
 
 ApproveProduct.propTypes = {
-  classes: PropTypes.instanceOf(Object),
   product: PropTypes.objectOf(PropTypes.object).isRequired,
   session: PropTypes.objectOf(PropTypes.object),
   refetch: PropTypes.func.isRequired,
   approveProduct: PropTypes.func.isRequired,
-  product: PropTypes.objectOf(PropTypes.any).isRequired,
   classes: PropTypes.objectOf(PropTypes.string),
 };
 

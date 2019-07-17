@@ -146,12 +146,14 @@
       "src/components/",
       "__tests__"
     ],
+    "moduleFileExtensions": ["js", "json", "jsx", "ts", "tsx", "node"]
+    ,
     "coverageThreshold": {
       "global": {
-        "branches": 80,
+        "branches": 79,
         "functions": 80,
         "lines": 90,
-        "statements": 90
+        "statements": 89
       }
     }
   }

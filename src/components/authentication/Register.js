@@ -34,14 +34,14 @@ const Register = (props) => {
       <TextField
         className="textfield"
         required
-        error={EmailError}
+        error={email ? EmailError : false}
         label="Email"
         type="email"
         name="email"
         value={email}
         onChange={handleEmailChange}
       />
-      {helperEmailText}
+      {email && EmailError ? helperEmailText : ''}
       <Grid container spacing={16} className="grid-container">
         <SelectCountry
           phone={phone}
@@ -90,7 +90,7 @@ const Register = (props) => {
       <p className="login-qn">
               Already have an account?
         {' '}
-        <Link to="/login" className="login-link">LOGIN</Link>
+        <Link to="/" className="login-link">LOGIN</Link>
       </p>
     </div>
   );

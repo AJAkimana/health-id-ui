@@ -40,14 +40,19 @@ describe('Render ImportProduct Component', () => {
   });
 
   it('calls handleFile', () => {
+    const newProps = {
+      state: { file: ""},
+      ...props
+    };
+
     const e = {
       target: {
         files: acceptedFiles,
       }
     };
-
-    wrapper.instance().handleFile(e);
-    expect(wrapper.state().file).toEqual(expectedFile);
+    const wrapperWithFileProp = shallow(<ImportProduct {...newProps} />);
+    wrapperWithFileProp.instance().handleFile(e);
+    expect(wrapperWithFileProp.state().file).toEqual(expectedFile);
   });
 
   it('calls onDrop', () => {

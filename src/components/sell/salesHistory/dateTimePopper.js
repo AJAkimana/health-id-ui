@@ -46,6 +46,7 @@ const DateTimePopper = ({
               <DateRangePicker
                 months={2}
                 ranges={[selection]}
+                // eslint-disable-next-line react/jsx-no-bind
                 onChange={handleRangeChange.bind(this, 'dateRangePicker')}
                 className="PreviewArea"
                 direction="horizontal"

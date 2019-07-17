@@ -19,7 +19,7 @@ const App = ({ session }) => (
   <div>
     <Switch>
       <Route exact path="/" component={AuthContainer} />
-      <Route exact path="/login" component={AuthContainer} />
+      <Route exact path="/register" component={AuthContainer} />
       <Route exact path="/setup" component={StepperNav} />
       <Route exact path="/dashboard" render={() => <Dashboard session={session} />} />
       <Route exact path="/reset_password/:uid65/:token" component={ResetPassword} />

@@ -28,7 +28,7 @@ export class Dashboard extends Component {
     const { history } = this.props;
     localStorage.removeItem('auth_token');
     this.setState({ anchorEl: null, open: false });
-    history.push('/login');
+    history.push('/');
   }
 
   handleOnClick = (event) => {

@@ -28,7 +28,7 @@ export const GET_OUTLETS = gql`
         role {
           id
         }
-        users {
+        outlets {
           id
         }
       }

@@ -19,9 +19,8 @@ const SelectCountry = (props) => {
         defaultCountry="ng"
         onChange={onChange}
         containerStyle={{
-          width: '97%',
-          marginBottom: '20px',
-          marginLeft: '6px'
+          width: '100%',
+          marginBottom: '17px',
         }}
         component={TextField}
         inputExtraProps={{

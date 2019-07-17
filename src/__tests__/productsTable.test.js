@@ -103,6 +103,113 @@ const props = {
   client: { query: jest.fn() },
 };
 
+const errorProps = {
+  getAllProducts: {
+    products: [{
+      id: 'id',
+      productName: 'productName',
+      productCategory: { name: 'Category' },
+      measurementUnit: { name: 'Joules' },
+      skuNumber: 'serd',
+      description: 'desc',
+      brand: 'brand',
+      manufacturer: 'manufacturer',
+      vatStatus: 'vatstat',
+      salesPrice: '23',
+      nearestExpiryDate: '2019-12-12',
+      preferredSupplier: { name: 'pref' },
+      backupSupplier: { name: 'backup' },
+    }],
+    loading: false
+  },
+  match: {
+    params: {
+      status: ''
+    }
+  },
+  getApprovedProducts: {
+    getApprovedProducts: {
+      approvedProducts: null,
+      error:['could not fetch'],
+      loading: false,
+    },
+    getProposedProducts: {
+      proposedProducts: [],
+      error:['could not fetch'],
+      loading: false,
+    },
+    approvedProducts: [],
+    error:['could not fetch'],
+    loading: true,
+  },
+  getProposedProducts: {
+    getProposedProducts: {
+      proposedProducts: null,
+      error:['could not fetch'],
+      loading: false,
+    },
+    getApprovedProducts: {
+      approvedProducts: [],
+      error:['could not fetch'],
+      loading: false,
+    },
+    proposedProducts: [],
+    error:['could not fetch'],
+    loading: true,
+  },
+  data: {
+    getApprovedProducts: {
+      approvedProducts: [{
+        id: 'id',
+        productName: 'productName',
+        productCategory: { name: 'Category' },
+        measurementUnit: { name: 'Joules' },
+        skuNumber: 'serd',
+        description: 'desc',
+        brand: 'brand',
+        manufacturer: 'manufacturer',
+        vatStatus: 'vatstat',
+        salesPrice: '23',
+        nearestExpiryDate: '2019-12-12',
+        preferredSupplier: { name: 'pref' },
+        backupSupplier: { name: 'backup' },
+      }],
+      error:['could not fetch'],
+      loading: false,
+    },
+    getProposedProducts: {
+      getProposedProducts: {
+        proposedProducts: [],
+        error:['could not fetch'],
+      },
+      proposedProducts: [],
+      error:['could not fetch'],
+      loading: false,
+    },
+  },
+  classes: {
+    icon: 'Products-div-1',
+    iconButton: 'Products-footer-2',
+    inverseIcon: 'inverse-icon',
+  },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      }
+    }
+  },
+  selectedRows: {
+    data: [{ index: 1, dataIndex: 1 }]
+  },
+  history: {
+    push: jest.fn()
+  },
+  displayData: [{}],
+  setSelectedRows: jest.fn(),
+  client: { query: jest.fn() },
+};
+
 describe('After Row selection toolbar tests', () => {
   const wrapper = mount(<AfterSelectToolBar {...props} />);
   it('renders table correctly', () => {
@@ -123,9 +230,17 @@ describe('After Row selection toolbar tests', () => {
 
 describe('Test table rendering and data functions', () => {
   const wrapper = mount(<Router><Products {...props} /></Router>).find('Products');
+  const errorWrapper = mount(<Router><Products {...errorProps} /></Router>).find('Products');
+
   it('should render the datatable correctly', () => {
     expect(wrapper.find('Products').length).toBe(1);
   });
+
+  it('should render with errors', () => {
+    const errorDiv = errorWrapper.find('Products').childAt(0);
+    expect(errorDiv.text()).toBe('Something went wrong, try refreshing the page');
+  });
+
   it('should switch to proposed products when view proposed products is switched', () => {
     const viewStatus = {
       approved: false,
