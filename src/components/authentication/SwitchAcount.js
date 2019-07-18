@@ -68,9 +68,10 @@ export class SwitchAccount extends Component {
         variables: values
       })
         .then((results) => {
-          const { token, message } = results.data.loginUser;
+          const { token, restToken, message } = results.data.loginUser;
           if (message === 'Login Successful') {
             localStorage.setItem('auth_token', token);
+            localStorage.setItem('rest_token', restToken);
             history.go(0);
             this.setState({ loading: false });
           }
@@ -89,9 +90,10 @@ export class SwitchAccount extends Component {
         variables: values
       })
         .then((results) => {
-          const { token, message } = results.data.loginUser;
+          const { token, restToken, message } = results.data.loginUser;
           if (message === 'Login Successful') {
             localStorage.setItem('auth_token', token);
+            localStorage.setItem('rest_token', restToken);
             history.go(0);
             this.setState({ loading: false });
           }

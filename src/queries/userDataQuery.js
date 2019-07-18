@@ -49,6 +49,9 @@ const GET_USER_INFO = gql`
       birthday
       startingDate
       jobTitle
+      activeOutlet{
+        id
+      }
     }
   }
 `;

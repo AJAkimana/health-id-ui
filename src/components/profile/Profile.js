@@ -26,7 +26,7 @@ export class UserProfile extends Component {
     role: '',
     jobTitle: '',
     startingDate: '',
-    users: '',
+    outlets: [],
     oldPassword: '',
     newPassword: '',
     confirmPassword: '',
@@ -124,7 +124,7 @@ export class UserProfile extends Component {
     const {
       birthday, email, firstName,
       jobTitle, lastName, mobileNumber, profileImage,
-      role, startingDate, username, users
+      role, startingDate, username, outlets
     } = me;
 
     const profileImageString = profileImage.includes('Profile_Picture_Placeholder') ? '' : profileImage;
@@ -141,7 +141,7 @@ export class UserProfile extends Component {
       jobTitle,
       startingDate,
       birthday,
-      users
+      outlets
     });
   }
 

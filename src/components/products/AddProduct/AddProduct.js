@@ -324,7 +324,15 @@ AddProduct.defaultProps = {
 
 const ALL_PRODUCTS = graphql(GET_ALL_PRODUCTS, { name: 'getAllProducts' });
 const APPROVED_SUPPLIERS = graphql(GET_APPROVED_SUPPLIERS, { name: 'getSuppliers' });
-const PRODUCT_CATEGORIES = graphql(GET_PRODUCT_CATEGORIES, { name: 'getCategories' });
+const PRODUCT_CATEGORIES = graphql(GET_PRODUCT_CATEGORIES,
+  {
+    name: 'getCategories',
+    options: {
+      variables: {
+        outletId: localStorage.outletId,
+      },
+    }
+  });
 const MEASUREMENT_UNITS = graphql(GET_MEASUREMENT_UNITS, { name: 'getMeasurementUnits' });
 const ADD_PRODUCT = graphql(CREATE_PRODUCT, { name: 'addProduct' });
 

@@ -27,6 +27,7 @@ const graphqlProps = {
       email: 'awesome@gmail.com',
       mobileNumber: '1234567890',
       username: 'username',
+      outlets: []
     },
     loading: true,
     error: { message: 'network problem' },
@@ -62,14 +63,14 @@ const formEvent3 = {
 };
 
 describe('Profile container component', () => {
+  let wrapper;
   beforeEach(() => {
     moxios.install();
+    wrapper = mount(<UserProfile {...graphqlProps} />);
   });
   afterEach(() => {
     moxios.uninstall();
   });
-
-  const wrapper = mount(<UserProfile {...graphqlProps} />);
 
   it('renders profileData component upon successful login', () => {
     expect(wrapper.find('ProfileData')).toHaveLength(1);
@@ -100,6 +101,7 @@ describe('Profile container component', () => {
   });
 
   it('calls handleArrowButtonClick method, sets state and renders the UserProfilecomplete component', () => {
+    wrapper.setState({outlets: []})
     jest.spyOn(wrapper.instance(), 'handleArrowButtonClick');
     wrapper.instance().handleArrowButtonClick();
     expect(wrapper.state('isDone')).toBeTruthy();

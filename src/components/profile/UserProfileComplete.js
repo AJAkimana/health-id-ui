@@ -31,7 +31,7 @@ const UserProfileComplete = (props) => {
     jobTitle,
     startingDate,
     birthday,
-    users
+    outlets
   } = state;
 
   const message = 'Not Available';
@@ -194,7 +194,7 @@ const UserProfileComplete = (props) => {
             <div className={classes.assignedOutletsHeader}>
               <Typography variant="caption">Assigned Outlet(s)</Typography>
             </div>
-            {users.length ? users.map(item => (
+            {outlets.length ? outlets.map(item => (
               <div key={item.name}>
                 <Chip
                   label={item.name}

@@ -18,7 +18,7 @@ const userData = {
     role: { name: 'Master Admin', __typename: 'RoleType' },
     startingDate: null,
     username: 'myth',
-    users: [],
+    outlets: [],
   }
 };
 
@@ -36,7 +36,7 @@ const graphqlProps = {
       role: { name: 'Master Admin', __typename: 'RoleType' },
       startingDate: null,
       username: 'myth',
-      users: [],
+      outlets: [],
     }
   },
   classes: {},
@@ -62,7 +62,7 @@ describe('Test profile container component with graphQL', () => {
           role: { name: 'Master Admin', __typename: 'RoleType' },
           startingDate: null,
           username: 'myth',
-          users: [],
+          outlets: [],
         },
         error: undefined,
         loading: true,

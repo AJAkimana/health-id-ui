@@ -41,7 +41,7 @@ const ProfileData = (props) => {
     jobTitle,
     startingDate,
     birthday,
-    users,
+    outlets,
     oldPassword,
     newPassword,
     confirmPassword,
@@ -217,7 +217,7 @@ const ProfileData = (props) => {
             <div className={classes.assignedOutletsHeader}>
               <Typography variant="caption">Assigned Outlet(s)</Typography>
             </div>
-            {users.length ? users.map(item => (
+            {outlets.length ? outlets.map(item => (
               <div key={item.name}>
                 <Chip
                   label={item.name}
