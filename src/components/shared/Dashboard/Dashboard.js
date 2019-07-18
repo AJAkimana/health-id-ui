@@ -1,8 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
-
+import { withRouter, Link } from 'react-router-dom';
 import LowerDashboard from './LowerDashboard';
 import logo from '../../../assets/images/ID Nav logo.png';
 import dashboardStyles from '../../../assets/styles/dashboard/dashboardStyles';
@@ -34,7 +33,6 @@ export class Dashboard extends Component {
 
   handleOnClick = (event) => {
     const { isActive } = this.state;
-    const { history } = this.props;
 
     if (isActive) {
       this.setState({
@@ -44,15 +42,12 @@ export class Dashboard extends Component {
 
     switch (event.currentTarget.id) {
     case 'grid1':
-      history.push('/dashboard');
       this.setState({ isActive: 'grid1' });
       break;
     case 'grid2':
-      history.push('/sell');
       this.setState({ isActive: 'grid2' });
       break;
     case 'grid3':
-      history.push('/products/approved');
       this.setState({ isActive: 'grid3' });
       break;
     case 'grid4':
@@ -106,7 +101,7 @@ export class Dashboard extends Component {
     };
 
     const renderGrid = (id, name, imagestyle, label, link) => (
-      <a href={link} style={{ textDecoration: 'none' }}>
+      <Link to={link} style={{ textDecoration: 'none' }}>
         <Grid
           item
           id={id}
@@ -123,7 +118,7 @@ export class Dashboard extends Component {
             {label}
           </Typography>
         </Grid>
-      </a>
+      </Link>
     );
 
     return (
@@ -133,8 +128,8 @@ export class Dashboard extends Component {
         </Grid>
 
         {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/')}
-        {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/')}
-        {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products')}
+        {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/sell')}
+        {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products/approved')}
         {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/')}
         {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/')}
         {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/')}
