@@ -105,6 +105,9 @@ const props = {
     loading: false,
     error: null,
     refetch: jest.fn(),
+    business: {
+      outletSet: [],
+    },
   },
   userRoles: {
     roles: [],

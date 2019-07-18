@@ -6,7 +6,7 @@ const props = {
   state: {
     outletSet: [{
       id: 'id',
-      registerSet: [{
+      outletRegister: [{
         id: 'id',
         name: 'name'
       }],

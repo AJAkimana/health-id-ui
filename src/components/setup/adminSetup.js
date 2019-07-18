@@ -143,7 +143,7 @@ const AdminSetUp = ({
             />
             <FormControlLabel
               control={<Checkbox type="checkbox" color="secondary" name="permission" value="yes" onChange={checked} id="save-1" />}
-              label="I acknowledge that am the owner and/or i have been assigned full admin rights to the business"
+              label="I acknowledge that am the owner and/or I have been assigned full admin rights to the business"
             />
           </Grid>
 

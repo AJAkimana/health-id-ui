@@ -168,6 +168,7 @@ export class StepperNav extends React.Component {
           handleSave={this.handleSave}
         />
       );
+
     case 2:
       return (
         <OutletSetUp
@@ -184,7 +185,6 @@ export class StepperNav extends React.Component {
           handleOutletDelete={this.handleOutletDelete}
         />
       );
-
     case 3:
       return (
         <UserSetup
@@ -670,13 +670,12 @@ export class StepperNav extends React.Component {
     }
       break;
     case 2: {
-      // eslint-disable-next-line no-unused-vars
-      const finishOutlet = this.finishAddOutlet();
-    }
+      this.finishAddOutlet();
       break;
+    }
     case 3: {
       const { showUsers, users } = this.state;
-      if (showUsers && users.length > 1) {
+      if (showUsers && users.length > 0) {
         return this.setState({ activeStep: activeStep + 1 });
       }
       const isUserFormValid = this.handleUserFormValidation();
@@ -750,6 +749,8 @@ export class StepperNav extends React.Component {
       firstName,
       lastName,
       username,
+      email,
+      mobileNumber,
       secondaryEmail,
       secondaryPhoneNumber,
       activeStep
@@ -762,6 +763,8 @@ export class StepperNav extends React.Component {
         firstName,
         lastName,
         username,
+        email,
+        mobileNumber,
         secondaryEmail,
         secondaryPhoneNumber
       }
@@ -862,7 +865,7 @@ export class StepperNav extends React.Component {
       notify(results.data.createOutlet.success);
       const id = Number(results.data.createOutlet.outlet.id);
       this.setState({
-        outletId: id,
+        outletId: id
       });
       this.toogleCheckbox();
       if (outletType === 'storefront') {
@@ -1145,13 +1148,13 @@ export class StepperNav extends React.Component {
 
   finishAddOutlet = () => {
     const { activeStep } = this.state;
-    const { businessId } = localStorage;
     const { assignedOutlets, userRoles } = this.props;
-    const { refetch } = assignedOutlets;
-    const { refetch: refetchRoles } = userRoles;
-    refetch({ id: businessId });
-    refetchRoles();
-    this.setState({ activeStep: activeStep + 1 });
+
+    this.setState({
+      activeStep: activeStep + 1,
+      roles: userRoles.roles,
+      outlets: assignedOutlets.business.outletSet
+    });
   }
 
   classifyFormErrors = (errorMessage) => {
@@ -1184,9 +1187,6 @@ export class StepperNav extends React.Component {
       editMode,
     } = this.state;
 
-    const { businessId } = localStorage;
-    const { assignedOutlets } = this.props;
-    const { refetch } = assignedOutlets;
 
     const { addUser, adminUserUpdate } = this.props;
     if (!editMode) {
@@ -1203,14 +1203,28 @@ export class StepperNav extends React.Component {
           startingDate,
         }
       }).then((results) => {
-        refetch({ id: businessId });
         const { addUser: fetchedUser } = results.data;
         if (fetchedUser.errors) {
           this.classifyFormErrors(fetchedUser.errors[0].slice(22));
         } else {
-          this.setState({
-            showUsers: true, isLoading: false, isError: false, formError: false,
-          });
+          this.setState(prevState => ({
+            showUsers: true,
+            isLoading: false,
+            isError: false,
+            formError: false,
+            users: prevState.users.concat({
+              firstName: fName,
+              lastName: lName,
+              username: userUsername,
+              email: userEmail,
+              roleId,
+              outlet,
+              phone,
+              jobTitle,
+              startingDate,
+              isActive: false,
+            })
+          }));
           notify('User registered successfully');
         }
       }).catch((error) => {
@@ -1229,7 +1243,6 @@ export class StepperNav extends React.Component {
           startingDate,
         }
       }).then((results) => {
-        refetch({ id: businessId });
         this.setState({
           showUsers: true, isLoading: false, isError: false
         });
@@ -1288,7 +1301,7 @@ export class StepperNav extends React.Component {
                         variant="text"
                         id="back-button"
                       >
-                          Back
+                        Back
                       </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
@@ -1306,7 +1319,7 @@ export class StepperNav extends React.Component {
                       ? (<Loader />)
                       : (
                         unhideMainButtons && (
-                          // eslint-disable-next-line no-nested-ternary
+                        // eslint-disable-next-line no-nested-ternary
                           (activeStep !== 3) ? (
                             <Fab
                               variant="extended"
@@ -1319,8 +1332,8 @@ export class StepperNav extends React.Component {
                               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                             </Fab>
                           ) : (
-                            // eslint-disable-next-line no-nested-ternary
-                            showUsers && users.length > 1 ? (
+                          // eslint-disable-next-line no-nested-ternary
+                            showUsers && users.length > 0 ? (
                               <Fab
                                 variant="extended"
                                 color="primary"

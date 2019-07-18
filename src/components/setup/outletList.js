@@ -78,9 +78,9 @@ const OutletList = ({
                             {<br />}
                           </Typography>
                           <Typography style={OutletsTable.typoSmall}>
-                            {item.registerSet.length ? item.registerSet.length : ''}
+                            {item.outletRegister.length || ''}
                             {' '}
-                            {item.registerSet.length ? 'Registers' : ''}
+                            {item.outletRegister.length || ''}
                           </Typography>
                         </TableCell>
                         <TableCell align="right" style={OutletsTable.tableCell}>

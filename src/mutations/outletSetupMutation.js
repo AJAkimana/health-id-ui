@@ -35,7 +35,7 @@ const CREATE_OUTLET = gql`
         kind {
           name
         }
-        registerSet {
+        outletRegister {
           id
           name
         }
