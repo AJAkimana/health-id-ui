@@ -199,7 +199,6 @@ describe('Manage User profile tests', () => {
 
     expect(spy).toHaveBeenCalledTimes(1);
     expect(spy2).toHaveBeenCalledTimes(1);
-    // expect(window.scrollTo).toHaveBeenCalledTimes(1);
     expect(spy2).toHaveReturned();
   });
 

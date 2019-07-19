@@ -14,6 +14,9 @@ const UPDATE_OUTLET_PREFERENCES = gql`
     $sendEmail: Boolean
     $salesHold: Int
     $selectedPayment: String
+    $alertNearExpiry: Boolean
+    $alertLowInventory: Boolean
+    $weeksToStartSupplyAlert: Int
   ) {
     updatePreference (
       preferenceId: $preferenceId
@@ -28,6 +31,9 @@ const UPDATE_OUTLET_PREFERENCES = gql`
       emailPreference: $sendEmail
       salesHold: $salesHold
       paymentMethod: $selectedPayment
+      alertNearExpiry: $alertNearExpiry
+      alertLowInventory: $alertLowInventory
+      weeksToStartSupplyAlert: $weeksToStartSupplyAlert
     ) {
       success
       preference {

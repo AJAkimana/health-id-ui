@@ -43,11 +43,9 @@ const PRODUCT_DETAIL_QUERY = gql`
           name
         }
         dateReceived
-        packSize
         quantity
         expiryDate
         unitCost
-        commentary
       }
       outlet {
         outletpreference {

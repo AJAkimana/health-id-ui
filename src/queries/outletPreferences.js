@@ -25,6 +25,9 @@ const GET_OUTLET_PREFERENCES = gql`
       emailPreference
       salesHold
       paymentMethod
+      alertNearExpiry
+      alertLowInventory
+      weeksToStartSupplyAlert
     }
   }
 `;

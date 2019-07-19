@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import AuthContainer from './authentication/Container';
@@ -25,7 +25,7 @@ import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
 import MainInvitedUsers from './main_setup/mainInvitedUsers';
 
 const App = ({ session }) => (
-  <div>
+  <Fragment>
     <Switch>
       <Route exact path="/" component={AuthContainer} />
       <Route exact path="/register" component={AuthContainer} />
@@ -52,7 +52,7 @@ const App = ({ session }) => (
       <Route exact path="/product/add" render={() => <AddProduct session={session} />} />
       <Route exact path="/product/import" render={() => <ImportProduct session={session} />} />
     </Switch>
-  </div>
+  </Fragment>
 );
 
 App.propTypes = {
