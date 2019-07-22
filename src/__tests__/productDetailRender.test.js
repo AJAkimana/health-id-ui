@@ -40,14 +40,14 @@ const props = {
       },
       expiryDate: 1,
       commentary: '',
-      outlet: {
-        outletpreference: {
-          outletCurrency: {
-            symbol: ''
-          }
+    }],
+    outlet: {
+      outletpreference: {
+        outletCurrency: {
+          symbol: '#'
         }
       }
-    }],
+    },
     productQuantity: 1
   },
   classes: {},

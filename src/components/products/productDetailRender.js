@@ -44,6 +44,7 @@ export const ProductDetailRender = (props) => {
     product: {
       id,
       batchInfo,
+      outlet,
       productName,
       salesPrice,
       skuNumber,
@@ -67,9 +68,9 @@ export const ProductDetailRender = (props) => {
     session,
   } = props;
   const withPriceField = AddPriceField(batchInfo);
-  let currency = '$';
-  if (batchInfo[0] && batchInfo[0].outlet.outletpreference) {
-    currency = batchInfo[0].outlet.outletpreference.outletCurrency.symbol;
+  let currency = '₦';
+  if (outlet.outletpreference) {
+    currency = outlet.outletpreference.outletCurrency.symbol;
   }
 
   const renderTextField = (style, name, label, value) => (

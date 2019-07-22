@@ -9,11 +9,13 @@ import withAuth from '../components/withAuth';
 
 export const ProductDetail = (props) => {
   const { match: { params: { id } }, session } = props;
+
   return (
     <Query query={PRODUCT_DETAIL_QUERY} variables={{ id }}>
       {({ data, loading, error }) => {
         if (loading) return <ProductLoader />;
         if (error) return <div>Error</div>;
+
         return (
           <ProductDetailRender
             product={data.product}

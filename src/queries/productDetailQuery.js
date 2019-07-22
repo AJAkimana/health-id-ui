@@ -48,11 +48,11 @@ const PRODUCT_DETAIL_QUERY = gql`
         expiryDate
         unitCost
         commentary
-        outlet {
-          outletpreference {
-            outletCurrency {
-              symbol
-            }
+      }
+      outlet {
+        outletpreference {
+          outletCurrency {
+            symbol
           }
         }
       }

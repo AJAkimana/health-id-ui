@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import GET_ALL_CURRENCIES from '../../queries/getCurrencies';
 import GET_ALL_TIMEZONES from '../../queries/getTimezones';
 
-const ComposeInitial = Component  => (
+const ComposeInitial = Component => (
   <Query query={GET_ALL_TIMEZONES}>
     {
       ({ data: { timezones } }) => (
