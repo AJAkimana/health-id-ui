@@ -39,10 +39,16 @@ export class SellScreenContainer extends Component {
 
   setInitialData = () => {
     const { products, customers } = this.props;
+    const productsWithQuantity = products.filter(product => product.productQuantity > 0);
+    const currency = products
+      ? products[0].outlet.outletpreference.outletCurrency.symbol
+      : initialState.currency;
+
     this.setState({
       customers,
       products,
-      preferedProducts: products.slice(0, 8),
+      currency,
+      preferedProducts: productsWithQuantity.slice(0, 8),
     });
   };
 

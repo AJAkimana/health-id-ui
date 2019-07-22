@@ -14,8 +14,8 @@ jest.mock('../../components/sell/returnTableRow', () => MockComponent);
 
 const props = {
   products: [
-    { id: 1, productName: 'Panadol', outlet: [{ outletpreference: { outletCurrency: 'symbol' } }] },
-    { id: 2, productName: 'Panadol', outlet: [{ outletpreference: { outletCurrency: 'symbol' } }] },
+    { id: 1, productName: 'Panadol', outlet: { outletpreference: { outletCurrency: { symbol: '#' } } } },
+    { id: 2, productName: 'Panadol', outlet: { outletpreference: { outletCurrency: { symbol: '#' } } } },
   ],
   session: {
     me: {
