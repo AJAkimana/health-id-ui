@@ -204,6 +204,20 @@ export const BatchCardStyles = {
     height: '35px',
     padding: '8px'
   },
+  proposedQuantity: {
+    fontSize: '0.8125rem',
+    paddingLeft: '8px',
+    paddingTop: '8px',
+    paddingRight: '3px'
+  },
+  quantityWrapper: {
+    display: 'inline-flex'
+  },
+  proposedQuantityBold: {
+    fontSize: '0.8125rem',
+    paddingTop: '8px',
+    fontWeight: 'bold'
+  },
   scrollWrapper: {
     overflowY: 'scroll',
     height: '400px'

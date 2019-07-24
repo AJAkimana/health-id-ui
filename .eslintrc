@@ -28,6 +28,7 @@
       }
     ],
     "react/no-unused-state": "off",
+    "jsx-a11y/no-autofocus": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "function-paren-newline": ["error", "consistent"],
     "no-param-reassign":["error", { "props": false }],

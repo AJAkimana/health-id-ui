@@ -18,7 +18,11 @@ export const ProposedEdits = ({ classes }) => {
 
   const ApproveEdit = (event, toApprove, approveQuantity) => {
     const { batchid, productid } = event.currentTarget.dataset;
-    const requestData = { batchId: batchid, product: [Number(productid)], isApproved: toApprove };
+    const requestData = {
+      batchIds: [batchid],
+      productId: Number(productid),
+      isApproved: toApprove
+    };
     const approveComment = toApprove ? 'approved' : 'declined';
 
     approveQuantity({ variables: { comment: approveComment, ...requestData } })
@@ -43,14 +47,13 @@ export const ProposedEdits = ({ classes }) => {
         setProposedEdits(data.proposedQuantityEdits);
         return (
           <List className={clsx(classes.root, proposedEdits.length > 4 && classes.scrollWrapper)}>
-            {proposedEdits.map((product, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={index}>
+            {proposedEdits.map(product => (
+              <div key={product.batch.id}>
                 <Divider variant="inset" className={classes.divider} component="li" />
                 <ListItem alignItems="flex-start" key={product.batch.id} data-batch={product.batch.id}>
                   <ListItemText
                     disableTypography
-                    primary={product.product.productName}
+                    primary={product.batch.product.productName}
                     secondary={(
                       <div className={classes.listWrapper}>
                         <div>
@@ -63,10 +66,10 @@ export const ProposedEdits = ({ classes }) => {
                           color="textPrimary"
                         >
                           {`Quantity change from: ${product.batch.quantity} to `}
-                          <b>{product.quantityReceived}</b>
+                          <b>{product.batch.proposedQuantity}</b>
                           <ApproveQuantity
                             batchId={product.batch.id}
-                            productId={product.product.id}
+                            productId={product.batch.product.id}
                             ApproveEdit={ApproveEdit}
                           />
                         </Typography>

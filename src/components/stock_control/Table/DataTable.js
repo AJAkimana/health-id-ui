@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -43,6 +43,10 @@ export const DataTable = ({
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
+
+  useEffect(() => {
+    setRows(data);
+  });
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -257,7 +261,7 @@ export const DataTable = ({
             <BatchCard
               data={selectedRow.batchId}
               name={selectedRow.name}
-              productId={selected}
+              product={selected[0]}
             />
           )
         }

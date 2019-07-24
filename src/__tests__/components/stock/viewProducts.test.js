@@ -83,6 +83,7 @@ describe('ViewProducts ', () => {
     history: { push: jest.fn() },
   };
 
+
   it('renders without error', async() => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -91,7 +92,7 @@ describe('ViewProducts ', () => {
         </Router>
       </MockedProvider>
     );
-    await wait(2000);
+    await wait(0);
     expect(wrapper.find('DataTableLoader').length).toEqual(1);
     expect(wrapper.find('DataTable').length).toEqual(0)
   });

@@ -2,16 +2,22 @@ import gql from 'graphql-tag';
 
 export const EDIT_QUANTITY = gql`
 mutation ProposedQuantity(
-    $product: [Int]!
-    $batchId: String!
-    $quantities: [Int]!
+    $productId: Int!
+    $batchIds: [String]!
+    $proposedQuantities: [Int]!
     ) {
         proposedQuantity(
-        product: $product,
-        proposedQuantities: $quantities,
-        batchId: $batchId
+        productId: $productId,
+        proposedQuantities: $proposedQuantities,
+        batchIds: $batchIds
       ) {
-        batchInfo{id,packSize,user{username}, quantity}
+        batchInfo{
+          id,
+          user{
+            username
+          },
+          quantity
+        }
         notification
       }
     }
@@ -19,16 +25,16 @@ mutation ProposedQuantity(
 
 export const APPROVE_QUANTITY = gql`
 mutation ApproveQuantity(
-  $product: [Int]!
-  $batchId: String!
+  $productId: Int!
+  $batchIds: [String]!
   $comment: String!
   $isApproved: Boolean!
 ){
   approveQuantity(
-  batchId: $batchId,
+  batchIds: $batchIds,
   comment: $comment,
   isApproved: $isApproved,
-  product: $product
+  productId: $productId
     ) {
       message
     }

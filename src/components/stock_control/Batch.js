@@ -12,11 +12,15 @@ export const Batch = ({
   dateReceived,
   expiryDate,
   quantity,
+  proposed,
   setValue,
   handleClick,
   classes
 }) => {
-  const { heading, icon } = classes;
+  const {
+    heading, icon, proposedQuantity,
+    proposedQuantityBold, quantityWrapper
+  } = classes;
 
   return (
     <Grid container spacing={0}>
@@ -28,26 +32,29 @@ export const Batch = ({
       <Grid item xs={12} sm={6}>
         <Typography className={heading}>{dateReceived}</Typography>
         <Typography className={heading}>{expiryDate}</Typography>
-        {expanded !== id ? (
-          <Typography className={heading}>{quantity}</Typography>
-        ) : (
-          <input
-            name="quantity"
-            className="quantity-input"
-            type="number"
-            required
-            defaultValue={quantity}
-            onClick={(event) => {
-              event.stopPropagation();
-            }}
-            onChange={(event) => {
-              setValue([event.target.value]);
-            }}
-          />
-        )}
+        <div className={quantityWrapper}>
+          <div className={proposedQuantity}>{`${quantity} ${(proposed || (expanded === id)) ? 'to ' : ''}`}</div>
+          {expanded !== id ? (
+            <div className={proposedQuantityBold}>{proposed}</div>
+          ) : (
+            <input
+              name="quantity"
+              className="quantity-input"
+              type="number"
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+              onChange={(event) => {
+                setValue([Number(event.target.value)]);
+              }}
+              required
+              autoFocus
+            />
+          )}
+        </div>
       </Grid>
       <Grid item xs={12} sm={2}>
-        <IconButton data-panel={id} className={icon} onClick={handleClick}>
+        <IconButton data-panel={id} className={icon} disabled={proposed} onClick={handleClick}>
           {expanded !== id ? <KeyboardArrowRight /> : <Check />}
         </IconButton>
       </Grid>
@@ -62,6 +69,7 @@ Batch.propTypes = {
   dateReceived: PropTypes.string,
   expiryDate: PropTypes.string.isRequired,
   quantity: PropTypes.number,
+  proposed: PropTypes.number,
   setValue: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired
 };
@@ -69,6 +77,7 @@ Batch.propTypes = {
 Batch.defaultProps = {
   classes: {},
   quantity: 0,
+  proposed: null,
   dateReceived: ''
 };
 
