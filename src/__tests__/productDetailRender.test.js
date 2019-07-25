@@ -52,7 +52,15 @@ const props = {
   },
   classes: {},
   session: {
-    me: {}
+    me: {
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
+      }
+    }
   }
 };
 

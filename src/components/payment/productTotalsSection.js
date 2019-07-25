@@ -20,8 +20,13 @@ const ProductTotalsSection = (props) => {
     computedTotal,
     computedSubTotal,
     computedDiscount,
+    me,
     handlePaymentType
   } = props;
+
+  const { paymentMethod } = me.activeOutlet.outletpreference;
+  const showCashPayment = (paymentMethod === 'cash' || paymentMethod === 'both');
+  const showCardPayment = (paymentMethod === 'card' || paymentMethod === 'both');
 
   return (
     <Fragment>
@@ -33,7 +38,7 @@ const ProductTotalsSection = (props) => {
               <Typography
                 className={classes.sumHeaders}
               >
-              SUBTOTAL:
+                SUBTOTAL:
               </Typography>
             )}
           />
@@ -92,23 +97,31 @@ const ProductTotalsSection = (props) => {
                 variant="h6"
                 className={classes.paymentHeaders}
               >
-             Payment Method:
+                Payment Method:
               </Typography>
             )}
             disableTypography
           />
           <div className={classes.paymentFormControlDiv}>
-            <FormControlLabel
-              className={classes.paymentFormControl}
-              checked={cashChecked}
-              control={<Radio id="cash" color="primary" onClick={handlePaymentType} />}
-              label={<Typography className={classes.paymentHeaders}>Cash</Typography>}
-            />
-            <FormControlLabel
-              checked={cardChecked}
-              control={<Radio id="card" color="primary" onClick={handlePaymentType} />}
-              label={<Typography className={classes.paymentHeaders}>Card (POS)</Typography>}
-            />
+            {showCashPayment
+              && (
+                <FormControlLabel
+                  className={classes.paymentFormControl}
+                  checked={cashChecked}
+                  control={<Radio id="cash" color="primary" onClick={handlePaymentType} />}
+                  label={<Typography className={classes.paymentHeaders}>Cash</Typography>}
+                />
+              )
+            }
+            {showCardPayment
+              && (
+                <FormControlLabel
+                  checked={cardChecked}
+                  control={<Radio id="card" color="primary" onClick={handlePaymentType} />}
+                  label={<Typography className={classes.paymentHeaders}>Card (POS)</Typography>}
+                />
+              )
+            }
           </div>
         </ListItem>
       </List>
@@ -126,7 +139,8 @@ ProductTotalsSection.propTypes = {
   computedTotal: PropTypes.string.isRequired,
   computedSubTotal: PropTypes.string.isRequired,
   computedDiscount: PropTypes.string.isRequired,
-  handlePaymentType: PropTypes.func.isRequired
+  handlePaymentType: PropTypes.func.isRequired,
+  me: PropTypes.instanceOf(Object).isRequired
 };
 
 export default withStyles(styles)(ProductTotalsSection);

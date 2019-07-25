@@ -50,7 +50,13 @@ const GET_USER_INFO = gql`
       startingDate
       jobTitle
       activeOutlet{
-        id
+        id,
+        outletpreference{
+          outletTimezone{
+            name
+          }
+          paymentMethod
+        }
       }
     }
   }

@@ -79,10 +79,18 @@ describe('ViewProducts ', () => {
   const props = {
     session: {
       me: {
-      username: 'tester',
-      role: { name: "Master Admin" }},
+        username: 'tester',
+        role: { name: "Master Admin" },
+        activeOutlet: {
+          outletpreference: {
+            outletTimezone: {
+              name: "Africa/Nairobi"
+            }
+          }
+        }
+      }
     },
-    history: { push: jest.fn() }
+    history: { push: jest.fn() },
   };
 
   it('renders without error', async() => {

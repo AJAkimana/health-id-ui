@@ -8,7 +8,9 @@ import {
   Paper,
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
 import MainOutletSetupList from './mainOutletSetupList';
 import MainOutletSetupForm from './mainOutletSetupForm';
@@ -64,4 +66,4 @@ MainOutletSetup.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default MainOutletSetup;
+export default withAuth(MainOutletSetup);

@@ -88,7 +88,14 @@ const props = {
       email: 'example@gmail.com',
       username: 'myth',
       role: { name: 'Master Admin' },
-    }
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
+      }
+    },
   }
 };
 

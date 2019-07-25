@@ -5,20 +5,42 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import moment from 'moment-timezone';
+
 import calendar from '../../../assets/images/dashboard/calendar.png';
 import notification from '../../../assets/images/dashboard/notification.png';
 import lowerDashboardStyles from '../../../assets/styles/dashboard/lowerDashboardStyles';
 import SwitchAccount from '../../authentication/SwitchAcount';
 
+const zoneNames = {
+  EST: 'Eastern Standard Time',
+  EAT: 'Eastern Africa Time',
+  WAT: 'Western Africa Time',
+  EDT: 'Eastern Daylight Time',
+  CST: 'Central Standard Time',
+  CDT: 'Central Daylight Time',
+  MST: 'Mountain Standard Time',
+  MDT: 'Mountain Daylight Time',
+  PST: 'Pacific Standard Time',
+  PDT: 'Pacific Daylight Time',
+};
+
 const LowerDashboard = ({
-  username, open, anchorEl, handleMenu, handleClose, handleLogOut
+  username, open, anchorEl, timeZone, handleMenu, handleClose, handleLogOut
 }) => {
   const [IsOpen, setOpen] = useState(false);
 
-  const date = new Date();
-  const newDate = String(date).slice(0, 25);
-  const slicedDate = newDate.toString().split(' ').slice(0, 4).join(' ');
-  const localle = String(date).slice(27);
+  const today = moment.tz(new Date(), timeZone);
+
+  // overrides moment zoneAbbr function to display timezone with full name
+  moment.fn.zoneName = function () {
+    // eslint-disable-next-line react/no-this-in-sfc
+    const abbreviation = this.zoneAbbr();
+    return zoneNames[abbreviation] || abbreviation;
+  };
+
+  const date = today.format('dddd, MMMM Do YYYY');
+  const locale = `T ${today.format('Z')} (${today.zoneName()})`;
 
   const showSwitchAccount = () => {
     setOpen(!IsOpen);
@@ -30,9 +52,9 @@ const LowerDashboard = ({
       <Grid container justify="center" style={lowerDashboardStyles.gridContainer}>
         <Grid item xs={8} style={lowerDashboardStyles.gridItem1}>
           <Typography variant="inherit" style={lowerDashboardStyles.typographyText}>
-            {slicedDate}
+            {date}
             &emsp;
-            {localle}
+            {locale}
           </Typography>
         </Grid>
 
@@ -78,13 +100,15 @@ LowerDashboard.propTypes = {
   anchorEl: PropTypes.instanceOf(Object),
   handleMenu: PropTypes.func.isRequired,
   handleLogOut: PropTypes.func.isRequired,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  timeZone: PropTypes.string,
 };
 
 LowerDashboard.defaultProps = {
   username: '',
   open: false,
-  anchorEl: ''
+  anchorEl: '',
+  timeZone: 'Africa/Nairobi'
 };
 
 export default LowerDashboard;

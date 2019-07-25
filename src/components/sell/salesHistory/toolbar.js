@@ -71,7 +71,7 @@ export const Toolbar = ({
             <SearchIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Search Filter">
+        <Tooltip title="Custom Filter">
           <IconButton
             className={classes.iconButton}
             onClick={handleToggle}

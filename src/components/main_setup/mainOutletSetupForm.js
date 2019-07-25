@@ -14,6 +14,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+
 import {
   MainOutletSetupStyles,
   ContentWrapper,
@@ -21,6 +22,7 @@ import {
   RadioGroupStyles
 } from '../../assets/styles/setup';
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 import CREATE_OUTLET from '../../mutations/outletSetupMutation';
 import GET_ALL_COUNTRIES from '../../queries/countryQuery';
 import GET_ALL_CITIES from '../../queries/citiesQuery';
@@ -262,8 +264,8 @@ MainOutletSetupForm.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default compose(
+export default withAuth(compose(
   graphql(CREATE_OUTLET, { name: 'createOutlet' }),
   graphql(GET_ALL_COUNTRIES, { name: 'getAllCountries' }),
   graphql(GET_ALL_CITIES, { name: 'getAllCities' }),
-)(MainOutletSetupForm);
+)(MainOutletSetupForm));

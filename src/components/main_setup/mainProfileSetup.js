@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import AdminProfile from './mainProfileAdminUser';
 import NormalProfile from './mainProfileNormalUser';
+import withAuth from '../withAuth';
 
-const MainSetup = ({ session }) => {
+export const MainSetup = ({ session }) => {
   const { role } = session.me;
   return (role.name === 'Master Admin')
     ? <AdminProfile session={session} />
@@ -14,4 +16,4 @@ MainSetup.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default MainSetup;
+export default withAuth(MainSetup);

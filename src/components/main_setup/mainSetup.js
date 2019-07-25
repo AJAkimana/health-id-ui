@@ -18,6 +18,7 @@ import Avatar from '../../assets/images/mainSettingsAvatar.png';
 
 // SHARED COMPONENTS
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 import { MainSetupStyles as styles } from '../../assets/styles/setup';
 
 export const MainSetup = ({ session, classes }) => (
@@ -87,4 +88,4 @@ MainSetup.propTypes = {
   classes: PropTypes.shape({}).isRequired,
 };
 
-export default withStyles(styles)(MainSetup);
+export default withAuth(withStyles(styles)(MainSetup));

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { shallow } from 'enzyme';
-import MainBusinessSetup from '../../components/main_setup/mainBusinessSetup';
+import { MainSetup } from '../../components/main_setup/mainBusinessSetup';
 
 describe('Main Business Setup', () => {
   const dummySession = {
@@ -22,7 +22,7 @@ describe('Main Business Setup', () => {
     }
   };
   it('Should render the Business List', () => {
-    const wrapper = shallow(<MainBusinessSetup session={dummySession} />);
+    const wrapper = shallow(<MainSetup session={dummySession} />);
     expect(wrapper.exists()).toBeTruthy();
   });
 });

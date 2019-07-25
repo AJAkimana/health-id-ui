@@ -59,7 +59,12 @@ const props = {
   ],
   me: {
     firstName: 'user',
-    lastName: 'me-user'
+    lastName: 'me-user',
+    activeOutlet: {
+      outletpreference: {
+        paymentMethod: 'both'
+      }
+    }
   },
   open: true,
   loading: false,

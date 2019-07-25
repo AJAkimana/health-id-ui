@@ -188,8 +188,15 @@ const props = {
     me: {
       role: {
         name: 'Master Admin'
+      },
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
       }
-    }
+    },
   },
 };
 
@@ -218,6 +225,13 @@ describe('Test approve Product detail renderer', () => {
       me: {
         role: {
           name: 'Master Admin'
+        },
+        activeOutlet: {
+          outletpreference: {
+            outletTimezone: {
+              name: "Africa/Nairobi"
+            }
+          }
         }
       }
     },

@@ -8,11 +8,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+
 import MainBusinessList from './mainBusinessList';
 import Dashboard from '../shared/Dashboard/Dashboard';
 import { MainBusinessSetUpStyles as styles, SetupHeader } from '../../assets/styles/setup';
+import withAuth from '../withAuth';
 
-const MainSetup = (props) => {
+export const MainSetup = (props) => {
   const { session } = props;
   const { businesses } = session.me;
   return (
@@ -52,4 +54,4 @@ MainSetup.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default MainSetup;
+export default withAuth(MainSetup);

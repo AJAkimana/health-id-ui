@@ -143,14 +143,15 @@ export class Dashboard extends Component {
 
   render() {
     const { anchorEl, isActive, open } = this.state;
-    // const open = Boolean(anchorEl);
     const { session: { me } } = this.props;
+    const { name } = me.activeOutlet.outletpreference.outletTimezone;
 
     return (
       <Fragment>
         {this.upperDashboard(isActive)}
         <LowerDashboard
           username={me.username}
+          timeZone={name}
           open={open}
           anchorEl={anchorEl}
           handleMenu={this.handleMenu}

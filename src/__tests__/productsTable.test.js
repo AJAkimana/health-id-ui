@@ -89,6 +89,13 @@ const props = {
     me: {
       role: {
         name: 'Master Admin'
+      },
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
       }
     }
   },
@@ -196,6 +203,13 @@ const errorProps = {
     me: {
       role: {
         name: 'Master Admin'
+      }
+    },
+    activeOutlet: {
+      outletpreference: {
+        outletTimezone: {
+          name: "Africa/Nairobi"
+        }
       }
     }
   },

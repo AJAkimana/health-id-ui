@@ -175,6 +175,7 @@ const SalesSummary = (props) => {
           !sale && !processing && (
             <ProductTotalsSection
               discount={discount}
+              me={me}
               currency={currency}
               cardChecked={cardChecked}
               cashChecked={cashChecked}

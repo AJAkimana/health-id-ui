@@ -25,6 +25,7 @@ import Avatar from '../../assets/images/settingsAvatar.png';
 
 // SHARED COMPONENTS
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 
 import { MainProfileStyles as styles, SetupHeader } from '../../assets/styles/setup';
 import UPDATE_USER_PASSWORD from '../../mutations/updateUserPassword';
@@ -401,6 +402,6 @@ ManageProfile.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default compose(
+export default withAuth(compose(
   graphql(UPDATE_USER_PASSWORD, { name: 'updatePassword' }),
-)(ManageProfile);
+)(ManageProfile));

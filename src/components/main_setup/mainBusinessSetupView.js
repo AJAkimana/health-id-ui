@@ -17,6 +17,7 @@ import LogoPlaceholder from '../../assets/images/business-placeholder.png';
 
 // SHARED COMPONENTS
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 import { MainBusinessSetUpStyles as styles, SetupHeader } from '../../assets/styles/setup';
 
 const MainSetup = (props) => {
@@ -170,4 +171,4 @@ MainSetup.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default MainSetup;
+export default withAuth(MainSetup);

@@ -34,11 +34,11 @@ export class ImportProduct extends Component {
   }
 
   handleDownloadTemplate = () => {
-    const csvUrl = process.env.DOWNLOAD_SAMPLE_CSV_LINK;
+    const csvUrl = process.env.APP_LINK;
 
     const token = localStorage.getItem('rest_token');
 
-    axios.get(csvUrl, {
+    axios.get(`${csvUrl}sample_product_csv`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
@@ -68,10 +68,10 @@ export class ImportProduct extends Component {
 
     formdata.append('file', file);
 
-    const url = process.env.IMPORT_CSV_LINK;
+    const url = process.env.APP_LINK;
     const token = localStorage.getItem('rest_token');
 
-    axios.post(url, formdata, {
+    axios.post(`${url}csv/`, formdata, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,

@@ -7,8 +7,10 @@ import {
   Typography,
   Paper,
 } from '@material-ui/core';
+
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Dashboard from '../shared/Dashboard/Dashboard';
+import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
 import MainInvitedUsersList from './mainInvitedUsersList';
 
@@ -48,4 +50,4 @@ MainInvitedUsers.propTypes = {
   session: PropTypes.shape({}).isRequired,
 };
 
-export default MainInvitedUsers;
+export default withAuth(MainInvitedUsers);

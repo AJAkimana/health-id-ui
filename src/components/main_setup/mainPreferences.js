@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Lock from '@material-ui/icons/Lock';
+
 import Dashboard from '../shared/Dashboard/Dashboard';
 import notify from '../shared/Toaster';
 import { MainPreferencesStyles } from '../../assets/styles/setup';
@@ -26,6 +27,7 @@ import GET_ALL_TIMEZONES from '../../queries/getTimezones';
 import GET_OUTLET_PREFERENCES from '../../queries/outletPreferences';
 import UPDATE_OUTLET_PREFERENCES from '../../mutations/setup/updateOutletPreferences';
 import AutoSuggest from './autoSuggestPopper';
+import withAuth from '../withAuth';
 
 class Preferences extends Component {
   state = {
@@ -734,7 +736,7 @@ Preferences.propTypes = {
   updatePreferences: PropTypes.func.isRequired,
 };
 
-export default compose(
+export default withAuth(compose(
   graphql(GET_ALL_TIMEZONES, { name: 'getAllTimezones' }),
   graphql(GET_ALL_CURRENCIES, { name: 'getAllCurrencies' }),
   graphql(GET_OUTLET_PREFERENCES, {
@@ -742,4 +744,4 @@ export default compose(
     options: () => ({ variables: { outletId: window.location.href.split('/')[5] } })
   }),
   graphql(UPDATE_OUTLET_PREFERENCES, { name: 'updatePreferences' })
-)(Preferences);
+)(Preferences));

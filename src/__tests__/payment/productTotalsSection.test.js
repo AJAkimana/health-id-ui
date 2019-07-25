@@ -13,6 +13,13 @@ const props = {
   computedDiscount: '0',
   computedTotal: '1000',
   handlePaymentType: jest.fn(),
+  me: {
+    activeOutlet: {
+      outletpreference: {
+        paymentMethod: 'both'
+      }
+    }
+  }
 };
 
 describe('test ProductTotalsSection component', () => {
