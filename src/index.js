@@ -13,7 +13,7 @@ const AppwithSession = withSession(App);
 // Link apollo client to react
 ReactDOM.render(
   <MuiThemeProvider theme={AppTheme}>
-    <BrowserRouter forceRefresh>
+    <BrowserRouter>
       <ApolloProvider client={client}>
         <AppwithSession />
       </ApolloProvider>
