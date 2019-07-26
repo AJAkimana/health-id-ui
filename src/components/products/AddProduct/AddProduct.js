@@ -97,7 +97,7 @@ export class AddProduct extends Component {
     });
   }
 
-  handleDelete =(i) => {
+  handleDelete = (i) => {
     const { tags } = this.state;
     this.setState({
       tags: tags.filter((tag, index) => index !== i),
@@ -134,7 +134,7 @@ export class AddProduct extends Component {
         backupSupplierId,
         loyaltyWeight,
         tags: tagsArray,
-        image: productImage
+        image: productImage || 'none'
       }
     })
       .then((res) => {
@@ -247,9 +247,7 @@ export class AddProduct extends Component {
       this.setState({
         productImage: fileURL
       });
-    }).catch((err) => {
-      notify(err);
-    });
+    }).catch(() => notify('There was an error uploading the image'));
   }
 
   handleSave = () => {
@@ -299,6 +297,7 @@ export class AddProduct extends Component {
           handleAddition={this.handleAddition}
           handleDelete={this.handleDelete}
           onSelectFile={this.onSelectFile}
+          handleOnDrop={this.handleImageDrop}
           handleOnCropChange={this.handleOnCropChange}
           handleCategoryChange={this.handleCategoryChange}
           handleClose={this.handleClose}

@@ -20,12 +20,12 @@ const ProductForm = (props) => {
     state,
     handleChange, handleAddition, handleDelete, onSelectFile,
     handleOnCropChange, handleClose, handleSave, handleSendForApproval,
-    handleAddAnotherProduct, handleProductName, handleCategoryChange
+    handleAddAnotherProduct, handleProductName, handleCategoryChange, handleOnDrop
   } = props;
 
 
   const disableButton = !productName || !brand || !manufacturer || !productDescription
-  || !productImage || !manufacturer || !preferredSupplierId || !backupSupplierId || !categoryId
+  || !manufacturer || !preferredSupplierId || !backupSupplierId || !categoryId
   || !measurementUnitId;
 
   return (
@@ -59,6 +59,7 @@ const ProductForm = (props) => {
             <ImageUpload
               state={state}
               productImage={productImage}
+              handleOnDrop={handleOnDrop}
               handleOnCropChange={handleOnCropChange}
               onSelectFile={onSelectFile}
               handleClose={handleClose}
@@ -286,6 +287,7 @@ ProductForm.propTypes = {
   handleAddition: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   handleOnCropChange: PropTypes.func.isRequired,
+  handleOnDrop: PropTypes.func.isRequired,
   onSelectFile: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleSave: PropTypes.func.isRequired,
