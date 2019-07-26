@@ -100,7 +100,5 @@ describe('SwitchAccount ', () => {
     instance.handleSubmit(event, loginWithEmail, loginWithPhone);
     instance.handleChangeInput(eventPhone);
     instance.handleSubmit(event, loginWithEmail, loginWithPhone);
-    console.log("instanc8e ",  wrapper.find('SwitchAccount').debug());
-    // expect(wrapper.find('[data-batchid="cdz6gnt98"]').length).toBe(10);
   });
 });

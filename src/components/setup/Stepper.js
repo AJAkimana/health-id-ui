@@ -496,11 +496,11 @@ export class StepperNav extends React.Component {
   handleImageDrop = (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', process.env.UPLOAD_PRESET);
-    formData.append('api_key', process.env.API_KEY);
+    formData.append('upload_preset', `${process.env.UPLOAD_PRESET}`);
+    formData.append('api_key', `${process.env.API_KEY}`);
     formData.append('timestamp', (Date.now() / 1000) || 0);
 
-    return axios.post(process.env.CLOUDINARY_URL, formData, {
+    return axios.post(`${process.env.CLOUDINARY_URL}`, formData, {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     }).then((response) => {
       const { data } = response;

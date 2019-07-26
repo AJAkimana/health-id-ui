@@ -66,7 +66,6 @@ describe('test RecieptScreen', () => {
 
   it('it renders a confirm close button', () => {
     props.isConfirmPopperOpen = true;
-    console.log(props.isConfirmPopperOpen);
     const wrapper = shallow((
       <RecieptScreen {...props} />
     ));

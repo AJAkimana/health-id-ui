@@ -4,7 +4,7 @@ import { ApolloLink } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 
-const appLink = 'https://healthid-web-api.herokuapp.com/healthid/';
+const appLink = `${process.env.APP_LINK}`;
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
