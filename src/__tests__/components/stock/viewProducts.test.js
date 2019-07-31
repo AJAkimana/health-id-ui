@@ -66,16 +66,6 @@ describe('ViewProducts ', () => {
     }
   ];
 
-  const errorMocks = [
-    {
-      request: {
-        query: GET_ALL_APPROVED_PRODUCTS
-      },
-      result: {
-        errors: [{ message: 'Error!' }],
-      },
-    }
-  ];
   const props = {
     session: {
       me: {
@@ -102,19 +92,6 @@ describe('ViewProducts ', () => {
       </MockedProvider>
     );
     await wait(2000);
-    expect(wrapper.find('DataTableLoader').length).toEqual(1);
-    expect(wrapper.find('DataTable').length).toEqual(0)
-  });
-
-  it('renders with an error', async() => {
-    const wrapper = mount(
-      <MockedProvider mocks={errorMocks} addTypename={false}>
-        <Router>
-          <ViewProductsWrapper {...props} />
-        </Router>
-      </MockedProvider>
-    );
-    await wait(0);
     expect(wrapper.find('DataTableLoader').length).toEqual(1);
     expect(wrapper.find('DataTable').length).toEqual(0)
   });
