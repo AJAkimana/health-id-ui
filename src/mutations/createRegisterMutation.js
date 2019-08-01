@@ -24,7 +24,7 @@ const CREATE_REGISTER = gql`
           kind {
             name
           }
-          registerSet {
+          outletRegister {
             id
             name
             receipt {
