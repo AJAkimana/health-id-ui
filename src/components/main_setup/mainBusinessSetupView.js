@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   TextField,
+  Link as SocialLink
 } from '@material-ui/core';
 
 // IMAGES AND ICONS
@@ -113,15 +114,14 @@ const MainSetup = (props) => {
                   style={styles.textField}
                   InputProps={{ disableUnderline: true, readOnly: true }}
                 />
-                <TextField
-                  fullWidth
-                  label="Twitter"
-                  value={twitter}
-                  defaultValue="N/A"
-                  margin="normal"
-                  style={styles.textField}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
+                <SocialLink
+                  href={twitter}
+                  style={styles.linkcolor}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Twitter
+                </SocialLink>
               </Grid>
               <Grid item xs={6} style={styles.formRow}>
                 <TextField
@@ -132,32 +132,36 @@ const MainSetup = (props) => {
                   style={styles.textField}
                   InputProps={{ disableUnderline: true, readOnly: true }}
                 />
-                <TextField
-                  fullWidth
-                  label="Facebook"
-                  value={facebook}
-                  margin="normal"
-                  style={styles.textField}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
+                <SocialLink
+                  href={facebook}
+                  style={styles.linkcolor}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Facebook
+                </SocialLink>
               </Grid>
               <Grid item xs={6} style={styles.formRow}>
-                <TextField
-                  fullWidth
-                  label="Website"
-                  value={website}
-                  margin="normal"
-                  style={styles.textField}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
-                <TextField
-                  fullWidth
-                  label="Instagram"
-                  value={instagram}
-                  margin="normal"
-                  style={styles.textField}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
+                <Grid item style={styles.linkGrid}>
+                  <SocialLink
+                    href={instagram}
+                    style={styles.linkcolor}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Instagram
+                  </SocialLink>
+                </Grid>
+                <Grid item>
+                  <SocialLink
+                    href={website}
+                    style={styles.linkcolor}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Website
+                  </SocialLink>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>

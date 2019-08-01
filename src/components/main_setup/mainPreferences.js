@@ -125,6 +125,10 @@ class Preferences extends Component {
     }
   )
 
+  limitVat = (event) => {
+    event.target.value = event.target.value.slice(0, 2);
+  }
+
   handleSubmit = () => {
     const { updatePreferences, getPreferences } = this.props;
     const {
@@ -269,6 +273,7 @@ class Preferences extends Component {
                         onChange={this.handleChange('vat')}
                         margin="normal"
                         fullWidth
+                        onInput={this.limitVat}
                         style={MainPreferencesStyles.vat}
                       />
                     </Grid>

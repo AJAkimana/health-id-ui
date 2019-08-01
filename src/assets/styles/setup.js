@@ -249,6 +249,14 @@ export const MainBusinessSetUpStyles = {
   textField: {
     marginBottom: '20px',
   },
+  linkGrid: {
+    marginBottom: '50px',
+    marginTop: '20px',
+  },
+  linkcolor: {
+    color: '#424242',
+    marginBottom: '20px',
+  },
   formBox: {
     margin: '2rem auto',
   },
