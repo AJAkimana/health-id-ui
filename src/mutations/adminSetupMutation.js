@@ -5,6 +5,8 @@ const UPDATE_ADMIN_USER = gql`
         $firstName: String,
         $lastName: String,
         $username: String,
+        $email: String,
+        $mobileNumber: String,
         $secondaryEmail: String,
         $secondaryPhoneNumber: String
         ) {
@@ -12,6 +14,8 @@ const UPDATE_ADMIN_USER = gql`
             firstName: $firstName,
             lastName: $lastName,
             username: $username,
+            email: $email,
+            mobileNumber: $mobileNumber,
             secondaryEmail: $secondaryEmail,
             secondaryPhoneNumber: $secondaryPhoneNumber) {
       user {

@@ -34,8 +34,9 @@ const UserSetup = (props) => {
     usernameError,
     emailError,
   } = state;
+
   return (
-    users.length > 1 && showUsers
+    (users.length > 0 && showUsers)
       ? (
         <InvitedUsers {...props} />
       ) : (
