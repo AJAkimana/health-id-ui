@@ -45,6 +45,7 @@ export class StepperNav extends React.Component {
   state = {
     activeStep: 0,
     checked: false,
+    isAcknowledged: false,
     isLoading: false,
     firstName: '',
     lastName: '',
@@ -148,7 +149,7 @@ export class StepperNav extends React.Component {
         <AdminSetUp
           state={this.state}
           handleInputChange={this.handleInPutChange}
-          checked={this.toogleCheckbox}
+          checked={this.toggleIsAcknowledged}
           errorHandler={this.errorHandler}
           serverErrorHandler={this.serverErrorHandler}
         />
@@ -158,7 +159,6 @@ export class StepperNav extends React.Component {
         <BusinessSetUp
           state={this.state}
           handleInPutChange={this.handleInPutChange}
-          checked={this.toogleCheckbox}
           handleImageDrop={this.handleImageDrop}
           errorHandler={this.errorHandler}
           serverErrorHandler={this.serverErrorHandler}
@@ -383,6 +383,7 @@ export class StepperNav extends React.Component {
 
   handleInPutChange = (event) => {
     const { name, value } = event.target;
+
     this.setState({
       [name]: value,
       isError: false,
@@ -390,7 +391,8 @@ export class StepperNav extends React.Component {
       phoneError: false,
       usernameError: false,
       emailError: false,
-    });
+    }, () => this.checkForRequiredFields());
+
     if (name === 'country') {
       this.setLocale(value);
     }
@@ -401,6 +403,82 @@ export class StepperNav extends React.Component {
       this.setOutletKindId(value);
     }
   }
+
+  checkForRequiredFields = () => {
+    const {
+      activeStep,
+      isAcknowledged,
+      firstName,
+      lastName,
+      username,
+      legalName,
+      secondaryEmail,
+      secondaryPhoneNumber,
+      tradingName,
+      addressLine1,
+      phoneNumber,
+      businessEmail,
+      outletName,
+      registerName,
+      outletType,
+      userEmail,
+      phone,
+      userUsername,
+    } = this.state;
+
+    switch (activeStep) {
+    // admin setup required fields check
+    case 0:
+      if (
+        firstName === ''
+          || lastName === ''
+          || username === ''
+          || secondaryEmail === ''
+          || secondaryPhoneNumber === ''
+          || isAcknowledged === false
+      ) {
+        this.setState({ checked: false });
+      } else {
+        this.setState({ checked: true });
+      }
+      break;
+      // business step required fields check
+    case 1:
+      if (
+        legalName === ''
+          || tradingName === ''
+          || addressLine1 === ''
+          || phoneNumber === ''
+          || businessEmail === ''
+      ) {
+        this.setState({ checked: false });
+      } else {
+        this.setState({ checked: true });
+      }
+      break;
+    case 2:
+      if (outletName === '' || addressLine1 === '' || phoneNumber === '') {
+        this.setState({ checked: false });
+      } else {
+        if (outletType === 'storefront'
+            && registerName === '') {
+          return this.setState({ checked: false });
+        }
+        this.setState({ checked: true });
+      }
+      break;
+    case 3:
+      if (userEmail === '' || phone === '' || userUsername === '') {
+        this.setState({ checked: false });
+      } else {
+        this.setState({ checked: true });
+      }
+      break;
+    default:
+      return null;
+    }
+  }
+
 
   setOutletKindId = (value) => {
     const warehouse = 1;
@@ -511,10 +589,10 @@ export class StepperNav extends React.Component {
     });
   }
 
-  toogleCheckbox = () => {
+  toggleIsAcknowledged = () => {
     this.setState(state => ({
-      checked: !state.checked,
-    }));
+      isAcknowledged: !state.isAcknowledged,
+    }), () => this.checkForRequiredFields());
   }
 
   // Resize dialog handlers
@@ -648,7 +726,6 @@ export class StepperNav extends React.Component {
     });
   }
 
-  // eslint-disable-next-line consistent-return
   handleNextButton = () => {
     const { activeStep } = this.state;
 
@@ -867,7 +944,7 @@ export class StepperNav extends React.Component {
       this.setState({
         outletId: id
       });
-      this.toogleCheckbox();
+      this.toggleIsAcknowledged();
       if (outletType === 'storefront') {
         this.addReceiptTemplate();
       }
@@ -1006,7 +1083,7 @@ export class StepperNav extends React.Component {
       }
     }).then((results) => {
       notify(results.data.updateOutlet.success);
-      this.toogleCheckbox();
+      this.toggleIsAcknowledged();
       if (outletType === 'storefront') {
         this.addReceiptTemplate();
       }
@@ -1152,6 +1229,7 @@ export class StepperNav extends React.Component {
 
     this.setState({
       activeStep: activeStep + 1,
+      checked: false,
       roles: userRoles.roles,
       outlets: assignedOutlets.business.outletSet
     });
@@ -1301,7 +1379,7 @@ export class StepperNav extends React.Component {
                         variant="text"
                         id="back-button"
                       >
-                        Back
+                            Back
                       </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
@@ -1360,7 +1438,7 @@ export class StepperNav extends React.Component {
                                 <Fab
                                   variant="extended"
                                   color="primary"
-                                  disabled={false}
+                                  disabled={!checked}
                                   onClick={this.handleNextButton}
                                   className={classes.button}
                                   id="next-button"

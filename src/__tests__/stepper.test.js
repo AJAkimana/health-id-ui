@@ -303,6 +303,36 @@ describe('Test stepper component', () => {
     expect(spy).toHaveBeenCalled();
   });
 
+  it('activates the next button when required fields are filled', () => {
+    let event = {
+      target: {
+        name: 'businessEmail',
+        value: 'buzzy@email.com'
+      }
+    };
+    wrapper.setState({
+      legalName: 'buzzy',
+      tradingName: 'buzzy',
+      addressLine1: 'street 1',
+      phoneNumber: '+256753111111',
+      checked: false,
+      activeStep: 1,
+      isAcknowledged: true,
+      firstName: 'boss',
+    });
+
+    expect(wrapper.state('checked')).toBe(false);
+
+    const spy = jest.spyOn(wrapper.instance(), 'checkForRequiredFields');
+    wrapper.instance().handleInPutChange(event);
+    expect(spy).toBeCalled();
+    expect(wrapper.state('checked')).toBe(true);
+
+    const nextButton = wrapper.find('#next-button');
+    expect(nextButton.prop('disabled')).toBe(false);
+    
+  });
+
   it('renders OutletSetup Component when next button is clicked', () => {
     wrapper.setState({ checked: true, isLoading: false, activeStep: 2 });
     expect(wrapper.find('OutletSetUp').length).toBe(1);
@@ -999,7 +1029,7 @@ describe('Test react-apollo functions', () => {
   const namedWrapper = mount(<StepperNav {...namedProps} />);
 
   it('toogleCheckbox gets called', () => {
-    namedWrapper.instance().toogleCheckbox();
+    namedWrapper.instance().toggleIsAcknowledged();
   });
 
   it('calls fetchUserData', () => {
