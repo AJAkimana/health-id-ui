@@ -159,7 +159,18 @@ const MainSetup = (props) => {
 
 MainSetup.propTypes = {
   data: PropTypes.shape({}).isRequired,
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      outlets: PropTypes.array
+    }),
+  }).isRequired,
+  getPreferences: PropTypes.shape({
+    refetch: PropTypes.func,
+  }),
+};
+
+MainSetup.defaultProps = {
+  getPreferences: {},
 };
 
 export default MainSetup;

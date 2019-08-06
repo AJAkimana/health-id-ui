@@ -11,7 +11,6 @@ const initialState = {
   countries: [],
   products: [],
   preferedProducts: [],
-  searchValue: '',
   customers: [],
   filteredCustomers: [],
   selectedCustomer: '',

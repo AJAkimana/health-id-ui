@@ -83,7 +83,6 @@ describe('ProposedEdits ', () => {
     expect(wrapper.find('ContentLoader').length).toEqual(1);
     await wait(0);
     wrapper.update();
-    console.log("ddss", wrapper.debug());
   });
 
   it('renders no proposed products ', async () => {

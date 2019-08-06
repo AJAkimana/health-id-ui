@@ -84,8 +84,17 @@ export const MainSetup = ({ session, classes }) => (
 
 
 MainSetup.propTypes = {
-  session: PropTypes.shape({}).isRequired,
-  classes: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      username: PropTypes.string,
+      role: PropTypes.shape({
+        name: PropTypes.string,
+      })
+    })
+  }).isRequired,
+  classes: PropTypes.shape({
+    navs: PropTypes.string,
+  }).isRequired,
 };
 
 export default withAuth(withStyles(styles)(MainSetup));

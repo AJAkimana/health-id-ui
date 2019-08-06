@@ -172,7 +172,12 @@ const MainSetup = (props) => {
 };
 
 MainSetup.propTypes = {
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      businesses: PropTypes.array,
+      outlets: PropTypes.array
+    })
+  }).isRequired,
 };
 
 export default withAuth(MainSetup);

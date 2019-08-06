@@ -399,7 +399,23 @@ ManageProfile.propTypes = {
 };
 
 ManageProfile.propTypes = {
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      username: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      email: PropTypes.string,
+      mobileNumber: PropTypes.string,
+      birthday: PropTypes.string,
+      startingDate: PropTypes.string,
+      jobTitle: PropTypes.string,
+      weeklyTarget: PropTypes.string,
+
+      role: PropTypes.shape({
+        name: PropTypes.string,
+      })
+    })
+  }).isRequired,
 };
 
 export default withAuth(compose(

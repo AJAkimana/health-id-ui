@@ -1,39 +1,31 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import GET_ALL_COUNTRIES from '../queries/countryQuery';
-import APPROVED_PRODUCTS_QUERY from '../queries/approvedProductQuery';
-import GET_ALL_CUSTOMERS from '../queries/customersQuery';
+import GET_COUNTRIES_PRODUCTS_CUSTOMERS from '../queries/countryProductsCustomerQuery';
+import DataTableLoader from '../components/dataTable/dataTableLoader';
 
 const WithInitialData = Component => props => (
-  <Query query={GET_ALL_COUNTRIES}>
-    {countriesResult => (
-      <Query query={GET_ALL_CUSTOMERS}>
-        {customersResult => (
-          <Query query={APPROVED_PRODUCTS_QUERY}>
-            {(productsResult) => {
-              const { loading: loadingThree, error: productsError } = productsResult;
-              const { loading: loadingTwo, error: customersError } = customersResult;
-              const { loading: loadingOne, error: countriesError } = countriesResult;
+  <Query
+    query={GET_COUNTRIES_PRODUCTS_CUSTOMERS}
+  >
+    {({
+      loading, data, error
+    }) => {
+      if (loading) return <DataTableLoader />;
+      if (error) return null;
 
-              if (loadingOne || loadingTwo || loadingThree) return null;
-              if (productsError || customersError || countriesError) return null;
+      const { approvedProducts } = data;
+      const { customers } = data;
+      const { countries } = data;
 
-              const { data: { approvedProducts } } = productsResult;
-              const { data: { customers } } = customersResult;
-              const { data: { countries } } = countriesResult;
-              return (
-                <Component
-                  {...props}
-                  countries={countries}
-                  products={approvedProducts}
-                  customers={customers}
-                />
-              );
-            }}
-          </Query>
-        )}
-      </Query>
-    )}
+      return (
+        <Component
+          {...props}
+          countries={countries}
+          products={approvedProducts}
+          customers={customers}
+        />
+      );
+    }}
   </Query>
 );
 

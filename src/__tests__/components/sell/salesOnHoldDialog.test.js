@@ -11,6 +11,21 @@ const props = {
         id: 1,
         productName: '',
         quantity: ''
+      },
+      {
+        id: 2,
+        productName: '',
+        quantity: ''
+      },
+      {
+        id: 3,
+        productName: '',
+        quantity: ''
+      },
+      {
+        id: 4,
+        productName: '',
+        quantity: ''
       }]
     }],
   },
@@ -23,6 +38,7 @@ describe('test SalesOnHoldDialog component', () => {
     wrapper = mount((
       <SalesOnHoldDialog {...props} />
     ));
+
     const dialog = wrapper.find('Dialog').length;
     expect(dialog).toBe(1);
   });

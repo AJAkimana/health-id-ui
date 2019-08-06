@@ -120,7 +120,11 @@ const MainSetup = ({ session }) => {
 };
 
 MainSetup.propTypes = {
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      outlets: PropTypes.array
+    })
+  }).isRequired,
 };
 
 export default MainSetup;
