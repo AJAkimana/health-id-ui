@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const GET_OUTLET_PREFERENCES = gql`
-  query ($outletId: Int) {
+  query ($outletId: Int, ) {
     outletPreference (
       outletId: $outletId
     ) {
