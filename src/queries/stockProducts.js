@@ -1,17 +1,18 @@
 import gql from 'graphql-tag';
 
 export const GET_ALL_APPROVED_PRODUCTS = gql`
-  query {
+query {
     approvedProducts {
       id
       productName
       measurementUnit {
         name
       }
-      batchInfo {
+      batchInfo{
         dateReceived
         expiryDate
         quantity
+        proposedQuantity
         id
       }
       description
@@ -31,14 +32,15 @@ export const GET_ALL_PROPOSED_EDITS = gql`
       }
       isApproved
       quantityReceived
-      product {
-        productName
-        id
-      }
       batch {
         quantity
+        proposedQuantity
         id
         dateReceived
+        product {
+          productName
+          id
+        }
       }
     }
   }

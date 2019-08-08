@@ -9,6 +9,7 @@ import Dashboard from '../../shared/Dashboard/Dashboard';
 import verifyFile from '../../../utils/products/verifyFile';
 import notify from '../../shared/Toaster';
 
+
 export class ImportProduct extends Component {
   state = {
     file: null,

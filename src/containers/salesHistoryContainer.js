@@ -52,10 +52,8 @@ export class SalesHistory extends Component {
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
     const filteredSales = salesData.filter((data) => {
-      const { dateSold, location } = data;
-      const outlet = location.split(' | ')[0];
-      return dateSold >= startDate && dateSold <= endDate
-        && outlet === searchValue.outlet;
+      const { dateSold } = data;
+      return dateSold >= startDate && dateSold <= endDate;
     });
     this.setState({
       salesData: filteredSales,

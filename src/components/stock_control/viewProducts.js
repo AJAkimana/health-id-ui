@@ -19,7 +19,6 @@ export class ViewProducts extends Component {
   render() {
     const { history, session } = this.props;
     const columnHeaders = ['name', 'sku', ' measurement unit', 'quantity'];
-    const products = [];
 
     return (
       <Fragment>
@@ -33,9 +32,9 @@ export class ViewProducts extends Component {
             }
             if (error) return `Error! ${error.message}`;
 
-            data.approvedProducts.forEach((product) => {
+            const products = data.approvedProducts.map((product) => {
               if (product.batchInfo.length >= 1) {
-                products.push({
+                return {
                   id: product.id,
                   name: product.productName,
                   quantity: product.productQuantity,
@@ -45,10 +44,11 @@ export class ViewProducts extends Component {
                   image: product.image,
                   tags: product.tags,
                   batchId: product.batchInfo
-                });
+                };
               }
-              return products;
-            });
+              return false;
+            }).filter(product => product !== false);
+
             const isAuthorised = session.me.role.name.match(/^(Master Admin|Operations Admin)$/);
 
             return (
