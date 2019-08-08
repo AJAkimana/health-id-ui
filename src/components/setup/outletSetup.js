@@ -30,6 +30,7 @@ const OutletSetUp = ({
     localGovernmentArea,
     city,
     cities,
+    checked,
     country,
     countries,
     outletType,
@@ -275,6 +276,7 @@ const OutletSetUp = ({
                       color="primary"
                       variant="contained"
                       id="outlet-button"
+                      disabled={!checked}
                     >
                       {edittingOutlet ? 'done' : 'add outlet'}
                     </Button>

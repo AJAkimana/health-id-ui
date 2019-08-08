@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import FileUpload from './fileUpload';
 import { BusinessSetUpStyles } from '../../assets/styles/setup';
@@ -11,7 +9,6 @@ import { BusinessSetUpStyles } from '../../assets/styles/setup';
 const BusinessSetUp = (props) => {
   const {
     handleInPutChange,
-    checked,
     handleImageDrop,
     errorHandler,
     onSelectFile,
@@ -213,10 +210,6 @@ const BusinessSetUp = (props) => {
               value={instagram}
               onChange={handleInPutChange}
             />
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveAddress" value="yes" onChange={checked} />}
-              label="Save and complete later in SETUP"
-            />
           </Grid>
 
           <Grid item xs={12} sm={6}>
@@ -242,7 +235,6 @@ const BusinessSetUp = (props) => {
 
 BusinessSetUp.propTypes = {
   handleInPutChange: PropTypes.func.isRequired,
-  checked: PropTypes.func.isRequired,
   state: PropTypes.instanceOf(Object).isRequired,
   handleImageDrop: PropTypes.func.isRequired,
   errorHandler: PropTypes.func.isRequired,

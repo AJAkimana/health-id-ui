@@ -19,6 +19,7 @@
     "no-console": 2,
     "comma-dangle": "off",
     "func-names": "off",
+    "consistent-return": "off",
     "strict": ["error", "global"],
     "indent": ["error", 2],
     "semi": ["error", "always"],
