@@ -521,7 +521,78 @@ export const MainPreferencesStyles = {
   },
   vat: {
     padding: '4px 0',
-  }
+  },
+  categoryIcons: {
+    padding: '0',
+    marginLeft: '1rem',
+  },
+  categoryNameTitle: {
+    padding: '1rem 2rem',
+    borderRight: 'solid 2px #A3A3A3',
+  },
+  categoryNameCell: {
+    borderRight: 'solid 2px #A3A3A3',
+    padding: '1rem 1rem 1rem 2rem',
+  },
+  categoryCell: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '1rem',
+  },
+  categoryTitle: {
+    padding: '1rem 2rem',
+  },
+  categorySubtitle: {
+    fontSize: '10px',
+    color: '#A3A3A3',
+  },
+  categoryButton: {
+    justifyContent: 'left',
+    textTransform: 'capitalize',
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalBody: {
+    padding: '1rem',
+
+    '&:hover': {
+      outline: 'none',
+    }
+  },
+  modalContent: {
+    outline: 'none',
+  },
+  modalTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '2.5rem',
+  },
+  modalSection: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '2rem',
+  },
+  modalTitleInput: {
+    paddingLeft: '1rem',
+  },
+  deletePopper: {
+    zIndex: '3000',
+  },
+  deletePopperInner: {
+    padding: '1.5rem',
+  },
+  deletePopperButtonsBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '1rem 0 0 0',
+  },
+  deletePopperButton: {
+    marginRight: '1.5rem',
+  },
 };
 
 export const selectFieldStyles = {
