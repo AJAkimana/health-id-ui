@@ -7,22 +7,7 @@ import withAuth from '../components/withAuth';
 
 
 describe('Mocked withAuth', () => {
-  let mocks;
-  beforeEach(() => {
-    const data = {
-      me: {
-        id: 'aul5xrp73',
-        email: 'you.for@example.com',
-        mobileNumber: '07834562781',
-        username: 'Ronnie',
-        role: {
-          name: 'Master Admin',
-          __typename: ''
-        },
-        __typename: ''
-      },
-    };
-    mocks = [
+    const mocks = [
       {
         request: { query: GET_USER_INFO },
         result: {
@@ -42,7 +27,6 @@ describe('Mocked withAuth', () => {
         },
       },
     ];
-  });
 
   it('should render the component only when the condition passes', async () => {
     const conditionFunc = jest.fn().mockReturnValue(true);
@@ -52,6 +36,7 @@ describe('Mocked withAuth', () => {
       </MockedProvider>
     ));
     await wait(0);
+    wrapper.update();
     expect(wrapper.html()).not.toBe(null);
   });
 });

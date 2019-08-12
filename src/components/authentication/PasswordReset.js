@@ -98,7 +98,7 @@ class ResetPassword extends Component {
     const uidb64 = url[4];
     const token = url[5];
 
-    const resetUrl = `https://healthid-web-api.herokuapp.com/healthid/${uidb64}/${token}`;
+    const resetUrl = `${process.env.APP_LINK}${uidb64}/${token}`;
 
     const user = {
       password: newPassword
