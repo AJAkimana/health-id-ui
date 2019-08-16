@@ -27,6 +27,7 @@ describe('ViewProducts ', () => {
                   "dateReceived": null,
                   "expiryDate": "2019-05-20",
                   "quantity": null,
+                  "proposedQuantity": 54,
                   "id": "345678912"
                 }
               ],
@@ -51,6 +52,7 @@ describe('ViewProducts ', () => {
                   "dateReceived": null,
                   "expiryDate": "2019-05-20",
                   "quantity": null,
+                  "proposedQuantity": 54,
                   "id": "345678912"
                 }
               ],
@@ -94,15 +96,18 @@ describe('ViewProducts ', () => {
     );
     await wait(0);
     expect(wrapper.find('DataTableLoader').length).toEqual(1);
-    expect(wrapper.find('DataTable').length).toEqual(0)
+    wrapper.update();
+    expect(wrapper.find('DataTable').length).toEqual(1)
   });
 
   it('renders without error with a protected route', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <ViewProducts {...props} />
+         <Router>
+          <ViewProducts {...props} />
+         </Router>
       </MockedProvider>
     );
-    expect(wrapper.props('session')['children']['props'].session.me.username).toEqual('tester');
+    expect(wrapper.find('Router').length).toEqual(1);
   });
 });

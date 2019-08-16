@@ -13,7 +13,13 @@ export const MainSetup = ({ session }) => {
 };
 
 MainSetup.propTypes = {
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      role: PropTypes.shape({
+        name: PropTypes.string,
+      })
+    }),
+  }).isRequired,
 };
 
 export default withAuth(MainSetup);

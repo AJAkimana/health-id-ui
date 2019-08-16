@@ -1,14 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import wait from 'waait';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
 import MockComponent from '../../../__mocks__/mockComponent';
-import SellScreenContainerData, { SellScreenContainer } from '../../containers/sellScreenContainer';
-import GET_USER_INFO from '../../queries/userDataQuery';
-import GET_ALL_COUNTRIES from '../../queries/countryQuery';
-import APPROVED_PRODUCTS_QUERY from '../../queries/approvedProductQuery';
-import GET_ALL_CUSTOMERS from '../../queries/customersQuery';
+import GET_FILTERED_PRODUCTS from '../../queries/filteredProductsQuery';
+import { SellScreenContainer } from '../../containers/sellScreenContainer';
 
 jest.mock('../../components/sell/returnTableRow', () => MockComponent);
 
@@ -19,7 +16,8 @@ const props = {
   ],
   session: {
     me: {
-      users: [{ id: 1 }]
+      users: [{ id: 1 }],
+      activeOutlet: { outletpreference: { outletTimezone: { name: 'Africa/Nairobi' } } }
     }
   },
   countries: [{
@@ -30,111 +28,19 @@ const props = {
 };
 
 describe('SellScreenContainer with InitialData', () => {
-  const authMocks = [
-    {
-      request: { query: GET_USER_INFO },
-      result: {
-        data: {
-          me: {
-            id: 'aul5xrp73',
-            email: 'you.for@example.com',
-            mobileNumber: '07834562781',
-            username: 'Ronnie',
-            role: {
-              name: 'Master Admin',
-              __typename: '',
-            },
-            users: [{
-              id: 1,
-              __typename: '',
-            }],
-            __typename: ''
-          },
-        }
-      },
-    },
-  ];
 
-  const mocks = [
-    {
-      request: { query: GET_ALL_COUNTRIES },
-      result: {
-        data: {
-          countries: [{
-            id: '4',
-            name: 'South Sudan',
-            citySet: [{ id: '10', name: 'Juba', __typename: '' }],
-            __typename: ''
-          }],
-        },
-      },
-    },
-    {
-      request: { query: APPROVED_PRODUCTS_QUERY },
-      result: {
-        data: {
-          approvedProducts: [{
-            outlet: [{
-              outletpreference: {
-                outletCurrency: {
-                  symbol: '₦'
-                }
-              }
-            }],
-            brand: 'ventolinlike',
-            description: '',
-            id: '39',
-            image: '',
-            loyaltyWeight: 0,
-            manufacturer: 'vpn',
-            measurementUnit: { name: 'syrup', __typename: '' },
-            nearestExpiryDate: '2019-12-09',
-            productCategory: { name: 'prescription', __typename: '' },
-            productName: 'podophyllon',
-            productQuantity: null,
-            salesPrice: 1000,
-            skuNumber: '000039',
-            tags: ['painkillers', 'panadol'],
-            vatStatus: 'VAT',
-            __typename: ''
-          }],
-        },
-      },
-    },
-    {
-      request: { query: GET_ALL_CUSTOMERS },
-      result: {
-        data: {
-          customers: [{
-            addressLine1: null,
-            city: { id: '6', name: 'Abuja', __typename: '' },
-            country: { id: '3', name: 'Nigeria', __typename: '' },
-            email: 'jimmychu@mailinator.net',
-            emergencyContactEmail: null,
-            emergencyContactName: null,
-            emergencyContactNumber: null,
-            firstName: 'Jimmy',
-            id: '48',
-            lastName: 'Chu',
-            localGovernmentArea: null,
-            loyaltyMember: false,
-            primaryMobileNumber: '256784498389',
-            secondaryMobileNumber: '256784498389',
-            __typename: ''
-          }],
-        },
-      },
-    },
-  ];
   it('renders without crashing', async () => {
+    const client = {
+      query: ({ }) => jest.fn(),
+      watchQuery: jest.fn(),
+    }
+
     const wrapper = mount((
-      <MockedProvider mocks={mocks}>
-        <MockedProvider mocks={authMocks}>
-          <BrowserRouter>
-            <SellScreenContainerData />
-          </BrowserRouter>
-        </MockedProvider>
-      </MockedProvider>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
+          <SellScreenContainer {...props} />
+        </ApolloProvider>
+      </BrowserRouter>
     ));
     await wait(0);
   });
@@ -165,6 +71,107 @@ describe('SellScreenContainer', () => {
     const event = { target: { value: 'self', name: 'buyingForValue' } };
     wrapper.instance().handleChange(event);
     expect(wrapper.state('buyingForValue')).toEqual('self');
+  });
+  it('does not filter products when searchValue is less than 2 characters', async () => {
+    const funcMock = (value) => new Promise((resolve, reject) => {
+      if (value.length > 2) {
+        resolve([{ name: "name" }]);
+      } else {
+        reject();
+      }
+    });
+    const client = { query: () => funcMock('t') }
+    wrapper.instance().filterProducts(client, 't');
+    await wait(0);
+    expect(wrapper.instance().state.filteredProducts.length).toBe(0);
+  });
+  it('filters products when searchValue is more than 2 characters', async () => {
+    const mocks = [
+      {
+        request: {
+          query: GET_FILTERED_PRODUCTS
+        },
+        result: {
+          data: {
+            filterProducts: {
+              edges: [
+                {
+                  node: {
+                    id: "261",
+                    productCategory: {
+                      name: "pain killer"
+                    },
+                    productName: "Panadol",
+                    measurementUnit: {
+                      name: "tablets"
+                    },
+                    outlet: {
+                      outletpreference: {
+                        outletCurrency: {
+                          symbol: "₦"
+                        }
+                      }
+                    },
+                    image: "https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg",
+                    skuNumber: "000261",
+                    description: "Nice meds, they mess you real good",
+                    brand: "Stans",
+                    manufacturer: "Stans",
+                    productQuantity: 85,
+                    salesPrice: 408.0,
+                    tags: []
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ];
+    const funcMock = (value) => new Promise((resolve, reject) => {
+      if (value.length > 2) {
+        return resolve(
+          {data: {
+          filterProducts: {
+            edges: [
+              {
+                node: {
+                  id: "261",
+                  productCategory: {
+                    name: "pain killer"
+                  },
+                  productName: "Panadol",
+                  measurementUnit: {
+                    name: "tablets"
+                  },
+                  outlet: {
+                    outletpreference: {
+                      outletCurrency: {
+                        symbol: "₦"
+                      }
+                    }
+                  },
+                  image: "https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg",
+                  skuNumber: "000261",
+                  description: "Nice meds, they mess you real good",
+                  brand: "Stans",
+                  manufacturer: "Stans",
+                  productQuantity: 85,
+                  salesPrice: 408.0,
+                  tags: []
+                }
+              }
+            ]
+          }
+        }});
+      } else {
+        reject();
+      }
+    });
+    const client = { query: () => funcMock('pana') }
+    wrapper.instance().filterProducts(client, 'pana');
+    await wait(0);
+    expect(wrapper.instance().state.filteredProducts.length).toBe(1);
   });
   it('handle Discount Button', () => {
     const discountValue = 25;
@@ -627,21 +634,6 @@ describe('SellScreenContainer', () => {
     wrapper.instance().renderGrandTotal();
     expect(spy).toHaveBeenCalled();
   });
-  it('filter Products', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'renderCartTotal');
-    const products = [{
-      productName: 'Panadol',
-      productCategory: {},
-      skuNumber: '098',
-      tags: 'panadol'
-    }];
-    wrapper.setState({
-      products,
-      searchValue: 'Panadol'
-    });
-    wrapper.instance().filterProducts();
-    expect(wrapper.state('searchValue')).toBeTruthy();
-  });
   it('filter Clicked Product with same product', () => {
     const spy = jest.spyOn(wrapper.instance(), 'updateProductQuantity');
     const cartItem = {
@@ -692,32 +684,19 @@ describe('SellScreenContainer', () => {
     wrapper.instance().renderProductCard(products, currency);
     expect(wrapper.state('products')).toBeTruthy();
   });
-  it('render Search Bar', () => {
-    const searchValue = 'pana';
-    const classes = {};
-    wrapper.instance().renderSearchBar(classes, searchValue);
-    expect(wrapper.state('searchValue')).toBeTruthy();
-  });
-  it('switch Component Rendering with search value', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'filterProducts');
-    const classes = {};
-    wrapper.setState({
-      searchValue: 'pana',
-      preferedProducts: [],
-      currency: ''
+  it('switch Component Rendering with search value', async () => {
+    const funcMock = (value) => new Promise((resolve, reject) => {
+      if (value.length > 2) {
+        resolve([{ name: "name" }]);
+      } else {
+        reject();
+      }
     });
-    wrapper.instance().switchComponentRendering(classes);
-    expect(spy).toHaveBeenCalled();
-  });
-  it('switch Component Rendering without search value', () => {
+    const client = { query: () => funcMock('pan') }
     const spy = jest.spyOn(wrapper.instance(), 'filterProducts');
-    const classes = {};
-    wrapper.setState({
-      searchValue: '',
-      preferedProducts: [],
-      currency: ''
-    });
-    wrapper.instance().switchComponentRendering(classes);
+    const event = { target: { name: 'searchValue', value: 'pan' } };
+
+    wrapper.instance().handleChange(event, client);
     expect(spy).toHaveBeenCalled();
   });
 });

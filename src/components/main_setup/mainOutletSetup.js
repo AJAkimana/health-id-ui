@@ -63,7 +63,12 @@ class MainOutletSetup extends Component {
 }
 
 MainOutletSetup.propTypes = {
-  session: PropTypes.shape({}).isRequired,
+  session: PropTypes.shape({
+    me: PropTypes.shape({
+      businesses: PropTypes.array,
+      outlets: PropTypes.array
+    })
+  }).isRequired,
 };
 
 export default withAuth(MainOutletSetup);
