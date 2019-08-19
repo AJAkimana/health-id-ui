@@ -82,7 +82,8 @@ export class Categories extends Component {
     if (name === 'loyalty' || name === 'salesMarkup') {
       const val = Number(event.target.value);
 
-      if (val < 0 || val > 100) return notify('Ensure the values for sales markup and loyalty are between 0 and 100');
+      if (name === 'salesMarkup' && (val < 0 || val > 100)) return notify('Ensure the value for sales markup is between 0 and 100');
+      if (name === 'loyalty' && (val < 0 || val > 1000)) return notify('Ensure the value for loyalty is between 0 and 1000');
       this.setState(
         prevState => ({
           ...prevState,
@@ -116,7 +117,8 @@ export class Categories extends Component {
     this.setState({ newUpdate: true });
 
     if (field === 'loyaltyWeight' || field === 'markup') {
-      if (event.target.value < 0 || event.target.value > 100) return notify('Ensure the values for sales markup and loyalty are between 0 and 100');
+      if (field === 'markup' && (event.target.value < 0 || event.target.value > 100)) return notify('Ensure the value for sales markup is between 0 and 100');
+      if (field === 'loyaltyWeight' && (event.target.value < 0 || event.target.value > 1000)) return notify('Ensure the value for loyalty is between 0 and 1000');
     }
 
     const category = categories.filter(
@@ -399,13 +401,13 @@ export class Categories extends Component {
                           </TextField>
                         </Grid>
                         <Grid item xs={3} style={MainPreferencesStyles.categoryCell} align="center">
-                          <Grid item xs={2}>
+                          <Grid item xs={3}>
                             <TextField
                               type="number"
                               value={category.loyaltyWeight}
                               onChange={this.handleChange({ field: 'loyaltyWeight', category: category.id })}
                               style={MainPreferencesStyles.categoryInput}
-                              InputProps={{ inputProps: { min: 0, max: 100 } }}
+                              InputProps={{ inputProps: { min: 0, max: 1000 } }}
                             />
                           </Grid>
                         </Grid>
