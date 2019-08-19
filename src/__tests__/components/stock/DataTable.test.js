@@ -8,7 +8,8 @@ describe('DataTable ', () => {
     columns: ['id', 'name', 'sku'],
     data: [{ id: '1', name: 'panadol', sku: '45' }, { id: '3', name: 'chloro', sku: '5' }],
     title: 'Drugs',
-    onRowClick: jest.fn()
+    onRowClick: jest.fn(),
+    isAdmin: true
   };
   const event = {
     stopPropagation: jest.fn(),

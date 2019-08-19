@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GET_APPROVED_PRODUCTS = gql`
-  query {
-    approvedProducts {
+export const GET_APPROVED_AND_PROPOSED_PRODUCTS = gql`
+  query($pageNumber: Int, $pageCount: Int) {
+    approvedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
       id
       productName
       skuNumber
@@ -36,12 +36,8 @@ export const GET_APPROVED_PRODUCTS = gql`
         name
       }
     }
-  }
-`;
 
-export const GET_PROPOSED_PRODUCTS = gql`
-  query {
-    proposedProducts {
+    proposedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
       id
       productName
       skuNumber
@@ -94,6 +90,46 @@ query product(
     salesPrice
     image
     isApproved
+    nearestExpiryDate
+    loyaltyWeight
+    tags
+
+    productCategory {
+      id
+      name
+    }
+
+    measurementUnit {
+      id
+      name
+    }
+
+    preferredSupplier {
+      id
+      name
+    }
+
+    backupSupplier {
+      id
+      name
+    }
+  }
+}
+`;
+
+
+export const SEARCH_PRODUCTS = gql`
+query ($searchValue: String) {
+  products(search: $searchValue) {
+    id
+    productName
+    skuNumber
+    description
+    brand
+    manufacturer
+    vatStatus
+    productQuantity
+    salesPrice
     nearestExpiryDate
     loyaltyWeight
     tags
