@@ -204,7 +204,7 @@ export class AuthContainer extends Component {
           openAlert: true
         });
         const { token, message, restToken } = data.data.loginUser;
-        const { isAdmin } = data.data.loginUser.user;
+        const { role, activeOutlet } = data.data.loginUser.user;
 
         if (message === 'Login Successful') {
           localStorage.setItem('auth_token', token);
@@ -218,10 +218,12 @@ export class AuthContainer extends Component {
             helperEmailText: '',
           });
 
-          if (!isAdmin) {
+          if (role.name !== 'Master Admin') {
             setTimeout(() => window.location.assign('/sell'), 900);
-          } else {
+          } else if (!activeOutlet) {
             setTimeout(() => window.location.assign('/setup'), 900);
+          } else {
+            setTimeout(() => window.location.assign('/sell'), 900);
           }
         }
       })

@@ -416,7 +416,7 @@ setLocale = (value) => {
 
 setCityId = (value) => {
   const { cities } = this.state;
-  cities.map((city) => {
+  cities && cities.map((city) => {
     if (city.name === value) {
       this.setState({ cityId: Number(city.id) });
     }

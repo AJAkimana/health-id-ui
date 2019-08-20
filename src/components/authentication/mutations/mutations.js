@@ -16,11 +16,18 @@ mutation SignupMutation($email: String!, $mobileNumber: String!, $password: Stri
 export const EMAIL_LOGIN_MUTATION = gql`
 mutation EmailLoginMutation($email: String!, $password: String!) {
   loginUser(email:$email, password:$password) {
-    token,
-    restToken,
-    message,
+    token
+    restToken
+    message
     user {
-      isAdmin,
+      isAdmin
+      role {
+        name
+      }
+      activeOutlet {
+        id
+        name
+      }
       role {
         name
       }

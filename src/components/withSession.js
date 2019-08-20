@@ -6,7 +6,8 @@ const withSession = Component => props => (
   <Query query={GET_USER_INFO}>
     {({ data, loading }) => {
       if (loading) return null;
-      if (data.me.activeOutlet) {
+
+      if (data && data.me.activeOutlet) {
         localStorage.setItem('outletId', data.me.activeOutlet.id);
       }
 
