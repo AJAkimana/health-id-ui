@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import {
@@ -11,11 +10,8 @@ import Add from '@material-ui/icons/Add';
 import productCardStyles from '../../assets/css/productCardStyles';
 import FormatCurrency from '../utils/formatCurrency';
 
-const styles = productCardStyles;
-
 const ProductCard = (props) => {
   const {
-    classes,
     product,
     currency,
     handleClickToAddProduct,
@@ -26,70 +22,70 @@ const ProductCard = (props) => {
   } = product;
 
   return (
-    <Card className={classes.card}>
-      <Grid container>
+    <Card style={productCardStyles.card}>
+      <Grid container style={productCardStyles.row1}>
         <Grid item xs={12}>
           <CardContent style={productCardStyles.content1}>
-            <Typography variant="inherit" className={classes.productName}>
+            <Typography variant="inherit" style={productCardStyles.productName}>
               {product.productName}
             </Typography>
           </CardContent>
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <CardContent style={productCardStyles.content2}>
-            <Typography variant="inherit" className={classes.productQuantity}>
+            <Typography variant="inherit" style={productCardStyles.productQuantity}>
               {`${measurementUnit.name}`}
             </Typography>
           </CardContent>
         </Grid>
+      </Grid>
 
+      <Grid container style={productCardStyles.row2}>
         <Grid item xs={8}>
           <CardContent style={productCardStyles.content2}>
-            <Typography variant="inherit" className={classes.productCategory}>
+            <Typography variant="inherit" style={productCardStyles.productCategory}>
               {name}
             </Typography>
-            <Typography variant="inherit" className={classes.productPrice}>
+            <Typography variant="inherit" style={productCardStyles.productPrice}>
               {<FormatCurrency
                 amount={product.salesPrice}
                 currency={currency}
               />}
             </Typography>
           </CardContent>
-
         </Grid>
 
-        <Grid item xs={3} className={classes.mediaGrid}>
+        <Grid item xs={4} style={productCardStyles.mediaGrid}>
           <CardMedia
             component="img"
-            className={classes.media}
+            style={productCardStyles.media}
             image={product.image}
           />
         </Grid>
+      </Grid>
 
-        <Grid item xs={12}>
-          <div className={classes.buttonDiv}>
-            <CardActions disableActionSpacing className={classes.cardAction}>
-              <IconButton
-                id={product.name}
-                onClick={() => handleClickToAddProduct(product)}
-                className={classes.iconButton}
-              >
-                <Add className={classes.addIcon} />
-              </IconButton>
-            </CardActions>
-          </div>
-        </Grid>
+      <Grid item xs={12} style={productCardStyles.row3}>
+        <div style={productCardStyles.buttonDiv}>
+          <CardActions disableActionSpacing style={productCardStyles.cardAction}>
+            <IconButton
+              id={product.name}
+              onClick={() => handleClickToAddProduct(product)}
+              style={productCardStyles.iconButton}
+            >
+              <Add style={productCardStyles.addIcon} />
+            </IconButton>
+          </CardActions>
+        </div>
       </Grid>
     </Card>
   );
 };
 
 ProductCard.propTypes = {
-  classes: PropTypes.instanceOf(Object).isRequired,
   product: PropTypes.instanceOf(Object).isRequired,
   currency: PropTypes.string.isRequired,
   handleClickToAddProduct: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(ProductCard);
+export default ProductCard;
