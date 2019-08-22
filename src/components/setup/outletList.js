@@ -102,10 +102,10 @@ const OutletList = ({
                           </div>
                         </TableCell>
                       </TableRow>
-                      {item.registerSet
+                      {item.outletRegister
                       && !registerHidden
                       && (item.id === clickedOutlet)
-                      && item.registerSet.map(register => (
+                      && item.outletRegister.map(register => (
                         <TableRow key={item.id} id={item.id} display="none">
                           <TableCell component="th" scope="row">
                             <Typography variant="subtitle2">
