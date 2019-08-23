@@ -13,15 +13,20 @@ import ProductDescriptions from './Inputs/ProductDescriptions';
 const ProductForm = (props) => {
   const {
     state: {
-      tags, suppliers, categories, measurementUnits,
-      categoryId, measurementUnitId, vatStatus, preferredSupplierId, backupSupplierId,
+      tags, categoryId, measurementUnitId, vatStatus, preferredSupplierId, backupSupplierId,
       productName, productDescription, brand, manufacturer, loyaltyWeight, productImage,
     },
     state,
     handleChange, handleAddition, handleDelete, onSelectFile,
     handleOnCropChange, handleClose, handleSave, handleSendForApproval,
-    handleAddAnotherProduct, handleProductName, handleCategoryChange, handleOnDrop
+    handleAddAnotherProduct, handleProductName, handleCategoryChange, handleOnDrop, initialData
   } = props;
+
+  const {
+    approvedSuppliers,
+    productCategories,
+    measurementUnit,
+  } = initialData;
 
 
   const disableButton = !productName || !brand || !manufacturer || !productDescription
@@ -116,8 +121,8 @@ const ProductForm = (props) => {
                 }}
               >
 (
-                {suppliers && (
-                  suppliers.map(supplier => (
+                {approvedSuppliers && (
+                  approvedSuppliers.map(supplier => (
                     <MenuItem className="preferredSupplier" key={supplier.id} value={supplier.id}>{supplier.name}</MenuItem>
                   ))
                 )
@@ -142,8 +147,8 @@ const ProductForm = (props) => {
                   id: 'backup-supplier',
                 }}
               >
-                {suppliers && (
-                  suppliers.map(supplier => (
+                {approvedSuppliers && (
+                  approvedSuppliers.map(supplier => (
                     <MenuItem className="backupSupplier" key={supplier.id} value={supplier.id}>{supplier.name}</MenuItem>
                   ))
                 )}
@@ -185,8 +190,8 @@ const ProductForm = (props) => {
                   id: 'category',
                 }}
               >
-                {categories && (
-                  categories.map(item => (
+                {productCategories && (
+                  productCategories.map(item => (
                     <MenuItem className="category" key={item.id} value={item.id}>{item.name}</MenuItem>
                   ))
                 )}
@@ -211,8 +216,8 @@ const ProductForm = (props) => {
                   id: 'measurementUnitId',
                 }}
               >
-                {measurementUnits && (
-                  measurementUnits.map(unit => (
+                {measurementUnit && (
+                  measurementUnit.map(unit => (
                     <MenuItem className="measurementUnit" key={unit.id} value={unit.id}>{unit.name}</MenuItem>
                   ))
                 )}
@@ -283,6 +288,29 @@ const ProductForm = (props) => {
 
 ProductForm.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
+  initialData: PropTypes.shape({
+    approvedSuppliers: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+      })
+    ),
+    productCategories: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        isVatApplicable: PropTypes.bool,
+        loyaltyWeight: PropTypes.number,
+        markup: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
+    measurementUnit: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+      })
+    ),
+  }).isRequired,
   handleChange: PropTypes.func.isRequired,
   handleAddition: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,

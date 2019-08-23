@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { compose, graphql } from 'react-apollo';
+import { compose, graphql, Query } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import ProductForm from './ProductForm';
 import withAuth from '../../withAuth';
-import GET_APPROVED_SUPPLIERS from '../../../queries/approvedSuppliersQuery';
-import GET_PRODUCT_CATEGORIES from '../../../queries/productCategoryQuery';
-import GET_MEASUREMENT_UNITS from '../../../queries/measurementUnitQuery';
+import GET_INITIAL_DATA from '../../../queries/productsSuppliersCategoriesQuery';
 import CREATE_PRODUCT from '../../../mutations/createProduct';
-import GET_ALL_PRODUCTS from '../../../queries/allProductsQuery';
 import Dashboard from '../../shared/Dashboard/Dashboard';
 import BackAction from '../BackAction';
 import notify from '../../shared/Toaster';
 import validateProductName from '../../../utils/products/ProductNameValidation';
 import verifyFile from '../../../utils/products/verifyFile';
+import DataTableLoader from '../../dataTable/dataTableLoader';
 
 
 export class AddProduct extends Component {
@@ -45,26 +43,6 @@ export class AddProduct extends Component {
     },
     open: false,
   };
-
-  componentWillReceiveProps(nextProps) {
-    nextProps && this.fetchData(nextProps);
-  }
-
-
-  fetchData = (nextProps) => {
-    const {
-      getSuppliers: { approvedSuppliers },
-      getCategories: { productCategories },
-      getMeasurementUnits: { measurementUnit },
-      getAllProducts: { products }
-    } = nextProps;
-    this.setState({
-      suppliers: approvedSuppliers,
-      categories: productCategories,
-      measurementUnits: measurementUnit,
-      products
-    });
-  }
 
   handleProductName = (event) => {
     const { products } = this.state;
@@ -286,25 +264,40 @@ export class AddProduct extends Component {
     return (
       <div>
         <Dashboard isActive="grid3" session={session} />
-        <BackAction
-          header="Add Product (Proposed)"
-          link="/products/approved"
-        />
-        <ProductForm
-          state={this.state}
-          handleProductName={this.handleProductName}
-          handleChange={this.handleChange}
-          handleAddition={this.handleAddition}
-          handleDelete={this.handleDelete}
-          onSelectFile={this.onSelectFile}
-          handleOnDrop={this.handleImageDrop}
-          handleOnCropChange={this.handleOnCropChange}
-          handleCategoryChange={this.handleCategoryChange}
-          handleClose={this.handleClose}
-          handleSave={this.handleSave}
-          handleSendForApproval={this.handleSendForApproval}
-          handleAddAnotherProduct={this.handleAddAnotherProduct}
-        />
+        <Query
+          query={GET_INITIAL_DATA}
+          variables={{ outletId: localStorage.outletId }}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <DataTableLoader />;
+            if (error) return null;
+
+            return (
+              <div>
+                <BackAction
+                  header="Add Product (Proposed)"
+                  link="/products/approved"
+                />
+                <ProductForm
+                  state={this.state}
+                  initialData={data}
+                  handleProductName={this.handleProductName}
+                  handleChange={this.handleChange}
+                  handleAddition={this.handleAddition}
+                  handleDelete={this.handleDelete}
+                  onSelectFile={this.onSelectFile}
+                  handleOnDrop={this.handleImageDrop}
+                  handleOnCropChange={this.handleOnCropChange}
+                  handleCategoryChange={this.handleCategoryChange}
+                  handleClose={this.handleClose}
+                  handleSave={this.handleSave}
+                  handleSendForApproval={this.handleSendForApproval}
+                  handleAddAnotherProduct={this.handleAddAnotherProduct}
+                />
+              </div>
+            );
+          }}
+        </Query>
       </div>
     );
   }
@@ -321,24 +314,8 @@ AddProduct.defaultProps = {
   history: {},
 };
 
-const ALL_PRODUCTS = graphql(GET_ALL_PRODUCTS, { name: 'getAllProducts' });
-const APPROVED_SUPPLIERS = graphql(GET_APPROVED_SUPPLIERS, { name: 'getSuppliers' });
-const PRODUCT_CATEGORIES = graphql(GET_PRODUCT_CATEGORIES,
-  {
-    name: 'getCategories',
-    options: {
-      variables: {
-        outletId: localStorage.outletId,
-      },
-    }
-  });
-const MEASUREMENT_UNITS = graphql(GET_MEASUREMENT_UNITS, { name: 'getMeasurementUnits' });
 const ADD_PRODUCT = graphql(CREATE_PRODUCT, { name: 'addProduct' });
 
 export default withAuth((compose(
-  ALL_PRODUCTS,
-  APPROVED_SUPPLIERS,
-  PRODUCT_CATEGORIES,
-  MEASUREMENT_UNITS,
   ADD_PRODUCT
 )(withRouter(AddProduct))));
