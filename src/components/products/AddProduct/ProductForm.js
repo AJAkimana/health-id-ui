@@ -45,7 +45,7 @@ const ProductForm = (props) => {
         >
           <Grid
             item
-            xs={8}
+            xs={6}
             style={ProductFormStyles.descriptionsGrid}
           >
             <ProductDescriptions
@@ -58,7 +58,7 @@ const ProductForm = (props) => {
           {/* rows 1-3 image */}
           <Grid
             item
-            xs={3}
+            xs={5}
             style={ProductFormStyles.uploadGrid}
           >
             <ImageUpload
