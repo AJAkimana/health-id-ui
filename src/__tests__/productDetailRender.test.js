@@ -70,7 +70,7 @@ describe('render ProductDetailRender component', () => {
       <ProductDetailRender {...props} />
     </BrowserRouter>
   );
-  it('renders 26 textfields', () => {
-    expect(wrapper.find('TextField').length).toBe(17);
+  it('renders 16 textfields', () => {
+    expect(wrapper.find('TextField').length).toBe(16);
   });
 });

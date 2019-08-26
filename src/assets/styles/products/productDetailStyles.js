@@ -71,7 +71,7 @@ export const productDetailStyles = theme => ({
     width: 'auto',
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 1,
     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
       width: '72%',
       marginLeft: 'auto',
@@ -82,9 +82,6 @@ export const productDetailStyles = theme => ({
     fontSize: 30,
     color: '#000000',
     cursor: 'pointer'
-  },
-  arrowButtonLabel: {
-    marginLeft: '0.8em'
   },
   buttonsDiv: {
     textAlign: 'right'
@@ -101,6 +98,16 @@ export const productDetailStyles = theme => ({
   },
   batchRow: {
     height: '25px',
+  },
+  buttonGrid: {
+    position: 'absolute',
+    right: '4em',
+  },
+  approveButton: {
+    backgroundColor: '#424242',
+    color: 'white',
+    borderRadius: '20px',
+    padding: '5px 43px'
   },
 });
 
