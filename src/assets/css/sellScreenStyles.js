@@ -10,8 +10,10 @@ export const addedItems = {
     margin: '20px'
   },
   cartWrapper: {
+    height: '600px',
     paddingRight: '2em',
-    paddingLeft: '2em'
+    paddingLeft: '2em',
+    right: '0',
   },
   productsWrapper: {
     paddingLeft: '2em'
@@ -27,13 +29,12 @@ export const addedItems = {
     minHeight: '13em',
     overflow: 'auto',
   },
-  buttonsGrid: {
-    margin: '3px',
-    justifyContent: 'space-between'
-  },
   buttons: {
     textTransform: 'capitalize',
     color: '#424242',
+  },
+  buttonsGrid: {
+    padding: '0.5rem 0',
   },
   buttonsIcons: {
     padding: '4px',

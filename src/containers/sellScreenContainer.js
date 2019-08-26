@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { ApolloConsumer } from 'react-apollo';
-import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   Typography, Grid, TextField, Paper, InputAdornment
@@ -11,7 +10,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { createFilter } from 'react-search-input';
 import withAuth from '../components/withAuth';
 import Dashboard from '../components/shared/Dashboard/Dashboard';
-import { addedItems } from '../assets/css/sellScreenStyles';
 import notify from '../components/shared/Toaster';
 import SellScreen from '../components/sell/sellScreen';
 import {
@@ -26,9 +24,8 @@ import ProductCard from '../components/sell/productCard';
 import SearchList from '../components/sell/searchList';
 import WithInitialData from './withInitialData';
 import PaymentContainer from '../components/payment/container/paymentContainer';
+import viewProductStyles from '../assets/css/viewProductsStyles';
 import GET_FILTERED_PRODUCTS from '../queries/filteredProductsQuery';
-
-const styles = addedItems;
 
 export class SellScreenContainer extends Component {
   state = {
@@ -743,7 +740,7 @@ handleClickToAddProduct = (product) => {
 };
 
 renderProductCard = (products, currency) => products.map(product => (
-  <Grid item key={product.productName} xs={3}>
+  <Grid item key={product.productName} xs={4}>
     <ProductCard
       product={product}
       currency={currency}
@@ -753,7 +750,7 @@ renderProductCard = (products, currency) => products.map(product => (
   </Grid>
 ));
 
-renderSearchBar = (classes, searchValue) => {
+renderSearchBar = (searchValue) => {
   const { searching } = this.state;
 
   return (
@@ -770,7 +767,7 @@ renderSearchBar = (classes, searchValue) => {
               fullWidth
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start" className={classes.searchIcon}>
+                  <InputAdornment position="start" style={viewProductStyles.searchIcon}>
                     <SearchIcon />
                   </InputAdornment>
                 ),
@@ -778,7 +775,7 @@ renderSearchBar = (classes, searchValue) => {
                   searching && <CircularProgress disableShrink />
                 ),
                 classes: {
-                  root: classes.inputRoot,
+                  root: viewProductStyles.inputRoot,
                 }
               }}
             />
@@ -788,7 +785,7 @@ renderSearchBar = (classes, searchValue) => {
   );
 };
 
-switchComponentRendering = (classes) => {
+switchComponentRendering = () => {
   const {
     searchValue, preferedProducts, currency, filteredProducts
   } = this.state;
@@ -798,7 +795,7 @@ switchComponentRendering = (classes) => {
       <Grid item xs={12}>
         <Paper
           elevation={0}
-          className={classes.filteredProductsPaper}
+          style={viewProductStyles.filteredProductsPaper}
         >
           {
             filteredProducts.length > 0
@@ -814,7 +811,7 @@ switchComponentRendering = (classes) => {
                 )
               )
               : (
-                <div className={classes.filteredProducts}>
+                <div className={viewProductStyles.filteredProducts}>
                   Unable to find products that match
                   {' '}
                   {' '}
@@ -829,17 +826,16 @@ switchComponentRendering = (classes) => {
   }
   return (
     <Fragment>
-      <Grid item xs={12} className={classes.frequentProducts}>
+      <Grid item xs={12} style={viewProductStyles.frequentProducts}>
         <Typography
           variant="inherit"
-          className={classes.frequentProducts1}
+          style={viewProductStyles.frequentProducts1}
         >
           Frequently Bought Products
         </Typography>
       </Grid>
-      <Grid item container spacing={24} xs={12} className={classes.renderProductCardGrid}>
+      <Grid item container spacing={24} xs={12} style={viewProductStyles.renderProductCardGrid}>
         {this.renderProductCard(preferedProducts, currency)}
-
       </Grid>
     </Fragment>
   );
@@ -962,4 +958,4 @@ SellScreenContainer.defaultProps = {
   customers: [],
 };
 
-export default withAuth(WithInitialData(withStyles(styles)(SellScreenContainer)));
+export default withAuth(WithInitialData(SellScreenContainer));

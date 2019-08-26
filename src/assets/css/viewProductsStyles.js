@@ -1,39 +1,29 @@
-import { fade } from '@material-ui/core/styles/colorManipulator';
-
-const viewProductsStyles = theme => ({
+const viewProductsStyles = {
   search: {
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: '1.7em',
-      marginRight: '1.7em',
-      width: 'auto',
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-    },
-    marginTop: '20px'
+    padding: '1rem',
+    boxShadow: 'none',
+    backgroundColor: 'white',
   },
   searchIcon: {
-    width: theme.spacing.unit * 5,
+    width: '1rem',
     height: '20px',
     pointerEvents: 'none',
     color: 'gray',
   },
   iconNavWrapper: {
-    height: '2.45em'
+    display: 'flex',
+    alignItems: 'center',
   },
   inputRoot: {
     width: '100%',
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 3,
+    paddingRight: '1rem',
+    paddingLeft: '1rem',
     paddingBottom: '0.2em'
   },
   paper: {
     width: '100%',
     height: '515px',
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: '100%',
-      height: '33em'
-    }
+    overflow: 'scroll',
   },
   filteredProducts: {
     paddingTop: '0.5em',
@@ -41,20 +31,19 @@ const viewProductsStyles = theme => ({
     paddingLeft: '1.1em'
   },
   frequentProducts: {
-    marginTop: '2em'
+    marginTop: '0.5em'
   },
   frequentProducts1: {
     color: 'gray',
     marginLeft: '1.4em',
-    marginBottom: '0.5em',
-    fontWeight: 'bolder',
+    fontWeight: 'bold',
     fontSize: 'large'
   },
   filteredProductsPaper: {
     marginLeft: '0.5em',
     marginRight: '0.5em',
-    height: '420px',
-    overflow: 'auto',
+    height: '550px',
+    overflow: 'scroll',
   },
   renderProductCardGrid: {
     margin: 0,
@@ -69,6 +58,6 @@ const viewProductsStyles = theme => ({
   mainItemContainer: {
     paddingLeft: '3em'
   }
-});
+};
 
 export default viewProductsStyles;

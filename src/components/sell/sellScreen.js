@@ -8,7 +8,6 @@ import {
 import {
   RadioButtonUnchecked, RadioButtonChecked
 } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
 import FormatCurrency from '../utils/formatCurrency';
 import { addedItems, tableStyles } from '../../assets/css/sellScreenStyles';
 import AddCustomerDialog from './addCustomerDialog';
@@ -21,8 +20,6 @@ import {
   NotesIcon, UserIcon, TrashIcon, ArchieveIcon, PauseIcon
 } from '../../assets/SvgIcons/sellScreenSvgs';
 import ViewProducts from './viewProducts';
-
-const styles = addedItems;
 
 export const SellScreen = ({
   state,
@@ -267,7 +264,7 @@ export const SellScreen = ({
                     <Grid item xs={1} style={tableStyles.discount}>
                       <Typography inline variant="caption" style={tableStyles.discountNum}>
                         {discount}
-                      %
+                        %
                       </Typography>
                     </Grid>
                     <Grid container item xs={11} style={tableStyles.discount}>
@@ -381,4 +378,4 @@ SellScreen.defaultProps = {
   state: {},
 };
 
-export default withStyles(styles)(SellScreen);
+export default SellScreen;
