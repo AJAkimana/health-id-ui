@@ -13,6 +13,7 @@ query ($isApproved: Boolean, $productName: String ) {
         name
       }
       productName
+      productQuantity
       measurementUnit {
         name
       }
