@@ -721,7 +721,8 @@ handleClickToAddProduct = (product) => {
     productName,
     salesPrice,
     image,
-    measurementUnit
+    measurementUnit,
+    productQuantity
   } = product;
   let { id } = product;
   const newFields = {
@@ -732,10 +733,12 @@ handleClickToAddProduct = (product) => {
     id, productName, salesPrice, image, measurementUnit, ...newFields
   };
 
-  if (!this.filterClickedProduct(cartItem)) {
-    this.setState({
-      ...cartItems.unshift(cartItem)
-    });
+  if (productQuantity > 0) {
+    if (!this.filterClickedProduct(cartItem)) {
+      this.setState({
+        ...cartItems.unshift(cartItem)
+      });
+    }
   }
 };
 

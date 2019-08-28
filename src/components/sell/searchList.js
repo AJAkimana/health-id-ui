@@ -1,29 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  List, ListItem, ListItemIcon,
+  ListItemText, IconButton, Tooltip,
+} from '@material-ui/core';
 import Add from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import searchListStyles from '../../assets/css/searchListStyles';
+import Zoom from '@material-ui/core/Zoom';
 import FormatCurrency from '../utils/formatCurrency';
-
+import searchListStyles from '../../assets/css/searchListStyles';
 
 const SearchList = ({ product, currency, handleClickToAddProduct }) => {
-  const { image, productName, salesPrice } = product;
+  const {
+    image, productName, salesPrice, productQuantity
+  } = product;
 
   return (
     <List component="nav" style={searchListStyles.listItem}>
+
       <ListItem
         id={productName}
         button
         onClick={() => handleClickToAddProduct(product)}
       >
         <ListItemIcon>
-          <IconButton id={productName}>
-            <Add style={searchListStyles.addIcon} />
-          </IconButton>
+          {
+            productQuantity > 0
+              ? (
+                <IconButton id={productName}>
+                  <Add style={searchListStyles.addIcon} />
+                </IconButton>
+              )
+              : (
+                <Tooltip title="Out of stock" TransitionComponent={Zoom}>
+                  <IconButton id={productName}>
+                    <Add style={searchListStyles.addIcon} />
+                  </IconButton>
+                </Tooltip>
+              )
+          }
         </ListItemIcon>
         <ListItemIcon>
           <img src={image} alt="" style={searchListStyles.productImg} />
