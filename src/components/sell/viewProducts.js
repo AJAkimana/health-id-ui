@@ -9,11 +9,7 @@ import viewProductsStyles from '../../assets/css/viewProductsStyles';
 import { HistoryIcon } from '../../assets/SvgIcons/sellScreenSvgs';
 
 const styles = viewProductsStyles;
-export const ViewProducts = ({
-  state,
-  renderSearchBar,
-  switchComponentRendering,
-}) => {
+export const ViewProducts = ({ state, renderSearchBar, switchComponentRendering }) => {
   const { searchValue } = state;
   return (
     <Fragment>
@@ -41,7 +37,7 @@ export const ViewProducts = ({
 ViewProducts.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
   renderSearchBar: PropTypes.func.isRequired,
-  switchComponentRendering: PropTypes.func.isRequired,
+  switchComponentRendering: PropTypes.func.isRequired
 };
 
 export default withRouter(withStyles(styles)(ViewProducts));

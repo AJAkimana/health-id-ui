@@ -5,6 +5,7 @@ import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
 import Dashboard from './shared/Dashboard/Dashboard';
+import ComingSoon from './shared/ComingSoon';
 import ViewProducts from './stock_control/viewProducts';
 import ProductPage from './products/ProductPage';
 import UserProfile from './profile/Profile';
@@ -30,6 +31,7 @@ const App = ({ session }) => (
       <Route exact path="/" component={AuthContainer} />
       <Route exact path="/register" component={AuthContainer} />
       <Route exact path="/setup" component={StepperNav} />
+      <Route exact path="/comingsoon" render={() => <ComingSoon session={session} />} />
       <Route exact path="/main_setup" render={() => <MainSetup session={session} />} />
       <Route exact path="/main_setup/profile" render={() => <MainProfile session={session} />} />
       <Route exact path="/main_setup/profile/manage_profile_user" render={() => <ManageProfile session={session} />} />

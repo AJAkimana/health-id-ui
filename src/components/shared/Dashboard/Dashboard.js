@@ -27,6 +27,7 @@ export class Dashboard extends Component {
     const { history } = this.props;
     localStorage.removeItem('auth_token');
     localStorage.removeItem('rest_token');
+    localStorage.removeItem('outletId');
     this.setState({ anchorEl: null, open: false });
     history.push('/');
   }
@@ -127,14 +128,14 @@ export class Dashboard extends Component {
           <img className="logo" src={logo} alt="some text" style={styles.logo} />
         </Grid>
 
-        {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/')}
+        {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/comingsoon')}
         {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/sell')}
         {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products/approved')}
-        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/')}
-        {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/')}
-        {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/')}
-        {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS', '/')}
-        {renderGrid('grid8', 'Team', styles.teamImg, 'TEAM', '/')}
+        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/comingsoon')}
+        {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/comingsoon')}
+        {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/comingsoon')}
+        {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS', '/comingsoon')}
+        {renderGrid('grid8', 'Team', styles.teamImg, 'TEAM', '/comingsoon')}
         {renderGrid('grid9', 'Settings', styles.settingsImg, 'SETUP', '/main_setup')}
 
       </Grid>
