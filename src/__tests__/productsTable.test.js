@@ -182,8 +182,10 @@ describe('Test table rendering and data functions', () => {
     const errorWrapper = mount(<Router><MockedProvider mocks={errorMock} addTypename={false}><Products {...props} /></MockedProvider></Router>);
     await wait(200);
     errorWrapper.update();
-    const errorDiv = errorWrapper.find('Products');
-    expect(errorDiv.text()).toContain('Something went wrong, try refreshing the page');
+    setTimeout(() => {
+      const errorDiv = errorWrapper.find('Products');
+      expect(errorDiv.text()).toContain('Something went wrong, try refreshing the page');
+    }, 20);
   });
 
   it('should switch to proposed products when view proposed products is switched', () => {
