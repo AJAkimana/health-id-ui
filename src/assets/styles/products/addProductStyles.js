@@ -13,6 +13,7 @@ export const ProductFormStyles = {
     color: '#A3A3A3',
   },
   textArea: {
+    'max-width': '140%',
     border: '1px solid rgb(107, 107, 107)',
     resize: 'none',
     outline: 'none',
@@ -26,8 +27,9 @@ export const ProductFormStyles = {
     marginTop: '8%'
   },
   uploadGrid: {
-    marginTop: '3%',
-    marginLeft: '5%',
+    'padding-left': '15%',
+    marginTop: '5%',
+    marginLeft: '8%',
   },
   buttonGrid: {
     marginTop: '4%'
@@ -41,12 +43,13 @@ export const ActionButtonStyles = {
   addButton: {
     borderRadius: '20px',
     border: '1px solid',
-    width: '40%',
-    marginLeft: '13%'
+    width: '38%',
+    margin: 'auto 1%'
   },
   doneButton: {
     borderRadius: '20px',
-    marginLeft: '5%'
+    width: '58%',
+    margin: 'auto 1%'
   }
 };
 
@@ -64,11 +67,10 @@ export const ImageUploadStyles = {
     width: '100%',
   },
   uploadDiv: {
-    height: '170px',
-    width: '170px',
+    height: '150px',
+    width: '150px',
     borderRadius: '50%',
-    marginTop: '10%',
-    marginLeft: '8%',
+    margin: 'auto',
     marginBottom: '10%',
     backgroundColor: '#E4E4E4'
   },
@@ -79,8 +81,7 @@ export const ImageUploadStyles = {
   uploadedImg: {
     width: '100%',
     height: '100%',
-    borderRadius: '50%',
-
+    borderRadius: '50%'
   },
   button: {
     borderRadius: '20px',
