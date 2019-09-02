@@ -675,8 +675,11 @@ describe('SellScreenContainer', () => {
     };
     const cartItems = [cartItem];
     wrapper.setState({ cartItems });
-    wrapper.instance().handleClickToAddProduct(product);
+    setTimeout(() => {
+      wrapper.instance().handleClickToAddProduct(product);
     expect(spy).toHaveBeenCalled();
+    }, 20);
+    
   });
   it('render Product Card', () => {
     const products = [{ id: 1, productName: 'Panadol' }];
