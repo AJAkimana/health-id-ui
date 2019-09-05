@@ -24,6 +24,7 @@ import MainBusinessView from './main_setup/mainBusinessSetupView';
 import MainOutletSetup from './main_setup/mainOutletSetup';
 import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
 import MainInvitedUsers from './main_setup/mainInvitedUsers';
+import SuppliersPage from './suppliers/SuppliersPage';
 
 const App = ({ session }) => (
   <Fragment>
@@ -49,6 +50,11 @@ const App = ({ session }) => (
       <Route exact path="/profile" component={UserProfile} />
       <Route exact path="/products/:id/details" render={() => <ProductDetail session={session} />} />
       <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
+      <Route
+        exact
+        path="/suppliers"
+        render={() => <SuppliersPage session={session} />}
+      />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
       <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />
       <Route exact path="/product/add" render={() => <AddProduct session={session} />} />
