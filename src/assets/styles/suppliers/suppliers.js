@@ -16,6 +16,9 @@ const supplyStyles = {
   },
   titleFont: {
     fontSize: '12px !important'
+  },
+  tableRow: {
+    cursor: 'pointer'
   }
 };
 

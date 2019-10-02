@@ -72,7 +72,6 @@ describe('SuppliersPage ', () => {
     history: { push: jest.fn() },
   };
 
-
   it('renders without error', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>

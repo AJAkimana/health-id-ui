@@ -5,7 +5,6 @@
 
 Health ID is an inventory management and customer engagement software platform. This is the UI/UX codebase for the project.
 
-
 ## About
 
 For pharmacists/chemists, Health ID helps them run their stores more efficiently and grow their business by improved targeting of promotions and value-added services. For consumers, Health ID improves their overall experience of pharmacies, provides personalised services and information, and also offers unique product discounts.

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SVGIcon should render the SVGIcon component properly 1`] = `
+<svg
+  name=""
+  style={Object {}}
+  viewBox="0 0 0.268 24.039"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path />
+</svg>
+`;

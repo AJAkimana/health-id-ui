@@ -4,7 +4,7 @@ import StarIcon from '@material-ui/icons/Star';
 import { supplyStyles } from '../../../assets/styles/suppliers/suppliers';
 
 const Rating = (props) => {
-  const createStars = (stars) => {
+  const createStars = (stars, starClass) => {
     let allStars = stars;
     const starArray = [];
 
@@ -12,6 +12,7 @@ const Rating = (props) => {
       starArray.push((
         <StarIcon
           key={i}
+          className={starClass}
           style={(allStars < 1) ? supplyStyles.emptyStar : supplyStyles.starStyle}
         />
       ));
@@ -22,10 +23,10 @@ const Rating = (props) => {
     return starArray;
   };
 
-  const { rating } = props;
+  const { rating, starClass } = props;
   return (
     <Fragment>
-      {createStars(rating)}
+      {createStars(rating, starClass)}
     </Fragment>
   );
 };
@@ -34,11 +35,13 @@ Rating.propTypes = {
   rating: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string
-  ])
+  ]),
+  starClass: PropTypes.string
 };
 
 Rating.defaultProps = {
-  rating: ''
+  rating: '',
+  starClass: ''
 };
 
 export default Rating;

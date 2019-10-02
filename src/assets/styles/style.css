@@ -519,3 +519,8 @@ html, body {
   margin-left: 25%;
   padding: 3%;
 }
+
+.supplierStar {
+  width: 40px !important;
+  height: 40px !important
+}

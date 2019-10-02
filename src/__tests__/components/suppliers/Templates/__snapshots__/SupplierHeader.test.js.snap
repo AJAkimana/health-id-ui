@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierHeader should render the SupplierHeader component properly 1`] = `
+<Fragment>
+  <WithStyles(Grid)
+    alignItems="center"
+    container={true}
+    direction="row"
+  >
+    <WithStyles(Grid)
+      item={true}
+    >
+      <Link>
+        <WithStyles(Tooltip)
+          title="Back To Suppliers"
+        >
+          <WithStyles(IconButton)>
+            <pure(ArrowBackIcon) />
+          </WithStyles(IconButton)>
+        </WithStyles(Tooltip)>
+      </Link>
+    </WithStyles(Grid)>
+    <WithStyles(Grid)
+      item={true}
+    >
+      <WithStyles(Typography)
+        variant="h5"
+      >
+        Damian Inc
+      </WithStyles(Typography)>
+    </WithStyles(Grid)>
+    <WithStyles(Grid) />
+  </WithStyles(Grid)>
+</Fragment>
+`;

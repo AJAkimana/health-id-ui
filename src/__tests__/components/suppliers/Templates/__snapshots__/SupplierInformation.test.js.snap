@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupplierInformation should render the SupplierInformation component properly 1`] = `
+<Fragment>
+  <div>
+    <WithStyles(Typography)
+      align="left"
+      gutterBottom={true}
+      paragraph={true}
+      variant="h6"
+    >
+      Supplier Information
+    </WithStyles(Typography)>
+  </div>
+  <WithStyles(Grid)
+    container={true}
+    spacing={24}
+  >
+    <WithStyles(Grid)
+      item={true}
+      xs={4}
+    />
+    <WithStyles(Grid)
+      item={true}
+      xs={4}
+    />
+    <WithStyles(Grid)
+      item={true}
+      xs={4}
+    />
+  </WithStyles(Grid)>
+</Fragment>
+`;

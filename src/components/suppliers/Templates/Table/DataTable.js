@@ -173,6 +173,7 @@ export const DataTable = ({
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={id}
+                      style={supplyStyles.tableRow}
                       selected={isItemSelected}
                       onClick={() => {
                         onRowClick(id);

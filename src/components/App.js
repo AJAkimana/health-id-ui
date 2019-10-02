@@ -25,6 +25,7 @@ import MainOutletSetup from './main_setup/mainOutletSetup';
 import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
 import MainInvitedUsers from './main_setup/mainInvitedUsers';
 import SuppliersPage from './suppliers/SuppliersPage';
+import SingleSupplierPage from './suppliers/SingleSupplierPage';
 
 const App = ({ session }) => (
   <Fragment>
@@ -54,6 +55,11 @@ const App = ({ session }) => (
         exact
         path="/suppliers"
         render={() => <SuppliersPage session={session} />}
+      />
+      <Route
+        exact
+        path="/suppliers/:id/details"
+        render={() => <SingleSupplierPage session={session} />}
       />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
       <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />

@@ -24,12 +24,12 @@ export class SuppliersPage extends Component {
   }));
 
   render() {
-    const { session } = this.props;
+    const { history, session } = this.props;
     const columnHeaders = ['id', 'name', 'tier', ' rating', 'notes'];
 
     return (
       <div>
-        <Dashboard isActive="grid3" session={session} />
+        <Dashboard isActive="grid4" session={session} />
         <LowerNavbar />
         <Query query={GET_ALL_SUPPLIERS}>
           {({ loading, error, data }) => {
@@ -63,7 +63,9 @@ export class SuppliersPage extends Component {
                   isAdmin={Boolean(isAuthorised)}
                   columns={this.createColumns(columnHeaders)}
                   data={suppliers}
-                  onRowClick={() => { }}
+                  onRowClick={(rowId) => {
+                    history.push(`suppliers/${rowId}/details`);
+                  }}
                 />
               </div>
             );
@@ -76,11 +78,13 @@ export class SuppliersPage extends Component {
 }
 
 SuppliersPage.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object)
+  session: PropTypes.objectOf(PropTypes.object),
+  history: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number])
 };
 
 SuppliersPage.defaultProps = {
-  session: { me: {} }
+  session: { me: {} },
+  history: {}
 };
 
 export default withAuth(withRouter(SuppliersPage));

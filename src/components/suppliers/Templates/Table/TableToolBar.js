@@ -33,10 +33,7 @@ export const TableToolBar = (props) => {
             {`${numSelected} row(s) selected`}
           </Typography>
         ) : (
-          <Typography
-            variant="p"
-            id="tableTitle"
-          >
+          <Typography variant="body1" id="tableTitle">
             {title}
           </Typography>
         )}
@@ -70,11 +67,15 @@ TableToolBar.propTypes = {
   title: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   isSearchActive: PropTypes.bool.isRequired,
-  handleEdit: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func,
   handleHideSearch: PropTypes.func.isRequired,
   handleClickSearch: PropTypes.func.isRequired,
   handleClickInverseSelection: PropTypes.func.isRequired,
-  handleClickDeselectAll: PropTypes.func.isRequired,
+  handleClickDeselectAll: PropTypes.func.isRequired
+};
+
+TableToolBar.defaultProps = {
+  handleEdit: () => {}
 };
 
 export default TableToolBar;
