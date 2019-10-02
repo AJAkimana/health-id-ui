@@ -25,24 +25,30 @@ const supplyStyles = {
 const lowerNavbarStyles = {
   gridContainer: {
     backgroundColor: '#ffffff',
-    height: '70px'
+    height: '70px',
+    borderBottom: '3px solid #A3A3A3',
+
   },
   items: {
+    marginLeft: '35px',
     marginTop: '25px',
     fontWeight: '700',
     textAlign: 'center'
   },
   itemActive: {
+    marginLeft: '35px',
     marginTop: '25px',
     fontWeight: '700',
     backgroundColor: '#A3A3A3',
-    borderBottom: '2px solid #f5f141',
+    borderBottom: '3px solid #f5f141',
     textAlign: 'center',
+    cursor: 'pointer'
   },
   typographyText: {
     justifyContent: 'flex-start',
     paddingTop: '0.8em',
-    color: 'black'
+    color: 'black',
+    cursor: 'pointer'
   },
 };
 

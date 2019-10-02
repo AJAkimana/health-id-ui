@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from './Templates/Footer';
-import LowerNavbar from '../shared/LowerNavbar';
+import OrdersAndSuppliersNavBar from '../shared/LowerNavbar/OrdersAndSuppliersNavBar';
 import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import DataTable from './Templates/Table/DataTable';
@@ -12,12 +12,6 @@ import '../../assets/styles/stock/stock_products.scss';
 import GET_ALL_SUPPLIERS from '../../queries/getSuppliers';
 
 export class SuppliersPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
   createColumns = columns => columns.map(title => ({
     id: title.replace(/ +/g, ''),
     label: title.toUpperCase()
@@ -30,7 +24,7 @@ export class SuppliersPage extends Component {
     return (
       <div>
         <Dashboard isActive="grid4" session={session} />
-        <LowerNavbar />
+        <OrdersAndSuppliersNavBar activeGrid="grid2" />
         <Query query={GET_ALL_SUPPLIERS}>
           {({ loading, error, data }) => {
             if (loading) {
