@@ -34,19 +34,22 @@ export class SuppliersPage extends Component {
             }
             if (error) return `Error! ${error.message}`;
 
-            const suppliers = data.allSuppliers.map((supplier) => {
-              if (supplier) {
-                return {
-                  id: supplier.id,
-                  name: supplier.name,
-                  tier: supplier.tier.name,
-                  rating: supplier.rating,
-                  notes: supplier.suppliernoteSet
-                };
-              }
+            const authUserId = session.me.id;
+            const suppliers = data.allSuppliers
+              .filter(supplier => supplier.user.id === authUserId)
+              .map((supplier) => {
+                if (supplier) {
+                  return {
+                    id: supplier.id,
+                    name: supplier.name,
+                    tier: supplier.tier.name,
+                    rating: supplier.rating,
+                    notes: supplier.suppliernoteSet
+                  };
+                }
 
-              return false;
-            });
+                return false;
+              });
 
             const isAuthorised = session.me.role.name.match(/^(Master Admin|Operations Admin)$/);
 

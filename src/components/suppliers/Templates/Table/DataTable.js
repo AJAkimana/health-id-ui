@@ -160,7 +160,7 @@ export const DataTable = ({
               headRows={columns}
             />
             <TableBody>
-              {stableSort(rows, getSorting(order, orderBy))
+              {rows.length > 0 ? stableSort(rows, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   const isItemSelected = isSelected(row.id);
@@ -211,7 +211,12 @@ export const DataTable = ({
                       </TableCell>
                     </TableRow>
                   );
-                })}
+                }) : (
+                <TableRow>
+                  <TableCell align="center" colSpan={6}>No Suppliers</TableCell>
+                </TableRow>
+              )
+              }
               {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
                   <TableCell colSpan={6} />

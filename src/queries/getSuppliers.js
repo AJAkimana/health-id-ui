@@ -7,6 +7,9 @@ query{
     name
     rating
     commentary
+    user{
+      id
+    }
     tier {
       name
     }

@@ -83,7 +83,7 @@ describe('SuppliersPage ', () => {
     await wait(0);
     expect(wrapper.find('DataTableLoader').length).toEqual(1);
     wrapper.update();
-    expect(wrapper.find('DataTable').length).toEqual(1)
+    expect(wrapper.find('DataTable').length).toEqual(0)
   });
 
   it('renders without error with a protected route', async () => {
