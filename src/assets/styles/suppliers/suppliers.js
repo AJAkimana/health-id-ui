@@ -26,7 +26,7 @@ const lowerNavbarStyles = {
   gridContainer: {
     backgroundColor: '#ffffff',
     height: '70px',
-    borderBottom: '3px solid #A3A3A3',
+    borderBottom: '1px solid #A3A3A3',
 
   },
   items: {
