@@ -26,6 +26,11 @@ export const AfterSelectToolBarStyles = {
 
 export const ToolBarStyles = {
   iconButton: {
+    marginLeft: '10px',
+  },
+  iconButtonActive: {
+    backgroundColor: '#E3E3E3',
+    marginLeft: '10px',
   },
   manageButton: {
     backgroundColor: '#3A3A3A',

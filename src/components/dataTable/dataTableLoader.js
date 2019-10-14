@@ -9,7 +9,7 @@ export const DataTableLoader = () => (
     primaryColor="#cccccc"
     secondaryColor="#ecebeb"
   >
-    <rect x="10" y="10" rx="3" ry="3" width="50" height="5" />
+    <rect x="10" y="5" rx="3" ry="3" width="50" height="5" />
     <rect x="540" y="10" rx="3" ry="3" width="50" height="5" />
 
     <rect x="10" y="20" rx="3" ry="3" width="10" height="5" />

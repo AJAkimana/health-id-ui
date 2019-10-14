@@ -26,7 +26,7 @@ import MainOutletSetupForm from './main_setup/mainOutletSetupForm';
 import MainInvitedUsers from './main_setup/mainInvitedUsers';
 import SuppliersPage from './suppliers/SuppliersPage';
 import SingleSupplierPage from './suppliers/SingleSupplierPage';
-import OrdersPage from './orders/orders';
+import OrdersAndSuppliers from '../containers/orders/orders';
 
 const App = ({ session }) => (
   <Fragment>
@@ -62,11 +62,12 @@ const App = ({ session }) => (
         path="/suppliers/:id/details"
         render={() => <SingleSupplierPage session={session} />}
       />
-      <Route exact path="/orders" render={() => <OrdersPage session={session} />} />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
       <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />
       <Route exact path="/product/add" render={() => <AddProduct session={session} />} />
       <Route exact path="/product/import" render={() => <ImportProduct session={session} />} />
+      <Route exact path="/orders/:status" render={() => <OrdersAndSuppliers session={session} />} />
+      <Route exact path="/orders" render={() => <OrdersAndSuppliers session={session} />} />
     </Switch>
   </Fragment>
 );

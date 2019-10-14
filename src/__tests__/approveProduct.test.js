@@ -209,12 +209,12 @@ describe('Test render approve product', () => {
         </BrowserRouter>
       </MockedProvider>
     );
-    await wait(0);
     expect(wrapper.find('ProductLoader').length).toBe(1);
   });
 });
 
 describe('Test approve Product detail renderer', () => {
+  
   const prop = {
     match: {
       params: {
@@ -313,5 +313,14 @@ describe('Test approve Product detail renderer', () => {
     const Button = wrapper.find('Button').at(1);
     Button.simulate('click');
     expect(wrapper.state('approved')).toBeFalsy();
+  });
+
+  it('should call the approveProduct method', () => {
+
+    const approveProductComponent = wrapper.find('ApproveProduct')
+    
+    approveProductComponent.instance().handleProductApproval();
+    expect(prop.approveProduct).toBeCalled();
+    expect(approveProductComponent.instance().state.approved).toBeTruthy();
   });
 });

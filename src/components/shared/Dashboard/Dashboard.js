@@ -7,13 +7,16 @@ import logo from '../../../assets/images/ID Nav logo.png';
 import dashboardStyles from '../../../assets/styles/dashboard/dashboardStyles';
 import SVGIcon from './Icons';
 
+
 export class Dashboard extends Component {
-  state = {
-    anchorEl: null,
-    open: false,
-    // eslint-disable-next-line react/destructuring-assignment
-    isActive: this.props.isActive || 'grid1'
-  };
+  constructor(props) {
+    super(props);
+    const { isActive } = this.props;
+    this.state = {
+      anchorEl: null,
+      isActive: isActive || 'grid1'
+    };
+  }
 
   handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget, open: true });
@@ -52,6 +55,7 @@ export class Dashboard extends Component {
       this.setState({ isActive: 'grid3' });
       break;
     case 'grid4':
+      window.location.href = '/orders/open';
       this.setState({ isActive: 'grid4' });
       break;
     case 'grid5':
