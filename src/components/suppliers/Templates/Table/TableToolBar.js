@@ -18,7 +18,9 @@ export const TableToolBar = (props) => {
     handleHideSearch,
     handleClickSearch,
     handleClickInverseSelection,
-    handleClickDeselectAll
+    handleClickDeselectAll,
+    handleViewProposed,
+    status
   } = props;
 
   return (
@@ -54,6 +56,8 @@ export const TableToolBar = (props) => {
             isSearchActive={isSearchActive}
             handleHideSearch={handleHideSearch}
             handleTextChange={handleTextChange}
+            handleViewProposed={handleViewProposed}
+            status={status}
           />
         )}
       </div>
@@ -71,7 +75,9 @@ TableToolBar.propTypes = {
   handleHideSearch: PropTypes.func.isRequired,
   handleClickSearch: PropTypes.func.isRequired,
   handleClickInverseSelection: PropTypes.func.isRequired,
-  handleClickDeselectAll: PropTypes.func.isRequired
+  handleClickDeselectAll: PropTypes.func.isRequired,
+  handleViewProposed: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired
 };
 
 TableToolBar.defaultProps = {

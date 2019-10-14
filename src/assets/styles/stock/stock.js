@@ -22,10 +22,24 @@ const stockControlStyles = {
 };
 
 export const ToolbarStyles = {
+  iconButtonActive: {
+    marginLeft: '10px',
+  },
+  iconButton: {
+    backgroundColor: '#E3E3E3',
+    marginLeft: '10px',
+  },
   svgIcon: {
     height: '0.8em'
   },
+  switchFormGroupSupplier: {
+    margin: '0px !important',
+    paddingRight: '15px'
+  },
   popper: {
+    zIndex: '500'
+  },
+  paper: {
     zIndex: '500'
   },
   root: {

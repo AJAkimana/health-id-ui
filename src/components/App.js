@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import AuthContainer from './authentication/Container';
 import ResetPassword from './authentication/PasswordReset';
 import StepperNav from './setup/Stepper';
@@ -55,7 +55,17 @@ const App = ({ session }) => (
       <Route
         exact
         path="/suppliers"
+        render={() => <Redirect to="/suppliers/approved" />}
+      />
+      <Route
+        exact
+        path="/suppliers/:status"
         render={() => <SuppliersPage session={session} />}
+      />
+      <Route
+        exact
+        path="/suppliers/suppliers/:id/details"
+        render={() => <SingleSupplierPage session={session} />}
       />
       <Route
         exact

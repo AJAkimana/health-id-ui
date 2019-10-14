@@ -50,6 +50,9 @@ const lowerNavbarStyles = {
     color: 'black',
     cursor: 'pointer'
   },
+  switchFormGroup: {
+    marginLeft: '10px',
+  }
 };
 
 const styledFooter = {

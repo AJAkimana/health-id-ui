@@ -1,8 +1,17 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { DataTable } from '../../../components/suppliers/Templates/Table/DataTable';
-
 describe('Supplier Page DataTable ', () => {
+  const suppliers = [
+    {
+      name: 'eric',
+      isApproved: true
+    },
+    {
+      name: 'eric',
+      isApproved: false
+    }
+  ]
   const props = {
     classes: {},
     columns: ['id', 'name', 'tier', 'rating', 'notes'],
@@ -66,6 +75,8 @@ describe('Supplier Page DataTable ', () => {
     expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(0);
     wrapper.find('Checkbox').at(0).simulate('click', event);
     wrapper.find('Checkbox').at(0).simulate('click', secondEvent);
+    wrapper.find('span').at(0).simulate('mouseEnter', event);
+    wrapper.find('span').at(0).simulate('mouseLeave', event);
     expect(wrapper.find('[name="toolbar"]').prop('numSelected')).toBe(2);
   });
 });

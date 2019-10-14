@@ -135,7 +135,7 @@ export class Dashboard extends Component {
         {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/comingsoon')}
         {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/sell')}
         {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products/approved')}
-        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/suppliers')}
+        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/suppliers/approved')}
         {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/comingsoon')}
         {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/comingsoon')}
         {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS', '/comingsoon')}

@@ -254,10 +254,10 @@ export const SellScreen = ({
                       SUBTOTAL:
                     </Typography>
                     <Typography inline variant="h6" style={tableStyles.currency}>
-                      {<FormatCurrency
+                      <FormatCurrency
                         amount={renderCartTotal(cartItems)}
                         currency={currency}
-                      />}
+                      />
                     </Typography>
                   </Grid>
                   <Grid container item xs={12} style={tableStyles.discountWrapper}>
@@ -287,10 +287,10 @@ export const SellScreen = ({
                         handleDiscountButton={handleDiscountButton}
                       />
                       <Typography inline variant="caption" style={tableStyles.discountTotal}>
-                        {<FormatCurrency
+                        <FormatCurrency
                           amount={renderCartDiscount(cartItems)}
                           currency={currency}
-                        />}
+                        />
                       </Typography>
                     </Grid>
                   </Grid>
@@ -319,10 +319,10 @@ export const SellScreen = ({
                         PAY
                       </Typography>
                       <Typography inline variant="h6" style={tableStyles.buttonLabel}>
-                        {<FormatCurrency
+                        <FormatCurrency
                           amount={renderGrandTotal()}
                           currency={currency}
-                        />}
+                        />
                       </Typography>
                     </Grid>
                   </Button>

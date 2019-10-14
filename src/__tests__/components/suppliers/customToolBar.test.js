@@ -47,8 +47,22 @@ describe('Supplier Page CustomToolBar ', () => {
     const wrapper = mount(<CustomToolBar {...props} />);
     wrapper.find('[aria-haspopup="true"]').at(0).simulate('click');
     wrapper.find('[aria-haspopup="true"]').at(1).simulate('click');
-    expect(wrapper.find('[aria-haspopup="true"]').length).toBe(10);
+    expect(wrapper.find('[aria-haspopup="true"]').length).toBe(15);
   });
+
+  it('update props ', async () => {
+    const props = {
+      classes: { svg: {} },
+      handleClickSearch: jest.fn(),
+      isSearchActive: false,
+      handleHideSearch: jest.fn(),
+      handleTextChange: jest.fn(),
+      status: 'approved'
+    };
+    const wrapper = shallow(<CustomToolBar {...props} />);
+    wrapper.instance().handleToggleViewMenu();
+    wrapper.instance().handleClose();
+ });
 });
 
 describe('Supplier page icons ', () => {

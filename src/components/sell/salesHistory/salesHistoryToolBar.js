@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { addDays } from 'date-fns';
+import { savePDF } from '@progress/kendo-react-pdf';
 import { SalesToolBarStyles } from '../../../assets/styles/salesHistory/salesHistoryStyles';
 import Toolbar from './toolbar';
 import DateTimePopper from './dateTimePopper';
 import SearchPopper from './searchPopper';
 import SavePrintPopper from './savePrintPopper';
-import Doc from './utils/docService';
 
 export class SalesHistoryToolBar extends Component {
   state = {
@@ -174,7 +174,15 @@ export class SalesHistoryToolBar extends Component {
   }
 
   handleSaveButton = (html) => {
-    Doc.createPdf(html);
+    savePDF(html, {
+      scale: 0.6,
+      paperSize: 'A4',
+      repeatHeaders: true,
+      landscape: true,
+      fileName: 'healthID_sales.pdf',
+      margin: 10,
+      top: 10
+    });
     this.handlePrintButton();
   }
 

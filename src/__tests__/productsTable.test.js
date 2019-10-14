@@ -180,7 +180,7 @@ describe('Test table rendering and data functions', () => {
 
   it('should render with errors', async () => {
     const errorWrapper = mount(<Router><MockedProvider mocks={errorMock} addTypename={false}><Products {...props} /></MockedProvider></Router>);
-    await wait(200);
+    await wait(1000);
     errorWrapper.update();
     setTimeout(() => {
       const errorDiv = errorWrapper.find('Products');
