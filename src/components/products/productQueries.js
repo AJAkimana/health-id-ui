@@ -74,6 +74,15 @@ export const GET_APPROVED_AND_PROPOSED_PRODUCTS = gql`
   }
 `;
 
+export const GET_PRODUCTS_COUNT = gql`
+  query($pageNumber: Int, $pageCount: Int) {
+    products(pageNumber: $pageNumber, pageCount: $pageCount) {
+      id
+    }
+    totalProductsPagesCount
+  }
+`;
+
 export const GET_PRODUCT_BY_ID = gql`
 query product(
   $id: Int,

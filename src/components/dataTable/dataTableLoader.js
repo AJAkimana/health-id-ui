@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 export const DataTableLoader = () => (
   <ContentLoader
-    height={1600}
+    height={250}
     width={600}
     speed={1}
     primaryColor="#cccccc"
