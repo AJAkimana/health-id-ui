@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Separator from '../../../components/products/ImportProduct/Separator';
+import Separator from '../../../components/shared/Separator';
 
 
 describe('Render Separator component', () => {

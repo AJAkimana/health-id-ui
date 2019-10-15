@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render ImportSuppliers Component should render the ImportSuppliers component properly 1`] = `
+<Fragment>
+  <withRouter(Dashboard)
+    isActive="grid4"
+    session={
+      Object {
+        "me": Object {
+          "email": "user@gmail.com",
+          "mobileNumber": "2348903345",
+          "role": Object {
+            "name": "Master Admin",
+          },
+          "username": "user",
+        },
+      }
+    }
+  />
+  <BackAction
+    header="Import Supplier(s)"
+    link="/suppliers"
+  />
+  <ImportSuppliersForm
+    fileLoaded={false}
+    handleDownloadTemplate={[Function]}
+    handleFile={[Function]}
+    handleUpload={[Function]}
+    handleUploadFailed={[Function]}
+    isSubmitFileFailed={false}
+    onDrop={[Function]}
+    serverResponse={[Function]}
+    state={
+      Object {
+        "file": null,
+        "fileLoaded": false,
+        "isSubmitFileFailed": false,
+        "loading": false,
+        "serverResponse": "",
+      }
+    }
+  />
+</Fragment>
+`;

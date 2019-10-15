@@ -19,6 +19,14 @@ const supplyStyles = {
   },
   tableRow: {
     cursor: 'pointer'
+  },
+  Links: {
+    color: '#424242 !important',
+    textDecoration: 'none !important'
+  },
+  menuLink: {
+    textDecoration: 'none',
+    color: 'inherit'
   }
 };
 

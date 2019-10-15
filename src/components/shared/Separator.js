@@ -1,5 +1,5 @@
 import React from 'react';
-import { SeparatorStyles } from '../../../assets/styles/products/ImportProductStyles';
+import SeparatorStyles from '../../assets/styles/shared/separator';
 
 const Separator = () => (
   <div id="separator" style={SeparatorStyles.mainDiv}>

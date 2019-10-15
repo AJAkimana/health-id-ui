@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import Dropzone from 'react-dropzone';
-import '../../../assets/styles/products/DragFile.scss';
-import UploadImage from '../../../assets/images/uploadIcon.png';
-import { DragFileStyles } from '../../../assets/styles/products/ImportProductStyles';
+import '../../assets/styles/shared/uploadFile/DragFile.scss';
+import UploadImage from '../../assets/images/uploadIcon.png';
+import DragFileStyles from '../../assets/styles/shared/uploadFile/uploadFile';
 
 const UploadFileComponent = (props) => {
   const { onDrop, handleFile } = props;

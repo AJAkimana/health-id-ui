@@ -12,7 +12,6 @@ describe('DataTable', () => {
     };
 
     const wrapper = shallow(<DataTable {...props} />);
-    console.log(wrapper.debug());
     expect(wrapper.find('MuiThemeProviderOld').length).toBe(1);
   });
 });

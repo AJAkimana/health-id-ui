@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import SubmitFile from '../../../components/products/ImportProduct/SubmitFileComponent';
+import SubmitFile from '../../../components/shared/SubmitFileComponent';
 
 
 describe('Render SubmitFile component', () => {

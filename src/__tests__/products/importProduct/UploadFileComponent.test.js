@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import UploadFileComponent from '../../../components/products/ImportProduct/UploadFileComponent';
+import UploadFileComponent from '../../../components/shared/UploadFileComponent';
 
 
 describe('Render UploadFile component', () => {

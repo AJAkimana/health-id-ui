@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {
@@ -194,7 +195,14 @@ export class CustomToolBar extends Component {
         >
           <MenuList>
             <MenuItem onClick={this.handleCloseAddSupplier}>Add individual supplier</MenuItem>
-            <MenuItem onClick={this.handleCloseAddSupplier}>Import supplier csv.</MenuItem>
+            <MenuItem onClick={this.handleCloseAddSupplier}>
+              <Link
+                to="/suppliers/new/import"
+                style={supplyStyles.menuLink}
+              >
+                Import supplier csv.
+              </Link>
+            </MenuItem>
           </MenuList>
         </RenderPopper>
       </Fragment>

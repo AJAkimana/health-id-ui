@@ -3,18 +3,25 @@ import PropTypes from 'prop-types';
 import {
   Paper, Grid, Typography, Button
 } from '@material-ui/core';
-import UploadFileComponent from '../../shared/UploadFileComponent';
-import { ImportProductStyles } from '../../../assets/styles/products/ImportProductStyles';
-import SubmitFile from '../../shared/SubmitFileComponent';
+import UploadFileComponent from '../../../shared/UploadFileComponent';
+import { ImportProductStyles } from '../../../../assets/styles/products/ImportProductStyles';
+import SubmitFile from '../../../shared/SubmitFileComponent';
 import FieldsTable from './FieldsTable';
-import Separator from '../../shared/Separator';
+import Separator from '../../../shared/Separator';
 
 
-const ImportProductForm = (props) => {
+const ImportSuppliersForm = (props) => {
   const {
     state: {
       file, loading, serverResponse
-    }, onDrop, handleFile, handleUpload, handleDownloadTemplate
+    },
+    onDrop,
+    handleFile,
+    handleUpload,
+    handleDownloadTemplate,
+    fileLoaded,
+    isSubmitFileFailed,
+    handleUploadFailed
   } = props;
 
   const disableDownload = !!file;
@@ -71,7 +78,7 @@ const ImportProductForm = (props) => {
           </Grid>
         </Grid>
       </Paper>
-      {!file ? (
+      {!fileLoaded ? (
         <UploadFileComponent
           onDrop={onDrop}
           handleFile={handleFile}
@@ -82,6 +89,8 @@ const ImportProductForm = (props) => {
           loading={loading}
           handleUpload={handleUpload}
           serverResponse={serverResponse}
+          isSubmitFileFailed={isSubmitFileFailed}
+          handleUploadFailed={handleUploadFailed}
         />
       )
       }
@@ -89,20 +98,25 @@ const ImportProductForm = (props) => {
   );
 };
 
-ImportProductForm.propTypes = {
+ImportSuppliersForm.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
+  fileLoaded: PropTypes.bool.isRequired,
   onDrop: PropTypes.func,
   handleFile: PropTypes.func,
   handleUpload: PropTypes.func,
   handleDownloadTemplate: PropTypes.func,
+  serverResponse: PropTypes.func,
+  isSubmitFileFailed: PropTypes.bool.isRequired,
+  handleUploadFailed: PropTypes.func.isRequired,
 };
 
-ImportProductForm.defaultProps = {
+ImportSuppliersForm.defaultProps = {
   onDrop: () => {},
   handleFile: () => {},
   handleUpload: () => {},
   handleDownloadTemplate: () => {},
+  serverResponse: () => {}
 };
 
 
-export default ImportProductForm;
+export default ImportSuppliersForm;

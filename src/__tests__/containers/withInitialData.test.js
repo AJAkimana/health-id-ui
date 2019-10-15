@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import wait from 'waait';
-import MockComponent from '../../../__mocks__/mockComponent';
 import { MockedProvider } from 'react-apollo/test-utils';
 import GET_COUNTRIES_PRODUCTS_CUSTOMERS from '../../queries/countryProductsCustomerQuery';
-import WithInitialData, { WithInitialData as WithInitialDataWrapper } from '../../containers/withInitialData';
-import Typography from 'material-ui/styles/typography';
-
-// jest.mock('../../components/shared/ComingSoon', () => MockComponent);
+import WithInitialData from '../../containers/withInitialData';
 
 describe('WithInitialData ', () => {
   const mocks = [
@@ -76,7 +72,7 @@ describe('WithInitialData ', () => {
   ];
 
   const props = {
-    classes: 'vv',
+    client: {},
     session: {
       me: {
         username: 'tester',
@@ -99,15 +95,15 @@ describe('WithInitialData ', () => {
     const wrapper = shallow(
       <MockedProvider addTypeName={false}>
         <Router>
-        {
-          WithInitialData(Comp)({})
-        }
+          {
+            WithInitialData(Comp)({})
+          }
         </Router>
       </MockedProvider>
     )
 
     await wait(0);
-   
+
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find('BrowserRouter').length).toEqual(1);
   });

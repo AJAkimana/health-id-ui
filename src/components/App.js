@@ -27,6 +27,7 @@ import MainInvitedUsers from './main_setup/mainInvitedUsers';
 import SuppliersPage from './suppliers/SuppliersPage';
 import SingleSupplierPage from './suppliers/SingleSupplierPage';
 import OrdersAndSuppliers from '../containers/orders/orders';
+import ImportSuppliers from './suppliers/Templates/ImportSuppliers/ImportSuppliers';
 
 const App = ({ session }) => (
   <Fragment>
@@ -72,6 +73,7 @@ const App = ({ session }) => (
         path="/suppliers/:id/details"
         render={() => <SingleSupplierPage session={session} />}
       />
+      <Route exact path="/suppliers/new/import" render={() => <ImportSuppliers session={session} />} />
       <Route exact path="/sell" render={() => <SellScreenContainer session={session} />} />
       <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />
       <Route exact path="/product/add" render={() => <AddProduct session={session} />} />

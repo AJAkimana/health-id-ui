@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render ImportSuppliersForm component should render the ImportSuppliersForm component properly 1`] = `
+<Fragment>
+  <WithStyles(Paper)
+    style={
+      Object {
+        "marginLeft": "15%",
+        "width": "70%",
+      }
+    }
+  >
+    <WithStyles(Grid)
+      container={true}
+      spacing={24}
+      style={
+        Object {
+          "marginBottom": "2%",
+          "marginLeft": "5%",
+          "width": "90%",
+        }
+      }
+    >
+      <WithStyles(Grid)
+        item={true}
+        style={
+          Object {
+            "backgroundColor": "#E8E8E8",
+            "marginTop": "3%",
+          }
+        }
+        xs={12}
+      >
+        <WithStyles(Typography)
+          style={
+            Object {
+              "fontSize": "1.17em",
+            }
+          }
+        >
+          Upload Manager
+        </WithStyles(Typography)>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <FieldsTable />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <Separator />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <div
+          style={
+            Object {
+              "margin": "0 auto",
+              "marginBottom": "2%",
+              "marginTop": "2%",
+              "width": "27%",
+            }
+          }
+        >
+          <WithStyles(Button)
+            disabled={false}
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#424242",
+                "borderRadius": "25px",
+                "color": "#FFFFFF",
+              }
+            }
+          >
+            DOWNLOAD SAMPLE TEMPLATE
+          </WithStyles(Button)>
+        </div>
+      </WithStyles(Grid)>
+    </WithStyles(Grid)>
+  </WithStyles(Paper)>
+  <UploadFileComponent
+    handleFile={[Function]}
+    onDrop={[Function]}
+  />
+</Fragment>
+`;

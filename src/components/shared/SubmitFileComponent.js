@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, CircularProgress } from '@material-ui/core';
-import '../../../assets/styles/products/SubmitFile.scss';
-import { SubmitFileStyles } from '../../../assets/styles/products/ImportProductStyles';
+import '../../assets/styles/shared/submitFile/SubmitFile.scss';
+import SubmitFileStyles from '../../assets/styles/shared/submitFile/submitFile';
 
 
 const SubmitFile = (props) => {
   const {
-    file, handleUpload, loading, serverResponse
+    file, handleUpload, loading, serverResponse, isSubmitFileFailed, handleUploadFailed
   } = props;
 
   return (
@@ -34,9 +34,11 @@ const SubmitFile = (props) => {
                 color="secondary"
                 variant="contained"
                 style={SubmitFileStyles.submitButton}
-                onClick={handleUpload}
+                onClick={isSubmitFileFailed ? handleUploadFailed : handleUpload}
               >
-                Submit
+                {
+                  isSubmitFileFailed ? 'Choose new file' : 'Submit'
+                }
               </Button>
             )}
         </div>
@@ -49,7 +51,9 @@ SubmitFile.propTypes = {
   file: PropTypes.instanceOf(Object).isRequired,
   handleUpload: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  serverResponse: PropTypes.string.isRequired
+  serverResponse: PropTypes.string.isRequired,
+  isSubmitFileFailed: PropTypes.bool.isRequired,
+  handleUploadFailed: PropTypes.func.isRequired,
 };
 
 export default SubmitFile;
