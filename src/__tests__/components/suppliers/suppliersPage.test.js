@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
-import GET_ALL_SUPPLIERS from '../../../queries/getSuppliers';
+import {GET_ALL_SUPPLIERS} from '../../../queries/getSuppliers';
 import SuppliersPage, { SuppliersPage as SuppliersPageWrapper } from '../../../components/suppliers/SuppliersPage';
 import { getSuppliers, getSlicedData } from '../../../components/utils/filter';
 describe('SuppliersPage ', () => {

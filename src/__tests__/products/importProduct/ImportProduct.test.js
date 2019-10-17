@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import * as moxios from 'moxios';
+import { resolvedRequest, rejectedRequest } from '../../../../__mocks__/axiosResponses';
+import '../../../../__mocks__/window';
 import { ImportProduct } from '../../../components/products/ImportProduct/ImportProduct';
-
 
 describe('Render ImportProduct Component', () => {
   const props = {
@@ -11,17 +12,25 @@ describe('Render ImportProduct Component', () => {
         mobileNumber: '254123123123',
         email: 'user@gmail.com',
         username: 'user',
-        role: { name: 'Master Admin' },
+        role: { name: 'Master Admin' }
       }
     }
   };
 
-  const acceptedFiles = [{
-    name: 'producta', size: 10000, type: 'text/csv', lastModified: ''
-  }];
+  const acceptedFiles = [
+    {
+      name: 'producta',
+      size: 10000,
+      type: 'text/csv',
+      lastModified: ''
+    }
+  ];
 
   const expectedFile = {
-    name: 'producta', size: 10000, type: 'text/csv', lastModified: ''
+    name: 'producta',
+    size: 10000,
+    type: 'text/csv',
+    lastModified: ''
   };
 
   global.setTimeout = jest.fn();
@@ -34,6 +43,31 @@ describe('Render ImportProduct Component', () => {
   });
 
   const wrapper = shallow(<ImportProduct {...props} />);
+
+  it('wrapper.instance().handleDownloadTemplate()', () => {
+    const csvUrl = `${process.env.APP_LINK}`;
+    moxios.stubRequest(`${csvUrl}sample_product_csv`, resolvedRequest);
+    wrapper.instance().handleDownloadTemplate();
+  });
+
+  it('wrapper.instance().handleDownloadTemplate()', () => {
+    const csvUrl = `${process.env.APP_LINK}`;
+    moxios.stubRequest(`${csvUrl}sample_product_csv`, rejectedRequest);
+    wrapper.instance().handleDownloadTemplate();
+  });
+
+  it('wrapper.instance().handleUpload()', () => {
+    const csvUrl = `${process.env.APP_LINK}`;
+    moxios.stubRequest(`${csvUrl}csv/products`, resolvedRequest);
+    wrapper.instance().handleUpload();
+  });
+
+  it('wrapper.instance().handleUpload()', () => {
+    const csvUrl = `${process.env.APP_LINK}`;
+    moxios.stubRequest(`${csvUrl}csv/products`, rejectedRequest);
+    wrapper.instance().handleUpload();
+  });
+
   it('renders without crashing', () => {
     expect(wrapper.find('BackAction').length).toBe(1);
     expect(wrapper.find('ImportProductForm').length).toBe(1);
@@ -41,13 +75,13 @@ describe('Render ImportProduct Component', () => {
 
   it('calls handleFile', () => {
     const newProps = {
-      state: { file: ""},
+      state: { file: '' },
       ...props
     };
 
     const e = {
       target: {
-        files: acceptedFiles,
+        files: acceptedFiles
       }
     };
     const wrapperWithFileProp = shallow(<ImportProduct {...newProps} />);

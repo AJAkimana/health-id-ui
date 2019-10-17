@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Add Supplier component renders data upon successful view 1`] = `ReactWrapper {}`;

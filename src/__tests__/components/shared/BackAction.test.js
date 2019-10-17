@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import BackAction from '../components/products/BackAction';
+import BackAction from '../../../components/shared/BackAction';
 
 describe('Render Add Product component', () => {
   const props = {

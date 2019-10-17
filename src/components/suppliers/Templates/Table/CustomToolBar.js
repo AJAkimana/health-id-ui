@@ -79,7 +79,9 @@ export class CustomToolBar extends Component {
       <Fragment>
         {isSearchActive ? (
           <TableSearch onHide={handleHideSearch} handleTextChange={handleTextChange} />
-        ) : ('')}
+        ) : (
+          ''
+        )}
         <Fragment>
           <Tooltip title="Search">
             <IconButton
@@ -194,7 +196,12 @@ export class CustomToolBar extends Component {
           open={addSupplierOpen}
         >
           <MenuList>
-            <MenuItem onClick={this.handleCloseAddSupplier}>Add individual supplier</MenuItem>
+            <MenuItem onClick={this.handleCloseAddSupplier}>
+              <Link to="/suppliers/add" className={classes.menuLink}>
+                Add Individual Supplier
+              </Link>
+
+            </MenuItem>
             <MenuItem onClick={this.handleCloseAddSupplier}>
               <Link
                 to="/suppliers/new/import"

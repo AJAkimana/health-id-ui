@@ -8,25 +8,25 @@ import ProductLoader from '../../components/products/productLoader';
 import withAuth from '../../components/withAuth';
 
 export const ApproveProductDetail = (props) => {
-  const { match: { params: { id } }, session } = props;
+  const {
+    match: {
+      params: { id }
+    },
+    session
+  } = props;
   if (session && session.me.role.name !== 'Master Admin') {
-    return (<Redirect to="/" />);
+    return <Redirect to="/" />;
   }
   return (
     <Query query={GET_PRODUCT_BY_ID} variables={{ id }}>
       {({
         data, loading, error, refetch
-      }) => {
-        if (loading) return <ProductLoader />;
-        if (error) return <div>Error</div>;
-        return (
-          <ApproveProduct
-            product={data.product}
-            refetch={refetch}
-            session={session}
-          />
-        );
-      }}
+      }) => (
+        (loading && <ProductLoader />)
+          || (error && <div>Error</div>) || (
+          <ApproveProduct product={data.product} refetch={refetch} session={session} />
+        )
+      )}
     </Query>
   );
 };

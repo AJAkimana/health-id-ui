@@ -29,7 +29,7 @@ const props = {
       measurementUnit: {
         name: 'tablets'
       }
-    },
+    }
   ],
   me: {
     firstName: 'user',
@@ -47,14 +47,25 @@ const props = {
   country: 'uganda',
   city: 'kampala',
   phoneNumber: '234567890',
-  addressLine1: 'plot 34 rubaga',
+  addressLine1: 'plot 34 rubaga'
 };
 
 describe('test RecieptTemplatecomponent', () => {
   it('it renders correctly provided it has all the required props', () => {
-    const wrapper = shallow((
-      <RecieptTemplate {...props} />
-    ));
+    const wrapper = shallow(<RecieptTemplate {...props} />);
+    dateFormatter(new Date('Wed Jul 17 2019 11:05:16 GMT+0300 (East Africa Time)'));
+    expect(wrapper.find(Table).length).toBe(1);
+  });
+  it('it renders correctly provided it has all the required props', () => {
+    const newProps = {
+      ...props,
+      registerID: null,
+      me: {
+        firstName: '',
+        lastName: ''
+      }
+    };
+    const wrapper = shallow(<RecieptTemplate {...newProps} />);
     dateFormatter(new Date('Wed Jul 17 2019 11:05:16 GMT+0300 (East Africa Time)'));
     expect(wrapper.find(Table).length).toBe(1);
   });

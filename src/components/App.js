@@ -14,6 +14,7 @@ import ProductDetail from '../containers/productDetail';
 import SellScreenContainer from '../containers/sellScreenContainer';
 import AddProduct from './products/AddProduct/AddProduct';
 import ImportProduct from './products/ImportProduct/ImportProduct';
+import AddSupplier from './suppliers/AddSupplier/AddSupplier';
 import SalesHistory from '../containers/salesHistoryContainer';
 import MainSetup from './main_setup/mainSetup';
 import MainProfile from './main_setup/mainProfileSetup';
@@ -53,6 +54,7 @@ const App = ({ session }) => (
       <Route exact path="/profile" component={UserProfile} />
       <Route exact path="/products/:id/details" render={() => <ProductDetail session={session} />} />
       <Route exact path="/stock" render={() => <ViewProducts session={session} />} />
+      <Route exact path="/suppliers/add" render={() => <AddSupplier session={session} />} />
       <Route
         exact
         path="/suppliers"

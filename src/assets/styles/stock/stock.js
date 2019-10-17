@@ -51,7 +51,11 @@ export const ToolbarStyles = {
   },
   title: {
     flex: '0 0 auto'
-  }
+  },
+  menuLink: {
+    textDecoration: 'none',
+    color: '#424242'
+  },
 };
 
 export const searchStyles = theme => ({

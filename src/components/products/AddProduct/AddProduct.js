@@ -14,7 +14,6 @@ import validateProductName from '../../../utils/products/ProductNameValidation';
 import verifyFile from '../../../utils/products/verifyFile';
 import DataTableLoader from '../../dataTable/dataTableLoader';
 
-
 export class AddProduct extends Component {
   state = {
     suppliers: [],
@@ -41,7 +40,7 @@ export class AddProduct extends Component {
     crop: {
       aspect: 1 / 1
     },
-    open: false,
+    open: false
   };
 
   handleProductName = (event) => {
@@ -52,7 +51,7 @@ export class AddProduct extends Component {
     if (message !== '') {
       notify(message);
     }
-  }
+  };
 
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -73,26 +72,34 @@ export class AddProduct extends Component {
       loyaltyWeight: result[0].loyaltyWeight,
       vatStatus: result[0].isVatApplicable
     });
-  }
+  };
 
   handleDelete = (i) => {
     const { tags } = this.state;
     this.setState({
-      tags: tags.filter((tag, index) => index !== i),
+      tags: tags.filter((tag, index) => index !== i)
     });
-  }
+  };
 
   handleAddition = (tag) => {
     this.setState(state => ({ tags: [...state.tags, tag] }));
-  }
+  };
 
   handleProposeProduct = () => {
     const { addProduct } = this.props;
 
     const {
-      productName, productDescription, productImage, brand, manufacturer,
-      preferredSupplierId, backupSupplierId, categoryId, measurementUnitId,
-      loyaltyWeight, vatStatus,
+      productName,
+      productDescription,
+      productImage,
+      brand,
+      manufacturer,
+      preferredSupplierId,
+      backupSupplierId,
+      categoryId,
+      measurementUnitId,
+      loyaltyWeight,
+      vatStatus
     } = this.state;
 
     this.setState({ loading: true });
@@ -125,11 +132,11 @@ export class AddProduct extends Component {
         const { message } = err.graphQLErrors[0];
         notify(message);
       });
-  }
+  };
 
   handleSendForApproval = () => {
     this.handleProposeProduct();
-  }
+  };
 
   handleAddAnotherProduct = async () => {
     await this.handleProposeProduct();
@@ -148,10 +155,10 @@ export class AddProduct extends Component {
         vatStatus: '',
         tags: [],
         loading: false,
-        imageFile: '',
+        imageFile: ''
       });
     }, 1500);
-  }
+  };
 
   onSelectFile = (e) => {
     const { files } = e.target;
@@ -167,16 +174,20 @@ export class AddProduct extends Component {
         });
 
         const reader = new FileReader();
-        reader.addEventListener('load', () => {
-          this.setState({
-            src: reader.result,
-            open: true
-          });
-        }, false);
+        reader.addEventListener(
+          'load',
+          () => {
+            this.setState({
+              src: reader.result,
+              open: true
+            });
+          },
+          false
+        );
         reader.readAsDataURL(imageFile);
       }
     }
-  }
+  };
 
   getCroppedImg = (imageFile, pixelCrop, fileName) => {
     const canvas = document.createElement('canvas');
@@ -186,7 +197,7 @@ export class AddProduct extends Component {
 
     const image = new Image();
     const promise = new Promise((resolve) => {
-      image.onload = (() => {
+      image.onload = () => {
         ctx.drawImage(
           image,
           pixelCrop.x,
@@ -199,41 +210,42 @@ export class AddProduct extends Component {
           pixelCrop.height
         );
         resolve();
-      });
+      };
       image.src = imageFile;
-    }).then(() => new Promise((resolve) => {
-      canvas.toBlob((blob) => {
-        blob.name = fileName;
-        resolve(blob);
-      }, 'image/jpeg');
-    }));
+    }).then(
+      () => new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          blob.name = fileName;
+          resolve(blob);
+        }, 'image/jpeg');
+      })
+    );
     return promise;
-  }
+  };
 
   handleImageDrop = (file) => {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', `${process.env.UPLOAD_PRESET}`);
     formData.append('api_key', `${process.env.API_KEY}`);
-    formData.append('timestamp', (Date.now() / 1000) || 0);
+    formData.append('timestamp', Date.now() / 1000 || 0);
 
-    return axios.post(`${process.env.CLOUDINARY_URL}`, formData, {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' },
-    }).then((response) => {
-      const { data } = response;
-      const fileURL = data.secure_url;
-      this.setState({
-        productImage: fileURL
-      });
-    }).catch(() => notify('There was an error uploading the image'));
-  }
+    return axios
+      .post(`${process.env.CLOUDINARY_URL}`, formData, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      })
+      .then((response) => {
+        const { data } = response;
+        const fileURL = data.secure_url;
+        this.setState({
+          productImage: fileURL
+        });
+      })
+      .catch(() => notify('There was an error uploading the image'));
+  };
 
   handleSave = () => {
-    const {
-      src,
-      fileName,
-      crop
-    } = this.state;
+    const { src, fileName, crop } = this.state;
 
     this.getCroppedImg(src, crop, fileName).then((data) => {
       this.handleImageDrop(data);
@@ -242,7 +254,7 @@ export class AddProduct extends Component {
         open: false
       });
     });
-  }
+  };
 
   handleClose = () => {
     const { imageFile } = this.state;
@@ -251,12 +263,11 @@ export class AddProduct extends Component {
       open: false
     });
     this.handleImageDrop(imageFile);
-  }
-
+  };
 
   handleOnCropChange = (crop) => {
     this.setState({ crop });
-  }
+  };
 
   render() {
     const { session } = this.props;
@@ -264,39 +275,30 @@ export class AddProduct extends Component {
     return (
       <div>
         <Dashboard isActive="grid3" session={session} />
-        <Query
-          query={GET_INITIAL_DATA}
-          variables={{ outletId: localStorage.outletId }}
-        >
-          {({ loading, error, data }) => {
-            if (loading) return <DataTableLoader />;
-            if (error) return null;
-
-            return (
-              <div>
-                <BackAction
-                  header="Add Product (Proposed)"
-                  link="/products/approved"
-                />
-                <ProductForm
-                  state={this.state}
-                  initialData={data}
-                  handleProductName={this.handleProductName}
-                  handleChange={this.handleChange}
-                  handleAddition={this.handleAddition}
-                  handleDelete={this.handleDelete}
-                  onSelectFile={this.onSelectFile}
-                  handleOnDrop={this.handleImageDrop}
-                  handleOnCropChange={this.handleOnCropChange}
-                  handleCategoryChange={this.handleCategoryChange}
-                  handleClose={this.handleClose}
-                  handleSave={this.handleSave}
-                  handleSendForApproval={this.handleSendForApproval}
-                  handleAddAnotherProduct={this.handleAddAnotherProduct}
-                />
-              </div>
-            );
-          }}
+        <Query query={GET_INITIAL_DATA} variables={{ outletId: localStorage.outletId }}>
+          {({ loading, error, data }) => (loading && <DataTableLoader />)
+            || (error || null) || (
+            <div>
+              <BackAction header="Add Product (Proposed)" link="/products/approved" />
+              <ProductForm
+                state={this.state}
+                initialData={data}
+                handleProductName={this.handleProductName}
+                handleChange={this.handleChange}
+                handleAddition={this.handleAddition}
+                handleDelete={this.handleDelete}
+                onSelectFile={this.onSelectFile}
+                handleOnDrop={this.handleImageDrop}
+                handleOnCropChange={this.handleOnCropChange}
+                handleCategoryChange={this.handleCategoryChange}
+                handleClose={this.handleClose}
+                handleSave={this.handleSave}
+                handleSendForApproval={this.handleSendForApproval}
+                handleAddAnotherProduct={this.handleAddAnotherProduct}
+              />
+            </div>
+          )
+          }
         </Query>
       </div>
     );
@@ -311,11 +313,9 @@ AddProduct.propTypes = {
 
 AddProduct.defaultProps = {
   session: {},
-  history: {},
+  history: {}
 };
 
 const ADD_PRODUCT = graphql(CREATE_PRODUCT, { name: 'addProduct' });
 
-export default withAuth((compose(
-  ADD_PRODUCT
-)(withRouter(AddProduct))));
+export default withAuth(compose(ADD_PRODUCT)(withRouter(AddProduct)));

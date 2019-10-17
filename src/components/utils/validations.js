@@ -1,3 +1,5 @@
+import { isValidPhoneNumber } from 'react-phone-number-input';
+
 let helperText;
 let error;
 export const validateEmail = (email) => {
@@ -13,28 +15,38 @@ export const validateEmail = (email) => {
   return [helperText, error];
 };
 
-
 export const validatePhone = (phone) => {
-  const regex = /^\d{12,12}$/;
-  const regxTest = regex.test(phone);
-  if (regxTest) {
+  const validPhone = isValidPhoneNumber(phone);
+  if (validPhone) {
     helperText = '';
     error = false;
   } else {
-    helperText = 'Invalid Number';
+    helperText = 'Invalid Phone Number';
     error = true;
   }
   return [helperText, error];
 };
 
 export const validateName = (str) => {
-  const regex = /^(?=.{3,15}$)[a-z]+(?:['_.\s][a-z]+)*$/i;
+  const regex = /^(?=.{5,15}$)[a-z]+(?:['_.\s][a-z]+)*$/i;
   const regxTest = regex.test(str);
   if (regxTest) {
     helperText = '';
     error = false;
   } else {
-    helperText = 'Enter atleast 3 to 15 letters only';
+    helperText = 'Enter atleast 5 to 15 letters only';
+    error = true;
+  }
+  return [helperText, error];
+};
+export const validateComment = (str) => {
+  const regex = /^(?=.{10,30}$)[a-z]+(?:['_.\s][a-z]+)*$/i;
+  const regxTest = regex.test(str);
+  if (regxTest) {
+    helperText = '';
+    error = false;
+  } else {
+    helperText = 'Enter a maximum of 100 characters';
     error = true;
   }
   return [helperText, error];

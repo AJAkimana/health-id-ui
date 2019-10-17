@@ -8,7 +8,7 @@ import { InlineDatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import '../../../assets/styles/salesHistory/dateTimePopper.css';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { dateTimeStyles } from '../../../assets/styles/salesHistory/salesHistoryStyles';
 
 

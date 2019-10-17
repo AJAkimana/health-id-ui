@@ -17,7 +17,7 @@ const props = {
   classes: {
     icon: 'Products-div-1',
     iconButton: 'Products-footer-2',
-    inverseIcon: 'inverse-icon',
+    inverseIcon: 'inverse-icon'
   },
   match: {
     params: {
@@ -36,99 +36,99 @@ const props = {
       activeOutlet: {
         outletpreference: {
           outletTimezone: {
-            name: "Africa/Nairobi"
+            name: 'Africa/Nairobi'
           }
         }
       }
     }
-  },
+  }
 };
 
 const errorMock = [
   {
-    "request": {
-      "query": GET_APPROVED_AND_PROPOSED_PRODUCTS,
-      "variables": {
-        "pageCount": 10,
-        "pageNumber": 1
+    request: {
+      query: GET_APPROVED_AND_PROPOSED_PRODUCTS,
+      variables: {
+        pageCount: 10,
+        pageNumber: 1
       }
     },
-    "error": new Error("bloody error"),
+    error: new Error('bloody error')
   }
 ];
 
 const mocks = [
   {
-    "request": {
-      "query": GET_APPROVED_AND_PROPOSED_PRODUCTS,
-      "variables": {
-        "pageCount": 10,
-        "pageNumber": 1
+    request: {
+      query: GET_APPROVED_AND_PROPOSED_PRODUCTS,
+      variables: {
+        pageCount: 10,
+        pageNumber: 1
       }
     },
-    "result": {
-      "data": {
-        "approvedProducts": [
+    result: {
+      data: {
+        approvedProducts: [
           {
-            "id": "261",
-            "productName": "Panadol",
-            "skuNumber": "000261",
-            "description": "Nice meds, they mess you real good",
-            "brand": "Stans",
-            "manufacturer": "Stans",
-            "vatStatus": false,
-            "productQuantity": 85,
-            "salesPrice": 408.0,
-            "nearestExpiryDate": "2019-08-13",
-            "loyaltyWeight": 5,
-            "tags": [],
-            "productCategory": {
-              "id": "15",
-              "name": "pain killer"
+            id: '261',
+            productName: 'Panadol',
+            skuNumber: '000261',
+            description: 'Nice meds, they mess you real good',
+            brand: 'Stans',
+            manufacturer: 'Stans',
+            vatStatus: false,
+            productQuantity: 85,
+            salesPrice: 408.0,
+            nearestExpiryDate: '2019-08-13',
+            loyaltyWeight: 5,
+            tags: [],
+            productCategory: {
+              id: '15',
+              name: 'pain killer'
             },
-            "measurementUnit": {
-              "id": "1",
-              "name": "tablets"
+            measurementUnit: {
+              id: '1',
+              name: 'tablets'
             },
-            "preferredSupplier": {
-              "id": "2",
-              "name": "sean2"
+            preferredSupplier: {
+              id: '2',
+              name: 'sean2'
             },
-            "backupSupplier": {
-              "id": "2",
-              "name": "sean2"
+            backupSupplier: {
+              id: '2',
+              name: 'sean2'
             }
           }
         ],
-        "proposedProducts": [
+        proposedProducts: [
           {
-            "id": "297",
-            "productName": "Geisha",
-            "skuNumber": "000297",
-            "description": "African magic is cool",
-            "brand": "Dope",
-            "manufacturer": "Africa",
-            "vatStatus": false,
-            "productQuantity": 0,
-            "salesPrice": 0.0,
-            "nearestExpiryDate": null,
-            "loyaltyWeight": 0,
-            "tags": [],
-            "productCategory": {
-              "id": "16",
-              "name": "cosmetic"
+            id: '297',
+            productName: 'Geisha',
+            skuNumber: '000297',
+            description: 'African magic is cool',
+            brand: 'Dope',
+            manufacturer: 'Africa',
+            vatStatus: false,
+            productQuantity: 0,
+            salesPrice: 0.0,
+            nearestExpiryDate: null,
+            loyaltyWeight: 0,
+            tags: [],
+            productCategory: {
+              id: '16',
+              name: 'cosmetic'
             },
-            "measurementUnit": {
-              "id": "3",
-              "name": "bottles"
+            measurementUnit: {
+              id: '3',
+              name: 'bottles'
             },
-            "preferredSupplier": {
-              "id": "bu5ixuq72",
-              "name": "Unilever"
+            preferredSupplier: {
+              id: 'bu5ixuq72',
+              name: 'Unilever'
             },
-            "backupSupplier": {
-              "id": "2",
-              "name": "sean2"
+            backupSupplier: {
+              id: '2',
+              name: 'sean2'
             }
           }
         ]
@@ -159,9 +159,15 @@ describe('Test table rendering and data functions', () => {
   let wrapper;
   let wrapperInstance;
   beforeEach(() => {
-    wrapper = mount(<Router><MockedProvider mocks={mocks} addTypename={false} ><Products {...props} /></MockedProvider></Router>);
+    wrapper = mount(
+      <Router>
+        <MockedProvider mocks={mocks} addTypename={false}>
+          <Products {...props} />
+        </MockedProvider>
+      </Router>
+    );
     wrapperInstance = wrapper.find('Products').instance();
-  })
+  });
 
   it('should renders with loader ', () => {
     expect(wrapper.find('Products').length).toBe(1);
@@ -171,15 +177,21 @@ describe('Test table rendering and data functions', () => {
     const tableProps = {
       title: 'products',
       data: [],
-      columns: ["names"],
+      columns: ['names'],
       options: {}
     };
     const tablewrapper = shallow(<Datatable {...tableProps} />);
-    expect(tablewrapper.find('[title="products"]').length).toBe(1)
+    expect(tablewrapper.find('[title="products"]').length).toBe(1);
   });
 
   it('should render with errors', async () => {
-    const errorWrapper = mount(<Router><MockedProvider mocks={errorMock} addTypename={false}><Products {...props} /></MockedProvider></Router>);
+    const errorWrapper = mount(
+      <Router>
+        <MockedProvider mocks={errorMock} addTypename={false}>
+          <Products {...props} />
+        </MockedProvider>
+      </Router>
+    );
     await wait(1000);
     errorWrapper.update();
     setTimeout(() => {
@@ -205,6 +217,23 @@ describe('Test table rendering and data functions', () => {
     const spy = jest.spyOn(wrapperInstance, 'changePage');
 
     wrapperInstance.changePage(pageNumber, refetch);
+    wrapperInstance.changePage('next')();
+    wrapper.setState({ ...wrapper.state(), pageNumber: 2 });
+    wrapperInstance.changePage('prev')();
+    expect(spy).toBeCalled();
+  });
+
+  it('should handle change rows', async () => {
+    const spy = jest.spyOn(wrapperInstance, 'changeRows');
+    const refetch = jest.fn();
+    const event = {
+      target: {
+        value: 'value'
+      }
+    };
+    const cb = e => e;
+    wrapper.setState({ ...wrapper.state(), pageNumber: 2 });
+    wrapperInstance.changeRows(refetch)(cb(event));
     expect(spy).toBeCalled();
   });
 
@@ -212,7 +241,7 @@ describe('Test table rendering and data functions', () => {
     await wait(200);
     wrapperInstance.props.match.params.status = undefined;
     wrapper.update();
-    wrapperInstance.setState({ searchActive: true})
+    wrapperInstance.setState({ searchActive: true });
     wrapper.update();
 
     expect(wrapperInstance.state.searchActive).toBe(true);
@@ -220,55 +249,55 @@ describe('Test table rendering and data functions', () => {
 
   it('should handle navigation to proposed products', async () => {
     await wait(200);
-    wrapperInstance.props.match.params.status = "proposed";
+    wrapperInstance.props.match.params.status = 'proposed';
     wrapper.update();
 
-    expect(wrapperInstance.props.match.params.status).toBe("proposed");
+    expect(wrapperInstance.props.match.params.status).toBe('proposed');
   });
 
   it('should handle navigation to approved products', async () => {
     await wait(200);
-    wrapperInstance.props.match.params.status = "approved";
+    wrapperInstance.props.match.params.status = 'approved';
     wrapper.update();
 
-    expect(wrapperInstance.props.match.params.status).toBe("approved");
+    expect(wrapperInstance.props.match.params.status).toBe('approved');
   });
 
   it('should handle product search', async () => {
-    const mockQuery = (value) => new Promise((resolve) => {
+    const mockQuery = value => new Promise((resolve) => {
       if (value.length > 2) {
-        return resolve(
-          {
-            data: {
-              products: [
-                {
-                  id: "261",
-                  productCategory: {
-                    name: "pain killer"
-                  },
-                  productName: "Panadol",
-                  measurementUnit: {
-                    name: "tablets"
-                  },
-                  outlet: {
-                    outletpreference: {
-                      outletCurrency: {
-                        symbol: "₦"
-                      }
+        return resolve({
+          data: {
+            products: [
+              {
+                id: '261',
+                productCategory: {
+                  name: 'pain killer'
+                },
+                productName: 'Panadol',
+                measurementUnit: {
+                  name: 'tablets'
+                },
+                outlet: {
+                  outletpreference: {
+                    outletCurrency: {
+                      symbol: '₦'
                     }
-                  },
-                  image: "https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg",
-                  skuNumber: "000261",
-                  description: "Nice meds, they mess you real good",
-                  brand: "Stans",
-                  manufacturer: "Stans",
-                  productQuantity: 85,
-                  salesPrice: 408.0,
-                  tags: []
-                }]
-            }
+                  }
+                },
+                image:
+                    'https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg',
+                skuNumber: '000261',
+                description: 'Nice meds, they mess you real good',
+                brand: 'Stans',
+                manufacturer: 'Stans',
+                productQuantity: 85,
+                salesPrice: 408.0,
+                tags: []
+              }
+            ]
           }
-        );
+        });
       }
     });
 
@@ -288,19 +317,23 @@ describe('Test toolBar actions', () => {
       iconButton: 'icon-button',
       popper: 'popper',
       paper: 'paper',
-      exportSVG: 'export',
+      exportSVG: 'export'
     },
-    handleViewProposed: jest.fn(),
+    handleViewProposed: jest.fn()
   };
-  const wrapper = mount(<Router><ToolBar {...prop} /></Router>);
+  const wrapper = mount(
+    <Router>
+      <ToolBar {...prop} />
+    </Router>
+  );
   it('should toggle the add product popup when the icon is clicked', () => {
     document.createRange = () => ({
-      setStart: () => { },
-      setEnd: () => { },
+      setStart: () => {},
+      setEnd: () => {},
       commonAncestorContainer: {
         nodeName: 'BODY',
-        ownerDocument: document,
-      },
+        ownerDocument: document
+      }
     });
     wrapper.instance().setState({ openAddMenu: false });
     const switchIcon = wrapper.find('IconButton').at(0);
