@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Supplier Page DataTable  renders without crashing 1`] = `
+<div>
+  <WithStyles(Paper)>
+    <TableToolBar
+      client={
+        Object {
+          "query": [Function],
+        }
+      }
+      handleClickSearch={[Function]}
+      handleEdit={[Function]}
+      handleHideSearch={[Function]}
+      handleSearchTextChange={[Function]}
+      handleViewProposed={[Function]}
+      isAdmin={false}
+      isSearchActive={true}
+      name="toolbar"
+      numSelected={0}
+      status="approved"
+      title="rfrfr"
+    />
+    <div>
+      <WithStyles(Table)
+        aria-labelledby="tableTitle"
+        onMouseLeave={[Function]}
+      >
+        <WithStyles(TableHeader)
+          headRows={Array []}
+          numSelected={0}
+          onRequestSort={[Function]}
+          onSelectAllClick={[Function]}
+          order="asc"
+          orderBy="name"
+          rowCount={0}
+        />
+        <WithStyles(TableBody)>
+          <WithStyles(TableRow)>
+            <WithStyles(TableCell)
+              align="center"
+              colSpan={14}
+            >
+              No Products
+            </WithStyles(TableCell)>
+          </WithStyles(TableRow)>
+        </WithStyles(TableBody)>
+      </WithStyles(Table)>
+    </div>
+    <WithStyles(TablePagination)
+      backIconButtonProps={
+        Object {
+          "aria-label": "Previous Page",
+        }
+      }
+      component="div"
+      count={[Function]}
+      nextIconButtonProps={
+        Object {
+          "aria-label": "Next Page",
+        }
+      }
+      onChangePage={[Function]}
+      page={2}
+      rowsPerPage={10}
+      rowsPerPageOptions={
+        Array [
+          5,
+          10,
+          25,
+        ]
+      }
+    />
+  </WithStyles(Paper)>
+</div>
+`;

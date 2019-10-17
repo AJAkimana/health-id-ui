@@ -22,12 +22,46 @@ const stockControlStyles = {
 };
 
 export const ToolbarStyles = {
+  pippicon: {
+    width: '20px',
+    height: '20px'
+  },
+  piptitle: {
+    fontSize: '17px',
+    fontWeight: 'bold'
+  },
+  piptags: {
+    marginRight: '10px',
+    marginTop: '5px',
+    marginBottom: '5px',
+    padding: '0px',
+    backgroundColor: '#424242',
+    color: 'white',
+    borderRadius: '5px'
+  },
+  pipdescription: {
+    fontSize: '12px',
+    display: 'block',
+    textOverflow: 'ellipsis',
+    wordWrap: 'break-word',
+    overflow: 'hidden',
+    maxHeight: '7.3em',
+    lineHeight: '1.8em'
+  },
+  pipmain: {
+    paddingTop: '7px',
+    paddingLeft: '15px',
+    paddingBottom: '20px',
+    paddingRight: '10px',
+    width: '500px',
+    marginLeft: '10px'
+  },
   iconButtonActive: {
-    marginLeft: '10px',
+    marginLeft: '10px'
   },
   iconButton: {
     backgroundColor: '#E3E3E3',
-    marginLeft: '10px',
+    marginLeft: '10px'
   },
   svgIcon: {
     height: '0.8em'
@@ -61,7 +95,7 @@ export const ToolbarStyles = {
 export const searchStyles = theme => ({
   main: {
     display: 'inline-flex',
-    minWidth: '600px',
+    minWidth: '600px'
   },
   searchIcon: {
     color: theme.palette.text.secondary,
@@ -103,6 +137,9 @@ export const TableStyles = {
   tableWrapper: {
     overflowX: 'auto',
     height: 450
+  },
+  tableRow: {
+    cursor: 'pointer'
   },
   name: {
     textDecoration: 'underline',
@@ -254,6 +291,5 @@ export const BatchCardStyles = {
     color: 'rgb(66, 66, 66)'
   }
 };
-
 
 export default stockControlStyles;

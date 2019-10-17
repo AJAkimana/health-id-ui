@@ -15,7 +15,7 @@ import CREATE_SUPPLIER_NOTE from '../../../mutations/createSupplierNoteMutation'
 import notify from '../../shared/Toaster';
 
 
-class SupplierNotes extends Component {
+export class SupplierNotes extends Component {
   constructor(props) {
     super(props);
     this.state = {

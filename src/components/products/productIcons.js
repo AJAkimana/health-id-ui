@@ -1,9 +1,10 @@
+/* eslint-disable default-case */
 import React from 'react';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import PropTypes from 'prop-types';
 import * as IconPaths from './productsSVGIconPaths';
 
-const getIconStructure = (id) => {
+export const getIconStructure = (id) => {
   switch (id) {
   case 'expiry_icon':
     return (
@@ -62,13 +63,12 @@ const getIconStructure = (id) => {
         </g>
       </React.Fragment>
     );
-
   default:
     return <g />;
   }
 };
 
-const getViewBox = (id) => {
+export const getViewBox = (id) => {
   switch (id) {
   case 'expiry_icon':
     return (
@@ -82,12 +82,11 @@ const getViewBox = (id) => {
     return '0 0 24 24';
   case 'warehouse':
     return '0 0 947.869 873.045';
-  default:
-    return '0 0 594.449 443.735';
   }
 };
+export const forwardIcon = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMyIDMyIiBoZWlnaHQ9IjMycHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMycHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxwYXRoIGQ9Ik0yNC4yOTEsMTQuMjc2TDE0LjcwNSw0LjY5Yy0wLjg3OC0wLjg3OC0yLjMxNy0wLjg3OC0zLjE5NSwwbC0wLjgsMC44Yy0wLjg3OCwwLjg3Ny0wLjg3OCwyLjMxNiwwLDMuMTk0ICBMMTguMDI0LDE2bC03LjMxNSw3LjMxNWMtMC44NzgsMC44NzgtMC44NzgsMi4zMTcsMCwzLjE5NGwwLjgsMC44YzAuODc4LDAuODc5LDIuMzE3LDAuODc5LDMuMTk1LDBsOS41ODYtOS41ODcgIGMwLjQ3Mi0wLjQ3MSwwLjY4Mi0xLjEwMywwLjY0Ny0xLjcyM0MyNC45NzMsMTUuMzgsMjQuNzYzLDE0Ljc0OCwyNC4yOTEsMTQuMjc2eiIgZmlsbD0iIzUxNTE1MSIvPjwvc3ZnPg==';
 
-const Icon = ({ id, className }) => (
+export const Icon = ({ id, className }) => (
   <SvgIcon
     xmlns="http://www.w3.org/2000/svg"
     id={id}

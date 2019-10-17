@@ -48,7 +48,6 @@ describe('Render Add Product component', () => {
     {
       request: {
         query: GET_PRODUCTS_SUPPLIERS_CATEGORIES,
-        variables: { outletId: 7 }
       },
       result: {
         data: {

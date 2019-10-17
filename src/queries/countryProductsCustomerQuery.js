@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-
+// *productQuantity*
 const GET_COUNTRIES_PRODUCTS_CUSTOMERS = gql`
 query {
   approvedProducts(pageCount:8, pageNumber: 1 ) {
@@ -23,7 +23,10 @@ query {
     description
     brand
     manufacturer
-    productQuantity
+    
+
+
+
     salesPrice
     tags
   }

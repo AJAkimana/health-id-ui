@@ -1,21 +1,22 @@
 import gql from 'graphql-tag';
-
-export const GET_APPROVED_AND_PROPOSED_PRODUCTS = gql`
+// productQuantity
+export const GET_APPROVED_PRODUCTS = gql`
   query($pageNumber: Int, $pageCount: Int) {
     approvedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
       id
       productName
+      image
       skuNumber
       description
       brand
       manufacturer
       vatStatus
-      productQuantity
       salesPrice
       nearestExpiryDate
       loyaltyWeight
       tags
-
+      reorderPoint
+      reorderMax
       productCategory {
         id
         name
@@ -36,21 +37,26 @@ export const GET_APPROVED_AND_PROPOSED_PRODUCTS = gql`
         name
       }
     }
-
+    totalProductsPagesCount
+  }
+`;
+export const GET_PROPOSED_PRODUCTS = gql`
+  query($pageNumber: Int, $pageCount: Int) {
     proposedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
       id
       productName
+      image
       skuNumber
       description
       brand
       manufacturer
       vatStatus
-      productQuantity
       salesPrice
       nearestExpiryDate
       loyaltyWeight
       tags
-
+      reorderPoint
+      reorderMax
       productCategory {
         id
         name
@@ -71,8 +77,61 @@ export const GET_APPROVED_AND_PROPOSED_PRODUCTS = gql`
         name
       }
     }
+    totalProductsPagesCount
   }
 `;
+export const GET_ALL_PRODUCTS = gql`
+  query($pageNumber: Int, $pageCount: Int) {
+    products(pageNumber: $pageNumber, pageCount: $pageCount) {
+      id
+      productName
+      image
+      skuNumber
+      description
+      brand
+      manufacturer
+      vatStatus
+      salesPrice
+      nearestExpiryDate
+      loyaltyWeight
+      tags
+      reorderPoint
+      reorderMax
+      productCategory {
+        id
+        name
+      }
+
+      measurementUnit {
+        id
+        name
+      }
+
+      preferredSupplier {
+        id
+        name
+      }
+
+      backupSupplier {
+        id
+        name
+      }
+    }
+    totalProductsPagesCount
+  }
+`;
+export const GET_PRODUCTS = (status) => {
+  switch (status) {
+  case 'approved':
+    return GET_APPROVED_PRODUCTS;
+  case 'proposed':
+    return GET_PROPOSED_PRODUCTS;
+  case 'all':
+    return GET_ALL_PRODUCTS;
+  default:
+    return GET_ALL_PRODUCTS;
+  }
+};
 
 export const GET_PRODUCTS_COUNT = gql`
   query($pageNumber: Int, $pageCount: Int) {
@@ -84,84 +143,81 @@ export const GET_PRODUCTS_COUNT = gql`
 `;
 
 export const GET_PRODUCT_BY_ID = gql`
-query product(
-  $id: Int,
-) {
-  product(id: $id) {
-    id
-    productName
-    skuNumber
-    description
-    brand
-    manufacturer
-    vatStatus
-    productQuantity
-    salesPrice
-    image
-    isApproved
-    nearestExpiryDate
-    loyaltyWeight
-    tags
-
-    productCategory {
+  query product($id: Int) {
+    product(id: $id) {
       id
-      name
-    }
+      productName
+      skuNumber
+      description
+      brand
+      manufacturer
+      vatStatus
+      productQuantity
+      salesPrice
+      image
+      isApproved
+      nearestExpiryDate
+      loyaltyWeight
+      tags
 
-    measurementUnit {
-      id
-      name
-    }
+      productCategory {
+        id
+        name
+      }
 
-    preferredSupplier {
-      id
-      name
-    }
+      measurementUnit {
+        id
+        name
+      }
 
-    backupSupplier {
-      id
-      name
+      preferredSupplier {
+        id
+        name
+      }
+
+      backupSupplier {
+        id
+        name
+      }
     }
   }
-}
 `;
-
-
+// productQuantity
 export const SEARCH_PRODUCTS = gql`
-query ($searchValue: String) {
-  products(search: $searchValue) {
-    id
-    productName
-    skuNumber
-    description
-    brand
-    manufacturer
-    vatStatus
-    productQuantity
-    salesPrice
-    nearestExpiryDate
-    loyaltyWeight
-    tags
-
-    productCategory {
+  query($searchValue: String) {
+    products(search: $searchValue) {
       id
-      name
-    }
+      productName
+      skuNumber
+      description
+      brand
+      manufacturer
+      vatStatus
+      
+      salesPrice
+      nearestExpiryDate
+      loyaltyWeight
+      tags
 
-    measurementUnit {
-      id
-      name
-    }
+      productCategory {
+        id
+        name
+      }
 
-    preferredSupplier {
-      id
-      name
-    }
+      measurementUnit {
+        id
+        name
+      }
 
-    backupSupplier {
-      id
-      name
+      preferredSupplier {
+        id
+        name
+      }
+
+      backupSupplier {
+        id
+        name
+      }
     }
   }
-}
 `;

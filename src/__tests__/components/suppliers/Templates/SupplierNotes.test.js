@@ -1,10 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { BrowserRouter } from 'react-router-dom';
-import SupplierNotes from '../../../../components/suppliers/Templates/SupplierNotes';
-
+// import SupplierNotes from '../../../../components/suppliers/Templates/SupplierNotes';
+import { SupplierNotes } from '../../../../components/suppliers/Templates/SupplierNotes';
 const props = {
   renderTableCell: jest.fn(),
   supplier: {
@@ -89,6 +89,7 @@ const props = {
       }
     ]
   },
+  addSupplierNote: async () => {},
   renderTextField: jest.fn(),
   variables: {},
   classes: {},
@@ -103,20 +104,27 @@ const props = {
             name: 'Africa/Nairobi'
           }
         }
-      }
+      },
+      outlets: [
+        {
+          id: 'ddfe'
+        }
+      ]
     }
   }
 };
 
 describe('SupplierNotes', () => {
   it('should render the SupplierNotes component properly', () => {
-    let wrapper = (
-      <MockedProvider mocks={props} addTypeName={false}>
-        <BrowserRouter>
-          <SupplierNotes {...props} />
-        </BrowserRouter>
-      </MockedProvider>
-    );
-    expect(toJson(wrapper)).toMatchSnapshot();
+    let wrapper = shallow(<SupplierNotes {...props} />);
+    wrapper.instance().handleopenAddModel();
+    wrapper.instance().handleChange({ target: 'efef' });
+    wrapper.instance().handleSaveNote();
+    wrapper.instance().handleCloseModal();
+    wrapper.instance().handleRowClick({});
+    wrapper.instance().handleCloseDetailModal();
+    expect(typeof wrapper.instance().state).toBe('object');
+    expect(wrapper.instance().state.note).toBe(undefined);
+    expect(wrapper.instance().state.openAddModel).toBe(false);
   });
 });
