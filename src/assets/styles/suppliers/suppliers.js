@@ -34,13 +34,13 @@ const lowerNavbarStyles = {
   gridContainer: {
     backgroundColor: '#ffffff',
     height: '70px',
-    borderBottom: '1px solid #A3A3A3',
+    borderBottom: '1px solid #A3A3A3'
 
   },
   items: {
     marginLeft: '35px',
     marginTop: '25px',
-    fontWeight: '700',
+    fontWeight: '500',
     textAlign: 'center'
   },
   itemActive: {
@@ -50,7 +50,10 @@ const lowerNavbarStyles = {
     backgroundColor: '#A3A3A3',
     borderBottom: '3px solid #f5f141',
     textAlign: 'center',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+
   },
   typographyText: {
     justifyContent: 'flex-start',

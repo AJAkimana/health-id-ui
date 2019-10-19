@@ -29,6 +29,7 @@ import SuppliersPage from './suppliers/SuppliersPage';
 import SingleSupplierPage from './suppliers/SingleSupplierPage';
 import OrdersAndSuppliers from '../containers/orders/orders';
 import ImportSuppliers from './suppliers/Templates/ImportSuppliers/ImportSuppliers';
+import ProductMenuComingSoon from './products/productMenuComingSoon';
 
 const App = ({ session }) => (
   <Fragment>
@@ -82,6 +83,8 @@ const App = ({ session }) => (
       <Route exact path="/product/import" render={() => <ImportProduct session={session} />} />
       <Route exact path="/orders/:status" render={() => <OrdersAndSuppliers session={session} />} />
       <Route exact path="/orders" render={() => <OrdersAndSuppliers session={session} />} />
+      <Route exact path="/productmenucomingsoon" render={() => <ProductMenuComingSoon session={session} />} />
+
     </Switch>
   </Fragment>
 );

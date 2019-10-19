@@ -27,7 +27,6 @@ export class LowerNavbar extends Component {
       <Grid
         key={index}
         item
-        xs={1}
         style={id === activeGrid ? lowerNavbarStyles.itemActive : lowerNavbarStyles.items}
       >
         <Link to={link} style={{ textDecoration: 'none' }} id={id} onClick={() => this.handleOnClick(id)}>

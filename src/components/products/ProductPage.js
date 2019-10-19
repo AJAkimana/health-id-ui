@@ -7,6 +7,7 @@ import withAuth from '../withAuth';
 import { ProductsStyles } from '../../assets/styles/products/products';
 import Dashboard from '../shared/Dashboard/Dashboard';
 import Products from './productsTable';
+import ProductNavBar from './productNavBar';
 
 export class ProductPage extends PureComponent {
   render() {
@@ -15,6 +16,7 @@ export class ProductPage extends PureComponent {
     return (
       <div style={ProductsStyles.div}>
         <Dashboard isActive="grid3" session={session} />
+        <ProductNavBar activeGrid="grid1" />
         <Products session={session} />
       </div>
     );
