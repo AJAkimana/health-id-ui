@@ -14,7 +14,7 @@ describe('Tests that the profile page renders correctly for the Master Admin', (
       firstName: 'test',
       id: '1234567',
       lastName: 'tester',
-      phone: '+254717123456',
+      mobileNumber: '+254717123456',
       role: {
         name: 'Cashier',
         __typename: 'RoleType'
@@ -35,7 +35,7 @@ describe('Tests that the profile page renders correctly for the Master Admin', (
     expect(wrapper.find(TextField)).toHaveLength(10);
     expect(wrapper.find(TextField).at(0).props().value).toBe(dummySession.me.firstName);
     expect(wrapper.find(TextField).at(1).props().value).toBe(dummySession.me.username);
-    expect(wrapper.find(TextField).at(2).props().value).toBe(dummySession.me.phone);
+    expect(wrapper.find(TextField).at(2).props().value).toBe(dummySession.me.mobileNumber);
     expect(wrapper.find(TextField).at(3).props().value).toBe(dummySession.me.lastName);
     expect(wrapper.find(TextField).at(4).props().value).toBe(dummySession.me.email);
     expect(wrapper.find(TextField).at(5).props().value).toBe(dummySession.me.birthday);

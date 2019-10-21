@@ -8,13 +8,17 @@ import ProductImagePlaceholder from '../../../../assets/images/productImage.png'
 
 const ImageUpload = (props) => {
   const {
-    state, handleOnDrop, handleOnCropChange, handleClose, handleSave, onSelectFile
+    state,
+    profileImage,
+    handleOnDrop,
+    handleOnCropChange,
+    handleClose,
+    handleSave,
+    onSelectFile
   } = props;
 
   return (
-    <div
-      style={ImageUploadStyles.container}
-    >
+    <div style={ImageUploadStyles.container}>
       {state.src ? (
         <ResizeDialog
           state={state}
@@ -24,36 +28,34 @@ const ImageUpload = (props) => {
         />
       ) : (
         <div>
-          <div
-            style={ImageUploadStyles.uploadDiv}
-          >
-            {state.productImage ? (
-              <img src={state.productImage} className="product-image" alt="product" style={ImageUploadStyles.uploadedImg} />
+          <div style={ImageUploadStyles.uploadDiv}>
+            {state.productImage || profileImage ? (
+              <img
+                src={state.productImage || profileImage}
+                className="product-image"
+                alt="product"
+                style={ImageUploadStyles.uploadedImg}
+              />
             ) : (
-              <img src={ProductImagePlaceholder} className="imgPlaceholder" alt="product" style={ImageUploadStyles.imgPlaceholder} />
+              <img
+                src={ProductImagePlaceholder}
+                className="imgPlaceholder"
+                alt="product"
+                style={ImageUploadStyles.imgPlaceholder}
+              />
             )}
           </div>
-          <p
-            style={ImageUploadStyles.label}
-          >
-            Upload png / jpg
-          </p>
+          <p style={ImageUploadStyles.label}>Upload png / jpg</p>
           <Dropzone
             onDrop={handleOnDrop}
             accept="image/jpg, image/jpeg, image/JPEG, image/png, image/PNG"
             multiple={false}
           >
-            {({
-              getRootProps, getInputProps,
-            }) => (
+            {({ getRootProps, getInputProps }) => (
               <div>
                 <input {...getInputProps()} onChange={onSelectFile} />
-                <Button
-                  {...getRootProps()}
-                  variant="contained"
-                  style={ImageUploadStyles.button}
-                >
-          Choose image
+                <Button {...getRootProps()} variant="contained" style={ImageUploadStyles.button}>
+                  Choose image
                 </Button>
               </div>
             )}
@@ -66,6 +68,7 @@ const ImageUpload = (props) => {
 
 ImageUpload.propTypes = {
   state: PropTypes.instanceOf(Object).isRequired,
+  profileImage: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,
   handleOnCropChange: PropTypes.func.isRequired,
   handleOnDrop: PropTypes.func.isRequired,

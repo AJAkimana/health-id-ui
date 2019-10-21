@@ -13,13 +13,13 @@ describe('Tests that the profile page renders correctly for the Master Admin', (
       firstName: 'test',
       id: '1234567',
       lastName: 'tester',
-      phone: '+254717123456',
+      mobileNumber: '+254717123456',
       role: {
         name: 'Master Admin',
         __typename: 'RoleType'
       },
       secondaryEmail: 'njihiadee@outlook.com',
-      secondaryPhone: '+254717123456',
+      secondaryPhoneNumber: '+254717123456',
       username: 'darius',
     }
   };
@@ -33,10 +33,10 @@ describe('Tests that the profile page renders correctly for the Master Admin', (
     expect(wrapper.find(TextField).at(0).props().value).toBe(dummyAdminSession.me.firstName);
     expect(wrapper.find(TextField).at(1).props().value).toBe(dummyAdminSession.me.username);
     expect(wrapper.find(TextField).at(2).props().value).toBe(dummyAdminSession.me.email);
-    expect(wrapper.find(TextField).at(3).props().value).toBe(dummyAdminSession.me.phone);
+    expect(wrapper.find(TextField).at(3).props().value).toBe(dummyAdminSession.me.mobileNumber);
     expect(wrapper.find(TextField).at(4).props().value).toBe(dummyAdminSession.me.lastName);
     expect(wrapper.find(TextField).at(5).props().value).toBe(dummyAdminSession.me.role.name);
     expect(wrapper.find(TextField).at(6).props().value).toBe(dummyAdminSession.me.secondaryEmail);
-    expect(wrapper.find(TextField).at(7).props().value).toBe(dummyAdminSession.me.secondaryPhone);
+    expect(wrapper.find(TextField).at(7).props().value).toBe(dummyAdminSession.me.secondaryPhoneNumber);
   });
 });

@@ -4,16 +4,13 @@ import { Link } from 'react-router-dom';
 
 // MATERIAL UI COMPONENTS
 import {
-  Grid,
-  Paper,
-  Button,
-  Typography,
-  TextField,
+  Grid, Paper, Button, Typography, TextField
 } from '@material-ui/core';
 
 // IMAGES AND ICONS
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Avatar from '../../assets/images/settingsAvatar.png';
+
 
 // SHARED COMPONENTS
 import Dashboard from '../shared/Dashboard/Dashboard';
@@ -34,9 +31,12 @@ const MainSetup = ({ session }) => {
         </Grid>
         <Grid item xs={10}>
           <Grid style={styles.profileHeader}>
-            <Typography variant="h5">
-              Admin Profile
-            </Typography>
+            <Typography variant="h5">Admin Profile</Typography>
+            <Link to="/main_setup/profile/manage_profile_user" style={styles.btnLink}>
+              <Button variant="contained" color="primary">
+                Manage Profile
+              </Button>
+            </Link>
           </Grid>
           <Paper style={styles.paper}>
             <Grid item style={styles.profileBox}>
@@ -68,7 +68,7 @@ const MainSetup = ({ session }) => {
                 <TextField
                   fullWidth
                   label="Phone #"
-                  value={data && data.phone ? data.phone : 'Not Available'}
+                  value={data && data.mobileNumber ? data.mobileNumber : 'Not Available'}
                   margin="normal"
                   style={styles.textField}
                   InputProps={{ disableUnderline: true, readOnly: true }}
@@ -102,14 +102,17 @@ const MainSetup = ({ session }) => {
                 <TextField
                   fullWidth
                   label="Secondary Phone #"
-                  value={data && data.secondaryPhone ? data.secondaryPhone : 'Not Available'}
+                  value={data && data.secondaryPhoneNumber ? data.secondaryPhoneNumber : 'Not Available'}
                   margin="normal"
                   style={styles.textField}
                   InputProps={{ disableUnderline: true, readOnly: true }}
                 />
               </Grid>
               <Grid item xs={4} style={styles.avatarIconBox}>
-                <img src={Avatar} alt="User" style={styles.avatarIcon} />
+                {(data.profileImage)
+                  ? (<img src={data.profileImage} alt="User" style={styles.avatarIcon} />)
+                  : (<img src={Avatar} alt="User" style={styles.avatarIcon} />)
+                }
               </Grid>
             </Grid>
           </Paper>
@@ -124,7 +127,7 @@ MainSetup.propTypes = {
     me: PropTypes.shape({
       outlets: PropTypes.array
     })
-  }).isRequired,
+  }).isRequired
 };
 
 export default MainSetup;

@@ -3,14 +3,23 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ManageProfile } from '../../components/main_setup/manageProfileSetup';
 
-
 describe('Manage User profile tests', () => {
+  
   const dummySession = {
     me: {
       email: 'test@mail.com',
       firstName: 'test',
+      initialUserData: {
+        username: 'darius',
+        email: 'test@mail.com',
+        secondaryEmail: 'N/A',
+        mobileNumber: '+254717123456'
+      },
       lastName: 'tester',
       mobileNumber: '+254717123456',
+      secondaryEmail: 'N/A',
+      secondaryPhoneNumber: 'N/A',
+      profileImage: 'N/A',
       role: {
         name: 'Cashier',
         __typename: 'RoleType'
@@ -31,19 +40,31 @@ describe('Manage User profile tests', () => {
         status: false,
         message: ''
       },
+      crop: {
+        aspect: 1 / 1
+      },
       samePasswordError: {
         status: false,
         message: ''
-      },
+      }
     }
   };
 
   const dummySession2 = {
     me: {
       firstName: 'N/A',
+      initialUserData: {
+        username: 'N/A',
+        email: 'N/A',
+        secondaryEmail: 'N/A',
+        mobileNumber: 'N/A'
+      },
       lastName: 'N/A',
       username: 'N/A',
       email: 'N/A',
+      secondaryEmail: 'N/A',
+      secondaryPhoneNumber: 'N/A',
+      profileImage: 'N/A',
       mobileNumber: 'N/A',
       birthday: 'N/A',
       role: 'N/A',
@@ -59,11 +80,13 @@ describe('Manage User profile tests', () => {
       errors: {
         status: false,
         message: ''
+      },      crop: {
+        aspect: 1 / 1
       },
       samePasswordError: {
         status: false,
         message: ''
-      },
+      }
     }
   };
 
@@ -77,21 +100,20 @@ describe('Manage User profile tests', () => {
         }
       }
     }))
-  }
+  };
 
   const propsInvalid = {
     updatePassword: jest.fn(() => Promise.reject({
       graphQLErrors: [
         {
-          message: "Test error message"
+          message: 'Test error message'
         }
       ]
     }))
-  }
+  };
 
   it('Should render the component and the appropriate state', () => {
     const wrapper = shallow(<ManageProfile session={dummySession} />);
-
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.instance().state).toEqual(dummySession.me);
   });
@@ -163,13 +185,11 @@ describe('Manage User profile tests', () => {
     const wrapper = shallow(<ManageProfile session={dummySession} {...props} />);
     const notify = jest.fn();
     window.scrollTo = jest.fn();
-    wrapper.setState(
-      {
-        currentPassword: 'Test1234',
-        newPassword: 'Test12345',
-        confirmPassword: 'Test12345',
-      }
-    );
+    wrapper.setState({
+      currentPassword: 'Test1234',
+      newPassword: 'Test12345',
+      confirmPassword: 'Test12345'
+    });
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     const spy2 = jest.spyOn(wrapper.instance().props, 'updatePassword');
 
@@ -184,13 +204,11 @@ describe('Manage User profile tests', () => {
     const wrapper = shallow(<ManageProfile session={dummySession} {...propsInvalid} />);
     const notify = jest.fn();
     window.scrollTo = jest.fn();
-    wrapper.setState(
-      {
-        currentPassword: 'Test1234',
-        newPassword: 'Test12345',
-        confirmPassword: 'Test12345',
-      }
-    );
+    wrapper.setState({
+      currentPassword: 'Test1234',
+      newPassword: 'Test12345',
+      confirmPassword: 'Test12345'
+    });
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     const spy2 = jest.spyOn(wrapper.instance().props, 'updatePassword');
 
@@ -207,16 +225,14 @@ describe('Manage User profile tests', () => {
     const error = {
       status: true,
       message: 'The password entered is the same as the old password'
-    }
+    };
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     window.scrollTo = jest.fn();
-    wrapper.setState(
-      {
-        currentPassword: 'Test1234',
-        newPassword: 'Test1234',
-        confirmPassword: 'Test1234',
-      }
-    );
+    wrapper.setState({
+      currentPassword: 'Test1234',
+      newPassword: 'Test1234',
+      confirmPassword: 'Test1234'
+    });
 
     wrapper.instance().handleSubmit();
 
@@ -229,16 +245,14 @@ describe('Manage User profile tests', () => {
     const error = {
       status: true,
       message: 'The password entered is the same as the old password'
-    }
+    };
     const spy = jest.spyOn(wrapper.instance(), 'handleSubmit');
     window.scrollTo = jest.fn();
-    wrapper.setState(
-      {
-        currentPassword: 'Test1234',
-        newPassword: 'Test12346',
-        confirmPassword: 'Test1234',
-      }
-    );
+    wrapper.setState({
+      currentPassword: 'Test1234',
+      newPassword: 'Test12346',
+      confirmPassword: 'Test1234'
+    });
 
     wrapper.instance().handleSubmit();
 

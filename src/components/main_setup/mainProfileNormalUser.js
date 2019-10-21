@@ -4,16 +4,11 @@ import { Link } from 'react-router-dom';
 
 // MATERIAL UI COMPONENTS
 import {
-  Grid,
-  Paper,
-  Button,
-  Typography,
-  TextField,
+  Grid, Paper, Button, Typography, TextField
 } from '@material-ui/core';
 
 // IMAGES AND ICONS
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Avatar from '../../assets/images/settingsAvatar.png';
 
 // SHARED COMPONENTS
 import Dashboard from '../shared/Dashboard/Dashboard';
@@ -35,9 +30,7 @@ const MainSetup = (props) => {
         </Grid>
         <Grid item xs={10}>
           <Grid style={styles.profileHeader}>
-            <Typography variant="h5">
-              Profile
-            </Typography>
+            <Typography variant="h5">Profile</Typography>
             <Link to="/main_setup/profile/manage_profile_user" style={styles.btnLink}>
               <Button variant="contained" color="primary">
                 Manage Profile
@@ -69,7 +62,7 @@ const MainSetup = (props) => {
                 <TextField
                   fullWidth
                   label="Phone #"
-                  value={data && data.phone ? data.phone : 'Not Available'}
+                  value={data && data.mobileNumber ? data.mobileNumber : 'Not Available'}
                   margin="normal"
                   style={styles.textField}
                   InputProps={{ disableUnderline: true, readOnly: true }}
@@ -102,7 +95,7 @@ const MainSetup = (props) => {
                 />
               </Grid>
               <Grid item xs={4} style={styles.avatarIconBox}>
-                <img src={Avatar} alt="User" style={styles.avatarIcon} />
+                <img src={data.profileImage} alt="User" style={styles.avatarIcon} />
               </Grid>
             </Grid>
             <Typography variant="h6" style={styles.contentHeader}>
@@ -162,15 +155,15 @@ MainSetup.propTypes = {
   session: PropTypes.shape({
     me: PropTypes.shape({
       outlets: PropTypes.array
-    }),
+    })
   }).isRequired,
   getPreferences: PropTypes.shape({
-    refetch: PropTypes.func,
-  }),
+    refetch: PropTypes.func
+  })
 };
 
 MainSetup.defaultProps = {
-  getPreferences: {},
+  getPreferences: {}
 };
 
 export default MainSetup;

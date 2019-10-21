@@ -11,6 +11,7 @@ const GET_USER_INFO = gql`
       secondaryPhoneNumber
       email
       secondaryEmail
+      profileImage
       role {
         name
       }
@@ -49,10 +50,10 @@ const GET_USER_INFO = gql`
       birthday
       startingDate
       jobTitle
-      activeOutlet{
-        id,
-        outletpreference{
-          outletTimezone{
+      activeOutlet {
+        id
+        outletpreference {
+          outletTimezone {
             name
           }
           paymentMethod
