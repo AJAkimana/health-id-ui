@@ -48,7 +48,7 @@ export const supplierDetailStyles = theme => ({
     padding: '1em 2.4em'
   },
   tableGrid: {
-    width: '100%',
+    width: '955px',
     marginLeft: '0em',
     padding: '1em 4em 1em 3em'
   },
@@ -118,25 +118,36 @@ export const supplierDetailStyles = theme => ({
 });
 
 export const tableStyles = {
+  header: {
+    height: '42px'
+  },
+  logo: {
+    marginRight: '20px',
+    marginTop: '-8px'
+  },
+  root: {
+    width: '100%',
+    overflowX: 'auto',
+  },
+  table: {
+    width: '70%'
+  },
   noteHeader: {
-    padding: 0,
-    verticalAlign: 'center',
+    width: '100%',
     justifyContent: 'space-between',
-    height: 'auto'
   },
   tableHeader: {
     fontWeight: 900,
     fontSize: '15px',
-    padding: '0 0 0 5%',
-    border: '1px solid #cccccc',
-    color: 'black'
+    color: 'black',
   },
   noteRow: {
-    height: '25px',
-    border: '1px solid #cccccc',
+    cursor: 'pointer'
   },
-  tableCell: {
-    padding: '0 0 0 5%',
-    border: '1px solid #cccccc',
+  cell: {
+    width: '30%'
+  },
+  cellMiddle: {
+    width: '40%'
   }
 };

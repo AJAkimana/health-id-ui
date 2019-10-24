@@ -100,5 +100,59 @@ const styledFooter = {
     fontSize: '12px'
   }
 };
+const supplierNoteStyle = {
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: '150px',
+    width: '80%'
+  },
+  modalContent: {
+    outline: 'none',
+  },
+  modalTitle: {
+    display: 'flex',
+    borderBottom: '2px solid #A3A3A3',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: '20px',
+    paddingRight: '30px'
+  },
+  titleStyle: {
+    fontWeight: '700'
+  },
+  modalBody: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '100px',
+    width: '90%',
+    paddingLeft: '80px',
 
-export { supplyStyles, lowerNavbarStyles, styledFooter };
+  },
+  noteBody: {
+    padding: '20px',
+    fontWeight: '300',
+    fontSize: '15px'
+  },
+  noteFooter: {
+    padding: '20px',
+    fontWeight: '200',
+    fontSize: '12px',
+    display: 'flex'
+  },
+  footerCaption: {
+    marginRight: '20px',
+    fontWeight: '200',
+    fontSize: '12px'
+  },
+  footerUser: {
+    fontWeight: '700',
+    fontSize: '12px'
+
+  },
+};
+
+export {
+  supplyStyles, lowerNavbarStyles, styledFooter, supplierNoteStyle
+};

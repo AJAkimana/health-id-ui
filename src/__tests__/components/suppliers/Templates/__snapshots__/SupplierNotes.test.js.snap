@@ -1,22 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SupplierNotes should render the SupplierNotes component properly 1`] = `
-<Fragment>
-  <div>
-    <WithStyles(Typography)
-      align="left"
-      gutterBottom={true}
-      paragraph={true}
-      variant="h6"
-    >
-      Supplier Notes
-    </WithStyles(Typography)>
-  </div>
-  <WithStyles(Grid)
-    container={true}
-    spacing={24}
-  >
-    No note yet
-  </WithStyles(Grid)>
-</Fragment>
-`;
+exports[`SupplierNotes should render the SupplierNotes component properly 1`] = `undefined`;

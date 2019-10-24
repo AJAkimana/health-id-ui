@@ -85,7 +85,9 @@ export class SingleSupplierPage extends Component {
           query={GET_SINGLE_SUPPLIER}
           variables={{ id }}
         >
-          {({ loading, error, data }) => {
+          {({
+            loading, error, data, refetch
+          }) => {
             if (loading) {
               return (
                 <SingleSupplierPageLoader />
@@ -142,7 +144,9 @@ export class SingleSupplierPage extends Component {
                     <SupplierNotes
                       classes={classes}
                       renderTableCell={this.renderTableCell}
-                      notes={supplier.suppliernoteSet}
+                      supplier={supplier}
+                      session={session}
+                      refetch={refetch}
                     />
                   ) : (
                     <SupplierCommentary

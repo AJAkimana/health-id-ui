@@ -1,6 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import { MockedProvider } from 'react-apollo/test-utils';
+import { BrowserRouter } from 'react-router-dom';
 import SupplierNotes from '../../../../components/suppliers/Templates/SupplierNotes';
 
 const props = {
@@ -22,70 +24,70 @@ const props = {
       {
         id: 1,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 2,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 3,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 4,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 5,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 6,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 7,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 8,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 9,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 10,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       },
       {
         id: 11,
         createdOn: 'Jan 20 2019',
-        message: 'Hey bro, nice work',
-        createdBy: 'Danilo Silva'
+        message: 'Great Supplier',
+        createdBy: 'Danilo Sam'
       }
-    ],
+    ]
   },
   renderTextField: jest.fn(),
   variables: {},
@@ -98,7 +100,7 @@ const props = {
       activeOutlet: {
         outletpreference: {
           outletTimezone: {
-            name: "Africa/Nairobi"
+            name: 'Africa/Nairobi'
           }
         }
       }
@@ -108,13 +110,13 @@ const props = {
 
 describe('SupplierNotes', () => {
   it('should render the SupplierNotes component properly', () => {
-    const setupSupplierNotes = () => {
-      const wrapper = shallow(<SupplierNotes {...props} />)
-      return wrapper
-    }
-
-    let wrapper;
-    wrapper = setupSupplierNotes();
+    let wrapper = (
+      <MockedProvider mocks={props} addTypeName={false}>
+        <BrowserRouter>
+          <SupplierNotes {...props} />
+        </BrowserRouter>
+      </MockedProvider>
+    );
     expect(toJson(wrapper)).toMatchSnapshot();
-  })
+  });
 });
