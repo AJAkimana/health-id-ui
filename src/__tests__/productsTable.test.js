@@ -1,15 +1,12 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
-import wait from 'waait';
 
-import { GET_APPROVED_AND_PROPOSED_PRODUCTS } from '../components/products/productQueries';
+import { GET_APPROVED_PRODUCTS } from '../components/products/productQueries';
 import { Products } from '../components/products/productsTable';
-import Datatable from '../components/dataTable/dataTable';
-import AfterSelectToolBar from '../components/products/afterSelectToolBar';
-import { ToolBar } from '../components/products/toolBar';
-
+import { getProducts, getSortedData } from '../components/products/filter';
+import { ProductInfoPopup } from '../components/products/Templates/ProductInfoPopup';
 const props = {
   displayData: [{}],
   selectedRows: { data: [] },
@@ -21,7 +18,7 @@ const props = {
   },
   match: {
     params: {
-      status: ''
+      status: 'approved'
     }
   },
   history: {
@@ -43,27 +40,112 @@ const props = {
     }
   }
 };
-
-const errorMock = [
-  {
-    request: {
-      query: GET_APPROVED_AND_PROPOSED_PRODUCTS,
-      variables: {
-        pageCount: 10,
-        pageNumber: 1
+const props2 = {
+  displayData: [{}],
+  selectedRows: { data: [] },
+  setSelectedRows: jest.fn(),
+  classes: {
+    icon: 'Products-div-1',
+    iconButton: 'Products-footer-2',
+    inverseIcon: 'inverse-icon',
+  },
+  match: {
+    params: {
+      status: 'proposed'
+    }
+  },
+  history: {
+    push: jest.fn()
+  },
+  client: { query: jest.fn() },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      },
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
       }
-    },
-    error: new Error('bloody error')
-  }
-];
-
+    }
+  },
+};
+const props3 = {
+  displayData: [{}],
+  selectedRows: { data: [] },
+  setSelectedRows: jest.fn(),
+  classes: {
+    icon: 'Products-div-1',
+    iconButton: 'Products-footer-2',
+    inverseIcon: 'inverse-icon',
+  },
+  match: {
+    params: {
+      status: 'all'
+    }
+  },
+  history: {
+    push: jest.fn()
+  },
+  client: { query: jest.fn() },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      },
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
+      }
+    }
+  },
+};
+const props4 = {
+  displayData: [{}],
+  selectedRows: { data: [] },
+  setSelectedRows: jest.fn(),
+  classes: {
+    icon: 'Products-div-1',
+    iconButton: 'Products-footer-2',
+    inverseIcon: 'inverse-icon',
+  },
+  match: {
+    params: {
+      status: 'rfrf'
+    }
+  },
+  history: {
+    push: jest.fn()
+  },
+  client: { query: jest.fn() },
+  session: {
+    me: {
+      role: {
+        name: 'Master Admin'
+      },
+      activeOutlet: {
+        outletpreference: {
+          outletTimezone: {
+            name: "Africa/Nairobi"
+          }
+        }
+      }
+    }
+  },
+};
 const mocks = [
   {
-    request: {
-      query: GET_APPROVED_AND_PROPOSED_PRODUCTS,
-      variables: {
-        pageCount: 10,
-        pageNumber: 1
+    "request": {
+      "query": GET_APPROVED_PRODUCTS,
+      "variables": {
+        "pageCount": 10,
+        "pageNumber": 1
       }
     },
     result: {
@@ -131,183 +213,105 @@ const mocks = [
               name: 'sean2'
             }
           }
+        ],
+        "products": [
+          {
+            "id": "297",
+            "productName": "Geisha",
+            "skuNumber": "000297",
+            "description": "African magic is cool",
+            "brand": "Dope",
+            "manufacturer": "Africa",
+            "vatStatus": false,
+            "productQuantity": 0,
+            "salesPrice": 0.0,
+            "nearestExpiryDate": null,
+            "loyaltyWeight": 0,
+            "tags": [],
+            "productCategory": {
+              "id": "16",
+              "name": "cosmetic"
+            },
+            "measurementUnit": {
+              "id": "3",
+              "name": "bottles"
+            },
+            "preferredSupplier": {
+              "id": "bu5ixuq72",
+              "name": "Unilever"
+            },
+            "backupSupplier": {
+              "id": "2",
+              "name": "sean2"
+            }
+          }
         ]
       }
     }
   }
 ];
 
-describe('After Row selection toolbar tests', () => {
-  const wrapper = mount(<AfterSelectToolBar {...props} />);
-  it('renders table correctly', () => {
-    const div = wrapper.find('div');
-    expect(div.length).toBe(1);
-  });
-  it('calls handleClickInverseSelection when inverse icon is clicked', () => {
-    const inverseIcon = wrapper.find('IconButton').at(3);
-    inverseIcon.simulate('click');
-    expect(inverseIcon.length).toBe(1);
-  });
-  it('deselects selection when deselect icon is clicked', () => {
-    const deselectIcon = wrapper.find('IconButton').at(2);
-    deselectIcon.simulate('click');
-    expect(deselectIcon.length).toBe(1);
-  });
-});
-
 describe('Test table rendering and data functions', () => {
   let wrapper;
   let wrapperInstance;
   beforeEach(() => {
-    wrapper = mount(
-      <Router>
-        <MockedProvider mocks={mocks} addTypename={false}>
-          <Products {...props} />
-        </MockedProvider>
-      </Router>
-    );
-    wrapperInstance = wrapper.find('Products').instance();
-  });
+    wrapper = shallow(<Router><MockedProvider mocks={mocks} addTypename={false} ><Products {...props} /></MockedProvider></Router>);
+  })
 
   it('should renders with loader ', () => {
     expect(wrapper.find('Products').length).toBe(1);
   });
-
-  it('Table renders correctly', () => {
-    const tableProps = {
-      title: 'products',
-      data: [],
-      columns: ['names'],
-      options: {}
-    };
-    const tablewrapper = shallow(<Datatable {...tableProps} />);
-    expect(tablewrapper.find('[title="products"]').length).toBe(1);
+  it('should initialize all functions', () => {
+    const wrapperInstance = shallow(<Products {...props} />);
+    shallow(<Products {...props3} />);
+    shallow(<Products {...props4} />);
+    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: true});
+    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: true});
+    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: false});
+    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: false});
   });
 
-  it('should render with errors', async () => {
-    const errorWrapper = mount(
-      <Router>
-        <MockedProvider mocks={errorMock} addTypename={false}>
-          <Products {...props} />
-        </MockedProvider>
-      </Router>
-    );
-    await wait(1000);
-    errorWrapper.update();
-    setTimeout(() => {
-      const errorDiv = errorWrapper.find('Products');
-      expect(errorDiv.text()).toContain('Something went wrong, try refreshing the page');
-    }, 20);
+  it('should handle search', async () => {
+    const wrapperInstance = shallow(<Products {...props} />);
+    const client = {
+      query: () => {}
+    }
+    wrapperInstance.instance().handleSearch({ target: { value: 'ddd' } }, client);
+    wrapperInstance.instance().handleSearch({ target: { value: undefined } }, client);
+    wrapperInstance.instance().handleSearch({ target: { value:  '' } }, client);
   });
 
-  it('should switch to proposed products when view proposed products is switched', () => {
-    const viewStatus = {
-      approved: false,
-      proposed: false
-    };
-    wrapperInstance.handleViewProposed(viewStatus);
-    expect(props.history.push).toBeDefined();
+  it('should handle pagination', async () => {
+    const wrapperInstance = shallow(<Products {...props} />);
+    const wrapperInstance1 = shallow(<Products {...props2} />);
+    wrapperInstance.instance().handleChangeRowsPerPage({ target: { value: 'ddd' } });
+    wrapperInstance.instance().handleChangePage(1);
+    wrapperInstance.instance().handleOnRowClick('eded');
+    wrapperInstance1.instance().handleOnRowClick('ede');
   });
-
-  it('should handle change page', async () => {
-    await wait(200);
-    wrapper.update();
-    const refetch = jest.fn();
-    const pageNumber = 1;
-    const spy = jest.spyOn(wrapperInstance, 'changePage');
-
-    wrapperInstance.changePage(pageNumber, refetch);
-    wrapperInstance.changePage('next')();
-    wrapper.setState({ ...wrapper.state(), pageNumber: 2 });
-    wrapperInstance.changePage('prev')();
-    expect(spy).toBeCalled();
+  it('should handle filter', async () => {
+    expect(typeof getProducts(mocks[0].result.data, 'approved')).toBe('object');
+    expect(typeof getProducts(mocks[0].result.data, 'proposed')).toBe('object');
+    expect(typeof getProducts(mocks[0].result.data, 'all')).toBe('object');
+    expect(typeof getProducts(mocks[0].result.data, 'dfdf')).toBe('object');
+    expect(typeof getProducts(mocks[0].result.data, 'search')).toBe('object');
+    expect(typeof getProducts({ products: undefined }, 'search')).toBe('object');
+    expect(typeof getProducts(undefined, 'approved')).toBe('object');
+    expect(typeof getProducts(mocks[0].result.data, undefined)).toBe('object');
+    expect(typeof getSortedData(getProducts(mocks[0].result.data, 'asc', 'name'))).toBe('object');
   });
+  it('Sould render popupInfo component', async () => {
+    const propsPip = {
+      row: {
+        productName: 'thyhy', description: 'tgtgt', image: 'none', tags: ['rrg','rfr'],
+      },
+      position: { x: 456, y: 554 },
+      classes: {},
+      handleHidePopup: () => {},
+    }
+     const wrapperPipInfo = shallow(<ProductInfoPopup {...propsPip} />);
+     wrapperPipInfo.instance().setState({ defaultIcon: 'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png' });
 
-  it('should handle change rows', async () => {
-    const spy = jest.spyOn(wrapperInstance, 'changeRows');
-    const refetch = jest.fn();
-    const event = {
-      target: {
-        value: 'value'
-      }
-    };
-    const cb = e => e;
-    wrapper.setState({ ...wrapper.state(), pageNumber: 2 });
-    wrapperInstance.changeRows(refetch)(cb(event));
-    expect(spy).toBeCalled();
-  });
-
-  it('should handle views', async () => {
-    await wait(200);
-    wrapperInstance.props.match.params.status = undefined;
-    wrapper.update();
-    wrapperInstance.setState({ searchActive: true });
-    wrapper.update();
-
-    expect(wrapperInstance.state.searchActive).toBe(true);
-  });
-
-  it('should handle navigation to proposed products', async () => {
-    await wait(200);
-    wrapperInstance.props.match.params.status = 'proposed';
-    wrapper.update();
-
-    expect(wrapperInstance.props.match.params.status).toBe('proposed');
-  });
-
-  it('should handle navigation to approved products', async () => {
-    await wait(200);
-    wrapperInstance.props.match.params.status = 'approved';
-    wrapper.update();
-
-    expect(wrapperInstance.props.match.params.status).toBe('approved');
-  });
-
-  it('should handle product search', async () => {
-    const mockQuery = value => new Promise((resolve) => {
-      if (value.length > 2) {
-        return resolve({
-          data: {
-            products: [
-              {
-                id: '261',
-                productCategory: {
-                  name: 'pain killer'
-                },
-                productName: 'Panadol',
-                measurementUnit: {
-                  name: 'tablets'
-                },
-                outlet: {
-                  outletpreference: {
-                    outletCurrency: {
-                      symbol: '₦'
-                    }
-                  }
-                },
-                image:
-                    'https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg',
-                skuNumber: '000261',
-                description: 'Nice meds, they mess you real good',
-                brand: 'Stans',
-                manufacturer: 'Stans',
-                productQuantity: 85,
-                salesPrice: 408.0,
-                tags: []
-              }
-            ]
-          }
-        });
-      }
-    });
-
-    let searchText = 'pand';
-    const client = { query: () => mockQuery(searchText) };
-    const spy = jest.spyOn(wrapperInstance, 'handleSearch');
-    await wrapperInstance.handleSearch(searchText, client);
-    searchText = false;
-    await wrapperInstance.handleSearch(searchText, client);
-    expect(spy).toBeCalled();
   });
 });
 
@@ -321,39 +325,4 @@ describe('Test toolBar actions', () => {
     },
     handleViewProposed: jest.fn()
   };
-  const wrapper = mount(
-    <Router>
-      <ToolBar {...prop} />
-    </Router>
-  );
-  it('should toggle the add product popup when the icon is clicked', () => {
-    document.createRange = () => ({
-      setStart: () => {},
-      setEnd: () => {},
-      commonAncestorContainer: {
-        nodeName: 'BODY',
-        ownerDocument: document
-      }
-    });
-    wrapper.instance().setState({ openAddMenu: false });
-    const switchIcon = wrapper.find('IconButton').at(0);
-    switchIcon.simulate('click');
-
-    const MenuItem = wrapper.find('FormControlLabel').at(0);
-    MenuItem.simulate('change');
-    expect(wrapper.instance().state.openAddMenu).toBeFalsy();
-  });
-
-  it('should handle toobar events', () => {
-    const toolBarInstance = wrapper.find('ToolBar').instance();
-    const handleToggleAddMenu = jest.spyOn(toolBarInstance, 'handleToggleAddMenu');
-
-    toolBarInstance.handleToggleAddMenu();
-    expect(handleToggleAddMenu).toBeCalled();
-
-    const handleClose = jest.spyOn(toolBarInstance, 'handleClose');
-
-    toolBarInstance.handleClose();
-    expect(handleClose).toBeCalled();
-  });
 });

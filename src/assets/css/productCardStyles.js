@@ -64,5 +64,35 @@ const productCardStyles = {
     padding: '0.2em'
   }
 };
+export const addNewCategories = {
+  rootPaper: {
+    marginTop: '5px',
+    backgroundColor: '#ededed',
+    width: '19.5em',
+    maxWidth: '29.25em'
+  },
+  zeroBottomPadding: {
+    paddingBottom: 0
+  },
+  listedCustomers: {
+    paddingBottom: 0,
+    maxHeight: '18em',
+    overflow: 'auto',
+  },
+  addCircleIcon: {
+    marginRight: '4px',
+    marginTop: '3px',
+    fontSize: '15px',
+    color: '#878205'
+  },
+  typoWrapper: {
+    padding: '10px',
+    textAlign: 'center'
+  },
+  typo: {
+    color: '#878205',
+    cursor: 'pointer'
+  }
+};
 
 export default productCardStyles;

@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-
 const GET_FILTERED_PRODUCTS = gql`
 query ($isApproved: Boolean, $productName: String ) {
   filterProducts(
@@ -13,7 +12,6 @@ query ($isApproved: Boolean, $productName: String ) {
         name
       }
       productName
-      productQuantity
       measurementUnit {
         name
       }

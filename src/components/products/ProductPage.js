@@ -12,7 +12,6 @@ import ProductNavBar from './productNavBar';
 export class ProductPage extends PureComponent {
   render() {
     const { session } = this.props;
-
     return (
       <div style={ProductsStyles.div}>
         <Dashboard isActive="grid3" session={session} />
