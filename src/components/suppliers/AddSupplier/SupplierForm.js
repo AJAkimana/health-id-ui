@@ -16,9 +16,6 @@ import {
   MenuItem,
   InputLabel,
   Typography,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
   FormLabel
 } from '@material-ui/core';
 import {
@@ -291,44 +288,36 @@ const SupplierForm = (props) => {
             />
           </Grid>
           {/* Payment terms */}
-          <Grid item xs={6} style={SupplierFormStyles.childGrid}>
+          <Grid item xs={2} style={SupplierFormStyles.childGrid}>
             <FormControl fullWidth style={SupplierFormStyles.radioButton}>
               <FormLabel style={SupplierFormStyles.paymentGrid}>
-                Payment terms *:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {' '}
+                Payment terms *
               </FormLabel>
-              <RadioGroup
-                aria-label="payment terms"
-                name="paymentTermsId"
-                value={paymentTermsId}
-                onChange={handleChange}
-                row
-              >
-                <FormControlLabel value="1" control={<Radio />} label="Cash on Delivery" />
-                <FormControlLabel value="2" control={<Radio color="default" />} label="On Credit" />
-              </RadioGroup>
             </FormControl>
           </Grid>
           {/* credit days */}
-          <Grid item xs={6} style={SupplierFormStyles.childGrid} className="inputSlider">
+          <Grid item xs={10} style={SupplierFormStyles.childGrid}>
             <FormControl fullWidth>
               <InputRange
                 className="InputRangeClassNames"
-                disabled={isDisabled}
                 ariaLabelledby="days"
-                maxValue={90}
+                maxValue={45}
                 minValue={0}
                 value={creditDays}
                 onChange={handleSliderChange}
+                formatLabel={value => `${value}`}
               />
-              <span style={{ opacity: isDisabled ? 0 : 1 }} className="sliderLabel">
-                {`${creditDays} days`}
+              <span className="breakpoint">
+                <span className="fbreack">|</span>
+                <span className="sbreak">|</span>
+                <span className="tbreak">|</span>
+                <span className="fbreak">|</span>
               </span>
-              <span className="breakpoints" style={{ opacity: isDisabled ? 0 : 1 }}>
-                <span className="fbreack">0day</span>
-                <span className="sbreak">30dys</span>
-                <span className="tbreak">60days</span>
-                <span className="fbreak">90days</span>
+              <span className="breakpoints">
+                <span className="fbreack">Cash on Delivery</span>
+                <span className="sbreak">15 Credit Days</span>
+                <span className="tbreak">30 Credit Days</span>
+                <span className="fbreak">45 Credit Days</span>
               </span>
             </FormControl>
           </Grid>

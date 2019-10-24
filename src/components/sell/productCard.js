@@ -48,10 +48,10 @@ const ProductCard = (props) => {
               {name}
             </Typography>
             <Typography variant="inherit" style={productCardStyles.productPrice}>
-              {<FormatCurrency
+              <FormatCurrency
                 amount={product.salesPrice}
                 currency={currency}
-              />}
+              />
             </Typography>
           </CardContent>
         </Grid>

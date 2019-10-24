@@ -1,32 +1,67 @@
-.PreviewArea{
+.PreviewArea {
   box-shadow: 1px 1px 81px rgba(41, 60, 74, 0.18);
 }
+
 .input-range__track--active {
   background: #A3A3A3;
   height: 0.1em;
 }
+
 .input-range__slider {
   background: linear-gradient(#FAF33E, #7D7A1F);
   border: 0;
+  border-radius: 0;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  margin-left: -0.5rem;
+  margin-top: -0.85rem;
+  width: 2.7rem;
+  height: 1.1rem;
 }
+
+.input-range__label-container {
+  position: relative;
+  display: inline;
+  color: #423f3f;
+  top: 1rem;
+}
+
+.input-range__label--value {
+  z-index: 500;
+  cursor: pointer;
+  left: 0.8rem;
+}
+
+.input-range__slider:active {
+  -webkit-transform: none;
+  transform: none;
+}
+
 .input-range__track--background {
   height: 0.1em;
+  margin-top: 0.25rem;
 }
+
 .rdrCalendarWrapper {
   font-size: 11px;
   width: 50em;
 }
+
 .rdrDefinedRangesWrapper {
   font-size: 11px;
   width: 175px;
   border-right: solid 1px #eff2f7;
   background: #fff;
 }
+
 .rdrMonthAndYearWrapper {
   height: 40px;
   padding-top: 0;
   background-color: #E8E8E8;
 }
+
 .rdrMonths {
   background-color: #E8E8E8;
 }

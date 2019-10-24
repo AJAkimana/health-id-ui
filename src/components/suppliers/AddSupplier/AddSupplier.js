@@ -47,7 +47,7 @@ export class AddSupplier extends Component {
     tierId: '',
     logo: '',
     paymentTermsId: '1',
-    creditDays: 45,
+    creditDays: 0,
     loading: false,
     imageFile: '',
     fileName: '',
@@ -61,20 +61,14 @@ export class AddSupplier extends Component {
     colorHasChangedCity: false
   };
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-    if (value === '1') {
-      this.setState({ isDisabled: true });
+  handleSliderChange = (event) => {
+    if (event === 0) {
+      this.setState({ creditDays: event });
       this.setState({ paymentTermsId: '1' });
     } else {
-      this.setState({ isDisabled: false });
+      this.setState({ creditDays: event });
       this.setState({ paymentTermsId: '2' });
     }
-  };
-
-  handleSliderChange = (event) => {
-    this.setState({ creditDays: event });
   }
 
   handleNameChange = (event) => {

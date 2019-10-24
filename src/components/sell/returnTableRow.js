@@ -34,16 +34,16 @@ const ReturnTableRow = ({
       {renderQuantity(item)}
     </TableCell>
     <TableCell align="left" style={tableStyles.tableCell}>
-      {<FormatCurrency
+      <FormatCurrency
         amount={item.salesPrice}
         currency={currency}
-      />}
+      />
     </TableCell>
     <TableCell align="left" style={tableStyles.tableCell}>
-      {<FormatCurrency
+      <FormatCurrency
         amount={calculateTotal(item.quantity, item.salesPrice)}
         currency={currency}
-      />}
+      />
     </TableCell>
     <TableCell align="right" style={tableStyles.tableIconCell}>
       {item.discount ? (

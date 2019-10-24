@@ -161,34 +161,6 @@ describe('Render Add Supplier component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls handle change function with a value of 1', () => {
-    const event = {
-      target: {
-        name: 'name',
-        value: '1'
-      }
-    };
-
-    const value = '1';
-
-    const wrapper = shallow(<AddSupplier {...props} />);
-    wrapper.instance().handleChange(event);
-    expect(wrapper.state().name).toEqual(value);
-  });
-  it('calls handle change function with a value of 0', () => {
-    const event = {
-      target: {
-        name: 'name',
-        value: '0'
-      }
-    };
-
-    const value = '0';
-
-    const wrapper = shallow(<AddSupplier {...props} />);
-    wrapper.instance().handleChange(event);
-    expect(wrapper.state().name).toEqual(value);
-  });
   it('calls handle slider change function', () => {
     const attr = { value: undefined };
     const event = {
