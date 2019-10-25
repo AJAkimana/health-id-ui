@@ -18,7 +18,7 @@ exports[`Render ImportSuppliers Component should render the ImportSuppliers comp
     }
   />
   <BackAction
-    header="Import Supplier(s)"
+    header="Back"
     link="/suppliers"
   />
   <ImportSuppliersForm

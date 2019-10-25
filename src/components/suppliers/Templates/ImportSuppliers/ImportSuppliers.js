@@ -108,7 +108,7 @@ export class ImportSuppliers extends Component {
       <Fragment>
         <Dashboard isActive="grid4" session={session} />
         <BackAction
-          header="Import Supplier(s)"
+          header="Back"
           link="/suppliers"
         />
         <ImportSuppliersForm

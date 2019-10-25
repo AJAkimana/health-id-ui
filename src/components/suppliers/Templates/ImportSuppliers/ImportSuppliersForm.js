@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Paper, Grid, Typography, Button
+  Paper, Grid, Button
 } from '@material-ui/core';
 import UploadFileComponent from '../../../shared/UploadFileComponent';
 import { ImportProductStyles } from '../../../../assets/styles/products/ImportProductStyles';
@@ -43,18 +43,32 @@ const ImportSuppliersForm = (props) => {
             xs={12}
             style={ImportProductStyles.textSection}
           >
-            <Typography
-              style={ImportProductStyles.typography}
-            >
-              Upload Manager
-            </Typography>
+            <div>
+              Import Supplier CSV
+            </div>
           </Grid>
-
           <Grid
             item
             xs={12}
           >
-            <FieldsTable />
+            <hr style={ImportProductStyles.horizontalLine} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <div style={ImportProductStyles.templateDiv}>
+              Download sample template to import suppliers
+            </div>
+            <div style={ImportProductStyles.templateDivBtn}>
+              <Button
+                style={ButtonStyle}
+                disabled={disableDownload}
+                onClick={handleDownloadTemplate}
+              >
+                DOWNLOAD SAMPLE TEMPLATE
+              </Button>
+            </div>
           </Grid>
           <Grid
             item
@@ -66,15 +80,7 @@ const ImportSuppliersForm = (props) => {
             item
             xs={12}
           >
-            <div style={ImportProductStyles.templateDiv}>
-              <Button
-                style={ButtonStyle}
-                disabled={disableDownload}
-                onClick={handleDownloadTemplate}
-              >
-                DOWNLOAD SAMPLE TEMPLATE
-              </Button>
-            </div>
+            <FieldsTable />
           </Grid>
         </Grid>
       </Paper>

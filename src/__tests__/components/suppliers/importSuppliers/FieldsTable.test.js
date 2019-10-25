@@ -7,7 +7,7 @@ describe('Render FieldsTable component', () => {
 
   it('renders without crashing', () => {
     const wrapper = shallow(<FieldsTable />);
-    expect(wrapper.find('div').length).toBe(2);
+    expect(wrapper.find('div').length).toBe(14);
     expect(wrapper.find('h3').length).toBe(1);
     expect(wrapper.find('.fields-title').length).toBe(1);
     expect(wrapper.find('table').length).toBe(1);

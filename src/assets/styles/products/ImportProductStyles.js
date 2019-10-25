@@ -9,8 +9,11 @@ export const ImportProductStyles = {
     marginBottom: '2%'
   },
   textSection: {
-    backgroundColor: '#E8E8E8',
-    marginTop: '3%'
+    marginTop: '1%',
+    marginLeft: '36%',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'rgba(60, 57, 57, 0.87)'
   },
   typography: {
     fontSize: '1.17em'
@@ -29,22 +32,40 @@ export const ImportProductStyles = {
     marginLeft: '35%',
     width: '50%',
   },
-  templateDiv: {
+  templateDivBtn: {
     width: '27%',
     margin: '0 auto',
     marginTop: '2%',
     marginBottom: '2%'
   },
+  templateDiv: {
+    width: '48%',
+    margin: '2% auto',
+    color: '#7f7d7d',
+    fontSize: '20px'
+  },
   templateBtn: {
-    borderRadius: '25px',
     backgroundColor: '#424242',
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    padding: '10px 25px 10px 25px',
+    width: '120%',
+    marginLeft: '-1.5rem',
+    borderRadius: '15px',
+    marginTop: '20px'
   },
   disabledBtn: {
     borderRadius: '25px',
     backgroundColor: '#A3A3A3',
     color: '#FFFFFF'
-  }
+  },
+  horizontalLine: {
+    width: '114%',
+    marginLeft: '-3.9rem',
+    backgroundColor: '#E4E4E4',
+    height: '2px',
+    border: '0px',
+    marginTop: '-0.5rem',
+  },
 };
 
 export const DragFileStyles = {

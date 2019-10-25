@@ -25,38 +25,52 @@ exports[`Render ImportSuppliersForm component should render the ImportSuppliersF
         item={true}
         style={
           Object {
-            "backgroundColor": "#E8E8E8",
-            "marginTop": "3%",
+            "color": "rgba(60, 57, 57, 0.87)",
+            "fontSize": "20px",
+            "fontWeight": "bold",
+            "marginLeft": "36%",
+            "marginTop": "1%",
           }
         }
         xs={12}
       >
-        <WithStyles(Typography)
+        <div>
+          Import Supplier CSV
+        </div>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <hr
           style={
             Object {
-              "fontSize": "1.17em",
+              "backgroundColor": "#E4E4E4",
+              "border": "0px",
+              "height": "2px",
+              "marginLeft": "-3.9rem",
+              "marginTop": "-0.5rem",
+              "width": "114%",
+            }
+          }
+        />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <div
+          style={
+            Object {
+              "color": "#7f7d7d",
+              "fontSize": "20px",
+              "margin": "2% auto",
+              "width": "48%",
             }
           }
         >
-          Upload Manager
-        </WithStyles(Typography)>
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        xs={12}
-      >
-        <FieldsTable />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        xs={12}
-      >
-        <Separator />
-      </WithStyles(Grid)>
-      <WithStyles(Grid)
-        item={true}
-        xs={12}
-      >
+          Download sample template to import suppliers
+        </div>
         <div
           style={
             Object {
@@ -73,14 +87,30 @@ exports[`Render ImportSuppliersForm component should render the ImportSuppliersF
             style={
               Object {
                 "backgroundColor": "#424242",
-                "borderRadius": "25px",
+                "borderRadius": "15px",
                 "color": "#FFFFFF",
+                "marginLeft": "-1.5rem",
+                "marginTop": "20px",
+                "padding": "10px 25px 10px 25px",
+                "width": "120%",
               }
             }
           >
             DOWNLOAD SAMPLE TEMPLATE
           </WithStyles(Button)>
         </div>
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <Separator />
+      </WithStyles(Grid)>
+      <WithStyles(Grid)
+        item={true}
+        xs={12}
+      >
+        <FieldsTable />
       </WithStyles(Grid)>
     </WithStyles(Grid)>
   </WithStyles(Paper)>

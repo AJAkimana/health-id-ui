@@ -500,15 +500,20 @@ html, body {
 
 /* Fields Table */
 .fields-title{
-  font-weight: lighter;
+  font-weight: bold;
   font-style: italic;
-  font-family: Avenir, Medium
+  font-family: Avenir, Medium;
+  text-align: center;
+  color: rgba(60, 57, 57, 0.87)
 }
 
 .fields-table{
-  width: 100%;
-  text-align: left;
-  margin-left: 3%;
+  width: 107%;
+  margin-left: -0.5rem;
+}
+
+.or {
+  color: #7f7d7d;
 }
 
 .fields-tr{
@@ -517,7 +522,36 @@ html, body {
 
 .required-field{
   margin-left: 25%;
-  padding: 3%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  line-height: 25px;
+}
+
+.required-field li{
+  list-style-type: none;
+  color: #7f7d7d;
+  font-size: 14px;
+}
+
+.required-field div{
+  font-size: 17px;
+}
+
+.required-field span{
+  color: #702632;
+  font-size: 14px;
+}
+
+.required-field-name{
+  color: #424242;
+}
+
+tr.fields-tr {
+  vertical-align: initial;
+}
+
+svg.MuiSvgIcon-root-143 {
+  margin-left: -0.5rem;
 }
 
 .supplierStar {
