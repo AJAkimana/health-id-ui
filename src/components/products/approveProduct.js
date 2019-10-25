@@ -15,6 +15,7 @@ import notify from '../shared/Toaster';
 import Description from './Templates/Description';
 import ProductInformation from './Templates/ProductInformation';
 import ProductHeader from './Templates/Header';
+import RenderDescriptionField from './Templates/renderDescriptionField';
 
 export class ApproveProduct extends Component {
   state = {
@@ -74,7 +75,6 @@ export class ApproveProduct extends Component {
         InputProps={{ disableUnderline: true, readOnly: true }}
       />
     );
-
     return (
       <React.Fragment>
         <Dashboard isActive="grid3" session={session} />
@@ -91,6 +91,7 @@ export class ApproveProduct extends Component {
           <Description
             classes={classes}
             renderTextField={renderTextField}
+            renderDescriptionField={RenderDescriptionField}
             productCategory={productCategory}
             description={description}
             tags={tags}

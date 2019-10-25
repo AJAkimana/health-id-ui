@@ -29,15 +29,7 @@ const ProductInformation = (props) => {
         </Grid>
         <Grid item xs={4}>
           {renderTextField(
-            classes.descriptionFields, 'skuNumber', 'SKU', skuNumber
-          )}
-        </Grid>
-        <Grid item xs={4}>
-          {renderTextField(classes.newTextFields, 'vatStatus', 'VAT Status', vatStatus)}
-        </Grid>
-        <Grid item xs={4}>
-          {renderTextField(
-            classes.descriptionFields, 'manufacturer', 'Manufacturer', manufacturer
+            classes.descriptionFields, 'skuNumber', 'SKU', skuNumber || 'Null'
           )}
         </Grid>
         <Grid item xs={4}>
@@ -46,7 +38,25 @@ const ProductInformation = (props) => {
         </Grid>
         <Grid item xs={4}>
           {renderTextField(
-            classes.descriptionFields, 'measurementUnit', 'Measurement Unit',
+            classes.descriptionFields, 'manufacturer', 'Manufacturer', manufacturer
+          )}
+        </Grid>
+        <Grid item xs={4}>
+          {renderTextField(
+            classes.newTextFields, 'preferredSupplier', 'Preferred Supplier',
+            preferredSupplier.name
+          )}
+        </Grid>
+        <Grid item xs={4}>
+
+          {renderTextField(
+            classes.newTextFields, 'backupSupplier', 'Backup Supplier',
+            backupSupplier.name
+          )}
+        </Grid>
+        <Grid item xs={4}>
+          {renderTextField(
+            classes.descriptionFields, 'measurementUnit', 'Dispensing Size',
             measurementUnit.name
           )}
         </Grid>
@@ -57,16 +67,7 @@ const ProductInformation = (props) => {
           )}
         </Grid>
         <Grid item xs={4}>
-          {renderTextField(
-            classes.newTextFields, 'preferredSupplier', 'Preferred Supplier',
-            preferredSupplier.name
-          )}
-        </Grid>
-        <Grid item xs={4}>
-          {renderTextField(
-            classes.newTextFields, 'backupSupplier', 'Backup Supplier',
-            backupSupplier.name
-          )}
+          {renderTextField(classes.newTextFields, 'vatStatus', 'VAT Status', vatStatus)}
         </Grid>
       </Grid>
     </Fragment>

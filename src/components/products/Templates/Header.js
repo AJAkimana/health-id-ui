@@ -8,7 +8,7 @@ import {
 
 const ProductHeader = (props) => {
   const {
-    classes, previousPage, productName, children
+    classes, previousPage, children
   } = props;
   return (
     <Fragment>
@@ -24,7 +24,7 @@ const ProductHeader = (props) => {
         </Grid>
         <Grid item>
           <Typography variant="h5" className={classes.arrowButtonLabel}>
-            {productName}
+            Back
           </Typography>
         </Grid>
         <Grid className={classes.buttonGrid}>{children}</Grid>
@@ -33,7 +33,6 @@ const ProductHeader = (props) => {
   );
 };
 ProductHeader.propTypes = {
-  productName: PropTypes.string.isRequired,
   previousPage: PropTypes.string.isRequired,
   classes: PropTypes.instanceOf(Object).isRequired,
   // eslint-disable-next-line react/require-default-props

@@ -20,7 +20,8 @@ export const productDetailStyles = theme => ({
     maxWidth: 345,
   },
   media: {
-    height: 280,
+    height: 180,
+    borderRadius: 10
   },
   dividerDiv: {
     backgroundColor: '#E4E4E4',
@@ -31,10 +32,35 @@ export const productDetailStyles = theme => ({
     verticalAlign: 'center'
   },
   newTextFields: {
-    marginBottom: '25px',
+    marginBottom: '5px'
   },
   descriptionFields: {
-    marginBottom: '10px',
+    marginBottom: '5px'
+  },
+  descriptionText: {
+    marginTop: '1.1em',
+    overflow: 'scroll',
+    width: '100%',
+    height: '7em',
+    wordWrap: 'break-word;'
+  },
+  productNameStyles: {
+    width: '100%',
+    position: 'relative'
+  },
+  productName: {
+    textAlign: 'center',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'rgba(60, 57, 57, 0.87)'
+  },
+  titleLine: {
+    width: '110%',
+    marginLeft: '-2.4rem',
+    backgroundColor: '#E4E4E4',
+    height: '2px',
+    border: '0px',
+    marginTop: '-0.5rem',
   },
   tagsRoot: {
     display: 'flex',
@@ -47,6 +73,11 @@ export const productDetailStyles = theme => ({
   },
   tagChip: {
     margin: theme.spacing.unit / 4,
+    marginTop: '15px',
+    borderRadius: '7px',
+    background: '#424242',
+    color: 'white',
+    marginBottom: '45px'
   },
   batchTextFields: {
     marginBottom: '5px',
@@ -54,7 +85,7 @@ export const productDetailStyles = theme => ({
   containerGrid: {
     width: '100%',
     marginLeft: '0em',
-    padding: '1em 2.4em'
+    padding: '0 2.4em'
   },
   textContainerGrid: {
     width: '75%',

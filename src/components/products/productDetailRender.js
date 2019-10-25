@@ -13,6 +13,7 @@ import BatchInformation from './Templates/BatchInformation';
 import Description from './Templates/Description';
 import ProductInformation from './Templates/ProductInformation';
 import StockDetails from './Templates/StockDetails';
+import RenderDescriptionField from './Templates/renderDescriptionField';
 
 const productsLink = props => <Link to="/products" {...props} />;
 
@@ -103,7 +104,9 @@ export const ProductDetailRender = (props) => {
       <Paper className={classes.paper}>
         <Description
           classes={classes}
+          productName={productName}
           renderTextField={renderTextField}
+          renderDescriptionField={RenderDescriptionField}
           productCategory={productCategory}
           description={description}
           tags={tags}

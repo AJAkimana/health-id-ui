@@ -29,7 +29,7 @@ const StockDetails = (props) => {
 
       <Grid container spacing={24} className={classes.containerGrid}>
         <Grid item xs={4} className={classes.childGrids}>
-          {renderTextField(classes.newTextFields, 'quantity', 'Quantity', productQuantity || 0)}
+          {renderTextField(classes.newTextFields, 'quantity', 'Qty in Stock', productQuantity || 0)}
         </Grid>
         <Grid item xs={4} className={classes.childGrids}>
           {renderTextField(classes.newTextFields, 'reorderPoint', 'Re-order Point', reorderPoint)}
