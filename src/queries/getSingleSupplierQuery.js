@@ -11,6 +11,14 @@ query($id: String){
     mobileNumber
     email
     name
+    lga
+    city{
+      name
+      country{
+        id
+        name
+      }
+    }
     rating
     commentary
     paymentTerms{

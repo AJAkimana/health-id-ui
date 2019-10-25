@@ -97,7 +97,7 @@ const props = {
       activeOutlet: {
         outletpreference: {
           outletTimezone: {
-            name: "Africa/Nairobi"
+            name: 'Africa/Nairobi'
           }
         }
       }
@@ -108,12 +108,12 @@ const props = {
 describe('SupplierDescription', () => {
   it('should render the SupplierDescription component properly', () => {
     const setupSupplierDescription = () => {
-      const wrapper = shallow(<SupplierDescription {...props} />)
-      return wrapper
-    }
+      const wrapper = shallow(<SupplierDescription {...props} />);
+      return wrapper;
+    };
 
     let wrapper;
     wrapper = setupSupplierDescription();
     expect(toJson(wrapper)).toMatchSnapshot();
-  })
+  });
 });

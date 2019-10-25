@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import { Grid, Card, CardMedia } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Rating from './Rating';
+import capitalize from '../../utils/capitalize';
 
 const SupplierDescription = (props) => {
   const { classes, renderTextField, supplier } = props;
-
   return (
     <Fragment>
       <Grid
@@ -16,7 +16,7 @@ const SupplierDescription = (props) => {
         <Grid container item xs={12}>
           <Grid container item xs={8} spacing={24}>
             <Grid item xs={12}>
-              <div className={classes.category}>
+              <div style={{ marginBottom: '9px' }} className={classes.category}>
                 {renderTextField(
                   classes.descriptionFields,
                   'supplier',
@@ -24,15 +24,16 @@ const SupplierDescription = (props) => {
                   supplier.id
                 )}
               </div>
-              <div className={classes.category}>
-                {renderTextField('', 'address', 'Address Line 1', supplier.addressLine1)}
-              </div>
               <div>
-                {renderTextField('', 'address', 'Address Line 2', supplier.addressLine2)}
+                <div><span className={classes.addressTextHeader}>Address</span></div>
+                <div style={{ marginTop: '5px' }}><span className={classes.addressText}>{`${supplier.addressLine1}`}</span></div>
+                <div><span className={classes.addressText}>{`${supplier.addressLine2},`}</span></div>
+                <div><span className={classes.addressText}>{`${capitalize(supplier.lga)},`}</span></div>
+                <div><span className={classes.addressText}>{supplier.city && `${supplier.city.name},`}</span></div>
+                <div><span className={classes.addressText}>{supplier.city && supplier.city.country && `${supplier.city.country.name}`}</span></div>
               </div>
             </Grid>
           </Grid>
-
           <Grid item xs={4}>
             <Card elevation={0} className={classes.card}>
               <CardMedia
@@ -85,7 +86,9 @@ SupplierDescription.propTypes = {
     category: PropTypes.string,
     card: PropTypes.string,
     media: PropTypes.string,
-    descriptionFields: PropTypes.string
+    descriptionFields: PropTypes.string,
+    addressText: PropTypes.string,
+    addressTextHeader: PropTypes.string
   }).isRequired,
   renderTextField: PropTypes.func.isRequired,
   supplier: PropTypes.instanceOf(Object).isRequired

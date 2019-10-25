@@ -40,7 +40,7 @@ export const supplierDetailStyles = theme => ({
     marginBottom: '25px'
   },
   descriptionFields: {
-    marginBottom: '10px'
+    marginBottom: '5px'
   },
   containerGrid: {
     width: '100%',
@@ -56,6 +56,14 @@ export const supplierDetailStyles = theme => ({
     width: '100%',
     marginLeft: '0em',
     padding: '1em 0.4em 1em 2em;'
+  },
+  addressText: {
+    fontSize: '15px',
+    margin: '0px',
+  },
+  addressTextHeader: {
+    color: '#8a8a8a',
+    fontSize: '13px'
   },
   textContainerGrid: {
     width: '75%',

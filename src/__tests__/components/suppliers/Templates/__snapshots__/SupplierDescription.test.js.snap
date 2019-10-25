@@ -21,9 +21,47 @@ exports[`SupplierDescription should render the SupplierDescription component pro
           item={true}
           xs={12}
         >
-          <div />
-          <div />
-          <div />
+          <div
+            style={
+              Object {
+                "marginBottom": "9px",
+              }
+            }
+          />
+          <div>
+            <div>
+              <span>
+                Address
+              </span>
+            </div>
+            <div
+              style={
+                Object {
+                  "marginTop": "5px",
+                }
+              }
+            >
+              <span>
+                undefined
+              </span>
+            </div>
+            <div>
+              <span>
+                undefined,
+              </span>
+            </div>
+            <div>
+              <span>
+                ,
+              </span>
+            </div>
+            <div>
+              <span />
+            </div>
+            <div>
+              <span />
+            </div>
+          </div>
         </WithStyles(Grid)>
       </WithStyles(Grid)>
       <WithStyles(Grid)
