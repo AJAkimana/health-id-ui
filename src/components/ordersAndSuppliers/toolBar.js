@@ -179,7 +179,8 @@ export class ToolBar extends Component {
 ToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleViewOrders: PropTypes.func.isRequired,
-  isOrderOpen: PropTypes.bool.isRequired
+  isOrderOpen: PropTypes.bool.isRequired,
+  status: PropTypes.string.isRequired
 };
 
 export default withStyles(ToolBarStyles)(ToolBar);

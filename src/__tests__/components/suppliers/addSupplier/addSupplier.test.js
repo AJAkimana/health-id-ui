@@ -4,12 +4,22 @@ import { BrowserRouter } from 'react-router-dom';
 import wait from 'waait';
 import { MockedProvider } from 'react-apollo/test-utils';
 import * as moxios from 'moxios';
+import PropTypes from 'prop-types';
 import { AddSupplier } from '../../../../components/suppliers/AddSupplier/AddSupplier';
 import GET_INITIAL_DATA from '../../../../queries/citiesCreditdaysTierQuery';
 import '../../../../../__mocks__/window';
 import { resolvedRequest, rejectedRequest } from '../../../../../__mocks__/axiosResponses';
 
+import { StateContext } from '../../../../providers/stateProvider';
+
 describe('Render Add Supplier component', () => {
+  AddSupplier.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   jest.useFakeTimers();
   beforeEach(() => {
     moxios.install();
@@ -109,7 +119,7 @@ describe('Render Add Supplier component', () => {
     aspect: 1 / 1
   };
 
-  const wrapper = shallow(<AddSupplier {...props} />);
+  const wrapper = shallow(<AddSupplier {...props} />, { context });
 
   const validFile = [
     {
@@ -153,14 +163,15 @@ describe('Render Add Supplier component', () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <BrowserRouter>
-          <AddSupplier {...props} />
+          <StateContext.Provider value={context}>
+            <AddSupplier {...props} />
+          </StateContext.Provider>
         </BrowserRouter>
       </MockedProvider>
     );
     wait(0);
     expect(wrapper).toMatchSnapshot();
   });
-
   it('calls handle slider change function', () => {
     const attr = { value: undefined };
     const event = {
@@ -168,7 +179,13 @@ describe('Render Add Supplier component', () => {
         getAttribute: value => attr[value]
       }
     };
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
+    wrapper.instance().handleSliderChange(event);
+    expect(wrapper.state().creditDays).toEqual(event);
+  });
+  it('calls "handlesliderchange" function', () => {
+    const event = 0;
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleSliderChange(event);
     expect(wrapper.state().creditDays).toEqual(event);
   });
@@ -182,7 +199,7 @@ describe('Render Add Supplier component', () => {
 
     const value = 'Ema';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleNameChange(event);
     expect(wrapper.state().name).toEqual(value);
   });
@@ -196,7 +213,7 @@ describe('Render Add Supplier component', () => {
 
     const value = '';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleCommentChange(event);
     expect(wrapper.state().name).toEqual(value);
   });
@@ -210,7 +227,7 @@ describe('Render Add Supplier component', () => {
 
     const value = 'House 12 Binta road';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleLineChange(event);
     expect(wrapper.state().name).toEqual(value);
   });
@@ -218,7 +235,7 @@ describe('Render Add Supplier component', () => {
     const event = {};
     const colorHasChanged = true;
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleColorChange(event);
     expect(wrapper.state().colorHasChanged).toEqual(colorHasChanged);
   });
@@ -226,7 +243,7 @@ describe('Render Add Supplier component', () => {
     const event = {};
     const colorHasChangedCity = true;
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleColorChangeCity(event);
     expect(wrapper.state().colorHasChangedCity).toEqual(colorHasChangedCity);
   });
@@ -238,7 +255,7 @@ describe('Render Add Supplier component', () => {
       }
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ tierId: event.target.value });
     wrapper.instance().handleTierChange(event);
 
@@ -252,7 +269,7 @@ describe('Render Add Supplier component', () => {
       }
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ paymentTermsId: event.target.value });
     wrapper.instance().handlePaymentTermsChange(event);
 
@@ -279,7 +296,7 @@ describe('Render Add Supplier component', () => {
       ]
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({
       countryValue: {
         label: event.label,
@@ -300,7 +317,7 @@ describe('Render Add Supplier component', () => {
       id: 2
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({
       cityValue: {
         label: event.label,
@@ -321,7 +338,7 @@ describe('Render Add Supplier component', () => {
       }
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ email: event.target.value });
     wrapper.instance().handleEmailChange(event);
 
@@ -337,7 +354,7 @@ describe('Render Add Supplier component', () => {
       }
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ email: event.target.value });
     wrapper.instance().handleEmailChange(event);
 
@@ -349,7 +366,7 @@ describe('Render Add Supplier component', () => {
   it('calls handle mobile change function and return no error when number is correct', () => {
     const value = '+2347030303030';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ mobileNumber: value });
     wrapper.instance().handleMobileChange(value);
 
@@ -361,7 +378,7 @@ describe('Render Add Supplier component', () => {
   it('calls handle mobile change function and return error when number is inccorrect', () => {
     const value = '7030303030';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.setState({ mobileNumber: value });
     wrapper.instance().handleMobileChange(value);
 
@@ -381,7 +398,7 @@ describe('Render Add Supplier component', () => {
     };
     const btnClicked = 'save';
     const message = 'test';
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleProposeSupplier(btnClicked);
     notify(message);
     expect(wrapper.state().loading).toBeTruthy();
@@ -394,7 +411,7 @@ describe('Render Add Supplier component', () => {
       }
     };
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleSendForApproval(event);
     // expect(wrapper.state().loading).toBeTruthy();
   });
@@ -407,7 +424,7 @@ describe('Render Add Supplier component', () => {
     };
     const btnClicked = 'save';
 
-    const wrapper = shallow(<AddSupplier {...props} />);
+    const wrapper = shallow(<AddSupplier {...props} />, { context });
     wrapper.instance().handleProposeSupplier(btnClicked);
     wrapper.instance().handleAddAnotherSupplier(event);
     expect(setTimeout).toHaveBeenCalledTimes(6);
@@ -442,7 +459,6 @@ describe('Render Add Supplier component', () => {
     };
     const spy = jest.spyOn(wrapper.instance(), 'onSelectFile');
     wrapper.instance().onSelectFile(e);
-    console.log('wrapper.state().src', wrapper.state().src);
     expect(spy).toHaveBeenCalled();
   });
   it('calls onSelectFile function on a image file', () => {
@@ -459,7 +475,6 @@ describe('Render Add Supplier component', () => {
     };
     const spy = jest.spyOn(wrapper.instance(), 'onSelectFile');
     wrapper.instance().onSelectFile(e);
-    console.log('wrapper.state().src', wrapper.state().src);
     expect(spy).toHaveBeenCalled();
   });
 

@@ -6,6 +6,8 @@ import wait from 'waait';
 import { GET_ALL_APPROVED_PRODUCTS } from '../../../queries/stockProducts';
 import ViewProducts, { ViewProducts as ViewProductsWrapper } from '../../../components/stock_control/viewProducts';
 
+import { StateContext } from '../../../providers/stateProvider';
+
 describe('ViewProducts ', () => {
   const mocks = [
     {
@@ -85,12 +87,15 @@ describe('ViewProducts ', () => {
     history: { push: jest.fn() },
   };
 
+  const context = ['kitty', jest.fn()]
 
-  it('renders without error', async() => {
+  it('renders without error', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <Router>
-          <ViewProductsWrapper {...props} />
+          <StateContext.Provider value={context}>
+            <ViewProductsWrapper {...props} />
+          </StateContext.Provider>
         </Router>
       </MockedProvider>
     );
@@ -103,9 +108,9 @@ describe('ViewProducts ', () => {
   it('renders without error with a protected route', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
-         <Router>
+        <Router>
           <ViewProducts {...props} />
-         </Router>
+        </Router>
       </MockedProvider>
     );
     expect(wrapper.find('Router').length).toEqual(1);

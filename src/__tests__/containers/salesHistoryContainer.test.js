@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import MockComponent from '../../../__mocks__/mockComponent';
 import GET_USER_INFO from '../../queries/userDataQuery';
 import GET_SALES_HISTORY from '../../queries/salesHistoryQuery';
+import PropTypes from 'prop-types';
 import SalesHistoryData, { SalesHistory } from '../../containers/salesHistoryContainer';
 
 jest.mock('../../components/sell/salesHistory/salesHistoryDetails', () => MockComponent);
@@ -17,6 +18,13 @@ const props = {
     }
   },
 };
+
+SalesHistory.contextTypes = [
+  PropTypes.string,
+  PropTypes.func
+];
+
+const context = ['kitty', jest.fn()]
 
 describe('SellScreenContainer with InitialData', () => {
   const authMocks = [
@@ -99,7 +107,7 @@ describe('SellScreenContainer with InitialData', () => {
 
 describe('SellScreenContainer', () => {
   const wrapper = shallow(
-    <SalesHistory {...props} />
+    <SalesHistory {...props} />, { context }
   );
   let date;
   beforeEach(() => {
@@ -125,7 +133,7 @@ describe('SellScreenContainer', () => {
       startDate: date,
       endDate: date
     };
-    const timeValue = { start: '00:00', end: '23:59'};
+    const timeValue = { start: '00:00', end: '23:59' };
     wrapper.instance().handleDateTimeFilter(selection, timeValue);
     expect(wrapper.state('salesData')).toEqual(initialData);
   });

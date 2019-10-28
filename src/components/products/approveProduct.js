@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import { approveProductsStyles } from '../../assets/styles/products/products';
 import APPROVE_PRODUCT_MUTATION from './approveProductMutation';
 import withAuth from '../withAuth';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import Footer from '../shared/Footer';
 import notify from '../shared/Toaster';
 import Description from './Templates/Description';
@@ -17,9 +16,19 @@ import ProductInformation from './Templates/ProductInformation';
 import ProductHeader from './Templates/Header';
 import RenderDescriptionField from './Templates/renderDescriptionField';
 
+import { StateContext } from '../../providers/stateProvider';
+
 export class ApproveProduct extends Component {
   state = {
     approved: false
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
   }
 
   handleProductApproval = () => {
@@ -38,12 +47,13 @@ export class ApproveProduct extends Component {
     });
   }
 
+  static contextType = StateContext;
+
   render() {
     const { approved } = this.state;
     const {
       product,
       classes,
-      session,
     } = this.props;
 
     const {
@@ -77,7 +87,6 @@ export class ApproveProduct extends Component {
     );
     return (
       <React.Fragment>
-        <Dashboard isActive="grid3" session={session} />
         <ProductHeader classes={classes} previousPage="/products/proposed" productName={productName}>
           <Button variant="contained" color="primary" className={classes.editButton}>
             Edit
@@ -120,14 +129,12 @@ export class ApproveProduct extends Component {
 
 ApproveProduct.propTypes = {
   product: PropTypes.objectOf(PropTypes.object).isRequired,
-  session: PropTypes.objectOf(PropTypes.object),
   refetch: PropTypes.func.isRequired,
   approveProduct: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string),
 };
 
 ApproveProduct.defaultProps = {
-  session: { me: {} },
   classes: {},
 };
 

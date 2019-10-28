@@ -121,7 +121,6 @@ const SupplierForm = (props) => {
       ...city
     }));
   }
-  // const classes = useStyles();
   return (
     <Paper style={SupplierFormStyles.paperForm}>
       <form>

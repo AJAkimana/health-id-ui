@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { AuthContainer as Container } from '../../components/authentication/Container';
+import { StateContext } from '../../providers/stateProvider';
 
 const props = {
   classes: { container: {} },
@@ -10,10 +12,22 @@ const props = {
   }
 };
 
+Container.contextTypes = [
+  PropTypes.boolean,
+  PropTypes.func
+];
+
+const context = [true, jest.fn()]
+
 describe('Container Component', () => {
   let wrapper
   beforeEach(() => {
-    wrapper = mount(<Router><Container {...props} /></Router>);
+    wrapper = mount(
+      <Router>
+        <StateContext.Provider value={context}>
+          <Container {...props} />
+        </StateContext.Provider>
+      </Router>);
   })
 
   it('renders without crashing', () => {
@@ -40,18 +54,18 @@ describe('Container Component', () => {
 
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Container {...props} />);
+    wrapper = shallow(<Container {...props} />, { context });
   })
 
   it('calls handleCloseAlert', () => {
-    wrapper.setProps({handleCloseAlert: jest.fn()});
+    wrapper.setProps({ handleCloseAlert: jest.fn() });
     wrapper.instance().handleCloseAlert();
     expect(wrapper.state('openAlert')).toBe(false);
   });
 
   it('calls handleCloseForgotPasswordAlert', () => {
     const event = { target: { checked: false } };
-    wrapper.setProps({handleCloseForgotPasswordAlert: jest.fn()});
+    wrapper.setProps({ handleCloseForgotPasswordAlert: jest.fn() });
     wrapper.instance().handleCheckbox(event);
     wrapper.instance().setState({
       checked: event.target.checked
@@ -155,7 +169,7 @@ describe('Container Component', () => {
         loginUser: {
           token: '',
           message: 'Login Successful',
-          user: {isAdmin: false}
+          user: { isAdmin: false }
         }
       }
     };
@@ -177,7 +191,7 @@ describe('Container Component', () => {
       preventDefault: jest.fn(),
     };
 
-    wrapper.setProps({Emaillogin: jest.fn(() => Promise.resolve(data))});
+    wrapper.setProps({ Emaillogin: jest.fn(() => Promise.resolve(data)) });
     wrapper.setState({ inputType: 'email' });
     const handleEmailLogin = jest.fn();
     const spy = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
@@ -191,22 +205,23 @@ describe('Container Component', () => {
         loginUser: {
           token: '',
           message: 'Invalid login credentials',
-          user: {isAdmin: true}
+          user: { isAdmin: true }
         }
       }
     };
 
     const event = {
-      target: {email: {value: ''},
-      password: {value: ''},
-      code: {value: ''},
-      phoneNumber: {value: ''}
+      target: {
+        email: { value: '' },
+        password: { value: '' },
+        code: { value: '' },
+        phoneNumber: { value: '' }
       },
       preventDefault: jest.fn(),
     };
 
-    wrapper.setProps({Emaillogin: jest.fn(() => Promise.resolve(data))});
-    wrapper.setState({inputType: 'email'});
+    wrapper.setProps({ Emaillogin: jest.fn(() => Promise.resolve(data)) });
+    wrapper.setState({ inputType: 'email' });
 
     const spy = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
     wrapper.instance().handleSubmit(event);
@@ -216,16 +231,17 @@ describe('Container Component', () => {
 
   it('test handleEmailLogin with an error', () => {
     const event = {
-        target: {email: {value: ''},
-        password: {value: ''},
-        code: {value: ''},
-        phoneNumber: {value: ''}
+      target: {
+        email: { value: '' },
+        password: { value: '' },
+        code: { value: '' },
+        phoneNumber: { value: '' }
       },
       preventDefault: jest.fn(),
     };
-    wrapper.setProps({Emaillogin: jest.fn(() => Promise.resolve({}))});
-    wrapper.setState({inputType: 'email'});
-    const errorWrapper = shallow(<Container {...props} />);
+    wrapper.setProps({ Emaillogin: jest.fn(() => Promise.resolve({})) });
+    wrapper.setState({ inputType: 'email' });
+    const errorWrapper = shallow(<Container {...props} />, { context });
     const spyOn = jest.spyOn(wrapper.instance(), 'handleEmailLogin');
     wrapper.instance().handleSubmit(event);
     expect(wrapper.instance().state.loginSuccess).toBeFalsy();
@@ -238,7 +254,7 @@ describe('Container Component', () => {
         loginUser: {
           token: '',
           message: 'Login Successful',
-          user: {isAdmin: true}
+          user: { isAdmin: true }
         }
       }
     };
@@ -263,7 +279,7 @@ describe('Container Component', () => {
       Emaillogin: jest.fn(() => Promise.resolve(data)),
       Mobilelogin: jest.fn(() => Promise.resolve(data))
     });
-    wrapper.setState({inputType: 'phone'});
+    wrapper.setState({ inputType: 'phone' });
     const spy = jest.spyOn(wrapper.instance(), 'handleMobileLogin');
     wrapper.instance().handleSubmit(event);
     expect(spy).toBeCalled();
@@ -276,7 +292,7 @@ describe('Container Component', () => {
         loginUser: {
           token: '',
           message: 'Invalid login credentials',
-          user: {isAdmin: true}
+          user: { isAdmin: true }
         }
       }
     };
@@ -297,8 +313,8 @@ describe('Container Component', () => {
       },
       preventDefault: jest.fn(),
     };
-    wrapper.setProps({Mobilelogin: jest.fn(() => Promise.resolve(data))});
-    wrapper.setState({inputType: 'phone'});
+    wrapper.setProps({ Mobilelogin: jest.fn(() => Promise.resolve(data)) });
+    wrapper.setState({ inputType: 'phone' });
     const spy = jest.spyOn(wrapper.instance(), 'handleMobileLogin');
     wrapper.instance().handleSubmit(event);
     expect(spy).toBeCalled();
@@ -311,7 +327,7 @@ describe('Container Component', () => {
         loginUser: {
           token: '',
           message: 'Invalid login credentials',
-          user: {isAdmin: true}
+          user: { isAdmin: true }
         }
       }
     };
@@ -339,7 +355,7 @@ describe('Container Component', () => {
       },
       Mobilelogin: jest.fn(() => Promise.resolve({}))
     }
-    const errorWrapper = shallow(<Container {...errorProps} />);
+    const errorWrapper = shallow(<Container {...errorProps} />, { context });
     errorWrapper.setState({
       inputType: 'phone',
     });
@@ -356,10 +372,10 @@ describe('Container Component', () => {
         }
       }
     };
-    wrapper.setProps({signup: jest.fn(() => Promise.resolve(data))});
+    wrapper.setProps({ signup: jest.fn(() => Promise.resolve(data)) });
     wrapper.setState({
       email: '',
-      Code: {concat: jest.fn()},
+      Code: { concat: jest.fn() },
       phoneNumber: 123,
       password: ''
     });
@@ -375,9 +391,9 @@ describe('Container Component', () => {
         }
       }
     };
-    wrapper.setProps({signup: jest.fn(() => Promise.resolve(data))});
+    wrapper.setProps({ signup: jest.fn(() => Promise.resolve(data)) });
     wrapper.setState({
-      Code: {concat: jest.fn()},
+      Code: { concat: jest.fn() },
       phoneNumber: 0,
       password: ''
     });
@@ -404,8 +420,8 @@ describe('Container Component', () => {
         }
       }
     };
-    wrapper.setProps({ResetPassword: jest.fn(() => Promise.resolve(data))});
-    wrapper.setState({email: 'test@gmail.com'});
+    wrapper.setProps({ ResetPassword: jest.fn(() => Promise.resolve(data)) });
+    wrapper.setState({ email: 'test@gmail.com' });
     wrapper.instance().handlePasswordReset();
     expect(wrapper.instance().state.EmailError).toBeFalsy();
   });
@@ -416,8 +432,8 @@ describe('Container Component', () => {
       data: {
       }
     };
-    wrapper.setProps({ResetPassword: jest.fn(() => Promise.resolve(data))});
-    wrapper.setState({email: 'test@gmail.com'});
+    wrapper.setProps({ ResetPassword: jest.fn(() => Promise.resolve(data)) });
+    wrapper.setState({ email: 'test@gmail.com' });
     wrapper.instance().handlePasswordReset();
     expect(wrapper.instance().state.EmailError).toBeFalsy();
   });

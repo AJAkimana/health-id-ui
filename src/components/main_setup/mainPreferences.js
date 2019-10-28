@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Lock from '@material-ui/icons/Lock';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import Categories from './productCategories';
 import notify from '../shared/Toaster';
 import { MainPreferencesStyles } from '../../assets/styles/setup';
@@ -23,6 +22,8 @@ import GET_OUTLET_PREFERENCES from '../../queries/outletPreferences';
 import UPDATE_OUTLET_PREFERENCES from '../../mutations/setup/updateOutletPreferences';
 import AutoSuggest from './autoSuggestPopper';
 import withAuth from '../withAuth';
+
+import { StateContext } from '../../providers/stateProvider';
 
 export class Preferences extends Component {
   state = {
@@ -55,6 +56,14 @@ export class Preferences extends Component {
     alertNearExpiry: false,
     alertLowInventory: false,
     weeksToStartSupplyAlert: 0,
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -176,8 +185,9 @@ export class Preferences extends Component {
     });
   }
 
+  static contextType = StateContext;
+
   render() {
-    const { session } = this.props;
     const {
       selectedCurrency,
       selectedTimezone,
@@ -201,7 +211,6 @@ export class Preferences extends Component {
 
     return (
       <Fragment>
-        <Dashboard isActive="grid9" session={session} />
         <Grid container style={MainPreferencesStyles.container}>
           <Grid item xs={1} style={MainPreferencesStyles.backBox}>
             <Button style={MainPreferencesStyles.backButton}>
@@ -709,7 +718,7 @@ Preferences.defaultProps = {
     timezones: []
   },
   getPreferences: {},
-  refetch: () => {},
+  refetch: () => { },
 };
 
 Preferences.propTypes = {

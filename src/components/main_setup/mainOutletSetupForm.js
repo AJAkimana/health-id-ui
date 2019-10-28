@@ -21,11 +21,12 @@ import {
   SetupHeader,
   RadioGroupStyles
 } from '../../assets/styles/setup';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import CREATE_OUTLET from '../../mutations/outletSetupMutation';
 import GET_ALL_COUNTRIES from '../../queries/countryQuery';
 import GET_ALL_CITIES from '../../queries/citiesQuery';
+
+import { StateContext } from '../../providers/stateProvider';
 
 class MainOutletSetupForm extends Component {
   constructor(props) {
@@ -43,6 +44,14 @@ class MainOutletSetupForm extends Component {
       dateLaunched: '',
       outletType: '',
     };
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -73,6 +82,8 @@ class MainOutletSetupForm extends Component {
 
   handleInputChange = name => event => this.setState({ [name]: event.target.value });
 
+  static contextType = StateContext;
+
   render() {
     const {
       countries,
@@ -87,11 +98,9 @@ class MainOutletSetupForm extends Component {
       dateLaunched,
       outletType,
     } = this.state;
-    const { session } = this.props;
 
     return (
       <Fragment>
-        <Dashboard isActive="grid9" session={session} />
         <Grid container style={SetupHeader.container}>
           <Grid item xs={1} style={SetupHeader.backBox}>
             <Button style={SetupHeader.backButton}>

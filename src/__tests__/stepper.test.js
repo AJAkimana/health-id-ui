@@ -2,12 +2,14 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { MockedProvider } from 'react-apollo/test-utils';
 import GET_USER_INFO from '../queries/userDataQuery';
+import PropTypes from 'prop-types';
 import SteppedNav, { StepperNav } from '../components/setup/Stepper';
 import BusinessSetUp from '../components/setup/businessSetup';
 import AdminSetUp from '../components/setup/adminSetup';
 import withAuth from '../components/withAuth';
 import UserSetup from '../components/setup/userSetup';
 import FinalScreen from '../components/setup/finalScreen';
+import { StateContext } from '../providers/stateProvider';
 
 const results = {
   data: {
@@ -156,8 +158,15 @@ const event1 = {
   }
 };
 
+StepperNav.contextTypes = [
+  PropTypes.Bool,
+  PropTypes.func
+];
+
+const context = [true, jest.fn()]
+
 describe('Test UserSetup', () => {
-  let wrapper = shallow(<StepperNav {...props} />);
+  let wrapper = shallow(<StepperNav {...props} />, { context });
   wrapper.instance().setState({
     activeStep: 3, showUsers: true, users: [], editMode: false
   });
@@ -206,19 +215,19 @@ describe('Test UserSetup', () => {
   });
   it('displays errors without crashing', () => {
     props.addUser = jest.fn(() => Promise.resolve(errorResults));
-    wrapper = shallow(<StepperNav {...props} />);
+    wrapper = shallow(<StepperNav {...props} />, { context });
     wrapper.instance().addUser();
     expect(props.addUser).toBeCalled();
   });
   it('catches errors correctly when adding users', () => {
     props.addUser = jest.fn(() => Promise.resolve());
-    wrapper = shallow(<StepperNav {...props} />);
+    wrapper = shallow(<StepperNav {...props} />, { context });
     wrapper.instance().addUser();
     expect(props.addUser).toBeCalled();
   });
   it('catches errors correctly when updating users', () => {
     props.adminUserUpdate = jest.fn(() => Promise.resolve());
-    wrapper = shallow(<StepperNav {...props} />);
+    wrapper = shallow(<StepperNav {...props} />, { context });
     wrapper.instance().setState({ editMode: true });
     wrapper.instance().addUser();
     expect(props.adminUserUpdate).toBeCalled();
@@ -234,7 +243,7 @@ describe('Test UserSetup', () => {
 });
 
 describe('Test stepper component', () => {
-  const wrapper = shallow(<StepperNav {...props} />);
+  const wrapper = shallow(<StepperNav {...props} />, { context });
   beforeEach(() => {
     wrapper.instance().setState({
       activeStep: 0,
@@ -330,7 +339,7 @@ describe('Test stepper component', () => {
 
     const nextButton = wrapper.find('#next-button');
     expect(nextButton.prop('disabled')).toBe(false);
-    
+
   });
 
   it('renders OutletSetup Component when next button is clicked', () => {
@@ -984,7 +993,9 @@ describe('Test react-apollo functions', () => {
   const MockedInstance = (
     <MockedProvider mocks={[{ request }]} addTypename={false}>
       <withAuth session={session}>
-        <SteppedNav {...props} />
+        <StateContext.Provider value={context}>
+          <SteppedNav {...props} />
+        </StateContext.Provider>
       </withAuth>
     </MockedProvider>
   );
@@ -1026,7 +1037,11 @@ describe('Test react-apollo functions', () => {
       },
     },
   };
-  const namedWrapper = mount(<StepperNav {...namedProps} />);
+  const namedWrapper = mount(
+    <StateContext.Provider value={context}>
+      <StepperNav {...namedProps} />
+    </StateContext.Provider >
+  );
 
   it('toogleCheckbox gets called', () => {
     namedWrapper.instance().toggleIsAcknowledged();

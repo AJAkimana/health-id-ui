@@ -1,10 +1,16 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { shallow } from 'enzyme';
+import _ from '../../../__mocks__/mockUseContext';
+import PropTypes from 'prop-types';
 import { ManageProfile } from '../../components/main_setup/manageProfileSetup';
 
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
+
 describe('Manage User profile tests', () => {
-  
+
   const dummySession = {
     me: {
       email: 'test@mail.com',
@@ -80,7 +86,7 @@ describe('Manage User profile tests', () => {
       errors: {
         status: false,
         message: ''
-      },      crop: {
+      }, crop: {
         aspect: 1 / 1
       },
       samePasswordError: {
@@ -99,7 +105,8 @@ describe('Manage User profile tests', () => {
           }
         }
       }
-    }))
+    })),
+    updateUserInfo: {}
   };
 
   const propsInvalid = {
@@ -112,21 +119,35 @@ describe('Manage User profile tests', () => {
     }))
   };
 
+  ManageProfile.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   it('Should render the component and the appropriate state', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} />, { context });
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.instance().state).toEqual(dummySession.me);
   });
 
+  it('Should update user info', () => {
+    const wrapper = shallow(<ManageProfile session={{}} {...props} />, { context });
+
+    expect(wrapper.exists()).toBeTruthy();
+    expect(wrapper.instance().state).toEqual(dummySession2.me);
+  });
+
   it('Should render the component and N/A when state is not provided', () => {
-    const wrapper = shallow(<ManageProfile session={{}} />);
+    const wrapper = shallow(<ManageProfile session={{}} />, { context });
 
     expect(wrapper.exists()).toBeTruthy();
     expect(wrapper.instance().state).toEqual(dummySession2.me);
   });
 
   it('Should call handleInputChange on input change and update state', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} />, { context });
     const event = {
       target: {
         name: 'currentPassword',
@@ -163,7 +184,7 @@ describe('Manage User profile tests', () => {
   });
 
   it('Should call handleClickShowPassword and update state', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} />, { context });
 
     const spy = jest.spyOn(wrapper.instance(), 'handleClickShowPassword');
     const previousState = wrapper.instance().state;
@@ -182,7 +203,7 @@ describe('Manage User profile tests', () => {
   });
 
   it('Should call handleSubmit - Valid Data', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />, { context });
     const notify = jest.fn();
     window.scrollTo = jest.fn();
     wrapper.setState({
@@ -201,7 +222,7 @@ describe('Manage User profile tests', () => {
   });
 
   it('Should call handleSubmit - Valid Data - Promise rejected', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} {...propsInvalid} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} {...propsInvalid} />, { context });
     const notify = jest.fn();
     window.scrollTo = jest.fn();
     wrapper.setState({
@@ -221,7 +242,7 @@ describe('Manage User profile tests', () => {
   });
 
   it('Should call handleSubmit - No changed password', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />, { context });
     const error = {
       status: true,
       message: 'The password entered is the same as the old password'
@@ -241,7 +262,7 @@ describe('Manage User profile tests', () => {
   });
 
   it('Should call handleSubmit - Mismatching passwords', () => {
-    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />);
+    const wrapper = shallow(<ManageProfile session={dummySession} {...props} />, { context });
     const error = {
       status: true,
       message: 'The password entered is the same as the old password'

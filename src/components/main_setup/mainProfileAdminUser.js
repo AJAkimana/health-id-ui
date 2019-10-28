@@ -13,14 +13,22 @@ import Avatar from '../../assets/images/settingsAvatar.png';
 
 
 // SHARED COMPONENTS
-import Dashboard from '../shared/Dashboard/Dashboard';
 import { MainProfileStyles as styles, SetupHeader } from '../../assets/styles/setup';
+import { useStateValue } from '../../providers/stateProvider';
 
 const MainSetup = ({ session }) => {
   const { me: data } = session;
+  const [, dispatch] = Object.values(useStateValue());
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }, []);
+
   return (
     <Fragment>
-      <Dashboard isActive="grid9" session={session} />
       <Grid container style={styles.container}>
         <Grid item xs={1} style={SetupHeader.backBox}>
           <Button style={SetupHeader.backButton}>

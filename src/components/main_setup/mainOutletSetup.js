@@ -9,16 +9,27 @@ import {
 } from '@material-ui/core';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
 import MainOutletSetupList from './mainOutletSetupList';
 import MainOutletSetupForm from './mainOutletSetupForm';
 
+import { StateContext } from '../../providers/stateProvider';
+
 class MainOutletSetup extends Component {
   state = {
     listView: true,
   }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
+  }
+
+  static contextType = StateContext;
 
   render() {
     const { session } = this.props;
@@ -27,7 +38,6 @@ class MainOutletSetup extends Component {
 
     return (
       <Fragment>
-        <Dashboard isActive="grid9" session={session} />
         <Grid container style={SetupHeader.container}>
           <Grid item xs={1} style={SetupHeader.backBox}>
             <Button style={SetupHeader.backButton}>

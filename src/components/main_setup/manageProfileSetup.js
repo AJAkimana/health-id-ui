@@ -22,10 +22,8 @@ import {
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Avatar from '../../assets/images/settingsAvatar.png';
 
 // SHARED COMPONENTS
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import ImageUpload from '../products/AddProduct/Inputs/ImageUpload';
 import { MainProfileStyles as styles, SetupHeader } from '../../assets/styles/setup';
@@ -33,6 +31,7 @@ import UPDATE_USER_PASSWORD from '../../mutations/updateUserPassword';
 import UPDATE_USER_INFO from '../../mutations/updateUserProfileMutation';
 import verifyFile from '../../utils/products/verifyFile';
 import notify from '../shared/Toaster';
+import { StateContext } from '../../providers/stateProvider';
 
 const UPDATE_USER = graphql(UPDATE_USER_INFO, { name: 'updateUserInfo' });
 const UPDATE_PASSWORD = graphql(UPDATE_USER_PASSWORD, { name: 'updatePassword' });
@@ -78,6 +77,14 @@ export class ManageProfile extends Component {
         aspect: 1 / 1
       },
     };
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
   }
 
   handleImageDrop = (file) => {
@@ -317,13 +324,14 @@ export class ManageProfile extends Component {
       );
   }
 
-  handleUserUpdate=(updateUserInfo, variables) => {
+  handleUserUpdate = (updateUserInfo, variables) => {
+    const { initialData: { email } } = this.state;
     updateUserInfo({
       variables
     }).then(({ data }) => {
       const { updateUser } = data;
       const userName = updateUser.user.username;
-      if (updateUser.user.email !== this.state.initialUserData.email) {
+      if (updateUser.user.email !== email) {
         localStorage.clear();
         window.location.replace('/');
       }
@@ -367,8 +375,9 @@ export class ManageProfile extends Component {
       : notify('Your profile has not been updated ');
   }
 
+  static contextType = StateContext;
+
   render() {
-    const { session } = this.props;
     const {
       firstName,
       lastName,
@@ -395,7 +404,6 @@ export class ManageProfile extends Component {
 
     return (
       <Fragment>
-        <Dashboard isActive="grid9" session={session} />
         <Grid container style={styles.container}>
           <Grid item xs={1} style={SetupHeader.backBox}>
             <Button style={SetupHeader.backButton}>
@@ -414,10 +422,10 @@ export class ManageProfile extends Component {
               </Button>
             </Grid>
             <Paper style={styles.paper}>
-              { (role.name !== 'Master Admin') ? (
+              {(role.name !== 'Master Admin') ? (
                 <div>
                   <Typography variant="h6" style={styles.contentHeader}>
-                Personal Details
+                    Personal Details
                   </Typography>
                   <Grid item style={styles.profileBox}>
                     <Grid item xs={4} style={styles.formRow}>
@@ -491,7 +499,7 @@ export class ManageProfile extends Component {
                     </Grid>
                   </Grid>
                   <Typography variant="h6" style={styles.contentHeader}>
-                Business Details
+                    Business Details
                   </Typography>
                   <Grid item style={styles.profileBox}>
                     <Grid item xs={4} style={styles.formRow}>
@@ -545,8 +553,8 @@ export class ManageProfile extends Component {
               ) : (
                 <div>
                   <Typography variant="h6" style={styles.contentHeader}>
-                Manage Account
-                  </Typography>
+                      Manage Account
+                    </Typography>
                   <Grid item xs={10} style={styles.profileForm}>
                     <FormControl fullWidth margin="normal" error={errors.status}>
                       <TextField
@@ -713,20 +721,22 @@ ManageProfile.propTypes = {
       lastName: PropTypes.string,
       email: PropTypes.string,
       mobileNumber: PropTypes.string,
+      secondaryPhoneNumber: PropTypes.string,
       birthday: PropTypes.string,
       startingDate: PropTypes.string,
       jobTitle: PropTypes.string,
       weeklyTarget: PropTypes.string,
-
+      secondaryEmail: PropTypes.string,
       role: PropTypes.shape({
         name: PropTypes.string,
-      })
+      }),
+      profileImage: PropTypes.string
     })
   }).isRequired,
+  updateUserInfo: PropTypes.func
 };
 ManageProfile.defaultProps = {
-  session: { me: {} },
-  history: {},
+  updateUserInfo: () => { }
 };
 
 export default withAuth(compose(

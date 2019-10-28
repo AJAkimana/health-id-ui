@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { productDetailStyles } from '../../assets/styles/products/productDetailStyles';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import ProductHeader from './Templates/Header';
 import Footer from '../shared/Footer';
 import BatchInformation from './Templates/BatchInformation';
@@ -14,6 +13,8 @@ import Description from './Templates/Description';
 import ProductInformation from './Templates/ProductInformation';
 import StockDetails from './Templates/StockDetails';
 import RenderDescriptionField from './Templates/renderDescriptionField';
+
+import { useStateValue } from '../../providers/stateProvider';
 
 const productsLink = props => <Link to="/products" {...props} />;
 
@@ -68,8 +69,17 @@ export const ProductDetailRender = (props) => {
       tags,
     },
     classes,
-    session,
   } = props;
+
+  const [, dispatch] = Object.values(useStateValue());
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }, []);
+
   const withPriceField = AddPriceField(batchInfo);
   let currency = '₦';
   if (outlet.outletpreference) {
@@ -98,7 +108,6 @@ export const ProductDetailRender = (props) => {
 
   return (
     <React.Fragment>
-      <Dashboard isActive="grid3" session={session} />
       <ProductHeader classes={classes} previousPage="/products/approved" productName={productName} />
 
       <Paper className={classes.paper}>
@@ -172,11 +181,6 @@ export const ProductDetailRender = (props) => {
 ProductDetailRender.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
   classes: PropTypes.instanceOf(Object).isRequired,
-  session: PropTypes.objectOf(PropTypes.object)
-};
-
-ProductDetailRender.defaultProps = {
-  session: {}
 };
 
 export default withStyles(productDetailStyles)(ProductDetailRender);

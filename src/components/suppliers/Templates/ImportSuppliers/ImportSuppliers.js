@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import withAuth from '../../../withAuth';
 import ImportSuppliersForm from './ImportSuppliersForm';
 import BackAction from '../../../shared/BackAction';
-import Dashboard from '../../../shared/Dashboard/Dashboard';
 import verifyFile from '../../../../utils/products/verifyFile';
 import notify from '../../../shared/Toaster';
 
+import { StateContext } from '../../../../providers/stateProvider';
 
 export class ImportSuppliers extends Component {
   state = {
@@ -18,6 +18,14 @@ export class ImportSuppliers extends Component {
     fileLoaded: false,
     isSubmitFileFailed: false,
   };
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid4'
+    });
+  }
 
   onDrop = async (acceptedFiles) => {
     this.setState({ file: acceptedFiles[0] });
@@ -101,12 +109,12 @@ export class ImportSuppliers extends Component {
     }
   }
 
+  static contextType = StateContext;
+
   render() {
-    const { session } = this.props;
     const { fileLoaded, isSubmitFileFailed } = this.state;
     return (
       <Fragment>
-        <Dashboard isActive="grid4" session={session} />
         <BackAction
           header="Back"
           link="/suppliers"
@@ -127,7 +135,6 @@ export class ImportSuppliers extends Component {
 }
 
 ImportSuppliers.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.shape({
     lenght: PropTypes.number,
     push: PropTypes.func
@@ -135,7 +142,6 @@ ImportSuppliers.propTypes = {
 };
 
 ImportSuppliers.defaultProps = {
-  session: {},
   history: PropTypes.shape({
     lenght: PropTypes.number,
     push: PropTypes.func

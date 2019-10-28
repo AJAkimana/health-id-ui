@@ -7,12 +7,13 @@ import ProductForm from './ProductForm';
 import withAuth from '../../withAuth';
 import GET_INITIAL_DATA from '../../../queries/productsSuppliersCategoriesQuery';
 import CREATE_PRODUCT from '../../../mutations/createProduct';
-import Dashboard from '../../shared/Dashboard/Dashboard';
 import BackAction from '../BackAction';
 import notify from '../../shared/Toaster';
 import validateProductName from '../../../utils/products/ProductNameValidation';
 import verifyFile from '../../../utils/products/verifyFile';
 import DataTableLoader from '../../dataTable/dataTableLoader';
+
+import { StateContext } from '../../../providers/stateProvider';
 
 export class AddProduct extends Component {
   state = {
@@ -42,6 +43,14 @@ export class AddProduct extends Component {
     },
     open: false
   };
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }
 
   handleProductName = (event) => {
     const { products } = this.state;
@@ -269,12 +278,11 @@ export class AddProduct extends Component {
     this.setState({ crop });
   };
 
-  render() {
-    const { session } = this.props;
+  static contextType = StateContext;
 
+  render() {
     return (
       <div>
-        <Dashboard isActive="grid3" session={session} />
         <Query query={GET_INITIAL_DATA} variables={{ outletId: localStorage.outletId }}>
           {({ loading, error, data }) => (loading && <DataTableLoader />)
             || (error || null) || (
@@ -306,13 +314,11 @@ export class AddProduct extends Component {
 }
 
 AddProduct.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.objectOf(PropTypes.any),
   addProduct: PropTypes.func.isRequired
 };
 
 AddProduct.defaultProps = {
-  session: {},
   history: {}
 };
 

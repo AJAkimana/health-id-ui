@@ -36,6 +36,7 @@ import withAuth from '../withAuth';
 import UserSetup from './userSetup';
 import { ADD_NEW_USER, ADMIN_UPDATE_USER } from '../../mutations/addUsersSetupMutation';
 import { GET_ROLES, GET_OUTLETS } from '../../queries/addUsersSetupQuery';
+import { StateContext } from '../../providers/stateProvider';
 
 const styles = StepperStyles;
 
@@ -136,6 +137,13 @@ export class StepperNav extends React.Component {
     usernameError: false,
     emailError: false,
   };
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'hideNavbar'
+    });
+  }
 
   componentWillReceiveProps(nextProps) {
     nextProps && this.fetchUserData(nextProps);
@@ -1331,6 +1339,8 @@ export class StepperNav extends React.Component {
     }
   }
 
+  static contextType = StateContext;
+
   render() {
     const {
       activeStep, checked, isLoading, unhideMainButtons, showUsers, users, editMode
@@ -1372,7 +1382,7 @@ export class StepperNav extends React.Component {
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {((activeStep !== 0 && showUsers && unhideMainButtons)
-                      || (showUsers && activeStep === 3 && unhideMainButtons)) && (
+                        || (showUsers && activeStep === 3 && unhideMainButtons)) && (
                       <Button
                         onClick={this.handleBackButton}
                         className={classes.backButton}
@@ -1380,7 +1390,7 @@ export class StepperNav extends React.Component {
                         id="back-button"
                       >
                             Back
-                      </Button>
+                          </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
                       <Button
@@ -1390,7 +1400,7 @@ export class StepperNav extends React.Component {
                         id="back-button"
                       >
                           Cancel
-                      </Button>
+                        </Button>
                     )}
 
                     {isLoading
@@ -1433,7 +1443,7 @@ export class StepperNav extends React.Component {
                                   id="next-button"
                                 >
                                         Save Changes
-                                </Fab>
+                                      </Fab>
                               ) : (
                                 <Fab
                                   variant="extended"
@@ -1444,7 +1454,7 @@ export class StepperNav extends React.Component {
                                   id="next-button"
                                 >
                                           Invite
-                                </Fab>
+                                        </Fab>
                               )
                             )
                           )

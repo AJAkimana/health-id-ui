@@ -13,7 +13,6 @@ import {
 import APPROVE_SUPPLIER_MUTATION from '../../mutations/approveSupplierMutation';
 import withAuth from '../withAuth';
 import notify from '../shared/Toaster';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import SupplierHeader from './Templates/SupplierHeader';
 import SupplierNotes from './Templates/SupplierNotes';
 import SupplierDescription from './Templates/SupplierDescription';
@@ -23,12 +22,22 @@ import SupplierCommentary from './Templates/SupplierCommentary';
 import SingleSupplierPageLoader from './Templates/SingleSupplierPageLoader';
 import GET_SINGLE_SUPPLIER from '../../queries/getSingleSupplierQuery';
 
+import { StateContext } from '../../providers/stateProvider';
+
 export class SingleSupplierPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       approved: false
     };
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid4'
+    });
   }
 
   renderTextField = (style, name, label, value) => (
@@ -73,14 +82,15 @@ export class SingleSupplierPage extends Component {
       });
   }
 
+  static contextType = StateContext;
+
   render() {
     const { approved } = this.state;
-    const { session, classes, match } = this.props;
+    const { classes, match, session } = this.props;
     const { id } = match.params;
 
     return (
       <div>
-        <Dashboard isActive="grid4" session={session} />
         <Query
           query={GET_SINGLE_SUPPLIER}
           variables={{ id }}
@@ -191,7 +201,7 @@ SingleSupplierPage.propTypes = {
 SingleSupplierPage.defaultProps = {
   session: { me: {} },
   classes: {},
-  refetch: () => {}
+  refetch: () => { }
 };
 
 const APPROVE_SUPPLIER = graphql(APPROVE_SUPPLIER_MUTATION, {

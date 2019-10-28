@@ -10,7 +10,7 @@ import { addCustomerPopper } from '../../assets/css/sellScreenStyles';
 
 const styles = addCustomerPopper;
 
-const AddCustomerPopper = ({
+export const AddCustomerPopper = ({
   state: {
     openCustomerPopper,
     customerAnchorEl,
@@ -52,9 +52,9 @@ const AddCustomerPopper = ({
                 onClick={handleAddNewCustomer}
                 style={addCustomerPopper.typo}
               >
-                Add &apos;
+                  Add &apos;
                 {firstName}
-                &apos; as a new customer
+                  &apos; as a new customer
               </Typography>
             </Grid>
           </Paper>

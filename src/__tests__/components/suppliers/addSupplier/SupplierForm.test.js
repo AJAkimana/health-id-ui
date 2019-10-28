@@ -3,32 +3,37 @@ import { shallow } from 'enzyme';
 import SupplierForm from '../../../../components/suppliers/AddSupplier/SupplierForm';
 
 describe('Render Supplier Form component', () => {
-  const props = {
-    state: {
-      name: '',
-      email: '',
-      mobileNumber: '',
-      addressLine1: '',
-      addressLine2: '',
-      lga: '',
-      commentary: '',
-      countryValue: '',
-      cities: '',
-      cityValue: '',
-      cityId: '',
-      tierId: '',
-      logo: '',
-      paymentTermsId: '1',
-      creditDays: '',
-      loading: false,
-      imageFile: '',
-      fileName: '',
-      src: null,
-      crop: {
-        aspect: 1 / 1
-      },
-      open: false
+  const state = {
+    name: 'jean',
+    email: 'jo@jo.co',
+    mobileNumber: '123',
+    addressLine1: 'town',
+    addressLine2: 'city',
+    lga: 'lga',
+    commentary: 'nice',
+    countryValue: '2',
+    cities: ['kampala', 'lagos'],
+    cityValue: '4',
+    cityId: '4',
+    tierId: '4',
+    logo: 'logo',
+    paymentTermsId: '1',
+    mobileNumberError: false,
+    creditDays: '',
+    loading: false,
+    imageFile: '',
+    fileName: '',
+    src: null,
+    crop: {
+      aspect: 1 / 1
     },
+    open: false,
+    colorHasChanged: false,
+    colorHasChangedCity: false
+  }
+
+  const props = {
+    state,
     initialData: {
       outlet: {
         city: {
@@ -110,16 +115,24 @@ describe('Render Supplier Form component', () => {
     handleMobileChange: jest.fn(),
     handleEmailChange: jest.fn()
   };
+  const wrapper = shallow(<SupplierForm {...props} />);
 
   it('renders without crashing', () => {
-    const wrapper = shallow(<SupplierForm {...props} />);
     const phoneInput = wrapper.find('PhoneInput');
     expect(wrapper.find('ImageUpload').length).toBe(1);
     expect(wrapper.find('ActionButtons').length).toBe(1);
   });
 
   it('renders with filled select fields without crashing ', () => {
-    const wrapper = shallow(<SupplierForm {...props} />);
+    wrapper.setProps({
+      state: {
+        ...state,
+        mobileNumberError: true,
+        colorHasChanged: true,
+        colorHasChangedCity: true,
+        isDisabled: true
+      }
+    })
     expect(wrapper.find('ImageUpload').length).toBe(1);
     expect(wrapper.find('ActionButtons').length).toBe(1);
   });

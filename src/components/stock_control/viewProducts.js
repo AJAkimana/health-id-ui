@@ -4,17 +4,28 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { GET_ALL_APPROVED_PRODUCTS } from '../../queries/stockProducts';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import DataTable from './Table/DataTable';
 import DataTableLoader from '../dataTable/dataTableLoader';
 import '../../assets/styles/stock/stock_products.scss';
 
+import { StateContext } from '../../providers/stateProvider';
+
 export class ViewProducts extends Component {
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }
+
   createColumns = columns => columns.map(title => ({
     id: title.replace(/ +/g, ''),
     label: title.toUpperCase()
   }));
+
+  static contextType = StateContext;
 
   render() {
     const { history, session } = this.props;
@@ -22,7 +33,6 @@ export class ViewProducts extends Component {
 
     return (
       <Fragment>
-        <Dashboard isActive="grid3" session={session} />
         <Query query={GET_ALL_APPROVED_PRODUCTS}>
           {({ loading, error, data }) => {
             if (loading) {

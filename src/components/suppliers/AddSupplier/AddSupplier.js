@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/sort-comp */
-/* eslint-disable no-unused-vars */
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { compose, graphql, Query } from 'react-apollo';
@@ -13,12 +12,12 @@ import SupplierForm from './SupplierForm';
 import withAuth from '../../withAuth';
 import GET_INITIAL_DATA from '../../../queries/countryQuery';
 import CREATE_SUPPLIER from '../../../mutations/createSupplier';
-import Dashboard from '../../shared/Dashboard/Dashboard';
 import BackAction from '../../shared/BackAction';
 import notify from '../../shared/Toaster';
 import verifyFile from '../../../utils/products/verifyFile';
 import FormLoader from '../../shared/Loader/FormLoader';
 
+import { StateContext } from '../../../providers/stateProvider';
 
 export class AddSupplier extends Component {
   state = {
@@ -61,6 +60,14 @@ export class AddSupplier extends Component {
     colorHasChangedCity: false
   };
 
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid4'
+    });
+  }
+
   handleSliderChange = (event) => {
     if (event === 0) {
       this.setState({ creditDays: event });
@@ -94,7 +101,7 @@ export class AddSupplier extends Component {
     });
   };
 
-  handleLineChange=(event) => {
+  handleLineChange = (event) => {
     const { name, value } = event.target;
 
     const isValid = validateName(value);
@@ -155,11 +162,11 @@ export class AddSupplier extends Component {
     });
   };
 
-  handleColorChange = (event) => {
+  handleColorChange = () => {
     this.setState({ colorHasChanged: true });
   }
 
-  handleColorChangeCity = (event) => {
+  handleColorChangeCity = () => {
     this.setState({ colorHasChangedCity: true });
   }
 
@@ -314,40 +321,40 @@ export class AddSupplier extends Component {
     return promise;
   }
 
-   handleImageDrop = (file) => {
-     const formData = new FormData();
-     formData.append('file', file);
-     formData.append('upload_preset', process.env.UPLOAD_PRESET);
-     formData.append('api_key', `${process.env.API_KEY}`);
-     formData.append('timestamp', (Date.now() / 1000) || 0);
-     return axios({
-       url: process.env.CLOUDINARY_URL,
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/x-www-form-urlencoded'
-       },
-       data: formData
-     }).then((response) => {
-       const { data } = response;
-       const fileURL = data.secure_url;
-       this.setState({
-         logo: fileURL
-       });
-       notify('Image uploaded successfully');
-     }).catch((err) => {
-       notify('There was an error uploading the image', err);
-     });
-   }
+  handleImageDrop = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.UPLOAD_PRESET);
+    formData.append('api_key', `${process.env.API_KEY}`);
+    formData.append('timestamp', (Date.now() / 1000) || 0);
+    return axios({
+      url: process.env.CLOUDINARY_URL,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: formData
+    }).then((response) => {
+      const { data } = response;
+      const fileURL = data.secure_url;
+      this.setState({
+        logo: fileURL
+      });
+      notify('Image uploaded successfully');
+    }).catch((err) => {
+      notify('There was an error uploading the image', err);
+    });
+  }
 
-   handleDragOverImage = (acceptedFiles) => {
-     const reader = new FileReader();
-     reader.addEventListener('load', () => {
-       const binaryStr = reader.result;
-       this.setState({ imageFile: acceptedFiles, src: binaryStr, open: true });
-     }, false);
+  handleDragOverImage = (acceptedFiles) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      const binaryStr = reader.result;
+      this.setState({ imageFile: acceptedFiles, src: binaryStr, open: true });
+    }, false);
 
-     acceptedFiles.forEach(file => reader.readAsDataURL(file));
-   }
+    acceptedFiles.forEach(file => reader.readAsDataURL(file));
+  }
 
   handleSave = () => {
     const {
@@ -379,12 +386,11 @@ export class AddSupplier extends Component {
     this.setState({ crop });
   }
 
-  render() {
-    const { session } = this.props;
+  static contextType = StateContext;
 
+  render() {
     return (
       <div>
-        <Dashboard isActive="grid4" session={session} />
         <Query
           query={GET_INITIAL_DATA}
           variables={{ outletId: localStorage.outletId }}
@@ -429,16 +435,14 @@ export class AddSupplier extends Component {
 }
 
 AddSupplier.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.objectOf(PropTypes.any),
   addSupplier: PropTypes.func.isRequired,
   refetch: PropTypes.func,
 };
 
 AddSupplier.defaultProps = {
-  session: {},
   history: {},
-  refetch: () => {}
+  refetch: () => { }
 };
 
 const ADD_SUPPLIER = graphql(CREATE_SUPPLIER, { name: 'addSupplier' });

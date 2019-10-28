@@ -1,12 +1,15 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 import wait from 'waait';
 import { MockedProvider } from 'react-apollo/test-utils';
 import * as moxios from 'moxios';
+import PropTypes from 'prop-types';
 import { AddProduct } from '../../../components/products/AddProduct/AddProduct';
 import GET_PRODUCTS_SUPPLIERS_CATEGORIES from '../../../queries/productsSuppliersCategoriesQuery';
 import { resolvedRequest, rejectedRequest } from '../../../../__mocks__/axiosResponses';
+
+import { StateContext } from '../../../providers/stateProvider';
 
 describe('Render Add Product component', () => {
   beforeEach(() => {
@@ -15,6 +18,15 @@ describe('Render Add Product component', () => {
   afterEach(() => {
     moxios.uninstall();
   });
+
+
+  AddProduct.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   const props = {
     session: {
       me: {
@@ -97,7 +109,7 @@ describe('Render Add Product component', () => {
     aspect: 1 / 1
   };
 
-  const wrapper = shallow(<AddProduct {...props} />);
+  const wrapper = shallow(<AddProduct {...props} />, { context });
 
   const validFile = [
     {
@@ -137,18 +149,6 @@ describe('Render Add Product component', () => {
 
   const fileName = 'eucerin';
 
-  it('renders data upon successful view', async () => {
-    const wrapper = mount(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <BrowserRouter>
-          <AddProduct {...props} />
-        </BrowserRouter>
-      </MockedProvider>
-    );
-    await wait(0);
-    // expect(wrapper.find('DataTableLoader').length).toBe(1);
-  });
-
   it('calls handle change function', () => {
     const event = {
       target: {
@@ -159,7 +159,7 @@ describe('Render Add Product component', () => {
 
     const value = 'Biersdorf';
 
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.instance().handleChange(event);
     expect(wrapper.state().brand).toEqual(value);
   });
@@ -172,7 +172,7 @@ describe('Render Add Product component', () => {
       }
     };
 
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.setState({ products: [{ productName: 'nexium' }] });
 
     wrapper.instance().handleProductName(event);
@@ -186,7 +186,7 @@ describe('Render Add Product component', () => {
       }
     };
 
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.setState({ categories: [{ id: 1, loyaltyWeight: 1, isVatApplicable: true }] });
     wrapper.instance().handleCategoryChange(event);
 
@@ -200,7 +200,7 @@ describe('Render Add Product component', () => {
     const tag2 = 'headache';
     const result2 = ['pain', 'headache'];
 
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.instance().handleAddition(tag1);
     expect(wrapper.state().tags).toEqual(result1);
     wrapper.instance().handleAddition(tag2);
@@ -211,25 +211,25 @@ describe('Render Add Product component', () => {
     const initialArray = ['pain', 'headache'];
     const finalArray = ['pain'];
 
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.setState({ tags: initialArray });
     wrapper.instance().handleDelete(1);
     expect(wrapper.state().tags).toEqual(finalArray);
   });
 
   it('calls handlePropose product', async () => {
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.instance().handleProposeProduct();
     expect(wrapper.state().loading).toBeTruthy();
   });
 
   it('calls handleSendForApproval', () => {
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.instance().handleSendForApproval();
   });
 
   it('calls handleAddAnotherProduct', async () => {
-    const wrapper = shallow(<AddProduct {...props} />);
+    const wrapper = shallow(<AddProduct {...props} />, { context });
     wrapper.instance().handleAddAnotherProduct();
   });
 
@@ -271,7 +271,6 @@ describe('Render Add Product component', () => {
     };
     const spy = jest.spyOn(wrapper.instance(), 'onSelectFile');
     wrapper.instance().onSelectFile(e);
-    console.log('wrapper.state().src', wrapper.state().src);
     expect(spy).toHaveBeenCalled();
   });
 

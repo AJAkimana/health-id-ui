@@ -4,7 +4,10 @@ import { mount, shallow } from 'enzyme';
 import wait from 'waait';
 import { MockedProvider } from 'react-apollo/test-utils';
 import GET_SINGLE_SUPPLIER from '../../../../queries/getSingleSupplierQuery';
+import PropTypes from 'prop-types';
 import { SingleSupplierPage } from '../../../../components/suppliers/SingleSupplierPage';
+
+import { StateContext } from '../../../../providers/stateProvider';
 
 const props = {
   match: { params: { id: 'xxx' } },
@@ -74,11 +77,20 @@ const mocks = [
 ];
 
 describe('Render SingleSupplierPage component', () => {
+  SingleSupplierPage.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   it('renders without crashing', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <BrowserRouter>
-          <SingleSupplierPage {...props} />
+          <StateContext.Provider value={context}>
+            <SingleSupplierPage {...props} />
+          </StateContext.Provider>
         </BrowserRouter>
       </MockedProvider>
     );
@@ -86,13 +98,15 @@ describe('Render SingleSupplierPage component', () => {
     await wait(0);
 
     expect(wrapper.find('SingleSupplierPageLoader').length).toEqual(1);
-    wrapper.update();
-    expect(wrapper.find('LowerDashboard').length).toEqual(1);
   });
 
-  it('Calls the handleSupplierApproval function correctly', async () => {
+  describe('shallow render', () => {
+    const value = {
+      data: { approveSupplier: { supplier: { name: 'jojo' } } }
+    }
+
     const prop = {
-      approveSupplier: jest.fn(() => Promise.resolve()),
+      approveSupplier: jest.fn().mockImplementation(() => Promise.resolve(value)),
       refetch: jest.fn(),
       suppliersLink: jest.fn(),
       approvedSupplier: {
@@ -170,36 +184,54 @@ describe('Render SingleSupplierPage component', () => {
     }
 
     const wrapper = shallow(
-      <SingleSupplierPage {...prop} />
+      <SingleSupplierPage {...prop} />, { context }
     );
 
-    wrapper.instance().setState({ approved: true });
-    wrapper.instance().handleSupplierApproval();
-    await wait(0)
-    
-    expect(wrapper.state('approved')).toBeTruthy();
-  })
+    it('Calls the handleSupplierApproval function correctly', async () => {
+      wrapper.instance().setState({ approved: true });
+      wrapper.instance().handleSupplierApproval();
+      await wait(0)
 
-  it('Calls the renderTextField function correctly', () => {
-    const wrapper = shallow(<SingleSupplierPage {...props} />);
-    const value = 'Jamie';
+      expect(wrapper.state('approved')).toBeTruthy();
+    })
 
-    console.log(wrapper.find('Jamie'));
-    wrapper.setState({
-      name: 'Jamie'
-    });
-    wrapper.instance().renderTextField('', 'nice', 'nice', value);
-    expect(wrapper.state().name).toEqual(value);
-  })
+    it('Calls the renderTextField function correctly', () => {
+      const value = 'Jamie';
+      wrapper.setState({
+        name: 'Jamie'
+      });
+      wrapper.instance().renderTextField('', 'nice', 'nice', value);
+      expect(wrapper.state().name).toEqual(value);
+    })
 
-  it('Calls the renderTableCell function correctly', () => {
-    const wrapper = shallow(<SingleSupplierPage {...props} />);
-    const value = 'Jamie';
+    it('Calls the renderTableCell function correctly', () => {
+      const value = 'Jamie';
+      wrapper.setState({
+        name: 'Jamie'
+      });
+      wrapper.instance().renderTableCell('', 'nice', value);
+      expect(wrapper.state().name).toEqual(value);
+    })
 
-    wrapper.setState({
-      name: 'Jamie'
-    });
-    wrapper.instance().renderTableCell('', 'nice', value);
-    expect(wrapper.state().name).toEqual(value);
+    it('handles "handleSupplierApproval" rejection', () => {
+      const value = 'Jamie';
+      wrapper.setProps({
+        approveSupplier: jest.fn().mockRejectedValue(new Error('Async error'))
+      })
+      wrapper.setState({
+        name: 'Jamie'
+      });
+      wrapper.instance().handleSupplierApproval();
+      expect(wrapper.state().approved).toBeFalsy;
+    })
+
+    it('handles suppliersLink', () => {
+      const newProps = {}
+      wrapper.setState({
+        name: 'Jamie'
+      });
+      wrapper.instance().suppliersLink(newProps);
+      expect(wrapper.state().approved).toBeFalsy;
+    })
   })
 });

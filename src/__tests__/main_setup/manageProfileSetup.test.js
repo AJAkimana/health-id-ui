@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import PropTypes from 'prop-types';
 import { ManageProfile } from '../../components/main_setup/manageProfileSetup';
 
 describe('Render manage profile', () => {
@@ -18,7 +19,15 @@ describe('Render manage profile', () => {
       }
     }
   };
-  const wrapper = shallow(<ManageProfile {...props} />);
+
+  ManageProfile.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
+  const wrapper = shallow(<ManageProfile {...props} />, { context });
   const validFile = new File([new Blob()], 'image.jpg', {
     name: 'profile',
     size: 10000,
@@ -61,6 +70,7 @@ describe('Render manage profile', () => {
     mobileNumber: '+2501234567'
   };
   it(' should call handleUserUpdate function ', () => {
+    wrapper.setState({ initialData })
     const buttons = wrapper.find('IconButton');
     buttons.forEach((button) => {
       button.simulate('click', {});

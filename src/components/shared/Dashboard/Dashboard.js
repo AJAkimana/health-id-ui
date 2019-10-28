@@ -2,11 +2,13 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, Grid } from '@material-ui/core';
 import { withRouter, Link } from 'react-router-dom';
+import _ from 'lodash';
 import LowerDashboard from './LowerDashboard';
 import logo from '../../../assets/images/ID Nav logo.png';
 import dashboardStyles from '../../../assets/styles/dashboard/dashboardStyles';
 import SVGIcon from './Icons';
 
+import { StateContext } from '../../../providers/stateProvider';
 
 export class Dashboard extends Component {
   constructor(props) {
@@ -36,6 +38,7 @@ export class Dashboard extends Component {
   }
 
   handleOnClick = (event) => {
+    const [, dispatch] = Object.values(this.context);
     const { isActive } = this.state;
 
     if (isActive) {
@@ -46,32 +49,58 @@ export class Dashboard extends Component {
 
     switch (event.currentTarget.id) {
     case 'grid1':
-      this.setState({ isActive: 'grid1' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid1'
+      });
       break;
     case 'grid2':
-      this.setState({ isActive: 'grid2' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid2'
+      });
       break;
     case 'grid3':
-      this.setState({ isActive: 'grid3' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid3'
+      });
       break;
     case 'grid4':
-      window.location.href = '/orders/open';
-      this.setState({ isActive: 'grid4' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid4'
+      });
       break;
     case 'grid5':
-      this.setState({ isActive: 'grid5' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid5'
+      });
       break;
     case 'grid6':
-      this.setState({ isActive: 'grid6' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid6'
+      });
       break;
     case 'grid7':
-      this.setState({ isActive: 'grid7' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid7'
+      });
       break;
     case 'grid8':
-      this.setState({ isActive: 'grid8' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid8'
+      });
       break;
     case 'grid9':
-      this.setState({ isActive: 'grid9' });
+      dispatch({
+        type: 'changeGrid',
+        grid: 'grid9'
+      });
       break;
     default:
       break;
@@ -135,7 +164,7 @@ export class Dashboard extends Component {
         {renderGrid('grid1', 'Dashboard', styles.DashboardImg, 'DASHBOARD', '/comingsoon')}
         {renderGrid('grid2', 'Sell', styles.innerImg, 'SELL', '/sell')}
         {renderGrid('grid3', 'Product', styles.productImg, 'PRODUCTS', '/products/approved')}
-        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/suppliers/approved')}
+        {renderGrid('grid4', 'Suppliers', styles.suppliersImg, 'ORDERS & SUPPLIERS', '/orders/open')}
         {renderGrid('grid5', 'Cash', styles.cashImg, 'CASH & FINANCES', '/comingsoon')}
         {renderGrid('grid6', 'Report', styles.ReportImg, 'REPORT', '/comingsoon')}
         {renderGrid('grid7', 'Customer', styles.customersImg, 'CUSTOMERS', '/comingsoon')}
@@ -146,14 +175,21 @@ export class Dashboard extends Component {
     );
   };
 
+  static contextType = StateContext;
+
   render() {
-    const { anchorEl, isActive, open } = this.state;
+    const [{ grid: { isActive } }, dispatch] = Object.values(this.context);
+    const { anchorEl, open } = this.state;
     const { session: { me } } = this.props;
+    if (_.isEmpty(me)) {
+      return null;
+    }
     const { name } = me.activeOutlet.outletpreference.outletTimezone;
+
 
     return (
       <Fragment>
-        {this.upperDashboard(isActive)}
+        {this.upperDashboard(isActive, dispatch)}
         <LowerDashboard
           username={me.username}
           timeZone={name}

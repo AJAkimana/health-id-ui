@@ -2,21 +2,6 @@
 
 exports[`Render ImportSuppliers Component should render the ImportSuppliers component properly 1`] = `
 <Fragment>
-  <withRouter(Dashboard)
-    isActive="grid4"
-    session={
-      Object {
-        "me": Object {
-          "email": "user@gmail.com",
-          "mobileNumber": "2348903345",
-          "role": Object {
-            "name": "Master Admin",
-          },
-          "username": "user",
-        },
-      }
-    }
-  />
   <BackAction
     header="Back"
     link="/suppliers"

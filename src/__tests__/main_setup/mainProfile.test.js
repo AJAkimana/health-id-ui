@@ -3,7 +3,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { MainSetup } from '../../components/main_setup/mainProfileSetup';
 import AdminProfile from '../../components/main_setup/mainProfileAdminUser';
+import _ from '../../../__mocks__/mockUseContext';
 import NormalUserProfile from '../../components/main_setup/mainProfileNormalUser';
+
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
 
 describe('Tests that the profile page renders correctly for the Master Admin', () => {
   const dummyAdminSession = {

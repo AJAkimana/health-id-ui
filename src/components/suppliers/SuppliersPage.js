@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from './Templates/Footer';
 import OrdersAndSuppliersNavBar from '../shared/LowerNavbar/OrdersAndSuppliersNavBar';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import DataTable from './Templates/Table/DataTable';
 import DataTableLoader from '../dataTable/dataTableLoader';
@@ -12,8 +11,10 @@ import '../../assets/styles/stock/stock_products.scss';
 import { GET_ALL_SUPPLIERS, FILTER_SUPPLIERS } from '../../queries/getSuppliers';
 import { getSuppliers } from '../utils/filter';
 
+import { StateContext } from '../../providers/stateProvider';
+
 export class SuppliersPage extends Component {
-  state={
+  state = {
     status: undefined,
     currentPage: 0,
     currentPageCount: 25,
@@ -25,6 +26,14 @@ export class SuppliersPage extends Component {
     orderBy: 'name',
     viewSingleSupplier: false,
     singleSupplier: '',
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid4'
+    });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -78,6 +87,8 @@ export class SuppliersPage extends Component {
     this.setState({ order: isDesc ? 'asc' : 'desc', orderBy: property });
   };
 
+  static contextType = StateContext;
+
   render() {
     const { history, session, scrollStepInPx } = this.props;
     const {
@@ -95,7 +106,6 @@ export class SuppliersPage extends Component {
     const columnHeadersProposed = ['id', 'name', 'tier', ' commentary'];
     return (
       <div>
-        <Dashboard isActive="grid4" session={session} />
         <OrdersAndSuppliersNavBar activeGrid="grid2" />
         {
           !isFiltering

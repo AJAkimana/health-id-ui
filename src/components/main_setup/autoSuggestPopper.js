@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { selectFieldStyles } from '../../assets/styles/setup';
 
 // NOOPTIONSMESSAGE COMPONENT
-const NoOptionsMessage = ({ selectProps, innerProps, children }) => (
+export const NoOptionsMessage = ({ selectProps, innerProps, children }) => (
   <Typography
     color="textSecondary"
     className={selectProps.classes.noOptionsMessage}
@@ -30,13 +30,13 @@ NoOptionsMessage.defaultProps = {
 };
 
 // INPUT COMPONENT
-const inputComponent = ({ inputRef, ...props }) => <div ref={inputRef} {...props} />;
+export const inputComponent = ({ inputRef, ...props }) => <div ref={inputRef} {...props} />;
 inputComponent.propTypes = {
   inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 // CONTROL COMPONENT
-const Control = ({
+export const Control = ({
   children,
   innerProps,
   innerRef,
@@ -78,7 +78,7 @@ Control.propTypes = {
 };
 
 // OPTION COMPONENT
-const Option = ({
+export const Option = ({
   isFocused, isSelected, innerProps, children
 }) => (
   <MenuItem
@@ -111,7 +111,7 @@ Option.defaultProps = {
 };
 
 // PLACEHOLDER COMPONENT
-const Placeholder = ({ selectProps, innerProps }) => (
+export const Placeholder = ({ selectProps, innerProps }) => (
   <Typography
     color="textSecondary"
     className={selectProps.classes.placeholder}
@@ -133,7 +133,7 @@ Placeholder.defaultProps = {
 };
 
 // MENU COMPONENT
-const Menu = ({ selectProps, innerProps, children }) => (
+export const Menu = ({ selectProps, innerProps, children }) => (
   <Paper square className={selectProps.classes.paper} {...innerProps}>
     {children}
   </Paper>
@@ -158,7 +158,7 @@ const components = {
   Option,
   Placeholder,
 };
-const SelectField = ({
+export const SelectField = ({
   onOptionChange, classes, options, value, specificStyles, defaultValue, isLoading,
   disableUnderline, placeholder, label
 }) => (

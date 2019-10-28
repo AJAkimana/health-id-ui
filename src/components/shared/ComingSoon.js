@@ -10,14 +10,12 @@ import {
 } from '@material-ui/core';
 import withAuth from '../withAuth';
 import { comingSoonStyles } from '../../assets/styles/comingsoon';
-import Dashboard from './Dashboard/Dashboard';
 import ComingSoonImage from '../../assets/images/comingsoon.gif';
 
 const ComingSoon = (props) => {
-  const { classes, session } = props;
+  const { classes } = props;
   return (
     <Fragment>
-      <Dashboard session={session} />
       <Paper className={classes.paper}>
         <Grid container spacing={24} className={classes.containerGrid}>
           <Grid container item xs={12}>
@@ -40,12 +38,10 @@ const ComingSoon = (props) => {
   );
 };
 ComingSoon.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   classes: PropTypes.objectOf(PropTypes.string)
 };
 
 ComingSoon.defaultProps = {
-  session: { me: {} },
   classes: {}
 };
 

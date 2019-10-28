@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -44,7 +44,7 @@ export const DataTable = ({
     setOrderBy(property);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setRows(data);
   });
 

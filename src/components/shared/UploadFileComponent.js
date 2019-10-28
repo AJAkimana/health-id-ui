@@ -32,7 +32,7 @@ const UploadFileComponent = (props) => {
                 {...getRootProps()}
                 style={DragFileStyles.fileButton}
               >
-                Choose file
+                  Choose file
               </Button>
             </div>
           )}

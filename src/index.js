@@ -10,6 +10,9 @@ import './assets/styles/style.css';
 import client from './graphql/client';
 import App from './components/App';
 import withSession from './components/withSession';
+import StateProvider from './providers/stateProvider';
+import mainReducer from './providers/mainReducer';
+import initialState from './providers/initialState';
 
 config();
 const AppwithSession = withSession(App);
@@ -18,7 +21,9 @@ ReactDOM.render(
   <MuiThemeProvider theme={AppTheme}>
     <BrowserRouter>
       <ApolloProvider client={client}>
-        <AppwithSession />
+        <StateProvider initialState={initialState} reducer={mainReducer}>
+          <AppwithSession />
+        </StateProvider>
       </ApolloProvider>
     </BrowserRouter>
   </MuiThemeProvider>,

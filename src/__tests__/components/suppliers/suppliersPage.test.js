@@ -3,9 +3,12 @@ import { mount, shallow } from 'enzyme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MockedProvider } from 'react-apollo/test-utils';
 import wait from 'waait';
-import {GET_ALL_SUPPLIERS} from '../../../queries/getSuppliers';
+import { GET_ALL_SUPPLIERS } from '../../../queries/getSuppliers';
+import PropTypes from 'prop-types';
 import SuppliersPage, { SuppliersPage as SuppliersPageWrapper } from '../../../components/suppliers/SuppliersPage';
 import { getSuppliers, getSlicedData } from '../../../components/utils/filter';
+
+
 describe('SuppliersPage ', () => {
   const mocks = [
     {
@@ -125,6 +128,13 @@ describe('SuppliersPage ', () => {
     match: { params: { status: '' } }
   };
 
+  SuppliersPageWrapper.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   it('renders without error', async () => {
     const wrapper = shallow(<Router><MockedProvider mocks={mocks} addTypename={false}><SuppliersPageWrapper {...props} /></MockedProvider></Router>);
     await wait(0);
@@ -133,7 +143,7 @@ describe('SuppliersPage ', () => {
     expect(wrapper.find('DataTable').length).toEqual(0);
   });
   it('update props ', async () => {
-    const wrapper = shallow(<SuppliersPageWrapper {...props} />);
+    const wrapper = shallow(<SuppliersPageWrapper {...props} />, { context });
     wrapper.instance().handleViewProposed({ approved: true, proposed: false });
     wrapper.instance().handleViewProposed({ approved: false, proposed: true });
     wrapper.instance().handleViewProposed({ approved: true, proposed: true });
@@ -143,8 +153,8 @@ describe('SuppliersPage ', () => {
     wrapper.instance().handleTextChange({ target: { value: 'eric' } });
     wrapper.instance().handleChangePage(null, 0);
     wrapper.instance().handleRequestSort(null, 'name')
-    expect(typeof wrapper.instance().createColumns(['sds','sds'])).toBe('object');
- });
+    expect(typeof wrapper.instance().createColumns(['sds', 'sds'])).toBe('object');
+  });
   it('renders without error with a protected route', async () => {
     const wrapper = shallow(<Router><MockedProvider mocks={mocks} addTypename={false}><SuppliersPage {...props} /></MockedProvider></Router>);
     expect(wrapper.find('Router').length).toEqual(1);

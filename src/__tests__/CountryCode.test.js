@@ -12,7 +12,6 @@ describe('CountryCode', () => {
       }
     };
     const countryCode = CountryCode(outlet);
-    console.log('countryCode', countryCode);
   });
   it('CountryCode', () => {
     const outlet = {
@@ -23,7 +22,6 @@ describe('CountryCode', () => {
       }
     };
     const countryCode = CountryCode(outlet);
-    console.log('countryCode', countryCode);
   });
   it('CountryCode', () => {
     const outlet = {
@@ -32,6 +30,5 @@ describe('CountryCode', () => {
       }
     };
     const countryCode = CountryCode(outlet);
-    console.log('countryCode', countryCode);
   });
 });

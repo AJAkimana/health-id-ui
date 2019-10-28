@@ -4,6 +4,8 @@ import { MockedProvider } from 'react-apollo/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import { OrdersAndSuppliers } from '../../../containers/orders/orders';
 
+import { StateContext } from '../../../providers/stateProvider';
+
 const props = {
   openOrdersResults: {
     openOrders: [],
@@ -19,7 +21,7 @@ const props = {
       email: 'example@gmail.com',
       username: 'myth',
       role: { name: 'Master Admin' },
-      activeOutlet: {outletpreference : { outletTimezone: ''}}
+      activeOutlet: { outletpreference: { outletTimezone: '' } }
     }
   },
   history: {
@@ -32,11 +34,15 @@ const props = {
   }
 };
 
+const context = ['kitty', jest.fn()]
+
 describe.only('orders and suppliers component', () => {
   let wrapper = mount((
     <MockedProvider addTypename>
       <MemoryRouter>
-        <OrdersAndSuppliers {...props} />
+        <StateContext.Provider value={context}>
+          <OrdersAndSuppliers {...props} />
+        </StateContext.Provider>
       </MemoryRouter>
     </MockedProvider>
   ));
@@ -50,7 +56,9 @@ describe.only('orders and suppliers component', () => {
     wrapper = mount((
       <MockedProvider addTypename>
         <MemoryRouter>
-          <OrdersAndSuppliers {...props} />
+          <StateContext.Provider value={context}>
+            <OrdersAndSuppliers {...props} />
+          </StateContext.Provider>
         </MemoryRouter>
       </MockedProvider>
     ));

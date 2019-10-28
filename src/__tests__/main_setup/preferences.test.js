@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { shallow } from 'enzyme';
+import PropTypes from 'prop-types';
 import { Preferences } from '../../components/main_setup/mainPreferences';
 
 
@@ -21,6 +22,14 @@ describe("Outlet Preferences", () => {
       username: 'darius',
     }
   };
+
+  Preferences.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
   const wrapper = shallow(
     <Preferences
       session={dummyAdminSession}
@@ -81,7 +90,7 @@ describe("Outlet Preferences", () => {
           refetch: jest.fn()
         }
       }
-    />
+    />, { context }
   )
   it("Should render the component", () => {
     expect(wrapper.exists()).toBeTruthy()

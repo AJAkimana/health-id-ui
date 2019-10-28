@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import withAuth from '../../withAuth';
 import ImportProductForm from './ImportProductForm';
 import BackAction from '../BackAction';
-import Dashboard from '../../shared/Dashboard/Dashboard';
 import verifyFile from '../../../utils/products/verifyFile';
 import notify from '../../shared/Toaster';
 
+import { StateContext } from '../../../providers/stateProvider';
 
 export class ImportProduct extends Component {
   state = {
@@ -16,6 +16,14 @@ export class ImportProduct extends Component {
     loading: false,
     serverResponse: '',
   };
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }
 
   onDrop = async (acceptedFiles) => {
     this.setState({ file: acceptedFiles[0] });
@@ -93,12 +101,11 @@ export class ImportProduct extends Component {
       });
   }
 
-  render() {
-    const { session } = this.props;
+  static contextType = StateContext;
 
+  render() {
     return (
       <Fragment>
-        <Dashboard isActive="grid3" session={session} />
         <BackAction
           header="Import Product(s)"
           link="/products"
@@ -116,12 +123,10 @@ export class ImportProduct extends Component {
 }
 
 ImportProduct.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.objectOf(PropTypes.object),
 };
 
 ImportProduct.defaultProps = {
-  session: {},
   history: {}
 };
 

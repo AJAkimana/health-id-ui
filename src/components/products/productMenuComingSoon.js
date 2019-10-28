@@ -10,15 +10,24 @@ import {
 } from '@material-ui/core';
 import withAuth from '../withAuth';
 import { comingSoonStyles } from '../../assets/styles/comingsoon';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import ProductNavBar from './productNavBar';
 import ComingSoonImage from '../../assets/images/comingsoon.gif';
 
+import { useStateValue } from '../../providers/stateProvider';
+
 const ProductMenuComingSoon = (props) => {
-  const { classes, session } = props;
+  const { classes } = props;
+  const [, dispatch] = Object.values(useStateValue());
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid3'
+    });
+  }, []);
+
   return (
     <Fragment>
-      <Dashboard isActive="grid3" session={session} />
       <ProductNavBar activeGrid="grid2" />
       <Paper className={classes.paper}>
         <Grid container spacing={24} className={classes.containerGrid}>
@@ -26,7 +35,7 @@ const ProductMenuComingSoon = (props) => {
             <Grid container item xs={8} spacing={24}>
               <Grid item xs={12}>
                 <Typography variant="h5" className={classes.arrowButtonLabel}>
-                Menu info coming soon
+                  Menu info coming soon
                 </Typography>
               </Grid>
             </Grid>
@@ -42,12 +51,10 @@ const ProductMenuComingSoon = (props) => {
   );
 };
 ProductMenuComingSoon.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   classes: PropTypes.objectOf(PropTypes.string)
 };
 
 ProductMenuComingSoon.defaultProps = {
-  session: { me: {} },
   classes: {}
 };
 

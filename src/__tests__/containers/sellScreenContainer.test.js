@@ -5,9 +5,14 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter } from 'react-router-dom';
 import MockComponent from '../../../__mocks__/mockComponent';
 import GET_FILTERED_PRODUCTS from '../../queries/filteredProductsQuery';
+import PropTypes from 'prop-types';
 import { SellScreenContainer } from '../../containers/sellScreenContainer';
 
+import { StateContext } from '../../providers/stateProvider';
+
 jest.mock('../../components/sell/returnTableRow', () => MockComponent);
+
+const context = ['kitty', jest.fn()]
 
 const props = {
   products: [
@@ -38,7 +43,9 @@ describe('SellScreenContainer with InitialData', () => {
     const wrapper = mount((
       <BrowserRouter>
         <ApolloProvider client={client}>
-          <SellScreenContainer {...props} />
+          <StateContext.Provider value={context}>
+            <SellScreenContainer {...props} />
+          </StateContext.Provider>
         </ApolloProvider>
       </BrowserRouter>
     ));
@@ -47,8 +54,13 @@ describe('SellScreenContainer with InitialData', () => {
 });
 
 describe('SellScreenContainer', () => {
+  SellScreenContainer.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
   const wrapper = shallow(
-    <SellScreenContainer {...props} />
+    <SellScreenContainer {...props} />, { context }
   );
   beforeEach(() => {
     wrapper.instance().setState({
@@ -131,39 +143,41 @@ describe('SellScreenContainer', () => {
     const funcMock = (value) => new Promise((resolve, reject) => {
       if (value.length > 2) {
         return resolve(
-          {data: {
-          filterProducts: {
-            edges: [
-              {
-                node: {
-                  id: "261",
-                  productCategory: {
-                    name: "pain killer"
-                  },
-                  productName: "Panadol",
-                  measurementUnit: {
-                    name: "tablets"
-                  },
-                  outlet: {
-                    outletpreference: {
-                      outletCurrency: {
-                        symbol: "₦"
-                      }
+          {
+            data: {
+              filterProducts: {
+                edges: [
+                  {
+                    node: {
+                      id: "261",
+                      productCategory: {
+                        name: "pain killer"
+                      },
+                      productName: "Panadol",
+                      measurementUnit: {
+                        name: "tablets"
+                      },
+                      outlet: {
+                        outletpreference: {
+                          outletCurrency: {
+                            symbol: "₦"
+                          }
+                        }
+                      },
+                      image: "https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg",
+                      skuNumber: "000261",
+                      description: "Nice meds, they mess you real good",
+                      brand: "Stans",
+                      manufacturer: "Stans",
+                      productQuantity: 85,
+                      salesPrice: 408.0,
+                      tags: []
                     }
-                  },
-                  image: "https://res.cloudinary.com/dojaopytm/image/upload/v1563372103/panadol_ixpcjf.jpg",
-                  skuNumber: "000261",
-                  description: "Nice meds, they mess you real good",
-                  brand: "Stans",
-                  manufacturer: "Stans",
-                  productQuantity: 85,
-                  salesPrice: 408.0,
-                  tags: []
-                }
+                  }
+                ]
               }
-            ]
-          }
-        }});
+            }
+          });
       } else {
         reject();
       }
@@ -677,9 +691,9 @@ describe('SellScreenContainer', () => {
     wrapper.setState({ cartItems });
     setTimeout(() => {
       wrapper.instance().handleClickToAddProduct(product);
-    expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
     }, 20);
-    
+
   });
   it('render Product Card', () => {
     const products = [{ id: 1, productName: 'Panadol' }];

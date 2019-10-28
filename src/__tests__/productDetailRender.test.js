@@ -1,7 +1,12 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
+import _ from '../../__mocks__/mockUseContext';
 import ProductDetailRender from '../components/products/productDetailRender';
+
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
 
 const props = {
   product: {

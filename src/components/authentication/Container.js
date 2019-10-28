@@ -19,6 +19,8 @@ import logo from '../../assets/images/logo.png';
 import Register from './Register';
 import Login from './Login';
 
+import { StateContext } from '../../providers/stateProvider';
+
 
 export const initialState = {
   email: '',
@@ -45,6 +47,13 @@ export const initialState = {
 
 export class AuthContainer extends Component {
   state = { ...initialState }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'hideNavbar'
+    });
+  }
 
   handleCloseAlert = () => {
     this.setState({
@@ -305,6 +314,8 @@ export class AuthContainer extends Component {
         });
       });
   }
+
+  static contextType = StateContext;
 
   render() {
     const { classes } = this.props;

@@ -1,8 +1,13 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import { shallow } from 'enzyme';
+import _ from '../../../__mocks__/mockUseContext';
 import { MainSetup } from '../../components/main_setup/mainSetup';
+
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
 
 describe('Tests that the main settings page is rendered', () => {
   const dummySession = {

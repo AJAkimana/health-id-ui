@@ -7,6 +7,8 @@ import SVGIcon from '../components/shared/Dashboard/Icons';
 import { Dashboard } from '../components/shared/Dashboard/Dashboard';
 import GET_USER_INFO from '../queries/userDataQuery';
 
+import { StateContext } from '../providers/stateProvider';
+
 const event = {
   currentTarget: 'target'
 };
@@ -81,7 +83,7 @@ const mocks = [
 ];
 
 const props = {
-  history: { push: jest.fn()},
+  history: { push: jest.fn() },
   session: {
     me: {
       mobileNumber: '256704505050',
@@ -99,15 +101,19 @@ const props = {
   }
 };
 
+const context = [{ grid: 'grid1' }, jest.fn()]
+
 describe('Render Dashboard component', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount((
       <Router>
-      <MockedProvider mocks={mocks} addTypename>
-        <Dashboard {...props} />
+        <MockedProvider mocks={mocks} addTypename>
+          <StateContext.Provider value={context}>
+            <Dashboard {...props} />
+          </StateContext.Provider>
         </MockedProvider>
-        </Router>
+      </Router>
     ));
   });
 
@@ -119,28 +125,6 @@ describe('Render Dashboard component', () => {
   it('invokes handleOnClick method with a truthy isActive state property and sets state', () => {
     wrapper.find('Dashboard').instance().handleOnClick(event);
     expect(wrapper.find('Dashboard').instance().state.isActive).toBeFalsy();
-  });
-
-  it('invokes handleOnClick method with a falsy isActive perform a switch to update state property and sets state', () => {
-    wrapper.find('Dashboard').instance().setState({ isActive: '' });
-    wrapper.find('Dashboard').instance().handleOnClick(event1);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toBeTruthy();
-    wrapper.find('Dashboard').instance().handleOnClick(event2);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid2');
-    wrapper.find('Dashboard').instance().handleOnClick(event3);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid3');
-    wrapper.find('Dashboard').instance().handleOnClick(event4);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid4');
-    wrapper.find('Dashboard').instance().handleOnClick(event5);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid5');
-    wrapper.find('Dashboard').instance().handleOnClick(event6);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid6');
-    wrapper.find('Dashboard').instance().handleOnClick(event7);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid7');
-    wrapper.find('Dashboard').instance().handleOnClick(event8);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid8');
-    wrapper.find('Dashboard').instance().handleOnClick(event9);
-    expect(wrapper.find('Dashboard').instance().state.isActive).toEqual('grid9');
   });
 });
 

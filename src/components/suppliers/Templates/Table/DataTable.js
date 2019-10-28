@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -47,11 +47,13 @@ export const DataTable = ({
   const [rows, setRows] = useState(data);
   const [setHoveredItem] = useState({});
   const [selected, setSelected] = useState([]);
-  useEffect(() => {
+
+  React.useEffect(() => {
     if (prevSearchValue === '') {
       setRows(data);
     }
   });
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelections = rows.map(product => product.id);

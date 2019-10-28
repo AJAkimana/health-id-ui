@@ -5,7 +5,12 @@ import { shallow } from 'enzyme';
 import {
   TextField,
 } from '@material-ui/core';
+import _ from '../../../__mocks__/mockUseContext';
 import NormalUserProfile from '../../components/main_setup/mainProfileNormalUser';
+
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
 
 describe('Tests that the profile page renders correctly for the Master Admin', () => {
   const dummySession = {

@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import * as moxios from 'moxios';
 import { resolvedRequest, rejectedRequest } from '../../../../__mocks__/axiosResponses';
 import '../../../../__mocks__/window';
+import PropTypes from 'prop-types';
 import { ImportProduct } from '../../../components/products/ImportProduct/ImportProduct';
 
 describe('Render ImportProduct Component', () => {
@@ -42,7 +43,14 @@ describe('Render ImportProduct Component', () => {
     moxios.uninstall();
   });
 
-  const wrapper = shallow(<ImportProduct {...props} />);
+  ImportProduct.contextTypes = [
+    PropTypes.string,
+    PropTypes.func
+  ];
+
+  const context = ['kitty', jest.fn()]
+
+  const wrapper = shallow(<ImportProduct {...props} />, { context });
 
   it('wrapper.instance().handleDownloadTemplate()', () => {
     const csvUrl = `${process.env.APP_LINK}`;
@@ -84,7 +92,7 @@ describe('Render ImportProduct Component', () => {
         files: acceptedFiles
       }
     };
-    const wrapperWithFileProp = shallow(<ImportProduct {...newProps} />);
+    const wrapperWithFileProp = shallow(<ImportProduct {...newProps} />, { context });
     wrapperWithFileProp.instance().handleFile(e);
     expect(wrapperWithFileProp.state().file).toEqual(expectedFile);
   });

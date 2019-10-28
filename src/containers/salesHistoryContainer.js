@@ -4,9 +4,10 @@ import { createFilter } from 'react-search-input';
 import { Query } from 'react-apollo';
 import GET_SALES_HISTORY from '../queries/salesHistoryQuery';
 import withAuth from '../components/withAuth';
-import Dashboard from '../components/shared/Dashboard/Dashboard';
 import SalesHistoryDetails from '../components/sell/salesHistory/salesHistoryDetails';
 import DataTableLoader from '../components/dataTable/dataTableLoader';
+
+import { StateContext } from '../providers/stateProvider';
 
 export class SalesHistory extends Component {
   state = {
@@ -15,6 +16,14 @@ export class SalesHistory extends Component {
     openSearchPopper: false,
     searchPopperAnchorEl: null,
   };
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid2'
+    });
+  }
 
   handleDateTimeFilter = (selection, timeValue) => {
     const { initialData } = this.state;
@@ -95,12 +104,13 @@ export class SalesHistory extends Component {
     this.setState({ salesData, initialData: salesData });
   }
 
+  static contextType = StateContext;
+
   render() {
     const { session } = this.props;
     const { id } = session.me.outlets[0];
     return (
       <Fragment>
-        <Dashboard isActive="grid2" session={session} />
         <Query
           query={GET_SALES_HISTORY}
           variables={{ id }}

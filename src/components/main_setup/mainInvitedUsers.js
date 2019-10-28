@@ -9,41 +9,51 @@ import {
 } from '@material-ui/core';
 
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import withAuth from '../withAuth';
 import { MainOutletSetupStyles, SetupHeader } from '../../assets/styles/setup';
 import MainInvitedUsersList from './mainInvitedUsersList';
+import { useStateValue } from '../../providers/stateProvider';
 
-const MainInvitedUsers = ({ session }) => (
-  <Fragment>
-    <Dashboard isActive="grid9" session={session} />
-    <Grid container style={SetupHeader.container}>
-      <Grid item xs={1} style={SetupHeader.backBox}>
-        <Button style={SetupHeader.backButton}>
-          <Link to="/main_setup" style={SetupHeader.link}>
-            <ArrowBack fontSize="large" />
-          </Link>
-        </Button>
-      </Grid>
-      <Grid item xs={10}>
-        <Grid style={MainOutletSetupStyles.header}>
-          <Typography variant="h5">
-            Back
-          </Typography>
+const MainInvitedUsers = ({ session }) => {
+  const [, dispatch] = Object.values(useStateValue());
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
+  }, []);
+
+  return (
+    <Fragment>
+      <Grid container style={SetupHeader.container}>
+        <Grid item xs={1} style={SetupHeader.backBox}>
+          <Button style={SetupHeader.backButton}>
+            <Link to="/main_setup" style={SetupHeader.link}>
+              <ArrowBack fontSize="large" />
+            </Link>
+          </Button>
         </Grid>
-        <Paper>
-          <Typography variant="h6" style={MainOutletSetupStyles.formTitle}>
-            Users
-          </Typography>
-          <hr />
-          <Grid item xs={11} style={MainOutletSetupStyles.tableBox}>
-            <MainInvitedUsersList session={session} />
+        <Grid item xs={10}>
+          <Grid style={MainOutletSetupStyles.header}>
+            <Typography variant="h5">
+              Back
+            </Typography>
           </Grid>
-        </Paper>
+          <Paper>
+            <Typography variant="h6" style={MainOutletSetupStyles.formTitle}>
+              Users
+            </Typography>
+            <hr />
+            <Grid item xs={11} style={MainOutletSetupStyles.tableBox}>
+              <MainInvitedUsersList session={session} />
+            </Grid>
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
-  </Fragment>
-);
+    </Fragment>
+  );
+};
 
 
 MainInvitedUsers.propTypes = {

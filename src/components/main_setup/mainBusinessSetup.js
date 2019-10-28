@@ -10,16 +10,25 @@ import {
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import MainBusinessList from './mainBusinessList';
-import Dashboard from '../shared/Dashboard/Dashboard';
 import { MainBusinessSetUpStyles as styles, SetupHeader } from '../../assets/styles/setup';
 import withAuth from '../withAuth';
 
+import { useStateValue } from '../../providers/stateProvider';
+
 export const MainSetup = (props) => {
+  const [, dispatch] = Object.values(useStateValue());
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid9'
+    });
+  }, []);
+
   const { session } = props;
   const { businesses } = session.me;
   return (
     <Fragment>
-      <Dashboard isActive="grid9" session={session} />
       <Grid container style={styles.container}>
         <Grid item xs={1} style={SetupHeader.backBox}>
           <Button style={SetupHeader.backButton}>

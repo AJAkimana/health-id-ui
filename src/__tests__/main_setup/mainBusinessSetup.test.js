@@ -1,7 +1,12 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import { shallow } from 'enzyme';
+import _ from '../../../__mocks__/mockUseContext';
 import { MainSetup } from '../../components/main_setup/mainBusinessSetup';
+
+beforeEach(() => {
+  const useEffect = jest.spyOn(React, "useEffect").mockImplementation(f => f());
+})
 
 describe('Main Business Setup', () => {
   const dummySession = {
@@ -21,8 +26,10 @@ describe('Main Business Setup', () => {
       businesses: [{}, {}],
     }
   };
+
   it('Should render the Business List', () => {
     const wrapper = shallow(<MainSetup session={dummySession} />);
     expect(wrapper.exists()).toBeTruthy();
+    expect(wrapper.find('Link').length).toBe(1);
   });
 });

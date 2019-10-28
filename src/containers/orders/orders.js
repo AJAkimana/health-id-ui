@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
-import Dashboard from '../../components/shared/Dashboard/Dashboard';
 import OrdersAndSuppliersNavBar from '../../components/shared/LowerNavbar/OrdersAndSuppliersNavBar';
 import Orders from '../../components/ordersAndSuppliers/orders/orders';
 import { GET_OPEN_ORDERS, GET_CLOSED_ORDERS } from '../../components/ordersAndSuppliers/queries/fetchOrdersQuery';
 import DataTableLoader from '../../components/dataTable/dataTableLoader';
+
+import { StateContext } from '../../providers/stateProvider';
 
 export class OrdersAndSuppliers extends Component {
   state = {
@@ -14,6 +15,14 @@ export class OrdersAndSuppliers extends Component {
     isLoading: true,
     openOrders: [],
     closedOrders: []
+  }
+
+  componentDidMount() {
+    const [, dispatch] = Object.values(this.context);
+    dispatch({
+      type: 'changeGrid',
+      grid: 'grid4'
+    });
   }
 
   static getDerivedStateFromProps = ({ openOrdersResults, closedOrdersResults }, prevState) => {
@@ -36,8 +45,10 @@ export class OrdersAndSuppliers extends Component {
     this.setState({ isOrder: !value });
   }
 
+  static contextType = StateContext;
+
   render() {
-    const { session, history, match: { params: { status } } } = this.props;
+    const { history, match: { params: { status } } } = this.props;
     const {
       isOrder, openOrders, closedOrders, isLoading
     } = this.state;
@@ -54,7 +65,6 @@ export class OrdersAndSuppliers extends Component {
 
     return (
       <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
-        <Dashboard isActive="grid4" session={session} />
         <OrdersAndSuppliersNavBar activeGrid="grid1" />
         {
           isLoading ? <DataTableLoader /> : (bodyContent)
@@ -65,13 +75,11 @@ export class OrdersAndSuppliers extends Component {
 }
 
 OrdersAndSuppliers.propTypes = {
-  session: PropTypes.objectOf(PropTypes.object),
   history: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
   match: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 OrdersAndSuppliers.defaultProps = {
-  session: { me: {} },
   history: {}
 };
 

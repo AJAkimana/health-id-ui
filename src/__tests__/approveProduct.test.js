@@ -7,6 +7,10 @@ import { ApproveProductDetail } from '../container/products/approveProduct';
 import { ApproveProduct } from '../components/products/approveProduct';
 import { GET_PRODUCT_BY_ID } from '../components/products/productQueries';
 
+import { StateContext } from '../providers/stateProvider';
+
+const context = ['kitty', jest.fn()]
+
 const mocks = [
   {
     request: {
@@ -201,11 +205,14 @@ const props = {
 };
 
 describe('Test render approve product', () => {
+
   it('should render without error', async () => {
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypeName={false}>
         <BrowserRouter>
-          <ApproveProductDetail {...props} />
+          <StateContext.Provider value={context}>
+            <ApproveProductDetail {...props} />
+          </StateContext.Provider>
         </BrowserRouter>
       </MockedProvider>
     );
@@ -237,6 +244,7 @@ describe('Test render approve product', () => {
 });
 
 describe('Test approve Product detail renderer', () => {
+  const context = ['kitty', jest.fn()]
   const prop = {
     match: {
       params: {
@@ -329,7 +337,9 @@ describe('Test approve Product detail renderer', () => {
   };
   const wrapper = mount(
     <BrowserRouter>
-      <ApproveProduct {...prop} />
+      <StateContext.Provider value={context}>
+        <ApproveProduct {...prop} />
+      </StateContext.Provider>
     </BrowserRouter>
   );
   it('should render product details as expected', () => {

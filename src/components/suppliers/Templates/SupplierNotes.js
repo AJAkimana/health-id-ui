@@ -116,7 +116,7 @@ export class SupplierNotes extends Component {
           >
             <Grid item xs={4}>
               <Typography paragraph variant="h6" align="left" gutterBottom className={classes.dividerHeaders}>
-          Supplier Notes
+                Supplier Notes
               </Typography>
             </Grid>
             <Grid item xs={1} style={tableStyles.logo}>
@@ -164,7 +164,7 @@ export class SupplierNotes extends Component {
                           </TableCell>
                           <TableCell style={tableStyles.cell}>
                             {singleNote.supplier.user.firstName}
-                        ,
+                            ,
                             {' '}
                             {singleNote.supplier.user.lastName}
                           </TableCell>
@@ -193,7 +193,7 @@ SupplierNotes.propTypes = {
 
 
 SupplierNotes.defaultProps = {
-  refetch: () => {}
+  refetch: () => { }
 };
 
 const ADD_SUPPLIER_NOTE = graphql(CREATE_SUPPLIER_NOTE, { name: 'addSupplierNote' });
