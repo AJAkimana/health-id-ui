@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Paper, TextField, Grid, Button, TableCell
+  Paper, Grid, Button, TableCell
 } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { productDetailStyles } from '../../assets/styles/products/productDetailStyles';
@@ -13,6 +13,7 @@ import Description from './Templates/Description';
 import ProductInformation from './Templates/ProductInformation';
 import StockDetails from './Templates/StockDetails';
 import RenderDescriptionField from './Templates/renderDescriptionField';
+import RenderTextField from './Templates/RenderTextField';
 
 import { useStateValue } from '../../providers/stateProvider';
 
@@ -86,17 +87,6 @@ export const ProductDetailRender = (props) => {
     currency = outlet.outletpreference.outletCurrency.symbol;
   }
 
-  const renderTextField = (style, name, label, value) => (
-    <TextField
-      className={style}
-      id={name}
-      name={name}
-      label={label}
-      value={value}
-      fullWidth
-      InputProps={{ disableUnderline: true, readOnly: true }}
-    />
-  );
   const renderTableCell = (align, style, name) => (
     <TableCell
       align={align || ''}
@@ -108,13 +98,17 @@ export const ProductDetailRender = (props) => {
 
   return (
     <React.Fragment>
-      <ProductHeader classes={classes} previousPage="/products/approved" productName={productName} />
+      <ProductHeader classes={classes} previousPage="/products/approved" productName={productName}>
+        <Button variant="contained" color="primary" className={classes.editButton}>
+            Edit
+        </Button>
+      </ProductHeader>
 
       <Paper className={classes.paper}>
         <Description
           classes={classes}
           productName={productName}
-          renderTextField={renderTextField}
+          renderTextField={RenderTextField}
           renderDescriptionField={RenderDescriptionField}
           productCategory={productCategory}
           description={description}
@@ -124,7 +118,7 @@ export const ProductDetailRender = (props) => {
 
         <ProductInformation
           classes={classes}
-          renderTextField={renderTextField}
+          renderTextField={RenderTextField}
           measurementUnit={measurementUnit}
           loyaltyWeight={loyaltyWeight}
           preferredSupplier={preferredSupplier}
@@ -138,7 +132,7 @@ export const ProductDetailRender = (props) => {
 
         <StockDetails
           classes={classes}
-          renderTextField={renderTextField}
+          renderTextField={RenderTextField}
           salesPrice={salesPrice}
           reorderMax={reorderMax}
           reorderPoint={reorderPoint}

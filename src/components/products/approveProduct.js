@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 import {
-  Paper, TextField, withStyles
+  Paper, withStyles
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { approveProductsStyles } from '../../assets/styles/products/products';
@@ -15,6 +15,7 @@ import Description from './Templates/Description';
 import ProductInformation from './Templates/ProductInformation';
 import ProductHeader from './Templates/Header';
 import RenderDescriptionField from './Templates/renderDescriptionField';
+import RenderTextField from './Templates/RenderTextField';
 
 import { StateContext } from '../../providers/stateProvider';
 
@@ -74,17 +75,6 @@ export class ApproveProduct extends Component {
       isApproved
     } = product;
 
-    const renderTextField = (style, name, label, value) => (
-      <TextField
-        className={style}
-        id={name}
-        name={name}
-        label={label}
-        value={value}
-        fullWidth
-        InputProps={{ disableUnderline: true, readOnly: true }}
-      />
-    );
     return (
       <React.Fragment>
         <ProductHeader classes={classes} previousPage="/products/proposed" productName={productName}>
@@ -99,7 +89,8 @@ export class ApproveProduct extends Component {
         <Paper className={classes.paper}>
           <Description
             classes={classes}
-            renderTextField={renderTextField}
+            productName={productName}
+            renderTextField={RenderTextField}
             renderDescriptionField={RenderDescriptionField}
             productCategory={productCategory}
             description={description}
@@ -109,7 +100,7 @@ export class ApproveProduct extends Component {
 
           <ProductInformation
             classes={classes}
-            renderTextField={renderTextField}
+            renderTextField={RenderTextField}
             measurementUnit={measurementUnit}
             loyaltyWeight={loyaltyWeight}
             preferredSupplier={preferredSupplier}

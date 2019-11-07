@@ -75,17 +75,36 @@ export const approveProductsStyles = theme => ({
     }
   },
   category: {
-    marginBottom: '2em'
+    marginTop: '1.1em',
   },
   card: {
     maxWidth: 345,
   },
   media: {
-    height: 280,
+    height: 180,
+    borderRadius: 10
   },
   dividerDiv: {
     backgroundColor: '#E4E4E4',
     height: 'auto'
+  },
+  productNameStyles: {
+    width: '100%',
+    position: 'relative'
+  },
+  productName: {
+    textAlign: 'center',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: 'rgba(60, 57, 57, 0.87)'
+  },
+  titleLine: {
+    width: '110%',
+    marginLeft: '-2.4rem',
+    backgroundColor: '#E4E4E4',
+    height: '2px',
+    border: '0px',
+    marginTop: '-0.5rem',
   },
   dividerHeaders: {
     marginLeft: '50px',
@@ -93,16 +112,16 @@ export const approveProductsStyles = theme => ({
   },
   tagChip: {
     margin: theme.spacing.unit / 4,
-    backgroundColor: '#424242',
+    marginTop: '15px',
+    borderRadius: '7px',
+    background: '#424242',
     color: 'white',
-    borderRadius: '5px',
-    padding: '0px',
-    height: '20px'
+    marginBottom: '45px'
   },
   containerGrid: {
     width: '100%',
     marginLeft: '0em',
-    padding: '1em 2.4em'
+    padding: '0em 2.4em'
   },
   arrowButtonGrid: {
     position: 'relative',
@@ -121,18 +140,19 @@ export const approveProductsStyles = theme => ({
   buttonGrid: {
     position: 'absolute',
     right: '4em',
+    marginRight: -14
   },
   approveButton: {
     backgroundColor: '#424242',
     color: 'white',
-    borderRadius: '20px',
+    borderRadius: '10px',
     padding: '5px 43px'
   },
   editButton: {
     marginRight: '20px',
     backgroundColor: '#267EF8',
     color: 'white',
-    borderRadius: '20px',
+    borderRadius: '10px',
     padding: '5px 50px'
   },
 });

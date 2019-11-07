@@ -97,6 +97,7 @@ export const productDetailStyles = theme => ({
     height: '5%'
   },
   arrowButtonGrid: {
+    position: 'relative',
     textAlign: 'center',
     marginTop: '1em',
     width: 'auto',
@@ -139,6 +140,13 @@ export const productDetailStyles = theme => ({
     color: 'white',
     borderRadius: '20px',
     padding: '5px 43px'
+  },
+  editButton: {
+    marginRight: -15,
+    backgroundColor: '#267EF8',
+    color: 'white',
+    borderRadius: '10px',
+    padding: '5px 50px'
   },
 });
 
