@@ -48,12 +48,13 @@ const SupplierNoteModal = (props) => {
               </Grid>
               <Grid item style={supplierNoteStyle.modalBody}>
                 <TextField
+                  inputProps={{ style: { fontSize: '0.875rem' } }}
                   fullWidth
                   value={note}
                   variant="outlined"
                   multiline
                   rows={2}
-                  rowsMax={4}
+                  rowsMax={2}
                   onChange={handleChange}
                 />
               </Grid>

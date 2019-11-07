@@ -13,6 +13,7 @@ import Modal from './SupplierNoteModal';
 import withAuth from '../../withAuth';
 import CREATE_SUPPLIER_NOTE from '../../../mutations/createSupplierNoteMutation';
 import DELETE_SINGLE_SUPPLIER_NOTE from '../../../mutations/deleteSupplierNoteMutation';
+import UPDATE_SINGLE_SUPPLIER_NOTE from '../../../mutations/updateSupplierNoteMutation';
 import notify from '../../shared/Toaster';
 import DeleteNoteConfirmationModel from './DeleteNoteConfirmationModel';
 
@@ -27,14 +28,24 @@ export class SupplierNotes extends Component {
       note: '',
       noteId: '',
       hoveredNoteId: '',
-      anchorEl: ''
-
+      anchorEl: '',
+      clickedNote: {}
     };
   }
 
-  handleopenAddModel = () => {
+  handleopenAddModel = (singleNote) => {
+    let { noteId, note } = this.state;
+    if (noteId) {
+      noteId = singleNote.id;
+      note = singleNote.note;
+    } else {
+      noteId = '';
+      note = '';
+    }
     this.setState(prevState => ({
       ...prevState,
+      noteId,
+      note,
       openAddModel: true
     }));
   }
@@ -49,35 +60,52 @@ export class SupplierNotes extends Component {
   handleChange = (event) => {
     let { note } = this.state;
     note = event.target.value;
-    this.setState(prevState => ({
-      ...prevState,
-      note
-    }));
+    this.setState({ note });
   }
 
   handleSaveNote = () => {
-    const { addSupplierNote } = this.props;
+    const { addSupplierNote, updateSupplierNote } = this.props;
 
     const { supplier, session } = this.props;
-    const { note } = this.state;
+    const { note, noteId } = this.state;
     const supplierId = supplier.id;
     const outletIds = session.me.outlets[0].id;
-    addSupplierNote({
-      variables: {
-        note,
-        outletIds,
-        supplierId
-      }
-    }).then(() => {
-      const { refetch } = this.props;
-      notify('Note created successfully');
-      this.handleCloseModal();
-      refetch();
-    })
-      .catch((err) => {
-        const { message } = err.graphQLErrors[0];
-        notify(message);
-      });
+    if (noteId) {
+      updateSupplierNote({
+        variables: {
+          id: noteId,
+          note,
+          outletIds,
+          supplierId
+        }
+      }).then(() => {
+        const { refetch } = this.props;
+        notify('Note updated successfully');
+        this.handleCloseModal();
+        refetch();
+      })
+        .catch((err) => {
+          const { message } = err.graphQLErrors[0];
+          notify(message);
+        });
+    } else {
+      addSupplierNote({
+        variables: {
+          note,
+          outletIds,
+          supplierId
+        }
+      }).then(() => {
+        const { refetch } = this.props;
+        notify('Note created successfully');
+        this.handleCloseModal();
+        refetch();
+      })
+        .catch((err) => {
+          const { message } = err.graphQLErrors[0];
+          notify(message);
+        });
+    }
   }
 
 
@@ -131,7 +159,14 @@ export class SupplierNotes extends Component {
   }
 
   handleMouseLeave=() => {
+    const { hoveredNoteId } = this.state;
     this.setState({ hoveredNoteId: '' });
+    if (hoveredNoteId) {
+      this.setState(prevState => ({
+        ...prevState,
+        hoveredNoteId: ''
+      }));
+    }
   }
 
   render() {
@@ -181,7 +216,7 @@ export class SupplierNotes extends Component {
           </Grid>
 
         </div>
-        <Grid container spacing={8} className={classes.tableGrid}>
+        <Grid container spacing={8} className={classes.tableGrid} style={{ borderBottom: 'none !important' }}>
           {
             (notes && notes.length > 0) ? (
               <Grid item xs={12} style={tableStyles.noteHeader}>
@@ -224,7 +259,7 @@ export class SupplierNotes extends Component {
                                 <Fragment>
                                   <IconButton
                                     aria-label="Edit"
-                                    style={tableStyles.iconButtons}
+                                    onClick={() => this.handleopenAddModel(singleNote)}
                                   >
                                     <Edit />
                                   </IconButton>
@@ -266,6 +301,7 @@ SupplierNotes.propTypes = {
   session: PropTypes.objectOf(PropTypes.object).isRequired,
   addSupplierNote: PropTypes.func.isRequired,
   deleteSupplierNote: PropTypes.func.isRequired,
+  updateSupplierNote: PropTypes.func.isRequired,
   renderTableCell: PropTypes.func.isRequired,
   refetch: PropTypes.func,
 };
@@ -277,5 +313,9 @@ SupplierNotes.defaultProps = {
 
 const ADD_SUPPLIER_NOTE = graphql(CREATE_SUPPLIER_NOTE, { name: 'addSupplierNote' });
 const DELETE_SUPPLIER_NOTE = graphql(DELETE_SINGLE_SUPPLIER_NOTE, { name: 'deleteSupplierNote' });
+const UPDATE_SUPPLIER_NOTE = graphql(UPDATE_SINGLE_SUPPLIER_NOTE, { name: 'updateSupplierNote' });
 
-export default withAuth(compose(ADD_SUPPLIER_NOTE, DELETE_SUPPLIER_NOTE)(SupplierNotes));
+
+export default withAuth(
+  compose(ADD_SUPPLIER_NOTE, DELETE_SUPPLIER_NOTE, UPDATE_SUPPLIER_NOTE)(SupplierNotes)
+);

@@ -106,18 +106,19 @@ const supplierNoteStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: '150px',
-    width: '80%'
+    width: '80%',
+    fontFamily: 'Avenir'
   },
   modalContent: {
     outline: 'none',
   },
   modalTitle: {
     display: 'flex',
-    borderBottom: '2px solid #A3A3A3',
+    borderBottom: '1px solid #A3A3A3',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingLeft: '20px',
-    paddingRight: '30px'
+    paddingRight: '5px'
   },
   titleStyle: {
     fontWeight: '700'
@@ -126,9 +127,12 @@ const supplierNoteStyle = {
     display: 'flex',
     alignItems: 'center',
     height: '100px',
-    width: '90%',
-    paddingLeft: '80px',
-
+    width: '100%',
+    paddingTop: '60px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingBottom: '70px',
+    fontSize: '8px'
   },
   noteBody: {
     padding: '20px',

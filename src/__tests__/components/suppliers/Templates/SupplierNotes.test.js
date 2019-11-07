@@ -12,6 +12,14 @@ const props = {
         deletedSupplierNote: {
           message: 'Supplier note deleted'
         }
+      }})
+      ),
+  updateSupplierNote: jest.fn(() =>
+    Promise.resolve({
+      data: {
+        updateSupplierNote: {
+          message: 'Supplier note updated'
+        }
       }
     })
   ),
@@ -154,16 +162,26 @@ const invalidProps = {
       ]
     })
   ),
-deleteSupplierNote: () =>
-new Promise((resolve, reject) =>
-  reject({
-    graphQLErrors: [
-      {
-        message: 'error'
-      }
-    ]
-  })
-),
+  deleteSupplierNote: () =>
+  new Promise((resolve, reject) =>
+    reject({
+      graphQLErrors: [
+        {
+          message: 'error'
+        }
+      ]
+    })
+  ),
+  updateSupplierNote: () =>
+  new Promise((resolve, reject) =>
+    reject({
+      graphQLErrors: [
+        {
+          message: 'error'
+        }
+      ]
+    })
+  ),
 };
 
 describe('SupplierNotes', () => {
@@ -178,6 +196,7 @@ describe('SupplierNotes', () => {
   it('should render the SupplierNotes component properly', () => {
     wrapper.instance().handleopenAddModel();
     wrapper.instance().handleopenConfirmationModel();
+    wrapper.instance().handleopenAddModel(singleNote);
     wrapper.instance().handleChange({ target: 'efef' });
     wrapper.instance().handleSaveNote();
     wrapper.instance().handleCloseModal();
@@ -197,7 +216,7 @@ describe('SupplierNotes', () => {
   })
 
   it('should call handleopenAddModel', () => {
-    wrapperInstance.handleopenAddModel()
+    wrapperInstance.handleopenAddModel(singleNote)
     expect(wrapper.state('openAddModel')).toBeTruthy();
   })
 
