@@ -512,6 +512,11 @@ html, body {
   margin-left: -0.5rem;
 }
 
+.fields-table-products {
+  width: 108%;
+  margin-left: -1.5rem;
+}
+
 .or {
   color: #7f7d7d;
 }

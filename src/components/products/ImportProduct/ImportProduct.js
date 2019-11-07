@@ -47,7 +47,7 @@ export class ImportProduct extends Component {
 
     const token = localStorage.getItem('rest_token');
 
-    axios.get(`${csvUrl}sample_product_csv`, {
+    axios.get(`${csvUrl}sample_csv_file/products`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
@@ -107,7 +107,7 @@ export class ImportProduct extends Component {
     return (
       <Fragment>
         <BackAction
-          header="Import Product(s)"
+          header="Back"
           link="/products"
         />
         <ImportProductForm
