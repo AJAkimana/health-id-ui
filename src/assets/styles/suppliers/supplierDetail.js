@@ -59,7 +59,7 @@ export const supplierDetailStyles = theme => ({
   },
   addressText: {
     fontSize: '15px',
-    margin: '0px',
+    margin: '0px'
   },
   addressTextHeader: {
     color: '#8a8a8a',
@@ -99,7 +99,7 @@ export const supplierDetailStyles = theme => ({
     borderRadius: '7em',
     marginBottom: '50',
     width: '150px',
-    marginRight: '4%',
+    marginRight: '4%'
   },
   buttonMainGrid: {
     width: '100%',
@@ -122,7 +122,7 @@ export const supplierDetailStyles = theme => ({
     color: 'white',
     borderRadius: '20px',
     padding: '5px 50px'
-  },
+  }
 });
 
 export const tableStyles = {
@@ -135,27 +135,53 @@ export const tableStyles = {
   },
   root: {
     width: '100%',
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   table: {
     width: '70%'
   },
   noteHeader: {
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   tableHeader: {
-    fontWeight: 900,
+    fontWeight: 500,
+    fontSize: '15px',
+    color: 'black'
+  },
+  tableHeaderCenter: {
+    fontWeight: 500,
     fontSize: '15px',
     color: 'black',
+    paddingLeft: '0px'
   },
   noteRow: {
     cursor: 'pointer'
   },
   cell: {
-    width: '30%'
+    width: '27%'
   },
   cellMiddle: {
-    width: '40%'
+    width: '40%',
+    paddingLeft: '0px'
+  },
+  cellRight: {
+    width: '18%',
+    paddingLeft: '0px'
+  },
+  cellButtonRight: {
+    width: '18%',
+    paddingLeft: '0px',
+    paddingTop: '0px',
+    paddingBottom: '0px',
+  },
+  cellIcon: {
+    display: 'inline-flex',
+    paddingLeft: '0px',
+    paddingRight: '0px'
+  },
+  iconButtons: {
+    padding: '10px',
+    marginRight: '5px'
   }
 };

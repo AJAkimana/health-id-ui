@@ -147,9 +147,28 @@ const supplierNoteStyle = {
     fontSize: '12px'
   },
   footerUser: {
-    fontWeight: '700',
+    fontWeight: '400',
     fontSize: '12px'
 
+  },
+  popperSection: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '2rem',
+  },
+  deletePopper: {
+    zIndex: '3000',
+  },
+  deletePopperInner: {
+    padding: '1.5rem',
+  },
+  deletePopperButtonsBox: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '1rem 0 0 0',
+  },
+  deletePopperButton: {
+    marginRight: '1.5rem',
   },
 };
 

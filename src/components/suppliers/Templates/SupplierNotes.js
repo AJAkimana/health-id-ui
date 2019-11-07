@@ -2,17 +2,19 @@ import React, { Fragment, Component } from 'react';
 import { compose, graphql } from 'react-apollo';
 import PropTypes from 'prop-types';
 import {
-  Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, Paper
+  Typography, Grid, Table, TableBody, TableCell, TableHead, TableRow, Paper, IconButton
 } from '@material-ui/core';
+import { Edit, Delete } from '@material-ui/icons';
 import Moment from 'react-moment';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { CustomIconButton } from '../../stock_control/utils/utils';
 import { tableStyles } from '../../../assets/styles/suppliers/supplierDetail';
 import Modal from './SupplierNoteModal';
-import DetailModal from './SupplierNoteDetailModal';
 import withAuth from '../../withAuth';
 import CREATE_SUPPLIER_NOTE from '../../../mutations/createSupplierNoteMutation';
+import DELETE_SINGLE_SUPPLIER_NOTE from '../../../mutations/deleteSupplierNoteMutation';
 import notify from '../../shared/Toaster';
+import DeleteNoteConfirmationModel from './DeleteNoteConfirmationModel';
 
 
 export class SupplierNotes extends Component {
@@ -20,9 +22,13 @@ export class SupplierNotes extends Component {
     super(props);
     this.state = {
       openAddModel: false,
+      openConfirmationModel: false,
       openDetailModel: false,
       note: '',
-      clickedNote: {}
+      noteId: '',
+      hoveredNoteId: '',
+      anchorEl: ''
+
     };
   }
 
@@ -30,6 +36,13 @@ export class SupplierNotes extends Component {
     this.setState(prevState => ({
       ...prevState,
       openAddModel: true
+    }));
+  }
+
+  handleopenConfirmationModel = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      openConfirmationModel: true
     }));
   }
 
@@ -68,37 +81,75 @@ export class SupplierNotes extends Component {
   }
 
 
-  handleRowClick = singleNote => () => {
-    let { clickedNote } = this.state;
+  handleCloseModal = () => { this.setState({ openAddModel: false }); }
+
+  handleDeleteConfirmationPopper = () => { this.setState({ openConfirmationModel: false }); }
+
+
+  handleDelete = (id) => {
+    const { deleteSupplierNote, refetch } = this.props;
+
+    return deleteSupplierNote({
+      variables: {
+        id,
+      }
+    }).then(
+      () => {
+        notify('Supplier Note has been deleted successfully');
+        refetch();
+        this.setState(
+          {
+            openAddModel: false,
+            openDetailModel: false,
+            note: '',
+            clickedNote: {}
+          }
+        );
+        this.handleDeleteConfirmationPopper();
+      }
+    ).catch((err) => {
+      const { message } = err.graphQLErrors[0];
+      notify(message);
+    });
+  }
+
+  handleOnRowHover = (singleNote, event) => {
+    let {
+      hoveredNoteId, noteId, clickedNote, anchorEl
+    } = this.state;
+    hoveredNoteId = event.currentTarget.id;
+    noteId = singleNote.id;
     clickedNote = singleNote;
+    anchorEl = event.currentTarget;
     this.setState(prevState => ({
       ...prevState,
+      hoveredNoteId,
+      noteId,
       clickedNote,
-      openDetailModel: true
+      anchorEl
     }));
   }
 
-  handleCloseModal = () => { this.setState({ openAddModel: false }); }
-
-  handleCloseDetailModal = () => { this.setState({ openDetailModel: false }); }
-
+  handleMouseLeave=() => {
+    this.setState({ hoveredNoteId: '' });
+  }
 
   render() {
     const {
-      classes, renderTableCell, supplier, session
+      classes, renderTableCell, supplier,
     } = this.props;
     const {
-      openAddModel, openDetailModel, note, clickedNote
+      openAddModel, note, hoveredNoteId, clickedNote, openConfirmationModel, anchorEl
     } = this.state;
     const notes = supplier.suppliernoteSet;
-
     return (
       <Fragment>
-        <DetailModal
-          openDetailModel={openDetailModel}
-          handleCloseDetailModal={this.handleCloseDetailModal}
+        <DeleteNoteConfirmationModel
+          openConfirmationModel={openConfirmationModel}
           clickedNote={clickedNote}
-          session={session}
+          handleDelete={this.handleDelete}
+          handleDeleteConfirmationPopper={this.handleDeleteConfirmationPopper}
+          anchorEl={anchorEl}
         />
         <Modal
           openAddModel={openAddModel}
@@ -123,9 +174,6 @@ export class SupplierNotes extends Component {
               <CustomIconButton
                 toolTip="Add supplier note"
                 onClickHandler={this.handleopenAddModel}
-                buttonRef={(node) => {
-                  this.SupplierNotes = node;
-                }}
               >
                 <NoteAddIcon />
               </CustomIconButton>
@@ -142,17 +190,20 @@ export class SupplierNotes extends Component {
                     <TableHead>
                       <TableRow style={tableStyles.noteRow}>
                         {renderTableCell('left', tableStyles.tableHeader, 'Created On')}
-                        {renderTableCell('left', tableStyles.tableHeader, 'Message')}
-                        {renderTableCell('left', tableStyles.tableHeader, 'Created By')}
+                        {renderTableCell('left', tableStyles.tableHeaderCenter, 'Message')}
+                        {renderTableCell('left', tableStyles.tableHeaderCenter, 'Created By')}
+                        {renderTableCell('center', tableStyles.tableHeaderCenter, '')}
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {notes && notes.map(singleNote => (
                         <TableRow
-                          id="supplier-table-row"
+                          hover
+                          id={singleNote.id}
                           key={singleNote.id}
                           style={tableStyles.noteRow}
-                          onClick={this.handleRowClick(singleNote)}
+                          onMouseEnter={event => this.handleOnRowHover(singleNote, event)}
+                          onMouseLeave={this.handleMouseLeave}
                         >
                           <TableCell style={tableStyles.cell}>
                             <Moment format="DD/MM/YYYY \at h:mm a">
@@ -162,11 +213,38 @@ export class SupplierNotes extends Component {
                           <TableCell style={tableStyles.cellMiddle}>
                             {singleNote.note}
                           </TableCell>
-                          <TableCell style={tableStyles.cell}>
+                          <TableCell style={tableStyles.cellRight}>
                             {singleNote.supplier.user.firstName}
-                            ,
                             {' '}
                             {singleNote.supplier.user.lastName}
+                          </TableCell>
+                          <TableCell style={tableStyles.cellButtonRight}>
+                            <Grid style={tableStyles.cellIcon}>
+                              {hoveredNoteId === singleNote.id ? (
+                                <Fragment>
+                                  <IconButton
+                                    aria-label="Edit"
+                                    style={tableStyles.iconButtons}
+                                  >
+                                    <Edit />
+                                  </IconButton>
+                                  <IconButton
+                                    aria-label="Close"
+                                    onClick={this.handleopenConfirmationModel}
+                                    style={tableStyles.iconButtons}
+                                  >
+                                    <Delete />
+                                  </IconButton>
+                                </Fragment>
+                              )
+                                : (
+                                  <Fragment>
+                                    <IconButton />
+                                    <IconButton />
+                                  </Fragment>
+                                )
+                              }
+                            </Grid>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -187,6 +265,7 @@ SupplierNotes.propTypes = {
   supplier: PropTypes.instanceOf(Object).isRequired,
   session: PropTypes.objectOf(PropTypes.object).isRequired,
   addSupplierNote: PropTypes.func.isRequired,
+  deleteSupplierNote: PropTypes.func.isRequired,
   renderTableCell: PropTypes.func.isRequired,
   refetch: PropTypes.func,
 };
@@ -197,5 +276,6 @@ SupplierNotes.defaultProps = {
 };
 
 const ADD_SUPPLIER_NOTE = graphql(CREATE_SUPPLIER_NOTE, { name: 'addSupplierNote' });
+const DELETE_SUPPLIER_NOTE = graphql(DELETE_SINGLE_SUPPLIER_NOTE, { name: 'deleteSupplierNote' });
 
-export default withAuth(compose(ADD_SUPPLIER_NOTE)(SupplierNotes));
+export default withAuth(compose(ADD_SUPPLIER_NOTE, DELETE_SUPPLIER_NOTE)(SupplierNotes));
