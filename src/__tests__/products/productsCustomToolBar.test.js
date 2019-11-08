@@ -14,7 +14,9 @@ describe('Product Page CustomToolBar ', () => {
       handleClickSearch: jest.fn(),
       isSearchActive: false,
       handleHideSearch: jest.fn(),
-      handleTextChange: jest.fn()
+      handleTextChange: jest.fn(),
+      handleToggleAddProduct: jest.fn(),
+      handleViewProposed: jest.fn()
     };
 
     const event = {
@@ -22,16 +24,16 @@ describe('Product Page CustomToolBar ', () => {
     };
 
     const wrapper = shallow(<CustomToolBar {...props} />);
-    wrapper.instance().handleToggleAddSupplier();
+    wrapper.instance().handleToggleAddProduct();
     wrapper.instance().anchorEl = {
       contains: jest.fn()
     };
-    wrapper.instance().addSupplierElement = {
+    wrapper.instance().addProductElement = {
       contains: jest.fn()
     };
-    
+
     wrapper.instance().handleToggle();
-    wrapper.instance().handleCloseAddSupplier(event);
+    wrapper.instance().handleCloseAddProduct(event);
     expect(wrapper.find('[title="Export List"]').length).toBe(1);
   });
 
@@ -47,7 +49,7 @@ describe('Product Page CustomToolBar ', () => {
     const wrapper = mount(<CustomToolBar {...props} />);
     wrapper.find('[aria-haspopup="true"]').at(0).simulate('click');
     wrapper.find('[aria-haspopup="true"]').at(1).simulate('click');
-    expect(wrapper.find('[aria-haspopup="true"]').length).toBe(15);
+    expect(wrapper.find('[aria-haspopup="true"]').length).toBe(25);
   });
 
   it('update props ', async () => {
@@ -62,7 +64,9 @@ describe('Product Page CustomToolBar ', () => {
     const wrapper = shallow(<CustomToolBar {...props} />);
     wrapper.instance().handleToggleViewMenu();
     wrapper.instance().handleClose();
- });
+    wrapper.instance().handleToggleViewColumnMenu();
+    wrapper.instance().handleClosing();
+  });
 });
 
 describe('Products page icons ', () => {
@@ -72,7 +76,7 @@ describe('Products page icons ', () => {
   });
 
   it('IconFactory renders without crashing', () => {
-    const wrapper = shallow(<IconFactory iconStyle='' type={check} iconClass='' iconAlt='' />);
+    const wrapper = shallow(<IconFactory iconStyle="" type={check} iconClass="" iconAlt="" />);
     expect(wrapper.length).toBe(1);
   });
 });

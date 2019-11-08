@@ -138,10 +138,11 @@ const invalidProps = {
       role: {
         name: 'Master Admin'
       },
+      outlets: [{ id: 1 }],
       activeOutlet: {
         outletpreference: {
           outletTimezone: {
-            name: 'Africa/Nairobi'
+            name: "Africa/Nairobi"
           }
         }
       },

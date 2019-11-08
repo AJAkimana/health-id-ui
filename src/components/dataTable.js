@@ -8,7 +8,6 @@ const DataTable = (props) => {
   const {
     title, data, columns, options
   } = props;
-
   return (
     <MuiThemeProvider theme={DataTableOverride}>
       <MUIDataTable

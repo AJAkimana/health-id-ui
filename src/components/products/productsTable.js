@@ -81,6 +81,7 @@ export class Products extends Component {
       searchActive,
       status
     } = this.state;
+    const { session } = this.props;
     return (
       <Query
         query={GET_PRODUCTS(status)}
@@ -122,6 +123,7 @@ export class Products extends Component {
                   columns={columns}
                   handleChangePage={this.handleChangePage}
                   handleTextChange={this.handleTextChange}
+                  session={session}
                 />
               </div>
             );

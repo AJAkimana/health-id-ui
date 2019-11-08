@@ -250,6 +250,7 @@ export class SupplierNotes extends Component {
                           </TableCell>
                           <TableCell style={tableStyles.cellRight}>
                             {singleNote.supplier.user.firstName}
+                            ,
                             {' '}
                             {singleNote.supplier.user.lastName}
                           </TableCell>

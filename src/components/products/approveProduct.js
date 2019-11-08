@@ -16,8 +16,8 @@ import ProductInformation from './Templates/ProductInformation';
 import ProductHeader from './Templates/Header';
 import RenderDescriptionField from './Templates/renderDescriptionField';
 import RenderTextField from './Templates/RenderTextField';
-
 import { StateContext } from '../../providers/stateProvider';
+
 
 export class ApproveProduct extends Component {
   state = {

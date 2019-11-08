@@ -17,6 +17,7 @@ import RenderTextField from './Templates/RenderTextField';
 
 import { useStateValue } from '../../providers/stateProvider';
 
+
 const productsLink = props => <Link to="/products" {...props} />;
 
 const moneyFormat = num => `${num.toFixed(2)}`;

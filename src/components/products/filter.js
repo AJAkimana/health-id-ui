@@ -64,6 +64,4 @@ export const getProducts = (data, status) => {
   }
   return products;
 };
-export const getSortedData = (data, order, orderBy) => {
-  return stableSort(data, getSorting(order, orderBy));
-};
+export const getSortedData = (data, order, orderBy) => stableSort(data, getSorting(order, orderBy));

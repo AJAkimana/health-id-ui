@@ -22,8 +22,8 @@ export const TableToolBar = (props) => {
     handleViewProposed,
     status,
     client,
+    session
   } = props;
-
   return (
     <Toolbar
       className={clsx(classes.selection, {
@@ -49,6 +49,7 @@ export const TableToolBar = (props) => {
             handleClickDeselectAll={handleClickDeselectAll}
             handleEdit={handleEdit}
             selected={numSelected}
+            session={session}
           />
         ) : (
           <CustomToolBar
@@ -60,6 +61,7 @@ export const TableToolBar = (props) => {
             handleSearchTextChange={handleSearchTextChange}
             handleViewProposed={handleViewProposed}
             status={status}
+            session={session}
           />
         )}
       </div>
@@ -80,7 +82,8 @@ TableToolBar.propTypes = {
   handleClickDeselectAll: PropTypes.func.isRequired,
   handleViewProposed: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
-  client: PropTypes.instanceOf(Object).isRequired
+  client: PropTypes.instanceOf(Object).isRequired,
+  session: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 TableToolBar.defaultProps = {

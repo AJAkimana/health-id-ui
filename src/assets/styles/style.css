@@ -289,6 +289,7 @@ html, body {
 .MuiInputLabel-formControl-10 label{
   color: #E8E8E8 !important;
   justify-content: center !important;
+  
 }
 
 .MuiInputBase-root-203, .MuiInputBase-input-46, .jss46 {
@@ -563,3 +564,5 @@ tr.fields-tr {
   width: 40px !important;
   height: 40px !important
 }
+
+

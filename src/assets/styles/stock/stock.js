@@ -57,18 +57,19 @@ export const ToolbarStyles = {
     marginLeft: '10px'
   },
   iconButtonActive: {
-    marginLeft: '10px'
+    marginLeft: '0px',
+
   },
   iconButton: {
     backgroundColor: '#E3E3E3',
-    marginLeft: '10px'
+    marginLeft: '0px',
   },
   svgIcon: {
     height: '0.8em'
   },
   switchFormGroupSupplier: {
     margin: '0px !important',
-    paddingRight: '15px'
+    paddingRight: '15px',
   },
   popper: {
     zIndex: '500'
@@ -81,7 +82,7 @@ export const ToolbarStyles = {
     paddingRight: '1px'
   },
   actions: {
-    margin: 'auto 1px 7px auto'
+    margin: '5px 1px 7px auto'
   },
   title: {
     flex: '0 0 auto'
@@ -99,7 +100,7 @@ export const searchStyles = theme => ({
   },
   searchIcon: {
     color: theme.palette.text.secondary,
-    margin: 'auto',
+    // margin: 'auto',
     marginTop: '4px'
   },
   clearIcon: {

@@ -117,6 +117,7 @@ export class DataTable extends Component {
       handleSearch,
       loading,
       client,
+      session
     } = this.props;
     const {
       selected,
@@ -143,6 +144,7 @@ export class DataTable extends Component {
             handleClickSearch={this.handleClickSearch}
             status={status}
             handleViewProposed={handleViewProposed}
+            session={session}
           />
           {
             loading ? (<DataTableLoader />)
@@ -251,7 +253,8 @@ DataTable.propTypes = {
   handleChangeRowsPerPage: PropTypes.func.isRequired,
   handleSearch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  client: PropTypes.instanceOf(Object).isRequired
+  client: PropTypes.instanceOf(Object).isRequired,
+  session: PropTypes.objectOf(PropTypes.object).isRequired
 };
 
 export default withStyles(TableStyles)(DataTable);

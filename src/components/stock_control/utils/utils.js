@@ -34,7 +34,7 @@ export const CustomIconButton = withStyles(ToolbarStyles)(
   ({
     toolTip, buttonRef, onClickHandler, children, classes
   }) => (
-    <Tooltip title={toolTip}>
+    <Tooltip title={toolTip} style={{ marginRight: '25px' }}>
       <IconButton
         className={classes.IconButton}
         buttonRef={buttonRef}

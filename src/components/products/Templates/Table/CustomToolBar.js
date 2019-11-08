@@ -5,29 +5,32 @@ import PropTypes from 'prop-types';
 import {
   Tooltip, IconButton, MenuList, MenuItem, Grow
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import AddIcon from '@material-ui/icons/Add';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import {
-  Export
-} from '../../../../assets/images/stock/StockIcons';
 import { ToolbarStyles } from '../../../../assets/styles/stock/stock';
-import IconFactory from '../../../../assets/images/iconFactory/IconFactory';
 import { supplyStyles } from '../../../../assets/styles/suppliers/suppliers';
-import check from '../../../../assets/images/suppliers/check.png';
+import addlogo from '../../../../assets/images/products/add.png';
+import searchlogo from '../../../../assets/images/products/search.png';
+import expirieslogo from '../../../../assets/images/products/expiries.png';
+import columnslogo from '../../../../assets/images/products/columns.png';
+import statuslogo from '../../../../assets/images/products/status.png';
+import exportlogo from '../../../../assets/images/products/export.png';
 import TableSearch from '../../../stock_control/Table/TableSearch';
 import { CustomIconButton, RenderPopper } from '../../../stock_control/utils/utils';
-import Icon from '../../productIcons';
+
 
 export class CustomToolBar extends Component {
   state = {
     open: false,
-    addSupplierOpen: false
+    addProductOpen: false,
+    openViewColumnMenu: false,
+    openViewMenu: false,
+    openColumnMenu: false,
+
   };
 
   handleToggle = () => {
@@ -35,14 +38,23 @@ export class CustomToolBar extends Component {
     this.setState({ open: !open });
   };
 
-  handleToggleAddSupplier = () => {
-    const { addSupplierOpen } = this.state;
-    this.setState({ addSupplierOpen: !addSupplierOpen });
+  handleToggleAddProduct = () => {
+    const { addProductOpen } = this.state;
+    this.setState({ addProductOpen: !addProductOpen });
   };
 
-  handleCloseAddSupplier = (event) => {
-    !this.addSupplierElement.contains(event.target) && this.setState({ addSupplierOpen: false });
+  handleCloseAddProduct = (event) => {
+    !this.addProductElement.contains(event.target) && this.setState({ addProductOpen: false });
   };
+
+ handleToggleViewColumnMenu = () => {
+   const { openViewColumnMenu } = this.state;
+   this.setState({ openViewColumnMenu: !openViewColumnMenu });
+ };
+
+ handleClosing = () => {
+   this.setState({ openColumnMenu: false, openViewColumnMenu: false });
+ };
 
   handleToggleViewMenu = () => {
     const { openViewMenu } = this.state;
@@ -63,24 +75,23 @@ export class CustomToolBar extends Component {
   };
 
   render() {
-    const { addSupplierOpen, openViewMenu } = this.state;
+    const { openViewMenu, addProductOpen, openViewColumnMenu } = this.state;
     const {
       classes,
       handleClickSearch,
       isSearchActive,
       handleHideSearch,
-      isAdmin,
       handleSearchTextChange,
       status,
     } = this.props;
-    console.log('Main props', this.props);
+
     return (
       <Fragment>
         {isSearchActive ? (
           <TableSearch onHide={handleHideSearch} handleTextChange={handleSearchTextChange} />
         ) : ('')}
         <Fragment>
-          <Tooltip title="Search">
+          <Tooltip title="Search" style={{ marginRight: '25px' }}>
             <IconButton
               className={!isSearchActive ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -91,10 +102,20 @@ export class CustomToolBar extends Component {
               aria-haspopup="true"
               onClick={handleClickSearch}
             >
-              <SearchIcon />
+              <img src={searchlogo} style={{ width: '20px' }} alt="" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Switch table view">
+          <CustomIconButton
+            toolTip="Add Product"
+            buttonRef={(node) => {
+              this.addProductElement = node;
+            }}
+            onClickHandler={() => this.handleToggleAddProduct()}
+
+          >
+            <img src={addlogo} style={{ width: '20px' }} alt="" />
+          </CustomIconButton>
+          <Tooltip title="Switch table view" style={{ marginRight: '25px' }}>
             <IconButton
               className={!openViewMenu ? classes.iconButtonActive : classes.iconButton}
               buttonRef={(node) => {
@@ -104,14 +125,12 @@ export class CustomToolBar extends Component {
               aria-haspopup="true"
               onClick={this.handleToggleViewMenu}
             >
-              <Icon
-                id="eye"
-              />
+              <img src={statuslogo} style={{ width: '24px' }} alt="" />
             </IconButton>
           </Tooltip>
           <Popper
             className={classes.popper}
-            style={{ padding: '20px' }}
+            style={{ padding: '10px', marginRight: '120px' }}
             open={openViewMenu}
             anchorEl={this.anchorEl}
             transition
@@ -120,7 +139,7 @@ export class CustomToolBar extends Component {
             <Grow
               in={openViewMenu}
               id="menu-list-grow"
-              style={{ transformOrigin: 'center bottom' }}
+              style={{ transformOrigin: 'centre bottom' }}
             >
               <Paper className={classes.paper}>
                 <ClickAwayListener onClickAway={this.handleClose}>
@@ -136,7 +155,7 @@ export class CustomToolBar extends Component {
                           color="primary"
                         />
                       )}
-                      label="View Approved Suppliers"
+                      label="View Approved Products"
                     />
                     <FormControlLabel
                       className={classes.switchFormGroupSupplier}
@@ -149,59 +168,187 @@ export class CustomToolBar extends Component {
                           color="primary"
                         />
                       )}
-                      label="View Proposed Suppliers"
+                      label="View Proposed Products"
                     />
                   </FormGroup>
                 </ClickAwayListener>
               </Paper>
             </Grow>
           </Popper>
-
-          {isAdmin
-            && (
-              <CustomIconButton
-                toolTip="Add Supplier"
-                buttonRef={(node) => {
-                  this.addSupplierElement = node;
-                }}
-                onClickHandler={() => this.handleToggleAddSupplier()}
-              >
-                <AddIcon />
-              </CustomIconButton>
-            )}
           <CustomIconButton
-            toolTip="Price Check"
-            onClickHandler={() => { }}
+            toolTip="Manage Expiries"
+            buttonRef={(node) => {
+              this.manageExpiries = node;
+            }}
+            onClickHandler={() => {}}
           >
-            <IconFactory
-              iconStyle={supplyStyles.checkImage}
-              type={check}
-              iconAlt="Price Check"
-            />
+            <img src={expirieslogo} style={{ width: '28px' }} alt="" />
           </CustomIconButton>
-          <Tooltip title="Export List">
+          <Tooltip title="Export List" style={{ marginRight: '25px' }}>
             <IconButton>
-              <Export className={classes.svgIcon} />
+              <img src={exportlogo} style={{ width: '20px' }} alt="" />
             </IconButton>
           </Tooltip>
-        </Fragment>
-        <RenderPopper
-          anchorEl={this.addSupplierElement}
-          onClickAway={this.handleCloseAddSupplier}
-          open={addSupplierOpen}
-        >
-          <MenuList>
-            <MenuItem onClick={this.handleCloseAddSupplier}>Add individual supplier</MenuItem>
-            <MenuItem onClick={this.handleCloseAddSupplier}>
-              <Link
-                to="/suppliers/new/import"
-                style={supplyStyles.menuLink}
+          <Tooltip title="Manage Columns" style={{ marginTop: '1px' }}>
+            <IconButton
+              className={!openViewColumnMenu ? classes.iconButtonActive : classes.iconButton}
+              buttonRef={(node) => {
+                this.anchorEl = node;
+              }}
+              aria-owns={openViewColumnMenu ? 'menu-list-grow' : undefined}
+              aria-haspopup="true"
+              onClick={this.handleToggleViewColumnMenu}
+            >
+              <img src={columnslogo} style={{ width: '21px', height: '19px' }} alt="" />
+            </IconButton>
+          </Tooltip>
+          <Popper
+            id="menu-list-grow"
+            className={classes.popper}
+            style={{ padding: '10px', height: '20px' }}
+            open={openViewColumnMenu}
+            anchorEl={this.anchorEl}
+            transition
+            disablePortal
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}            
+                id="menu-list-grow"
+                style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                Import supplier csv.
-              </Link>
-            </MenuItem>
-          </MenuList>
-        </RenderPopper>
+                <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'scroll' }}>           
+                  <p style={{
+                    fontSize: '11px', color: 'grey', marginLeft: '12px',
+                  }}
+                  >
+                      Toggle columns to show on the product table
+                  </p>
+                  <hr />
+                  <FormGroup>
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Product ID"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Product Name"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="SKU"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Category"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Dispensing Size"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Quantity in Stock"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Re-order Point"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Re-order Max"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Sale Price"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Loyalty Weight"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Preferred Supplier"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Backup Supplier"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="Nearest Expiry Date"
+                    />
+                    <FormControlLabel
+                      className={classes.switchFormGroupSupplier}
+                      control={(
+                        <Switch />
+                      )}
+                      label="VAT Status"
+                    />
+                  </FormGroup>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
+        </Fragment>
+        <Fragment>
+          <RenderPopper
+            anchorEl={this.addProductElement}
+            onClickAway={this.handleCloseAddProduct}
+            open={addProductOpen}
+          >
+            <MenuList style={{ marginTop: '10px' }}>
+              <MenuItem onClick={this.handleCloseAddProduct}>Add product</MenuItem>
+              <MenuItem onClick={this.handleCloseAddProduct}>
+                <Link
+                  to="/products/new/import"
+                  style={supplyStyles.menuLink}
+                >
+                Import product csv.
+                </Link>
+              </MenuItem>
+            </MenuList>
+          </RenderPopper>
+        </Fragment>
       </Fragment>
     );
   }
@@ -211,7 +358,6 @@ CustomToolBar.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   handleClickSearch: PropTypes.func.isRequired,
   handleHideSearch: PropTypes.func.isRequired,
-  isAdmin: PropTypes.bool.isRequired,
   isSearchActive: PropTypes.bool,
   handleSearchTextChange: PropTypes.func.isRequired,
   status: PropTypes.func.isRequired,
