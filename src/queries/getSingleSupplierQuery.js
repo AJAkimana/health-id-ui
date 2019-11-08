@@ -19,7 +19,6 @@ query($id: String){
         name
       }
     }
-    rating
     commentary
     paymentTerms{
       name

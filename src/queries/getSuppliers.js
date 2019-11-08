@@ -5,7 +5,6 @@ query{
   allSuppliers(pageCount: ${pageCount}, pageNumber: ${pageNumber}){
     id
     name
-    rating
     commentary
     user{
       id
@@ -32,7 +31,6 @@ export const FILTER_SUPPLIERS = (type, value) => {
               id
               name
               mobileNumber
-              rating
               addressLine1
               addressLine2
               isApproved
@@ -71,7 +69,6 @@ export const FILTER_SUPPLIERS = (type, value) => {
            id
            name
            mobileNumber
-           rating
            addressLine1
            addressLine2
            isApproved

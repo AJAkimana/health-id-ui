@@ -123,7 +123,9 @@ describe('Render Dashboard component', () => {
   });
 
   it('invokes handleOnClick method with a truthy isActive state property and sets state', () => {
-    wrapper.find('Dashboard').instance().handleOnClick(event);
+    wrapper.find('Dashboard').instance().handleOnClick(event1);
+    wrapper.find('Dashboard').instance().handleOnClick(event2);
+    wrapper.find('Dashboard').instance().handleOnClick(event3);
     expect(wrapper.find('Dashboard').instance().state.isActive).toBeFalsy();
   });
 });
