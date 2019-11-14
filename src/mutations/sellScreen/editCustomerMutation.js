@@ -55,6 +55,14 @@ const EDIT_CUSTOMER = gql`
       emergencyContactName
       emergencyContactEmail
       emergencyContactNumber
+      loyaltyMember
+      loyaltyPoints
+      wallet{
+        storeCredit
+      }
+      saleSet{
+        createdAt
+      }
     }
   }
 }

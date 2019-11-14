@@ -115,11 +115,11 @@ class ResetPassword extends Component {
             helperConfirmedPasswordText: '',
             serverResponse: (
               <FormHelperText className="server-response valid">
-              Your password was successfully reset
+                Your password was successfully reset
               </FormHelperText>
             )
           });
-          setTimeout(() => window.location.assign('/login'), 1500);
+          setTimeout(() => window.location.assign('/'), 1500);
         }
       })
       .catch((error) => {
@@ -193,7 +193,7 @@ class ResetPassword extends Component {
                 {helperNewPasswordText}
                 {matchError ? (
                   <FormHelperText className="error">
-                  Passwords do not match
+                    Passwords do not match
                   </FormHelperText>
                 ) : ''}
               </FormControl>
@@ -236,7 +236,7 @@ class ResetPassword extends Component {
             </div>
           </form>
           <div className="reset-link">
-            <a href="/login" className="login-link">Back to login</a>
+            <a href="/" className="login-link">Back to login</a>
           </div>
         </div>
       </div>

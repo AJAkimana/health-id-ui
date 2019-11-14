@@ -429,3 +429,64 @@ export const addCustomerPopper = {
     cursor: 'pointer'
   }
 };
+
+export const customerDetailsDialog = {
+  dialogTitle: {
+    backgroundColor: '#FAF33E',
+    padding: '1em 1.5em 1em 2.5em',
+    boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)'
+  },
+  name: {
+    fontWeight: '500',
+    color: '#424242'
+  },
+  icon: {
+    marginTop: '0.5em'
+  },
+  dialogContent: {
+    padding: 0
+  },
+  loyaltyPaper: {
+    margin: '1.5em 2.5em',
+    padding: '1em 2.5em',
+    backgroundColor: '#E8E8E8',
+    boxShadow: '1px 1px 1px rgba(0, 0, 0, 0.2)'
+  },
+  captionText: {
+    color: '#808080'
+  },
+  momentDate: {
+    fontSize: '0.75rem',
+    fontWeight: '500',
+    color: '#424242',
+  },
+  loyaltyMember: {
+    color: '#424242',
+    paddingLeft: '4.6em'
+  },
+  loyaltyPoints: {
+    color: '#424242',
+    paddingLeft: '4em'
+  },
+  storeCredit: {
+    color: '#424242',
+  },
+  rowHeader: {
+    padding: '0.3em 2.5em',
+    backgroundColor: '#E8E8E8',
+  },
+  rowHeaderTypo: {
+    color: '#424242'
+  },
+  contactDetails: {
+    margin: '1.5em 2.5em',
+  },
+  contactInner: {
+    marginTop: '1em'
+  },
+  addressText: {
+    color: '#424242',
+    fontSize: '13px',
+    margin: '0px'
+  },
+};

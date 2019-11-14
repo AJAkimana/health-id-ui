@@ -314,6 +314,7 @@ export class SellScreenContainer extends Component {
   handleCustomerDialogClose = () => {
     this.setState({
       openCustomerDialog: false,
+      openCustomerDetailsDialog: false,
       firstName: '',
       lastName: '',
       isSelected: '',
@@ -476,16 +477,16 @@ export class SellScreenContainer extends Component {
       filteredCustomers: [],
       openCustomerPopper: false,
     });
-    isSelected && this.handleEditSelectedCustomer(customer, isSelected);
+    isSelected && this.handleDisplayCustomerDetails(customer, isSelected);
   };
 
-  handleEditSelectedCustomer = async ({
+  handleDisplayCustomerDetails = async ({
     id, firstName, lastName, email, primaryMobileNumber,
     secondaryMobileNumber, loyaltyMember, region, city, country,
     emergencyContactName, emergencyContactEmail, emergencyContactNumber,
   }, isSelected) => {
     await this.setState({
-      openCustomerDialog: true,
+      openCustomerDetailsDialog: true,
       isSelected,
       id,
       firstName: firstName || '',
@@ -503,6 +504,13 @@ export class SellScreenContainer extends Component {
     });
     this.setLocations();
     this.setCityId(city.name);
+  };
+
+  handleEditSelectedCustomer = () => {
+    this.setState({
+      openCustomerDialog: true,
+      openCustomerDetailsDialog: false
+    });
   };
 
   validateCustomerDialogInputs = () => {
@@ -933,6 +941,7 @@ export class SellScreenContainer extends Component {
           handleNotePopperClickAway={this.handleNotePopperClickAway}
           handleCustomerPopperClickAway={this.handleCustomerPopperClickAway}
           handleAddNewCustomer={this.handleAddNewCustomer}
+          handleEditSelectedCustomer={this.handleEditSelectedCustomer}
           handleCustomerDialogClose={this.handleCustomerDialogClose}
           renderSingleCustomer={this.renderSingleCustomer}
           handleAddCustomerButton={this.handleAddCustomerButton}

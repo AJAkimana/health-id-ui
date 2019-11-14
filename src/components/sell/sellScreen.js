@@ -11,6 +11,7 @@ import {
 import FormatCurrency from '../utils/formatCurrency';
 import { addedItems, tableStyles } from '../../assets/css/sellScreenStyles';
 import AddCustomerDialog from './addCustomerDialog';
+import CustomerDetailDialog from './customerDetailDialog';
 import HoldSaleDialog from './holdSaleDialog';
 import AddDiscountPopper from './addDiscountPopper';
 import AddProductNotePopper from './addProductNotePoppper';
@@ -42,6 +43,7 @@ export const SellScreen = ({
   handleNotePopperClickAway,
   handleCustomerPopperClickAway,
   handleAddNewCustomer,
+  handleEditSelectedCustomer,
   handleCustomerDialogClose,
   renderSingleCustomer,
   handleAddCustomerButton,
@@ -153,6 +155,18 @@ export const SellScreen = ({
                 />
                 <AddCustomerDialog
                   state={state}
+                  handleCustomerDialogClose={handleCustomerDialogClose}
+                  handleCustomerDialogInPutChange={handleCustomerDialogInPutChange}
+                  handleAddCustomerButton={handleAddCustomerButton}
+                  validateCustomerDialogInputs={validateCustomerDialogInputs}
+                  updateCustomers={updateCustomers}
+                  handlePrimaryPhoneChange={handlePrimaryPhoneChange}
+                  handleSecondaryPhoneChange={handleSecondaryPhoneChange}
+                  handleContactPhoneChange={handleContactPhoneChange}
+                />
+                <CustomerDetailDialog
+                  state={state}
+                  handleEditSelectedCustomer={handleEditSelectedCustomer}
                   handleCustomerDialogClose={handleCustomerDialogClose}
                   handleCustomerDialogInPutChange={handleCustomerDialogInPutChange}
                   handleAddCustomerButton={handleAddCustomerButton}
@@ -276,7 +290,7 @@ export const SellScreen = ({
                           style={tableStyles.discountTypo}
                           onClick={handleDiscountClick('left-start')}
                         >
-                        DISCOUNT:
+                          DISCOUNT:
                         </Typography>
                       </Tooltip>
                       <AddDiscountPopper
@@ -371,7 +385,8 @@ SellScreen.propTypes = {
   handlePrimaryPhoneChange: PropTypes.func.isRequired,
   handleSecondaryPhoneChange: PropTypes.func.isRequired,
   handleContactPhoneChange: PropTypes.func.isRequired,
-  handleClickToPay: PropTypes.func.isRequired
+  handleClickToPay: PropTypes.func.isRequired,
+  handleEditSelectedCustomer: PropTypes.func.isRequired
 };
 
 SellScreen.defaultProps = {

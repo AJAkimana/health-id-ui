@@ -31,7 +31,7 @@ query {
     tags
   }
   
-countries {
+  countries {
     id
     name
     citySet {
@@ -40,8 +40,9 @@ countries {
     }
   }
 
-customers {
+  customers {
     id
+    createdAt
     firstName
     lastName
     email
@@ -61,6 +62,13 @@ customers {
     emergencyContactNumber
     emergencyContactEmail
     loyaltyMember
+    loyaltyPoints
+    wallet{
+      storeCredit
+    }
+    saleSet{
+      createdAt
+    }
   }
 }
 `;

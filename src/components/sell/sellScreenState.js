@@ -20,6 +20,7 @@ const initialState = {
   productNoteAnchorEl: null,
   openCustomerPopper: false,
   openCustomerDialog: false,
+  openCustomerDetailsDialog: false,
   openHoldSaleDialog: false,
   openDicountPopper: false,
   openNotePopper: false,

@@ -185,7 +185,7 @@ export class AuthContainer extends Component {
             helperEmailText: '',
             helperPhoneText: '',
           });
-          setTimeout(() => window.location.assign('/login'), 1500);
+          setTimeout(() => window.location.assign('/'), 1500);
         } else if (errors) {
           this.setState({
             registerErrors: errors[0].split(':')[1]

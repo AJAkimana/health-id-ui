@@ -23,6 +23,13 @@ const GET_ALL_CUSTOMERS = gql`
       emergencyContactNumber
       emergencyContactEmail
       loyaltyMember
+      loyaltyPoints
+      wallet{
+        storeCredit
+      }
+      saleSet{
+        createdAt
+      }
     }
   }
 `;
