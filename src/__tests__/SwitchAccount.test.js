@@ -41,7 +41,7 @@ describe('SwitchAccount ', () => {
       </MockedProvider>
     );
 
-    expect(wrapper.find('[placement="bottom-start"]').length).toBe(1);
+    expect(wrapper.find('[placement="bottom-end"]').length).toBe(1);
   });
 
   it('responds to onClick events', () => {
@@ -71,7 +71,7 @@ describe('SwitchAccount ', () => {
 
     const loginWithPhone = (data) => new Promise((resolve, reject) => {
       if (data.variables.mobileNumber) {
-        resolve({ data: { loginUser :{ token: "sd", message: "Login Successful"} } });
+        resolve({ data: { loginUser: { token: "sd", message: "Login Successful" } } });
       } else {
         reject({ error: 'failed to login.' });
       }
@@ -79,7 +79,7 @@ describe('SwitchAccount ', () => {
 
     const loginWithEmail = (data) => new Promise((resolve, reject) => {
       if (data.variables.email) {
-        resolve({ data: { loginUser :{ token: "sd", message: "Login Successful"} } });
+        resolve({ data: { loginUser: { token: "sd", message: "Login Successful" } } });
       } else {
         reject({ error: 'failed to login.' });
       }

@@ -184,15 +184,14 @@ export class Dashboard extends Component {
     if (_.isEmpty(me)) {
       return null;
     }
-    const { name } = me.activeOutlet.outletpreference.outletTimezone;
-
+    const { activeOutlet } = me;
 
     return (
       <Fragment>
         {this.upperDashboard(isActive, dispatch)}
         <LowerDashboard
           username={me.username}
-          timeZone={name}
+          activeOutlet={activeOutlet}
           open={open}
           anchorEl={anchorEl}
           handleMenu={this.handleMenu}

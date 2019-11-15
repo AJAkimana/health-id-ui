@@ -1,46 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Tooltip } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import moment from 'moment-timezone';
-
-import calendar from '../../../assets/images/dashboard/calendar.png';
-import notification from '../../../assets/images/dashboard/notification.png';
+import {
+  CalenderIcon2, Notification, User, Register
+} from '../../../assets/SvgIcons/sellScreenSvgs';
 import lowerDashboardStyles from '../../../assets/styles/dashboard/lowerDashboardStyles';
 import SwitchAccount from '../../authentication/SwitchAcount';
 
-const zoneNames = {
-  EST: 'Eastern Standard Time',
-  EAT: 'Eastern Africa Time',
-  WAT: 'Western Africa Time',
-  EDT: 'Eastern Daylight Time',
-  CST: 'Central Standard Time',
-  CDT: 'Central Daylight Time',
-  MST: 'Mountain Standard Time',
-  MDT: 'Mountain Daylight Time',
-  PST: 'Pacific Standard Time',
-  PDT: 'Pacific Daylight Time',
-};
+const styles = lowerDashboardStyles;
 
 const LowerDashboard = ({
-  username, open, anchorEl, timeZone, handleMenu, handleClose, handleLogOut
+  activeOutlet, username, open, anchorEl, handleMenu, handleClose, handleLogOut
 }) => {
+  const outletName = activeOutlet && activeOutlet.name;
+  const cityName = activeOutlet && activeOutlet.city.name;
   const [IsOpen, setOpen] = useState(false);
 
-  const today = moment.tz(new Date(), timeZone);
-
-  // overrides moment zoneAbbr function to display timezone with full name
-  moment.fn.zoneName = function () {
-    // eslint-disable-next-line react/no-this-in-sfc
-    const abbreviation = this.zoneAbbr();
-    return zoneNames[abbreviation] || abbreviation;
-  };
-
-  const date = today.format('dddd, MMMM Do YYYY');
-  const locale = `T ${today.format('Z')} (${today.zoneName()})`;
+  const today = moment(new Date());
+  const date = today.format('ddd Do MMM');
+  const time = today.format('HH:mm');
 
   const showSwitchAccount = () => {
     setOpen(!IsOpen);
@@ -49,32 +31,44 @@ const LowerDashboard = ({
 
   return (
     <div>
-      <Grid container justify="center" style={lowerDashboardStyles.gridContainer}>
-        <Grid item xs={8} style={lowerDashboardStyles.gridItem1}>
-          <Typography variant="inherit" style={lowerDashboardStyles.typographyText}>
+      <Grid container justify="center" style={styles.gridContainer}>
+        <Grid item xs={4} style={styles.timeGrid}>
+          <Typography variant="inherit">
             {date}
             &emsp;
-            {locale}
+            {time}
           </Typography>
         </Grid>
-
-        <Grid item xs={1} style={lowerDashboardStyles.gridItem2}>
-          <img alt="alternative text" src={calendar} style={lowerDashboardStyles.gridImage} />
+        <Grid item xs={4} align="center" style={styles.timeGrid}>
+          <Typography variant="inherit">
+            {`${outletName}, ${cityName}`}
+          </Typography>
         </Grid>
-
-        <Grid item xs={1} style={lowerDashboardStyles.gridItem2}>
-          <img alt="alternative text" src={notification} style={lowerDashboardStyles.gridImage} />
-        </Grid>
-
-        <Grid item xs={2}>
-          <IconButton
-            aria-owns={open ? 'menu-appbar' : undefined}
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            <AccountCircle />
+        <Grid item xs={4} align="right" style={styles.iconsGrid}>
+          <IconButton style={styles.gridButton}>
+            <Register style={styles.gridIcon} />
           </IconButton>
+
+          <IconButton style={styles.gridButton}>
+            <CalenderIcon2 style={styles.gridIcon} />
+          </IconButton>
+
+          <IconButton style={styles.gridButton}>
+            <Notification style={styles.gridIcon} />
+          </IconButton>
+          <Tooltip
+            title={<Typography color="inherit">{`${username}`}</Typography>}
+          >
+            <IconButton
+              aria-owns={open ? 'menu-appbar' : undefined}
+              aria-haspopup="true"
+              style={styles.gridButton}
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <User style={styles.gridIcon} />
+            </IconButton>
+          </Tooltip>
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -86,7 +80,6 @@ const LowerDashboard = ({
             <MenuItem onClick={handleLogOut}>Logout</MenuItem>
             <MenuItem onClick={() => showSwitchAccount()}>Switch Account</MenuItem>
           </Menu>
-          <span>{`${username}`}</span>
         </Grid>
       </Grid>
       <SwitchAccount open={IsOpen} handleClose={() => setOpen(false)} anchorEl={anchorEl} />
@@ -98,17 +91,17 @@ LowerDashboard.propTypes = {
   username: PropTypes.string,
   open: PropTypes.bool,
   anchorEl: PropTypes.instanceOf(Object),
+  activeOutlet: PropTypes.instanceOf(Object),
   handleMenu: PropTypes.func.isRequired,
   handleLogOut: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
-  timeZone: PropTypes.string,
 };
 
 LowerDashboard.defaultProps = {
   username: '',
   open: false,
   anchorEl: '',
-  timeZone: 'Africa/Nairobi'
+  activeOutlet: {},
 };
 
 export default LowerDashboard;

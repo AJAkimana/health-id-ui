@@ -119,7 +119,7 @@ export class SwitchAccount extends Component {
         className={classes.root}
         open={open}
         anchorEl={anchorEl}
-        placement="bottom-start"
+        placement="bottom-end"
         transition
       >
         {({ TransitionProps }) => (

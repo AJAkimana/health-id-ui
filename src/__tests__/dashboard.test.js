@@ -95,7 +95,9 @@ const props = {
           outletTimezone: {
             name: "Africa/Nairobi"
           }
-        }
+        },
+        city: { name: '' },
+        name: '',
       }
     },
   }

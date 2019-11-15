@@ -52,6 +52,11 @@ const GET_USER_INFO = gql`
       jobTitle
       activeOutlet {
         id
+        name
+        addressLine1
+        city {
+          name
+        }
         outletpreference {
           outletTimezone {
             name

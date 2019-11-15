@@ -1,9 +1,10 @@
 const lowerDashboardStyles = {
   gridContainer: {
-    backgroundColor: '#A3A3A3'
+    backgroundColor: '#A3A3A3',
   },
-  gridItem1: {
-    borderRight: '2px solid white'
+  timeGrid: {
+    padding: '0.47em 2em',
+    borderRight: '1px solid #888787',
   },
   typographyText: {
     justifyContent: 'flex-start',
@@ -11,14 +12,16 @@ const lowerDashboardStyles = {
     paddingTop: '0.8em',
     color: 'black'
   },
-  gridItem2: {
-    borderRight: '2px solid white',
-    textAlign: 'center',
-    cursor: 'pointer'
+  iconsGrid: {
+    padding: '1px 20px'
   },
-  gridImage: {
-    width: '12%',
-    paddingTop: '0.8em'
+  gridButton: {
+    padding: '8px',
+    marginLeft: '1.5em'
+  },
+  gridIcon: {
+    width: '0.8em',
+    height: '0.8em',
   },
   menuStyles: {
     vertical: 'top',
