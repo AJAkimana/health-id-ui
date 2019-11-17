@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/bryanmezue/healthid-fe.svg?style=svg&circle-token=8dd98ec19dabf6258cabb335097220f17d928a70)](https://circleci.com/gh/bryanmezue/healthid-fe)
 
+![](https://github.com/bryanmezue/healthid-fe/workflows/HealthID%20-%20Frontend/badge.svg)
 
 Health ID is an inventory management and customer engagement software platform. This is the UI/UX codebase for the project.
 
