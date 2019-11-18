@@ -77,6 +77,31 @@ export const ToolbarStyles = {
   paper: {
     zIndex: '500'
   },
+  savePrintPaper: {
+    width: '30em',
+    padding: '1.5em',
+    paddingRight: 0
+  },
+  printButton: {
+    width: '4em',
+    textAlign: 'center'
+  },
+  savePrintTypo: {
+    textAlign: 'center'
+  },
+
+  saveButton: {
+    padding: '27px',
+    paddingTop: '37px',
+    marginLeft: '2em'
+  },
+  saveButtonImg: {
+    width: '3em',
+    height: '2.4em'
+  },
+  saveImage: {
+    width: 134
+  },
   root: {
     paddingLeft: '2px',
     paddingRight: '1px'

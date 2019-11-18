@@ -9,6 +9,11 @@ exports[`Supplier Page DataTable  renders without crashing 1`] = `
           "query": [Function],
         }
       }
+      componentRef={
+        Object {
+          "current": null,
+        }
+      }
       handleClickSearch={[Function]}
       handleEdit={[Function]}
       handleHideSearch={[Function]}
@@ -18,35 +23,25 @@ exports[`Supplier Page DataTable  renders without crashing 1`] = `
       isSearchActive={true}
       name="toolbar"
       numSelected={0}
+      rows={Array []}
       status="approved"
       title="rfrfr"
     />
-    <div>
-      <WithStyles(Table)
-        aria-labelledby="tableTitle"
-        onMouseLeave={[Function]}
-      >
-        <WithStyles(TableHeader)
-          headRows={Array []}
-          numSelected={0}
-          onRequestSort={[Function]}
-          onSelectAllClick={[Function]}
-          order="asc"
-          orderBy="name"
-          rowCount={0}
-        />
-        <WithStyles(TableBody)>
-          <WithStyles(TableRow)>
-            <WithStyles(TableCell)
-              align="center"
-              colSpan={14}
-            >
-              No Products
-            </WithStyles(TableCell)>
-          </WithStyles(TableRow)>
-        </WithStyles(TableBody)>
-      </WithStyles(Table)>
-    </div>
+    <ForwardRef
+      classes={Object {}}
+      columns={Array []}
+      handleHidePopup={[Function]}
+      handleOnRowHover={[Function]}
+      handleRowSeleted={[Function]}
+      handleSelectAllClick={[Function]}
+      isSelected={[Function]}
+      onRowClick={[Function]}
+      order="asc"
+      rows={Array []}
+      selected={Array []}
+      x={0}
+      y={0}
+    />
     <WithStyles(TablePagination)
       backIconButtonProps={
         Object {

@@ -3,21 +3,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Checkbox,
   Paper,
-  TableRow,
   TablePagination,
-  TableCell,
-  TableBody,
-  Table
 } from '@material-ui/core';
 import TableToolBar from './TableToolBar';
 import { TableStyles } from '../../../../assets/styles/stock/stock';
 import DataTableLoader from '../../../dataTable/dataTableLoader';
-import TableHeader from './TableHeader';
-import { ProductInfoPopup } from '../ProductInfoPopup';
 import { getProductInformationCardPosition } from '../../../utils/screen';
-import { getSortedData } from '../../filter';
+import ProductsTable from './productsTable';
 
 export class DataTable extends Component {
   state = {
@@ -99,7 +92,6 @@ export class DataTable extends Component {
     this.setState({ selected: [] });
   };
 
-
   render() {
     const {
       classes,
@@ -127,8 +119,8 @@ export class DataTable extends Component {
       isSearchActive,
       rows,
       order,
-      orderBy,
     } = this.state;
+    const componentRef = React.createRef();
     return (
       <div>
         <Paper className={classes.paper}>
@@ -136,6 +128,7 @@ export class DataTable extends Component {
             name="toolbar"
             isAdmin={isAdmin}
             title={`${title}`}
+            rows={rows}
             numSelected={selected.length}
             client={client}
             handleSearchTextChange={e => handleSearch(e, client)}
@@ -145,75 +138,28 @@ export class DataTable extends Component {
             status={status}
             handleViewProposed={handleViewProposed}
             session={session}
+            componentRef={componentRef}
           />
           {
             loading ? (<DataTableLoader />)
               : (
-                <div className={classes.tableWrapper}>
-                  <Table
-                    onMouseLeave={this.handleHidePopup}
-                    className={classes.table}
-                    aria-labelledby="tableTitle"
-                  >
-                    <TableHeader
-                      numSelected={selected.length}
-                      order={order}
-                      orderBy={orderBy}
-                      onSelectAllClick={this.handleSelectAllClick}
-                      onRequestSort={this.handleRequestSort}
-                      rowCount={rows.length}
-                      headRows={columns}
-                    />
-                    {
-                      hoverdItem && (
-                        <ProductInfoPopup
-                          onForwardButtonClick={onRowClick}
-                          handleHidePopup={this.handleHidePopup}
-                          position={{ x, y }}
-                          row={hoverdItem}
-                          classes={classes}
-                        />
-                      )
-                    }
-                    <TableBody>
-                      {rows.length > 0
-                        ? getSortedData(rows, order, orderBy)
-                          .map((row) => {
-                            const isItemSelected = this.isSelected(row.id);
-                            return (
-                              <TableRow
-                                role="checkbox"
-                                aria-checked={isItemSelected}
-                                tabIndex={-1}
-                                onMouseEnter={e => this.handleOnRowHover(e, row)}
-                                key={row.id}
-                                style={TableStyles.tableRow}
-                                selected={isItemSelected}
-                                onClick={() => {
-                                  onRowClick(row.id);
-                                }}
-                              >
-                                <TableCell padding="checkbox">
-                                  <Checkbox
-                                    checked={isItemSelected}
-                                    onClick={(event) => {
-                                      event.stopPropagation();
-                                      this.handleRowSeleted(event, row.id);
-                                    }}
-                                  />
-                                </TableCell>
-                                {
-                                  columns.map(col => (col.options.display !== false && (<TableCell align="left">{row[col.name]}</TableCell>)))
-                                }
-
-                              </TableRow>
-                            );
-                          }) : (<TableRow><TableCell align="center" colSpan={14}>No Products</TableCell></TableRow>)
-                      }
-                    </TableBody>
-                  </Table>
-                </div>
-
+                <ProductsTable
+                  classes={classes}
+                  handleHidePopup={this.handleHidePopup}
+                  selected={selected}
+                  handleSelectAllClick={this.handleSelectAllClick}
+                  rows={rows}
+                  columns={columns}
+                  order={order}
+                  handleOnRowHover={this.handleOnRowHover}
+                  handleRowSeleted={this.handleRowSeleted}
+                  ref={componentRef}
+                  hoverdItem={hoverdItem}
+                  isSelected={this.isSelected}
+                  onRowClick={onRowClick}
+                  x={x}
+                  y={y}
+                />
               )
           }
 

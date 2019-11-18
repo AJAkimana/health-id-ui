@@ -3,14 +3,19 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {
-  Tooltip, IconButton, MenuList, MenuItem, Grow
+  Tooltip, IconButton, MenuList, MenuItem, Grow,
 } from '@material-ui/core';
+import { savePDF } from '@progress/kendo-react-pdf';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import {
+  Export
+} from '../../../../assets/images/stock/StockIcons';
+import SavePrintPopper from '../../../sell/salesHistory/savePrintPopper';
 import { ToolbarStyles } from '../../../../assets/styles/stock/stock';
 import { supplyStyles } from '../../../../assets/styles/suppliers/suppliers';
 import addlogo from '../../../../assets/images/products/add.png';
@@ -18,7 +23,6 @@ import searchlogo from '../../../../assets/images/products/search.png';
 import expirieslogo from '../../../../assets/images/products/expiries.png';
 import columnslogo from '../../../../assets/images/products/columns.png';
 import statuslogo from '../../../../assets/images/products/status.png';
-import exportlogo from '../../../../assets/images/products/export.png';
 import TableSearch from '../../../stock_control/Table/TableSearch';
 import { CustomIconButton, RenderPopper } from '../../../stock_control/utils/utils';
 
@@ -31,6 +35,8 @@ export class CustomToolBar extends Component {
     openViewMenu: false,
     openColumnMenu: false,
 
+    addSupplierOpen: false,
+    savePrintOpen: false
   };
 
   handleToggle = () => {
@@ -61,8 +67,13 @@ export class CustomToolBar extends Component {
     this.setState({ openViewMenu: !openViewMenu });
   };
 
+  handleViewExportMenu = () => {
+    const { openViewExportMenu } = this.state;
+    this.setState({ openViewExportMenu: !openViewExportMenu });
+  };
+
   handleClose = () => {
-    this.setState({ openAddMenu: false, openViewMenu: false });
+    this.setState({ openAddMenu: false, openViewMenu: false, openViewExportMenu: false });
   };
 
   handleChangeView = () => {
@@ -74,17 +85,45 @@ export class CustomToolBar extends Component {
     handleViewProposed(statusObject);
   };
 
+  handleSavePrintOpen = (event) => {
+    const { currentTarget } = event;
+    this.setState(state => ({
+      savePrintOpen: !state.savePrintOpen,
+      savePrintAnchorEl: currentTarget
+    }));
+  };
+
+  handlePrintButton = () => {
+    this.setState(state => ({
+      savePrintOpen: !state.savePrintOpen,
+    }));
+  }
+
+  handleSaveButton = (html) => {
+    savePDF(html, {
+      scale: 0.6,
+      paperSize: 'A3',
+      repeatHeaders: true,
+      landscape: true,
+      fileName: 'healthID_Products.pdf',
+      margin: 10,
+      top: 10
+    });
+    this.handlePrintButton();
+  }
+
   render() {
     const { openViewMenu, addProductOpen, openViewColumnMenu } = this.state;
     const {
+      title,
       classes,
+      componentRef,
       handleClickSearch,
       isSearchActive,
       handleHideSearch,
       handleSearchTextChange,
       status,
     } = this.props;
-
     return (
       <Fragment>
         {isSearchActive ? (
@@ -185,10 +224,20 @@ export class CustomToolBar extends Component {
             <img src={expirieslogo} style={{ width: '28px' }} alt="" />
           </CustomIconButton>
           <Tooltip title="Export List" style={{ marginRight: '25px' }}>
-            <IconButton>
-              <img src={exportlogo} style={{ width: '20px' }} alt="" />
+            <IconButton
+              onClick={this.handleSavePrintOpen}
+            >
+              <Export className={classes.svgIcon} />
             </IconButton>
           </Tooltip>
+          <SavePrintPopper
+            state={this.state}
+            classes={classes}
+            popperHeader={title}
+            componentRef={componentRef}
+            handlePrintButton={this.handlePrintButton}
+            handleSaveButton={this.handleSaveButton}
+          />
           <Tooltip title="Manage Columns" style={{ marginTop: '1px' }}>
             <IconButton
               className={!openViewColumnMenu ? classes.iconButtonActive : classes.iconButton}
@@ -213,11 +262,11 @@ export class CustomToolBar extends Component {
           >
             {({ TransitionProps, placement }) => (
               <Grow
-                {...TransitionProps}            
+                {...TransitionProps}
                 id="menu-list-grow"
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'scroll' }}>           
+                <Paper className={classes.paper} style={{ width: '250px', height: '450px', overflow: 'scroll' }}>
                   <p style={{
                     fontSize: '11px', color: 'grey', marginLeft: '12px',
                   }}
@@ -355,6 +404,7 @@ export class CustomToolBar extends Component {
 }
 
 CustomToolBar.propTypes = {
+  title: PropTypes.string.isRequired,
   classes: PropTypes.instanceOf(Object).isRequired,
   handleClickSearch: PropTypes.func.isRequired,
   handleHideSearch: PropTypes.func.isRequired,
@@ -362,10 +412,13 @@ CustomToolBar.propTypes = {
   handleSearchTextChange: PropTypes.func.isRequired,
   status: PropTypes.func.isRequired,
   handleViewProposed: PropTypes.func.isRequired,
+  componentRef: PropTypes.instanceOf(Object),
+
 };
 
 CustomToolBar.defaultProps = {
-  isSearchActive: false
+  isSearchActive: false,
+  componentRef: {}
 };
 
 export default withStyles(ToolbarStyles)(CustomToolBar);

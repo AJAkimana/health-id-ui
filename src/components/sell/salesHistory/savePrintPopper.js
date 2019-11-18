@@ -4,6 +4,7 @@ import ReactToPrint from 'react-to-print';
 import {
   Grid, Grow, Paper, Popper, IconButton, Typography,
 } from '@material-ui/core';
+import { ImportProductStyles } from '../../../assets/styles/products/ImportProductStyles';
 import print from '../../../assets/images/sellScreen/print.png';
 import save from '../../../assets/images/sellScreen/save.png';
 
@@ -14,6 +15,7 @@ const SavePrintPopper = (props) => {
     componentRef,
     handlePrintButton,
     handleSaveButton,
+    popperHeader,
   } = props;
   const {
     savePrintOpen,
@@ -33,6 +35,13 @@ const SavePrintPopper = (props) => {
           <Grow {...TransitionProps}>
             <Paper className={classes.savePrintPaper}>
               <Grid container justify="center">
+                {popperHeader && (
+                  <Grid item xs={12}>
+                    <Typography variant="p" style={{ marginBottom: '5%' }}>{ popperHeader }</Typography>
+                    <hr style={ImportProductStyles.horizontalLine}
+                    />
+                  </Grid>
+                )}
                 <Grid item container justify="space-evenly">
                   <Grid item xs={6} style={{ flexBasis: 0 }}>
                     <ReactToPrint
@@ -71,6 +80,7 @@ SavePrintPopper.propTypes = {
   componentRef: PropTypes.instanceOf(Object),
   handlePrintButton: PropTypes.func.isRequired,
   handleSaveButton: PropTypes.func.isRequired,
+  popperHeader: PropTypes.string.isRequired
 };
 
 SavePrintPopper.defaultProps = {
