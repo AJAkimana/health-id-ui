@@ -5,7 +5,7 @@ query {
     approvedProducts {
       id
       productName
-      measurementUnit {
+      dispensingSize {
         name
       }
       batchInfo{
@@ -19,7 +19,7 @@ query {
       image
       tags
       skuNumber
-      productQuantity
+      quantityInStock
     }
   }
 `;

@@ -11,7 +11,7 @@ const StockDetails = (props) => {
     reorderMax,
     reorderPoint,
     nearestExpiryDate,
-    productQuantity
+    quantityInStock
   } = props;
   return (
     <Fragment>
@@ -29,7 +29,7 @@ const StockDetails = (props) => {
 
       <Grid container spacing={24} className={classes.containerGrid}>
         <Grid item xs={4} className={classes.childGrids}>
-          {renderTextField(classes.newTextFields, 'quantity', 'Qty in Stock', productQuantity || 0)}
+          {renderTextField(classes.newTextFields, 'quantity', 'Qty in Stock', quantityInStock || 0)}
         </Grid>
         <Grid item xs={4} className={classes.childGrids}>
           {renderTextField(classes.newTextFields, 'reorderPoint', 'Re-order Point', reorderPoint)}
@@ -54,7 +54,7 @@ const StockDetails = (props) => {
 };
 
 StockDetails.propTypes = {
-  productQuantity: PropTypes.number.isRequired,
+  quantityInStock: PropTypes.number.isRequired,
   salesPrice: PropTypes.number.isRequired,
   reorderMax: PropTypes.number.isRequired,
   reorderPoint: PropTypes.number.isRequired,

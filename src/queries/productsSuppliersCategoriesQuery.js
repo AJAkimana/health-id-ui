@@ -15,7 +15,7 @@ query ($outletId: Int!){
     isVatApplicable
     markup
   }
-  measurementUnit{
+  dispensingSize{
     id,
     name
   }

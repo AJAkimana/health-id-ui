@@ -159,7 +159,7 @@ const mocks = [
             brand: 'Stans',
             manufacturer: 'Stans',
             vatStatus: false,
-            productQuantity: 85,
+            quantityInStock: 85,
             salesPrice: 408.0,
             nearestExpiryDate: '2019-08-13',
             loyaltyWeight: 5,
@@ -168,7 +168,7 @@ const mocks = [
               id: '15',
               name: 'pain killer'
             },
-            measurementUnit: {
+            dispensingSize: {
               id: '1',
               name: 'tablets'
             },
@@ -191,7 +191,7 @@ const mocks = [
             brand: 'Dope',
             manufacturer: 'Africa',
             vatStatus: false,
-            productQuantity: 0,
+            quantityInStock: 0,
             salesPrice: 0.0,
             nearestExpiryDate: null,
             loyaltyWeight: 0,
@@ -200,7 +200,7 @@ const mocks = [
               id: '16',
               name: 'cosmetic'
             },
-            measurementUnit: {
+            dispensingSize: {
               id: '3',
               name: 'bottles'
             },
@@ -223,7 +223,7 @@ const mocks = [
             "brand": "Dope",
             "manufacturer": "Africa",
             "vatStatus": false,
-            "productQuantity": 0,
+            "quantityInStock": 0,
             "salesPrice": 0.0,
             "nearestExpiryDate": null,
             "loyaltyWeight": 0,
@@ -232,7 +232,7 @@ const mocks = [
               "id": "16",
               "name": "cosmetic"
             },
-            "measurementUnit": {
+            "dispensingSize": {
               "id": "3",
               "name": "bottles"
             },
@@ -265,20 +265,20 @@ describe('Test table rendering and data functions', () => {
     const wrapperInstance = shallow(<Products {...props} />);
     shallow(<Products {...props3} />);
     shallow(<Products {...props4} />);
-    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: true});
-    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: true});
-    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: false});
-    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: false});
+    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: true });
+    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: true });
+    wrapperInstance.instance().handleViewProposed({ approved: true, proposed: false });
+    wrapperInstance.instance().handleViewProposed({ approved: false, proposed: false });
   });
 
   it('should handle search', async () => {
     const wrapperInstance = shallow(<Products {...props} />);
     const client = {
-      query: () => {}
+      query: () => { }
     }
     wrapperInstance.instance().handleSearch({ target: { value: 'ddd' } }, client);
     wrapperInstance.instance().handleSearch({ target: { value: undefined } }, client);
-    wrapperInstance.instance().handleSearch({ target: { value:  '' } }, client);
+    wrapperInstance.instance().handleSearch({ target: { value: '' } }, client);
   });
 
   it('should handle pagination', async () => {
@@ -303,14 +303,14 @@ describe('Test table rendering and data functions', () => {
   it('Sould render popupInfo component', async () => {
     const propsPip = {
       row: {
-        productName: 'thyhy', description: 'tgtgt', image: 'none', tags: ['rrg','rfr'],
+        productName: 'thyhy', description: 'tgtgt', image: 'none', tags: ['rrg', 'rfr'],
       },
       position: { x: 456, y: 554 },
       classes: {},
-      handleHidePopup: () => {},
+      handleHidePopup: () => { },
     }
-     const wrapperPipInfo = shallow(<ProductInfoPopup {...propsPip} />);
-     wrapperPipInfo.instance().setState({ defaultIcon: 'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png' });
+    const wrapperPipInfo = shallow(<ProductInfoPopup {...propsPip} />);
+    wrapperPipInfo.instance().setState({ defaultIcon: 'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png' });
 
   });
 });

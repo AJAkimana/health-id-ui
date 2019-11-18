@@ -8,7 +8,7 @@ const APPROVED_PRODUCTS_QUERY = gql`
         name
       }
       productName
-      measurementUnit {
+      dispensingSize {
         name
       }
       outlet {
@@ -23,7 +23,7 @@ const APPROVED_PRODUCTS_QUERY = gql`
       description
       brand
       manufacturer
-      productQuantity
+      quantityInStock
       salesPrice
       tags
     }

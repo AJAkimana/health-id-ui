@@ -29,7 +29,7 @@ export class ViewProducts extends Component {
 
   render() {
     const { history, session } = this.props;
-    const columnHeaders = ['name', 'sku', ' measurement unit', 'quantity'];
+    const columnHeaders = ['name', 'sku', ' dispensing size', 'quantity'];
 
     return (
       <Fragment>
@@ -47,9 +47,9 @@ export class ViewProducts extends Component {
                 return {
                   id: product.id,
                   name: product.productName,
-                  quantity: product.productQuantity,
+                  quantity: product.quantityInStock,
                   sku: product.skuNumber,
-                  measurementunit: product.measurementUnit.name,
+                  dispensingSize: product.dispensingSize.name,
                   description: product.description,
                   image: product.image,
                   tags: product.tags,

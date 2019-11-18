@@ -169,7 +169,7 @@ export const DataTable = ({
                 .map((row) => {
                   const isItemSelected = isSelected(row.id);
                   const {
-                    id, name, sku, measurementunit, quantity
+                    id, name, sku, dispensingSize, quantity
                   } = row;
                   return (
                     <TableRow
@@ -207,7 +207,7 @@ export const DataTable = ({
                         </span>
                       </TableCell>
                       <TableCell align="left">{sku}</TableCell>
-                      <TableCell align="left">{measurementunit}</TableCell>
+                      <TableCell align="left">{dispensingSize}</TableCell>
                       <TableCell align="left">{quantity}</TableCell>
                     </TableRow>
                   );

@@ -13,7 +13,7 @@ import ProductDescriptions from './Inputs/ProductDescriptions';
 const ProductForm = (props) => {
   const {
     state: {
-      tags, categoryId, measurementUnitId, vatStatus, preferredSupplierId, backupSupplierId,
+      tags, categoryId, dispensingSizeId, vatStatus, preferredSupplierId, backupSupplierId,
       productName, productDescription, brand, manufacturer, loyaltyWeight, productImage,
     },
     state,
@@ -25,13 +25,13 @@ const ProductForm = (props) => {
   const {
     approvedSuppliers,
     productCategories,
-    measurementUnit,
+    dispensingSize,
   } = initialData;
 
 
   const disableButton = !productName || !brand || !manufacturer || !productDescription
-  || !manufacturer || !preferredSupplierId || !backupSupplierId || !categoryId
-  || !measurementUnitId;
+    || !manufacturer || !preferredSupplierId || !backupSupplierId || !categoryId
+    || !dispensingSizeId;
 
   return (
     <Paper
@@ -120,7 +120,7 @@ const ProductForm = (props) => {
                   id: 'preferred-supplier',
                 }}
               >
-(
+                (
                 {approvedSuppliers && (
                   approvedSuppliers.map(supplier => (
                     <MenuItem className="preferredSupplier" key={supplier.id} value={supplier.id}>{supplier.name}</MenuItem>
@@ -198,7 +198,7 @@ const ProductForm = (props) => {
               </Select>
             </FormControl>
           </Grid>
-          {/* measurement unit */}
+          {/* dispensing size */}
           <Grid
             item
             xs={4}
@@ -207,18 +207,18 @@ const ProductForm = (props) => {
             <FormControl
               fullWidth
             >
-              <InputLabel htmlFor="measurementUnitId">Measurement Unit</InputLabel>
+              <InputLabel htmlFor="dispensingSizeId">Dispensing Size</InputLabel>
               <Select
-                value={measurementUnitId}
+                value={dispensingSizeId}
                 onChange={handleChange}
                 inputProps={{
-                  name: 'measurementUnitId',
-                  id: 'measurementUnitId',
+                  name: 'dispensingSizeId',
+                  id: 'dispensingSizeId',
                 }}
               >
-                {measurementUnit && (
-                  measurementUnit.map(unit => (
-                    <MenuItem className="measurementUnit" key={unit.id} value={unit.id}>{unit.name}</MenuItem>
+                {dispensingSize && (
+                  dispensingSize.map(unit => (
+                    <MenuItem className="dispensingSize" key={unit.id} value={unit.id}>{unit.name}</MenuItem>
                   ))
                 )}
               </Select>
@@ -304,7 +304,7 @@ ProductForm.propTypes = {
         name: PropTypes.string,
       })
     ),
-    measurementUnit: PropTypes.arrayOf(
+    dispensingSize: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
         name: PropTypes.string,

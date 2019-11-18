@@ -37,7 +37,7 @@ export const columns = [
     }
   },
   {
-    name: 'measurementUnit',
+    name: 'dispensingSize',
     label: 'Dispensing_Size',
     options: {
       filter: true,
@@ -64,7 +64,7 @@ export const columns = [
     }
   },
   {
-    name: 'productQuantity',
+    name: 'quantityInStock',
     label: 'QT_In_Stock',
     options: {
       filter: true,

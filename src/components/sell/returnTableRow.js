@@ -27,7 +27,7 @@ const ReturnTableRow = ({
         {item.productName}
       </Typography>
       <Typography variant="caption" style={tableStyles.tableTypoCaption}>
-        {item.measurementUnit.name}
+        {item.dispensingSize.name}
       </Typography>
     </TableCell>
     <TableCell align="left" style={tableStyles.tableCell}>

@@ -14,7 +14,7 @@ const props = {
     productName: '',
     skuNumber: 1,
     salesPrice: 5,
-    measurementUnit: {
+    dispensingSize: {
       name: '',
     },
     manufacturer: '',
@@ -53,7 +53,7 @@ const props = {
         }
       }
     },
-    productQuantity: 1
+    quantityInStock: 1
   },
   classes: {},
   session: {

@@ -21,7 +21,7 @@ describe('WithInitialData ', () => {
                 name: 'pain killer'
               },
               productName: 'Panadol',
-              measurementUnit: {
+              dispensingSize: {
                 name: 'tablets'
               },
               outlet: {
@@ -37,7 +37,7 @@ describe('WithInitialData ', () => {
               description: 'Nice meds, they mess you real good',
               brand: 'Stans',
               manufacturer: 'Stans',
-              productQuantity: 85,
+              quantityInStock: 85,
               salesPrice: 408.0,
               tags: []
             },
@@ -47,7 +47,7 @@ describe('WithInitialData ', () => {
                 name: 'pain killer'
               },
               productName: 'Chloroform',
-              measurementUnit: {
+              dispensingSize: {
                 name: 'bottles'
               },
               outlet: {
@@ -64,7 +64,7 @@ describe('WithInitialData ', () => {
                 "a colourless, sweet-smelling organic compound with the IUPAC name Trichloromethane and formula CHCl3. Chloroform can daze or knock out people even when it's consumed in small doses.",
               brand: 'Bad people',
               manufacturer: 'Bad guys',
-              productQuantity: 43,
+              quantityInStock: 43,
               salesPrice: 153.0,
               tags: []
             }
@@ -95,11 +95,11 @@ describe('WithInitialData ', () => {
   const Comp = () => <h1>Test</h1>;
 
   it('renders without error =>', () => {
-      const wrapper = shallow(
-        <MockedProvider addTypeName={false}>
-          <Router>{WithInitialData(Comp)({})}</Router>
-        </MockedProvider>
-      );
+    const wrapper = shallow(
+      <MockedProvider addTypeName={false}>
+        <Router>{WithInitialData(Comp)({})}</Router>
+      </MockedProvider>
+    );
 
     expect(wrapper).toHaveLength(1);
     expect(wrapper.find('BrowserRouter').length).toEqual(1);

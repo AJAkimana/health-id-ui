@@ -14,7 +14,7 @@ const props = {
       note: '',
       id: 23,
       discountedTotal: 1000,
-      measurementUnit: {
+      dispensingSize: {
         name: 'tablets'
       }
     },
@@ -26,7 +26,7 @@ const props = {
       note: '',
       id: 34,
       discountedTotal: 1000,
-      measurementUnit: {
+      dispensingSize: {
         name: 'tablets'
       }
     },
@@ -40,7 +40,7 @@ const props = {
       note: '',
       id: 23,
       discountedTotal: 1000,
-      measurementUnit: {
+      dispensingSize: {
         name: 'tablets'
       }
     },
@@ -52,7 +52,7 @@ const props = {
       note: '',
       id: 34,
       discountedTotal: 1000,
-      measurementUnit: {
+      dispensingSize: {
         name: 'tablets'
       }
     },

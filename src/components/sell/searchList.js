@@ -11,7 +11,7 @@ import searchListStyles from '../../assets/css/searchListStyles';
 
 const SearchList = ({ product, currency, handleClickToAddProduct }) => {
   const {
-    image, productName, salesPrice, productQuantity
+    image, productName, salesPrice, quantityInStock
   } = product;
 
   return (
@@ -24,7 +24,7 @@ const SearchList = ({ product, currency, handleClickToAddProduct }) => {
       >
         <ListItemIcon>
           {
-            productQuantity > 0
+            quantityInStock > 0
               ? (
                 <IconButton id={productName}>
                   <Add style={searchListStyles.addIcon} />

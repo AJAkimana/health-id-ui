@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ProductInformation = (props) => {
   const {
-    classes, renderTextField, measurementUnit, loyaltyWeight, preferredSupplier,
+    classes, renderTextField, dispensingSize, loyaltyWeight, preferredSupplier,
     backupSupplier, id, skuNumber, vatStatus, manufacturer, brand
   } = props;
   return (
@@ -56,8 +56,8 @@ const ProductInformation = (props) => {
         </Grid>
         <Grid item xs={4}>
           {renderTextField(
-            classes.descriptionFields, 'measurementUnit', 'Dispensing Size',
-            measurementUnit.name
+            classes.descriptionFields, 'dispensingSize', 'Dispensing Size',
+            dispensingSize.name
           )}
         </Grid>
         <Grid item xs={4}>
@@ -83,7 +83,7 @@ ProductInformation.propTypes = {
     dividerDiv: PropTypes.string,
   }).isRequired,
   renderTextField: PropTypes.func.isRequired,
-  measurementUnit: PropTypes.shape({
+  dispensingSize: PropTypes.shape({
     name: PropTypes.string
   }).isRequired,
   loyaltyWeight: PropTypes.number.isRequired,

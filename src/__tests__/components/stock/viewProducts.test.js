@@ -20,7 +20,7 @@ describe('ViewProducts ', () => {
             {
               'id': '35',
               'productName': 'podophyllin',
-              'measurementUnit': {
+              'dispensingSize': {
                 'name': 'syrup'
               },
               "batchInfo": [
@@ -40,12 +40,12 @@ describe('ViewProducts ', () => {
                 'panadol'
               ],
               'skuNumber': '000035',
-              'productQuantity': null
+              'quantityInStock': null
             },
             {
               'id': '78',
               'productName': 'Ventolin',
-              'measurementUnit': {
+              'dispensingSize': {
                 'name': 'tablets'
               },
               "batchInfo": [
@@ -62,7 +62,7 @@ describe('ViewProducts ', () => {
               'image': 'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png',
               'tags': ['name', 'time'],
               'skuNumber': '000078',
-              'productQuantity': null
+              'quantityInStock': null
             },
           ]
         }

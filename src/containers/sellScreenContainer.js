@@ -46,7 +46,7 @@ export class SellScreenContainer extends Component {
 
   setInitialData = () => {
     const { products, customers } = this.props;
-    const productsWithQuantity = products.filter(product => product.productQuantity > 0);
+    const productsWithQuantity = products.filter(product => product.quantityInStock > 0);
     const currency = products.length > 0
       ? products[0].outlet.outletpreference.outletCurrency.symbol
       : initialState.currency;
@@ -202,7 +202,7 @@ export class SellScreenContainer extends Component {
     let { value } = event.target;
     if (!validateInterger(value)) value = 1;
     else value = Number(value);
-    this.updateProductQuantity(item, value);
+    this.updateQuantityInStock(item, value);
   }
 
   handleQuantityButtons = (item, action) => {
@@ -214,10 +214,10 @@ export class SellScreenContainer extends Component {
     } else if (action === 'remove' && quantity > step) {
       quantity -= step;
     }
-    this.updateProductQuantity(item, quantity);
+    this.updateQuantityInStock(item, quantity);
   }
 
-  updateProductQuantity = (item, quantity) => {
+  updateQuantityInStock = (item, quantity) => {
     const { cartItems } = this.state;
     const newItem = { ...item, quantity };
     const index = cartItems.findIndex(x => x.id === item.id);
@@ -672,12 +672,12 @@ export class SellScreenContainer extends Component {
   };
 
   updateItems = itemsArray => itemsArray.map(({
-    id, productName, quantity, salesPrice, discount, measurementUnit
+    id, productName, quantity, salesPrice, discount, dispensingSize
   }) => {
     const total = this.calculateTotal(quantity, salesPrice);
     const discountedTotal = this.calculateDiscountedTotal(total, discount);
     return {
-      id, productName, quantity, salesPrice, discount, discountedTotal, measurementUnit
+      id, productName, quantity, salesPrice, discount, discountedTotal, dispensingSize
     };
   });
 
@@ -723,7 +723,7 @@ export class SellScreenContainer extends Component {
     const step = 1;
     cartItems.map(({ productName, quantity }) => {
       if (productName === cartItem.productName) {
-        this.updateProductQuantity(cartItem, quantity + step);
+        this.updateQuantityInStock(cartItem, quantity + step);
         return null;
       }
       return cartItem;
@@ -736,8 +736,8 @@ export class SellScreenContainer extends Component {
       productName,
       salesPrice,
       image,
-      measurementUnit,
-      productQuantity
+      dispensingSize,
+      quantityInStock
     } = product;
     let { id } = product;
     const newFields = {
@@ -745,10 +745,10 @@ export class SellScreenContainer extends Component {
     };
     id = Number(id);
     const cartItem = {
-      id, productName, salesPrice, image, measurementUnit, ...newFields
+      id, productName, salesPrice, image, dispensingSize, ...newFields
     };
 
-    if (productQuantity > 0) {
+    if (quantityInStock > 0) {
       if (!this.filterClickedProduct(cartItem)) {
         this.setState({
           ...cartItems.unshift(cartItem)

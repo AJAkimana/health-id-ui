@@ -25,7 +25,7 @@ const productCardStyles = {
     fontSize: '12px',
     textWrap: 'no-wrap',
   },
-  productQuantity: {
+  quantityInStock: {
     textTransform: 'capitalize',
     fontStyle: 'oblique',
     color: 'gray',

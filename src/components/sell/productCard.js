@@ -18,7 +18,7 @@ const ProductCard = (props) => {
   } = props;
   const {
     productCategory: { name },
-    measurementUnit,
+    dispensingSize,
   } = product;
 
   return (
@@ -34,8 +34,8 @@ const ProductCard = (props) => {
 
         <Grid item xs={12}>
           <CardContent style={productCardStyles.content2}>
-            <Typography variant="inherit" style={productCardStyles.productQuantity}>
-              {`${measurementUnit.name}`}
+            <Typography variant="inherit" style={productCardStyles.quantityInStock}>
+              {`${dispensingSize.name}`}
             </Typography>
           </CardContent>
         </Grid>

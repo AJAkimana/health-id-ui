@@ -57,11 +57,11 @@ export const ProductDetailRender = (props) => {
       description,
       manufacturer,
       productCategory,
-      measurementUnit,
+      dispensingSize,
       image,
       brand,
       vatStatus,
-      productQuantity,
+      quantityInStock,
       reorderMax,
       reorderPoint,
       nearestExpiryDate,
@@ -101,7 +101,7 @@ export const ProductDetailRender = (props) => {
     <React.Fragment>
       <ProductHeader classes={classes} previousPage="/products/approved" productName={productName}>
         <Button variant="contained" color="primary" className={classes.editButton}>
-            Edit
+          Edit
         </Button>
       </ProductHeader>
 
@@ -120,7 +120,7 @@ export const ProductDetailRender = (props) => {
         <ProductInformation
           classes={classes}
           renderTextField={RenderTextField}
-          measurementUnit={measurementUnit}
+          dispensingSize={dispensingSize}
           loyaltyWeight={loyaltyWeight}
           preferredSupplier={preferredSupplier}
           backupSupplier={backupSupplier}
@@ -138,7 +138,7 @@ export const ProductDetailRender = (props) => {
           reorderMax={reorderMax}
           reorderPoint={reorderPoint}
           nearestExpiryDate={nearestExpiryDate}
-          productQuantity={productQuantity}
+          quantityInStock={quantityInStock}
         />
 
         <BatchInformation

@@ -9,7 +9,7 @@ const PRODUCT_DETAIL_QUERY = gql`
         id
         name
       }
-      measurementUnit {
+      dispensingSize {
         id
         name
       }
@@ -54,7 +54,7 @@ const PRODUCT_DETAIL_QUERY = gql`
           }
         }
       }
-      productQuantity
+      quantityInStock
       image
     }
   }

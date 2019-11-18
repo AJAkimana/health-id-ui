@@ -17,18 +17,18 @@ describe('Supplier Page DataTable ', () => {
     classes: {},
     columns: [],
     title: 'rfrfr',
-    onRowClick: () => {},
+    onRowClick: () => { },
     isAdmin: false,
     status: 'approved',
-    handleViewProposed: () => {},
-    totalCount: () => {},
-    handleChangePage: () => {},
+    handleViewProposed: () => { },
+    totalCount: () => { },
+    handleChangePage: () => { },
     pageNumber: 3,
     rowsCount: 10,
-    handleSearch: () => {},
+    handleSearch: () => { },
     loading: false,
     client: {
-      query: () => {}
+      query: () => { }
     },
   }
   const props2 = {
@@ -36,18 +36,18 @@ describe('Supplier Page DataTable ', () => {
     classes: {},
     columns: [],
     title: 'rfrfr',
-    onRowClick: () => {},
+    onRowClick: () => { },
     isAdmin: false,
     status: 'approved',
-    handleViewProposed: () => {},
-    totalCount: () => {},
-    handleChangePage: () => {},
+    handleViewProposed: () => { },
+    totalCount: () => { },
+    handleChangePage: () => { },
     pageNumber: 3,
     rowsCount: 10,
-    handleSearch: () => {},
+    handleSearch: () => { },
     loading: true,
     client: {
-      query: () => {}
+      query: () => { }
     },
   }
   const props3 = {
@@ -60,7 +60,7 @@ describe('Supplier Page DataTable ', () => {
         "brand": "Stans",
         "manufacturer": "Stans",
         "vatStatus": false,
-        "productQuantity": 85,
+        "quantityInStock": 85,
         "salesPrice": 408.0,
         "nearestExpiryDate": "2019-08-13",
         "loyaltyWeight": 5,
@@ -69,7 +69,7 @@ describe('Supplier Page DataTable ', () => {
           "id": "15",
           "name": "pain killer"
         },
-        "measurementUnit": {
+        "dispensingSize": {
           "id": "1",
           "name": "tablets"
         },
@@ -86,33 +86,33 @@ describe('Supplier Page DataTable ', () => {
     classes: {},
     columns: [],
     title: 'rfrfr',
-    onRowClick: () => {},
+    onRowClick: () => { },
     isAdmin: false,
     status: 'approved',
-    handleViewProposed: () => {},
-    totalCount: () => {},
-    handleChangePage: () => {},
+    handleViewProposed: () => { },
+    totalCount: () => { },
+    handleChangePage: () => { },
     pageNumber: 3,
     rowsCount: 10,
-    handleSearch: () => {},
+    handleSearch: () => { },
     loading: true,
     client: {
-      query: () => {}
+      query: () => { }
     },
   }
 
   it('renders without crashing', () => {
     const wrapper = shallow(<DataTable {...props} />);
     const wrapper2 = shallow(<DataTable {...props2} />);
-    const wrapper3= shallow(<DataTable {...props3} />);
+    const wrapper3 = shallow(<DataTable {...props3} />);
     wrapper3.instance().setState({ isSearching: true, selected: ['xnl', 'hop'] });
     wrapper3.instance().isSelected('xnl');
     wrapper3.instance().handleRowSeleted(null, 'xnl');
     wrapper3.instance().setState({ isSearching: true, selected: { indexOf: () => -1 } });
     wrapper3.instance().handleRowSeleted(null, 'xnl');
-    wrapper3.instance().setState({ isSearching: true, selected: { indexOf: () => 1, length: 1, slice: () => {} } });
+    wrapper3.instance().setState({ isSearching: true, selected: { indexOf: () => 1, length: 1, slice: () => { } } });
     wrapper3.instance().handleRowSeleted(null, 'xnl');
-    wrapper3.instance().setState({ isSearching: true, selected: { indexOf: () => 1, length: 2, slice: () => {} } });
+    wrapper3.instance().setState({ isSearching: true, selected: { indexOf: () => 1, length: 2, slice: () => { } } });
     wrapper3.instance().handleRowSeleted(null, 'xnl');
     wrapper2.instance().handleOnRowHover({ pageX: 345, pageY: 343 }, props3.data);
     wrapper2.instance().handleOnRowHover({ pageX: 900, pageY: 843 }, props3.data);

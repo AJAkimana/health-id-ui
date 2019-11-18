@@ -14,7 +14,7 @@ describe('Render Product Form component', () => {
       preferredSupplierId: '',
       backupSupplierId: '',
       categoryId: '',
-      measurementUnitId: '',
+      dispensingSizeId: '',
       loyaltyWeight: '',
       vatStatus: '',
       tags: [],
@@ -44,7 +44,7 @@ describe('Render Product Form component', () => {
           markup: 10
         },
       ],
-      measurementUnit: [
+      dispensingSize: [
         {
           id: '2',
           name: 'syrup'

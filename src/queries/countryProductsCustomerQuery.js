@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-// *productQuantity*
+
 const GET_COUNTRIES_PRODUCTS_CUSTOMERS = gql`
 query {
   approvedProducts(pageCount:8, pageNumber: 1 ) {
@@ -8,7 +8,7 @@ query {
       name
     }
     productName
-    measurementUnit {
+    dispensingSize {
       name
     }
     outlet {
@@ -23,7 +23,7 @@ query {
     description
     brand
     manufacturer
-    
+    quantityInStock
 
 
 

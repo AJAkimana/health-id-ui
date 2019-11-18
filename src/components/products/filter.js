@@ -3,9 +3,9 @@ import { stableSort, getSorting } from '../stock_control/utils/utils';
 export const getFilteredProducts = (products) => {
   const productsList = products.map((product) => {
     const {
-      productName, image, productCategory, measurementUnit, skuNumber,
+      productName, image, productCategory, dispensingSize, skuNumber,
       description, brand, manufacturer, vatStatus, salesPrice, nearestExpiryDate,
-      preferredSupplier, backupSupplier, id, productQuantity, loyaltyWeight, reorderPoint,
+      preferredSupplier, backupSupplier, id, quantityInStock, loyaltyWeight, reorderPoint,
       reorderMax, tags
     } = product;
 
@@ -15,7 +15,7 @@ export const getFilteredProducts = (products) => {
         productName,
         image,
         category: productCategory.name,
-        measurementUnit: measurementUnit.name,
+        dispensingSize: dispensingSize.name,
         skuNumber,
         description,
         brand,
@@ -25,7 +25,7 @@ export const getFilteredProducts = (products) => {
         nearestExpiryDate,
         preferredSupplier: preferredSupplier.name,
         backupSupplier: backupSupplier.name,
-        productQuantity,
+        quantityInStock,
         reorderPoint,
         reorderMax,
         loyaltyWeight,

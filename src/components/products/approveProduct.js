@@ -64,7 +64,7 @@ export class ApproveProduct extends Component {
       description,
       manufacturer,
       productCategory,
-      measurementUnit,
+      dispensingSize,
       image,
       brand,
       vatStatus,
@@ -101,7 +101,7 @@ export class ApproveProduct extends Component {
           <ProductInformation
             classes={classes}
             renderTextField={RenderTextField}
-            measurementUnit={measurementUnit}
+            dispensingSize={dispensingSize}
             loyaltyWeight={loyaltyWeight}
             preferredSupplier={preferredSupplier}
             backupSupplier={backupSupplier}

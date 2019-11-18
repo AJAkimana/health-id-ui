@@ -4,7 +4,7 @@ const CREATE_PRODUCT = gql`
  mutation createProduct(
   $productCategoryId: Int!,
   $productName: String!,
-  $measurementUnitId: Int!,
+  $dispensingSizeId: Int!,
   $description: String!,
   $brand: String!,
   $manufacturer: String!,
@@ -18,7 +18,7 @@ const CREATE_PRODUCT = gql`
     createProduct(
       productCategoryId: $productCategoryId,
       productName: $productName,
-      measurementUnitId: $measurementUnitId,
+      dispensingSizeId: $dispensingSizeId,
       description: $description,
       brand: $brand,
       manufacturer: $manufacturer,

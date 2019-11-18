@@ -6,17 +6,17 @@ const props = {
   classes: {},
   product: {
     productName: 'Amoxycilin',
-    productQuantity: 3,
+    quantityInStock: 3,
     productCategory: 'Anti-biotics',
     productPrice: 1000,
-    measurementUnit: { name: '' }
+    dispensingSize: { name: '' }
   },
   currency: '₦',
   handleClickToAddProduct: jest.fn(),
 };
 describe('test ProductCard component', () => {
   let wrapper;
-  
+
   it('it renders ProductCard component', () => {
     wrapper = mount((
       <ProductCard {...props} />

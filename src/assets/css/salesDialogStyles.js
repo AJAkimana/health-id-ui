@@ -188,7 +188,7 @@ const salesDialogStyles = {
     padding: 0,
     paddingLeft: '30px'
   },
-  productMeasurementUnit: {
+  productdispensingSize: {
     color: 'gray',
     textTransform: 'capitalize'
   },

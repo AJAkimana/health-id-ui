@@ -114,7 +114,7 @@ describe('SellScreenContainer', () => {
                       name: "pain killer"
                     },
                     productName: "Panadol",
-                    measurementUnit: {
+                    dispensingSize: {
                       name: "tablets"
                     },
                     outlet: {
@@ -129,7 +129,7 @@ describe('SellScreenContainer', () => {
                     description: "Nice meds, they mess you real good",
                     brand: "Stans",
                     manufacturer: "Stans",
-                    productQuantity: 85,
+                    quantityInStock: 85,
                     salesPrice: 408.0,
                     tags: []
                   }
@@ -154,7 +154,7 @@ describe('SellScreenContainer', () => {
                         name: "pain killer"
                       },
                       productName: "Panadol",
-                      measurementUnit: {
+                      dispensingSize: {
                         name: "tablets"
                       },
                       outlet: {
@@ -169,7 +169,7 @@ describe('SellScreenContainer', () => {
                       description: "Nice meds, they mess you real good",
                       brand: "Stans",
                       manufacturer: "Stans",
-                      productQuantity: 85,
+                      quantityInStock: 85,
                       salesPrice: 408.0,
                       tags: []
                     }
@@ -649,7 +649,7 @@ describe('SellScreenContainer', () => {
     expect(spy).toHaveBeenCalled();
   });
   it('filter Clicked Product with same product', () => {
-    const spy = jest.spyOn(wrapper.instance(), 'updateProductQuantity');
+    const spy = jest.spyOn(wrapper.instance(), 'updateQuantityInStock');
     const cartItem = {
       productName: 'Panadol',
       quantity: 10
@@ -681,7 +681,7 @@ describe('SellScreenContainer', () => {
       productName: 'Panadol',
       salesPrice: 10,
       image: '',
-      measurementUnit: 'packets'
+      dispensingSize: 'packets'
     };
     const cartItem = {
       productName: 'Panadol',

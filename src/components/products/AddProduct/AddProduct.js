@@ -19,7 +19,7 @@ export class AddProduct extends Component {
   state = {
     suppliers: [],
     categories: [],
-    measurementUnits: [],
+    dispensingSizes: [],
     isApproved: false,
     products: [],
     productName: '',
@@ -30,7 +30,7 @@ export class AddProduct extends Component {
     preferredSupplierId: '',
     backupSupplierId: '',
     categoryId: '',
-    measurementUnitId: '',
+    dispensingSizeId: '',
     loyaltyWeight: '',
     vatStatus: false,
     tags: [],
@@ -106,7 +106,7 @@ export class AddProduct extends Component {
       preferredSupplierId,
       backupSupplierId,
       categoryId,
-      measurementUnitId,
+      dispensingSizeId,
       loyaltyWeight,
       vatStatus
     } = this.state;
@@ -119,7 +119,7 @@ export class AddProduct extends Component {
       variables: {
         productCategoryId: categoryId,
         productName,
-        measurementUnitId,
+        dispensingSizeId,
         description: productDescription,
         brand,
         manufacturer,
@@ -159,7 +159,7 @@ export class AddProduct extends Component {
         preferredSupplierId: '',
         backupSupplierId: '',
         categoryId: '',
-        measurementUnitId: '',
+        dispensingSizeId: '',
         loyaltyWeight: '',
         vatStatus: '',
         tags: [],

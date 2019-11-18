@@ -78,7 +78,7 @@ describe('Render Add Product component', () => {
               markup: 10
             }
           ],
-          measurementUnit: [
+          dispensingSize: [
             {
               id: '2',
               name: 'syrup'

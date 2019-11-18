@@ -26,7 +26,7 @@ const mocks = [
             id: '1',
             name: 'prescription'
           },
-          measurementUnit: {
+          dispensingSize: {
             id: '1',
             name: 'tablets'
           },
@@ -173,7 +173,7 @@ const mocks = [
               }
             }
           ],
-          productQuantity: 88527,
+          quantityInStock: 88527,
           image:
             'https://res.cloudinary.com/dojaopytm/image/upload/v1558444184/productPlaceholder.png'
         }
@@ -272,7 +272,7 @@ describe('Test approve Product detail renderer', () => {
       productName: '',
       skuNumber: 1,
       salesPrice: 5,
-      measurementUnit: {
+      dispensingSize: {
         name: ''
       },
       manufacturer: '',
@@ -313,7 +313,7 @@ describe('Test approve Product detail renderer', () => {
           }
         }
       ],
-      productQuantity: 1
+      quantityInStock: 1
     },
     classes: {
       arrowButtonGrid: 'arrowButtonGrid',

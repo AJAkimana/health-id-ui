@@ -109,7 +109,7 @@ describe('Render ImportProduct Component', () => {
       status: 200,
       res: {
         data: [
-          'Product Category,Product Name,Measurement Unit,Description,Brand,Manufacturer,Vat Status,Preferred Supplier,Backup Supplier,Tags'
+          'Product Category,Product Name,Dispensing Size,Description,Brand,Manufacturer,Vat Status,Preferred Supplier,Backup Supplier,Tags'
         ]
       }
     });

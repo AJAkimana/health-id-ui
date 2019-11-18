@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-// productQuantity
+
 export const GET_APPROVED_PRODUCTS = gql`
   query($pageNumber: Int, $pageCount: Int) {
     approvedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
@@ -21,8 +21,8 @@ export const GET_APPROVED_PRODUCTS = gql`
         id
         name
       }
-
-      measurementUnit {
+      quantityInStock
+      dispensingSize {
         id
         name
       }
@@ -62,7 +62,7 @@ export const GET_PROPOSED_PRODUCTS = gql`
         name
       }
 
-      measurementUnit {
+      dispensingSize {
         id
         name
       }
@@ -102,7 +102,7 @@ export const GET_ALL_PRODUCTS = gql`
         name
       }
 
-      measurementUnit {
+      dispensingSize {
         id
         name
       }
@@ -152,7 +152,7 @@ export const GET_PRODUCT_BY_ID = gql`
       brand
       manufacturer
       vatStatus
-      productQuantity
+      quantityInStock
       salesPrice
       image
       isApproved
@@ -165,7 +165,7 @@ export const GET_PRODUCT_BY_ID = gql`
         name
       }
 
-      measurementUnit {
+      dispensingSize {
         id
         name
       }
@@ -182,7 +182,7 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `;
-// productQuantity
+
 export const SEARCH_PRODUCTS = gql`
   query($searchValue: String) {
     products(search: $searchValue) {
@@ -193,18 +193,18 @@ export const SEARCH_PRODUCTS = gql`
       brand
       manufacturer
       vatStatus
-      
+      quantityInStock
       salesPrice
       nearestExpiryDate
       loyaltyWeight
       tags
-
+      quantityInStock
       productCategory {
         id
         name
       }
 
-      measurementUnit {
+      dispensingSize {
         id
         name
       }
