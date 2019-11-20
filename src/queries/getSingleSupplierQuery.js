@@ -21,6 +21,7 @@ query($id: String){
     }
     commentary
     paymentTerms{
+      id
       name
     }
     creditDays

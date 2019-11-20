@@ -71,11 +71,6 @@ const App = ({ session }) => {
         />
         <Route
           exact
-          path="/suppliers/suppliers/:id/details"
-          render={() => <SingleSupplierPage session={session} />}
-        />
-        <Route
-          exact
           path="/suppliers/:id/details"
           render={() => <SingleSupplierPage session={session} />}
         />

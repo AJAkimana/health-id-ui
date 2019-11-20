@@ -176,8 +176,7 @@ export class SuppliersPage extends Component {
                           data={suppliers}
                           totalCount={suppliers.length}
                           onRowClick={(rowId) => {
-                            history.replace(`suppliers/${rowId}/details`);
-                            // window.location.reload();
+                            history.replace(`/suppliers/${rowId}/details`);
                           }}
                           loading={loading}
                           isFiltering={isFiltering}
