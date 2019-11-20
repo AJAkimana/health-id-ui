@@ -44,6 +44,7 @@ export class AddSupplier extends Component {
     cityValue: '',
     cityId: '',
     tierId: '',
+    countryId: '',
     logo: '',
     paymentTermsId: '1',
     creditDays: 0,
@@ -113,9 +114,17 @@ export class AddSupplier extends Component {
     });
   }
 
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
 
   handleCountryChange = (event) => {
-    const { label, value, citySet } = event;
+    const {
+      label, value, citySet, id
+    } = event;
     this.setState({
       colorHasChanged: true,
       countryValue: { label, value },
@@ -124,7 +133,8 @@ export class AddSupplier extends Component {
         label: citySet[0].name,
         value: citySet[0].name
       },
-      cityId: citySet[0].id
+      cityId: citySet[0].id,
+      countryId: id
     });
   };
 
@@ -189,6 +199,7 @@ export class AddSupplier extends Component {
       paymentTermsId,
       commentary,
       tierId,
+      countryId,
       creditDays,
       logo
     } = this.state;
@@ -207,6 +218,7 @@ export class AddSupplier extends Component {
         commentary,
         citId,
         tierId,
+        countryId: parseInt(countryId, 10),
         creditDays,
         logo: logo || 'none'
       }
@@ -249,6 +261,7 @@ export class AddSupplier extends Component {
         countryValue: '',
         cities: '',
         tierId: '',
+        countryId: '',
         logo: '',
         paymentTermsId: '1',
         creditDays: '',

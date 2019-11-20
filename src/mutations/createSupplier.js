@@ -10,6 +10,7 @@ const CREATE_SUPPLIER = gql`
     $lga: String
     $citId: Int!
     $tierId: Int!
+    $countryId: Int!
     $creditDays: Int
     $logo: String
     $paymentsTermsId: Int!
@@ -25,6 +26,7 @@ const CREATE_SUPPLIER = gql`
         lga: $lga
         cityId: $citId
         tierId: $tierId
+        countryId: $countryId
         creditDays: $creditDays
         logo: $logo
         paymentTermsId: $paymentsTermsId

@@ -53,6 +53,7 @@ const SupplierForm = (props) => {
       cityValue,
       cityId,
       tierId,
+      countryId,
       creditDays,
       logo,
       isDisabled,
@@ -97,6 +98,7 @@ const SupplierForm = (props) => {
     || mobileNumberError
     || !cityId
     || !tierId
+    || !countryId
     || (!isDisabled && !creditDays);
 
   const days = [];
