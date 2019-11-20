@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-
 export const GET_APPROVED_PRODUCTS = gql`
   query($pageNumber: Int, $pageCount: Int) {
     approvedProducts(pageNumber: $pageNumber, pageCount: $pageCount) {
@@ -12,11 +11,18 @@ export const GET_APPROVED_PRODUCTS = gql`
       manufacturer
       vatStatus
       salesPrice
+      markup
+      autoPrice
       nearestExpiryDate
       loyaltyWeight
       tags
       reorderPoint
       reorderMax
+      batchInfo {
+        id
+        unitCost
+        dateReceived
+      }
       productCategory {
         id
         name
@@ -52,11 +58,18 @@ export const GET_PROPOSED_PRODUCTS = gql`
       manufacturer
       vatStatus
       salesPrice
+      markup
+      autoPrice
       nearestExpiryDate
       loyaltyWeight
       tags
       reorderPoint
       reorderMax
+      batchInfo {
+        id
+        unitCost
+        dateReceived
+      }
       productCategory {
         id
         name
@@ -92,11 +105,18 @@ export const GET_ALL_PRODUCTS = gql`
       manufacturer
       vatStatus
       salesPrice
+      markup
+      autoPrice
       nearestExpiryDate
       loyaltyWeight
       tags
       reorderPoint
       reorderMax
+      batchInfo {
+        id
+        unitCost
+        dateReceived
+      }
       productCategory {
         id
         name
@@ -182,7 +202,6 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 `;
-
 export const SEARCH_PRODUCTS = gql`
   query($searchValue: String) {
     products(search: $searchValue) {
@@ -194,11 +213,19 @@ export const SEARCH_PRODUCTS = gql`
       manufacturer
       vatStatus
       quantityInStock
+      markup
+      autoPrice
       salesPrice
       nearestExpiryDate
       loyaltyWeight
       tags
       quantityInStock
+      batchInfo {
+        id
+        unitCost
+        dateReceived
+      }
+
       productCategory {
         id
         name

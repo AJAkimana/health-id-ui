@@ -8,6 +8,7 @@ import Dashboard from './shared/Dashboard/Dashboard';
 import ComingSoon from './shared/ComingSoon';
 import ViewProducts from './stock_control/viewProducts';
 import ProductPage from './products/ProductPage';
+import ProductPricingPage from './products/ProductPricingPage';
 import UserProfile from './profile/Profile';
 import ApproveProductDetail from '../container/products/approveProduct';
 import ProductDetail from '../containers/productDetail';
@@ -79,6 +80,7 @@ const App = ({ session }) => {
         <Route exact path="/sell/history" render={() => <SalesHistory session={session} />} />
         <Route exact path="/product/add" render={() => <AddProduct session={session} />} />
         <Route exact path="/product/import" render={() => <ImportProduct session={session} />} />
+        <Route exact path="/product/pricing" render={() => <ProductPricingPage session={session} />} />
         <Route exact path="/orders/:status" render={() => <OrdersAndSuppliers session={session} />} />
         <Route exact path="/orders" render={() => <OrdersAndSuppliers session={session} />} />
         <Route exact path="/productmenucomingsoon" render={() => <ProductMenuComingSoon session={session} />} />

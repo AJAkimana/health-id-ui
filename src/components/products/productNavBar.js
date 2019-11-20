@@ -9,10 +9,8 @@ class ProductNavBar extends Component {
       activeGrid,
       menu: [
         { grid: 'grid1', label: 'Products', url: '/products' },
-
-        // Below url needs to be replaced by their proper routes
         { grid: 'grid2', label: 'Promotion & Sales Prompt', url: '/productmenucomingsoon' },
-        { grid: 'grid3', label: 'Pricing & Loyalty', url: '/productmenucomingsoon' },
+        { grid: 'grid3', label: 'Pricing & Loyalty', url: '/product/pricing' },
         { grid: 'grid4', label: 'Stock Control', url: '/productmenucomingsoon' },
         { grid: 'grid5', label: 'Consultations', url: '/productmenucomingsoon' }
       ]

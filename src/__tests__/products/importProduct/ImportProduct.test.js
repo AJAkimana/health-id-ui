@@ -54,13 +54,13 @@ describe('Render ImportProduct Component', () => {
 
   it('wrapper.instance().handleDownloadTemplate()', () => {
     const csvUrl = `${process.env.APP_LINK}`;
-    moxios.stubRequest(`${csvUrl}sample_product_csv`, resolvedRequest);
+    moxios.stubRequest(`${csvUrl}sample_csv_file/products`, resolvedRequest);
     wrapper.instance().handleDownloadTemplate();
   });
 
   it('wrapper.instance().handleDownloadTemplate()', () => {
     const csvUrl = `${process.env.APP_LINK}`;
-    moxios.stubRequest(`${csvUrl}sample_product_csv`, rejectedRequest);
+    moxios.stubRequest(`${csvUrl}sample_csv_file/products`, rejectedRequest);
     wrapper.instance().handleDownloadTemplate();
   });
 
@@ -103,7 +103,7 @@ describe('Render ImportProduct Component', () => {
   });
 
   it('calls handleDownloadTemplate', () => {
-    const url = 'https://healthid-web-api.herokuapp.com/healthid/sample_product_csv';
+    const url = 'https://healthid-web-api.herokuapp.com/healthid/sample_csv_file/products';
     wrapper.instance().handleDownloadTemplate();
     moxios.stubRequest(url, {
       status: 200,
