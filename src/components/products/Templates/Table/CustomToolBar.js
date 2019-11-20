@@ -386,10 +386,17 @@ export class CustomToolBar extends Component {
             open={addProductOpen}
           >
             <MenuList style={{ marginTop: '10px' }}>
-              <MenuItem onClick={this.handleCloseAddProduct}>Add product</MenuItem>
               <MenuItem onClick={this.handleCloseAddProduct}>
                 <Link
-                  to="/products/new/import"
+                  to="/product/add"
+                  style={supplyStyles.menuLink}
+                >
+                Add product
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={this.handleCloseAddProduct}>
+                <Link
+                  to="/product/import"
                   style={supplyStyles.menuLink}
                 >
                 Import product csv.

@@ -63,13 +63,13 @@ const FieldsTable = () => (
           <td className="required-field">
             <div className="required-field-name">Preferred Supplier*</div>
             <li>Enter your preferred supplier</li>
-            <li>from already existing suppliers</li>
+            <li>email from existing suppliers</li>
             <span>required</span>
           </td>
           <td className="required-field">
             <div className="required-field-name">Backup Supplier*</div>
             <li>Enter your backup supplier</li>
-            <li>from already existing suppliers</li>
+            <li>email from existing suppliers</li>
             <span>required</span>
           </td>
 
