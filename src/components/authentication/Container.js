@@ -51,7 +51,8 @@ export class AuthContainer extends Component {
   componentDidMount() {
     const [, dispatch] = Object.values(this.context);
     dispatch({
-      type: 'hideNavbar'
+      type: 'hideNavbar',
+      payload: true
     });
   }
 

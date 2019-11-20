@@ -38,19 +38,19 @@ const SalesOnHoldDialog = ({
       id="alert-dialog-slide-title"
       style={addCustomerDialog.dialogTitle}
     >
-      Sales on Hold
-    </DialogTitle>
+        Sales on Hold
+      </DialogTitle>
     <DialogContent style={addCustomerDialog.dialogContent}>
       {salesOnHold.length ? (
         <Grid container>
           <Grid item xs={12} style={addCustomerDialog.dialogContentGrid}>
             <List style={addCustomerDialog.list}>
-              {salesOnHold.map(({ mainCartNote, cartItems }) => (
-                <React.Fragment key={mainCartNote}>
+              {salesOnHold.map(({ holdSaleNote, cartItems }) => (
+                <React.Fragment key={holdSaleNote}>
                   <ListItem
                     alignItems="flex-start"
                     button
-                    onClick={() => handleReturnSaleToCart(mainCartNote, cartItems)}
+                    onClick={() => handleReturnSaleToCart(cartItems)}
                   >
                     <ListItemAvatar>
                       <Avatar
@@ -73,7 +73,7 @@ const SalesOnHoldDialog = ({
                                 {`${quantity} x ${productName}`}
                               </Typography>
                             ))}
-                            {cartItems.length > 3 && '...' }
+                            {cartItems.length > 3 && '...'}
                           </Grid>
                         </React.Fragment>
                       )}
@@ -85,10 +85,10 @@ const SalesOnHoldDialog = ({
                             color="textPrimary"
                             inline
                           >
-                            Note:
-                            {' '}
+                              Note:
+                              {' '}
                           </Typography>
-                          {mainCartNote}
+                          {holdSaleNote}
                         </React.Fragment>
                       )}
                     />
@@ -113,8 +113,8 @@ const SalesOnHoldDialog = ({
               <CautionIcon style={addCustomerDialog.cautionIcon} />
             </IconButton>
             <Typography color="textSecondary">
-              Nothing on Hold
-            </Typography>
+                  Nothing on Hold
+                </Typography>
           </CardContent>
         </Card>
       )}

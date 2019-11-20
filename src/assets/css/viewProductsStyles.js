@@ -13,6 +13,7 @@ const viewProductsStyles = {
   iconNavWrapper: {
     display: 'flex',
     alignItems: 'center',
+    padding: '.5rem 0'
   },
   inputRoot: {
     width: '100%',
@@ -22,7 +23,7 @@ const viewProductsStyles = {
   },
   paper: {
     width: '100%',
-    height: '515px',
+    height: '535px',
     overflow: 'scroll',
   },
   filteredProducts: {

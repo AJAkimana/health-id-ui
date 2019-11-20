@@ -141,7 +141,8 @@ export class StepperNav extends React.Component {
   componentDidMount() {
     const [, dispatch] = Object.values(this.context);
     dispatch({
-      type: 'hideNavbar'
+      type: 'hideNavbar',
+      payload: true
     });
   }
 
@@ -1390,7 +1391,7 @@ export class StepperNav extends React.Component {
                         id="back-button"
                       >
                             Back
-                          </Button>
+                      </Button>
                     )}
                     {!showUsers && activeStep === 3 && (
                       <Button
@@ -1400,7 +1401,7 @@ export class StepperNav extends React.Component {
                         id="back-button"
                       >
                           Cancel
-                        </Button>
+                      </Button>
                     )}
 
                     {isLoading
@@ -1443,7 +1444,7 @@ export class StepperNav extends React.Component {
                                   id="next-button"
                                 >
                                         Save Changes
-                                      </Fab>
+                                </Fab>
                               ) : (
                                 <Fab
                                   variant="extended"
@@ -1454,7 +1455,7 @@ export class StepperNav extends React.Component {
                                   id="next-button"
                                 >
                                           Invite
-                                        </Fab>
+                                </Fab>
                               )
                             )
                           )

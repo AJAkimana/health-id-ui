@@ -240,16 +240,15 @@ describe('SellScreenContainer', () => {
   });
   it('handle Return Sale To Cart', () => {
     const cartItems = [{ id: 1, productName: 'Panadol' }];
-    const mainCartNote = 'lovely';
-    wrapper.instance().handleReturnSaleToCart(mainCartNote, cartItems);
+    wrapper.instance().handleReturnSaleToCart(cartItems);
     expect(wrapper.state('cartItems')).toStrictEqual([{
       id: 1, productName: 'Panadol'
     }]);
   });
-  it('handle Hold  NoteInPut Change', () => {
-    const event = { target: { value: 'cool' } };
+  it('handleHoldNoteInPutChange', () => {
+    const event = { target: { value: 'cool', name: 'holdSaleNote' } };
     wrapper.instance().handleHoldNoteInPutChange(event);
-    expect(wrapper.state('mainCartNote')).toEqual('cool');
+    expect(wrapper.state('holdSaleNote')).toEqual('cool');
   });
   it('render Quantity', () => {
     const item = { id: 1, productName: 'Panadol' };

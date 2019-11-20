@@ -156,9 +156,9 @@ export class SellScreenContainer extends Component {
   };
 
   handleAddHeldSaleButton = () => {
-    const { cartItems, mainCartNote, salesOnHold } = this.state;
+    const { cartItems, holdSaleNote, salesOnHold } = this.state;
     const heldSale = {
-      mainCartNote,
+      holdSaleNote,
       cartItems
     };
     this.setState({
@@ -168,11 +168,10 @@ export class SellScreenContainer extends Component {
     this.handleCartNoteDialogClose();
   };
 
-  handleReturnSaleToCart = (mainCartNote, cartItems) => {
+  handleReturnSaleToCart = (cartItems) => {
     this.setState({
       cartItems,
       salesOnHold: [],
-      mainCartNote
     });
     this.handleCartNoteDialogClose();
   };
@@ -181,13 +180,13 @@ export class SellScreenContainer extends Component {
     this.setState({
       openHoldSaleDialog: false,
       openSalesOnHoldDialog: false,
-      mainCartNote: '',
+      holdSaleNote: '',
     });
   };
 
   handleHoldNoteInPutChange = (event) => {
-    const { value } = event.target;
-    this.setState({ mainCartNote: value });
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
   }
 
   renderQuantity = item => (

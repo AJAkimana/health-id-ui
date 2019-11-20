@@ -6,6 +6,7 @@ const initialState = {
   discount: 0,
   firstName: '',
   mainCartNote: '',
+  holdSaleNote: '',
   salesOnHold: [],
   cities: [],
   countries: [],

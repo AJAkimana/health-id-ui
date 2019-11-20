@@ -309,6 +309,7 @@ export const SellScreen = ({
                     </Grid>
                   </Grid>
                   <InputBase
+                    name="mainCartNote"
                     placeholder="Leave a note about sale..."
                     style={addedItems.inputRoot}
                     value={mainCartNote}

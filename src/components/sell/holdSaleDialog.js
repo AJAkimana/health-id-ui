@@ -15,7 +15,7 @@ const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={r
 const HoldSaleDialog = ({
   state: {
     openHoldSaleDialog,
-    mainCartNote,
+    holdSaleNote,
     isLoading,
   },
   handleCartNoteDialogClose,
@@ -55,14 +55,14 @@ const HoldSaleDialog = ({
         <Grid item xs={12} style={addCustomerDialog.dialogContentGrid}>
           <TextField
             id="holdnote"
-            name="holdNote"
+            name="holdSaleNote"
             margin="normal"
             variant="outlined"
             autoFocus
             multiline
             rows="2"
             fullWidth
-            value={mainCartNote}
+            value={holdSaleNote}
             onChange={handleHoldNoteInPutChange}
           />
         </Grid>
@@ -75,7 +75,7 @@ const HoldSaleDialog = ({
         align="right"
         style={addCustomerDialog.holdSaleGridRight}
       >
-        { isLoading ? (<Loader />)
+        {isLoading ? (<Loader />)
           : [
             <Button
               key="cancel-button"

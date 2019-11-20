@@ -94,14 +94,8 @@ describe('Profile container component', () => {
     expect(wrapper.state('showPassword2')).toBeFalsy();
   });
 
-  it('calls handleSkipButton method, sets state and renders the final screen component', () => {
-    jest.spyOn(wrapper.instance(), 'handleSkipButton');
-    wrapper.instance().handleSkipButton();
-    expect(wrapper.state('finalScreen')).toBeTruthy();
-  });
-
   it('calls handleArrowButtonClick method, sets state and renders the UserProfilecomplete component', () => {
-    wrapper.setState({outlets: []})
+    wrapper.setState({ outlets: [] })
     jest.spyOn(wrapper.instance(), 'handleArrowButtonClick');
     wrapper.instance().handleArrowButtonClick();
     expect(wrapper.state('isDone')).toBeTruthy();
