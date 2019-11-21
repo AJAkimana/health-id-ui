@@ -101,6 +101,7 @@ export class DataTable extends Component {
       isAdmin,
       status,
       handleViewProposed,
+      currentPath,
       handleChangeRowsPerPage,
       totalCount,
       handleChangePage,
@@ -137,6 +138,7 @@ export class DataTable extends Component {
             handleClickSearch={this.handleClickSearch}
             status={status}
             handleViewProposed={handleViewProposed}
+            currentPath={currentPath}
             session={session}
             componentRef={componentRef}
           />
@@ -200,7 +202,8 @@ DataTable.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   client: PropTypes.instanceOf(Object).isRequired,
-  session: PropTypes.objectOf(PropTypes.object).isRequired
+  session: PropTypes.objectOf(PropTypes.object).isRequired,
+  currentPath: PropTypes.string.isRequired
 };
 
 export default withStyles(TableStyles)(DataTable);

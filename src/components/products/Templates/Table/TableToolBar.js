@@ -43,6 +43,8 @@ export class TableToolBar extends Component {
       handleViewProposed,
       status,
       client,
+      currentPath
+
     } = this.props;
 
     return (
@@ -84,6 +86,7 @@ export class TableToolBar extends Component {
               handleHideSearch={handleHideSearch}
               handleSearchTextChange={handleSearchTextChange}
               handleViewProposed={handleViewProposed}
+              currentPath={currentPath}
               status={status}
               componentRef={componentRef}
             />
@@ -109,7 +112,8 @@ TableToolBar.propTypes = {
   handleViewProposed: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
   client: PropTypes.instanceOf(Object).isRequired,
-  componentRef: PropTypes.instanceOf(Object).isRequired
+  componentRef: PropTypes.instanceOf(Object).isRequired,
+  currentPath: PropTypes.string.isRequired
 
 };
 

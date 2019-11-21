@@ -33,13 +33,9 @@ export class Products extends Component {
     return null;
   }
 
-  handleViewProposed = (viewStatus) => {
+  handleViewProposed = (status) => {
     const { history } = this.props;
-
-    const status = (viewStatus.approved && '/approved') || (viewStatus.proposed && '/proposed') || '';
-    const statusRoute = (viewStatus.approved && viewStatus.proposed) ? '/all' : status;
-
-    history.push(`/products${statusRoute}`);
+    history.push(`/products/${status}`);
   }
 
   handleSearch = async ({ target: { value: searchText } }, client) => {
@@ -114,6 +110,7 @@ export class Products extends Component {
                   loading={loading}
                   handleSearch={this.handleSearch}
                   handleViewProposed={this.handleViewProposed}
+                  currentPath={this.props.location.pathname}
                   handleChangeRowsPerPage={this.handleChangeRowsPerPage}
                   status={status}
                   totalCount={data.totalProductsPagesCount * rowsCount}

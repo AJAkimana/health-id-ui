@@ -34,10 +34,10 @@ export class CustomToolBar extends Component {
     openViewColumnMenu: false,
     openViewMenu: false,
     openColumnMenu: false,
-
     addSupplierOpen: false,
     savePrintOpen: false
   };
+
 
   handleToggle = () => {
     const { open } = this.state;
@@ -76,13 +76,9 @@ export class CustomToolBar extends Component {
     this.setState({ openAddMenu: false, openViewMenu: false, openViewExportMenu: false });
   };
 
-  handleChangeView = () => {
+  handleChangeView = (status) => {
     const { handleViewProposed } = this.props;
-    const statusObject = {
-      approved: document.querySelector('#approved').checked,
-      proposed: document.querySelector('#proposed').checked
-    };
-    handleViewProposed(statusObject);
+    handleViewProposed(status);
   };
 
   handleSavePrintOpen = (event) => {
@@ -112,8 +108,11 @@ export class CustomToolBar extends Component {
     this.handlePrintButton();
   }
 
+
   render() {
-    const { openViewMenu, addProductOpen, openViewColumnMenu } = this.state;
+    const {
+      openViewMenu, addProductOpen, openViewColumnMenu,
+    } = this.state;
     const {
       title,
       classes,
@@ -122,8 +121,12 @@ export class CustomToolBar extends Component {
       isSearchActive,
       handleHideSearch,
       handleSearchTextChange,
-      status,
+      currentPath,
+
     } = this.props;
+
+    const active = currentPath.slice(10);
+
     return (
       <Fragment>
         {isSearchActive ? (
@@ -187,8 +190,8 @@ export class CustomToolBar extends Component {
                       className={classes.switchFormGroupSupplier}
                       control={(
                         <Switch
-                          checked={status === 'approved' || status === 'all'}
-                          onChange={this.handleChangeView}
+                          checked={active === 'approved'}
+                          onChange={() => this.handleChangeView('approved')}
                           id="approved"
                           value="approved"
                           color="primary"
@@ -200,8 +203,8 @@ export class CustomToolBar extends Component {
                       className={classes.switchFormGroupSupplier}
                       control={(
                         <Switch
-                          checked={status === 'proposed' || status === 'all'}
-                          onChange={this.handleChangeView}
+                          checked={active === 'proposed'}
+                          onChange={() => this.handleChangeView('proposed')}
                           id="proposed"
                           value="proposed"
                           color="primary"
@@ -420,6 +423,7 @@ CustomToolBar.propTypes = {
   status: PropTypes.func.isRequired,
   handleViewProposed: PropTypes.func.isRequired,
   componentRef: PropTypes.instanceOf(Object),
+  currentPath: PropTypes.string.isRequired
 
 };
 

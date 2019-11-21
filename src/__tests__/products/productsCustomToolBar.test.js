@@ -16,12 +16,14 @@ describe('Product Page CustomToolBar ', () => {
       handleHideSearch: jest.fn(),
       handleTextChange: jest.fn(),
       handleToggleAddProduct: jest.fn(),
-      handleViewProposed: jest.fn()
+      handleViewProposed: jest.fn(),
+      currentPath: []
     };
 
     const event = {
       target: {}
     };
+
 
     const wrapper = shallow(<CustomToolBar {...props} />);
     wrapper.instance().handleToggleAddProduct();
@@ -43,7 +45,10 @@ describe('Product Page CustomToolBar ', () => {
       handleClickSearch: jest.fn(),
       isSearchActive: false,
       handleHideSearch: jest.fn(),
-      handleTextChange: jest.fn()
+      handleTextChange: jest.fn(),
+      handleViewProposed: jest.fn(),
+      currentPath: []
+
     };
 
     const wrapper = mount(<CustomToolBar {...props} />);
@@ -59,13 +64,26 @@ describe('Product Page CustomToolBar ', () => {
       isSearchActive: false,
       handleHideSearch: jest.fn(),
       handleTextChange: jest.fn(),
-      status: 'approved'
+      status: 'approved',
+      currentPath: [],
+      handleViewProposed: jest.fn(),
     };
     const wrapper = shallow(<CustomToolBar {...props} />);
     wrapper.instance().handleToggleViewMenu();
     wrapper.instance().handleClose();
     wrapper.instance().handleToggleViewColumnMenu();
     wrapper.instance().handleClosing();
+    wrapper.instance().handleViewExportMenu();
+    wrapper.instance().handleSavePrintOpen({ currentTarget: '' });
+    wrapper.instance().handleChangeView('status');
+    wrapper.setState({
+      savePrintOpen: jest.fn(),
+    });
+    wrapper.instance().handlePrintButton();
+    wrapper.setProps({
+      ...props,
+      isSearchActive: true,
+    });
   });
 });
 
