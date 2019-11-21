@@ -22,14 +22,12 @@ export const ViewProducts = ({ state, renderSearchBar, switchComponentRendering 
           </Tooltip>
         </Link>
       </Grid>
-      <Grid container item xs={12}>
-        <Paper style={styles.paper}>
-          <AppBar position="sticky" color="default" style={styles.search}>
-            {renderSearchBar(searchValue)}
-          </AppBar>
-          {switchComponentRendering()}
-        </Paper>
-      </Grid>
+      <Paper style={styles.paper}>
+        <AppBar position="sticky" color="default" style={styles.search}>
+          {renderSearchBar(searchValue)}
+        </AppBar>
+        {switchComponentRendering()}
+      </Paper>
     </Fragment>
   );
 };

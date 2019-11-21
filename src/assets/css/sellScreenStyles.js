@@ -35,6 +35,7 @@ export const addedItems = {
   },
   buttonsGrid: {
     padding: '0.5rem 0',
+    justifyContent: 'space-between'
   },
   buttonsIcons: {
     padding: '4px',

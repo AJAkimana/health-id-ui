@@ -23,7 +23,7 @@ const viewProductsStyles = {
   },
   paper: {
     width: '100%',
-    height: '535px',
+    height: '33.35rem',
     overflow: 'scroll',
   },
   filteredProducts: {
