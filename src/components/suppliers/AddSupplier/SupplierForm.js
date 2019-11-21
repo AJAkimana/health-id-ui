@@ -5,7 +5,8 @@ import SearchSelect from 'react-select';
 import 'react-phone-number-input/style.css';
 import flags from 'react-phone-number-input/flags';
 import PhoneInput from 'react-phone-number-input';
-import InputRange from 'react-input-range';
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
 
 import {
   Paper,
@@ -123,6 +124,7 @@ const SupplierForm = (props) => {
       ...city
     }));
   }
+
   return (
     <Paper style={SupplierFormStyles.paperForm}>
       <form>
@@ -299,14 +301,12 @@ const SupplierForm = (props) => {
           {/* credit days */}
           <Grid item xs={10} style={SupplierFormStyles.childGrid}>
             <FormControl fullWidth>
-              <InputRange
-                className="InputRangeClassNames"
-                ariaLabelledby="days"
-                maxValue={45}
-                minValue={0}
+              <Slider
+                min={0}
+                max={45}
                 value={creditDays}
+                handleLabel={creditDays}
                 onChange={handleSliderChange}
-                formatLabel={value => `${value}`}
               />
               <span className="breakpoint">
                 <span className="fbreack">|</span>
