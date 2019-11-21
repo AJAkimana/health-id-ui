@@ -28,7 +28,9 @@ import Icon from '../../../products/productIcons';
 export class CustomToolBar extends Component {
   state = {
     open: false,
-    addSupplierOpen: false
+    addSupplierOpen: false,
+    proposed: false,
+    approved: true
   };
 
   handleToggle = () => {
@@ -56,15 +58,22 @@ export class CustomToolBar extends Component {
 
   handleChangeView = () => {
     const { handleViewProposed } = this.props;
+    const { approved, proposed } = this.state;
+    this.setState({
+      proposed: !proposed,
+      approved: !approved
+    });
     const statusObject = {
-      approved: document.querySelector('#approved').checked,
-      proposed: document.querySelector('#proposed').checked
+      approved: !approved,
+      proposed: !proposed,
     };
     handleViewProposed(statusObject);
   };
 
   render() {
-    const { addSupplierOpen, openViewMenu } = this.state;
+    const {
+      addSupplierOpen, openViewMenu, approved, proposed
+    } = this.state;
     const {
       classes,
       handleClickSearch,
@@ -72,7 +81,6 @@ export class CustomToolBar extends Component {
       handleHideSearch,
       isAdmin,
       handleTextChange,
-      status,
     } = this.props;
 
     return (
@@ -133,7 +141,7 @@ export class CustomToolBar extends Component {
                         className={classes.switchFormGroupSupplier}
                         control={(
                           <Switch
-                            checked={status === 'approved' || status === 'all'}
+                            checked={approved}
                             onChange={this.handleChangeView}
                             id="approved"
                             value="approved"
@@ -146,7 +154,7 @@ export class CustomToolBar extends Component {
                         className={classes.switchFormGroupSupplier}
                         control={(
                           <Switch
-                            checked={status === 'proposed' || status === 'all'}
+                            checked={proposed}
                             onChange={this.handleChangeView}
                             id="proposed"
                             value="proposed"
